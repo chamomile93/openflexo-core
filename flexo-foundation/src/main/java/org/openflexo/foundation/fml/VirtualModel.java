@@ -115,7 +115,7 @@ import org.openflexo.toolbox.StringUtils;
 		@Import(DeleteFlexoConceptInstanceParameter.class) })
 @XMLElement
 public interface VirtualModel extends FlexoConcept {
-
+//TODO this is a concept that seems to be central when "bridging" with external models
 	@PropertyIdentifier(type = String.class)
 	public static final String URI_KEY = "uri";
 	@PropertyIdentifier(type = FlexoVersion.class)
