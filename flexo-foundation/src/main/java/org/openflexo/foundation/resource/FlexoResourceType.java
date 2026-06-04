@@ -64,6 +64,7 @@ import org.openflexo.toolbox.StringUtils;
  * 
  */
 public class FlexoResourceType implements JavaCustomType {
+	//TODO should I use any of this defined concept in relation with the ISubject and IAuthenticator ?
 
 	protected ITechnologySpecificFlexoResourceFactory<?, ?, ?> resourceFactory;
 	protected String resourceDataClassName;

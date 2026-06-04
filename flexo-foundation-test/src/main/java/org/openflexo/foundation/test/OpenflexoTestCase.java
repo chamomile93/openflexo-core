@@ -99,19 +99,24 @@ import org.openflexo.toolbox.StringUtils;
 import junit.framework.AssertionFailedError;
 
 /**
- * Provides a JUnit 4 generic environment of Openflexo-core for testing purposes<br>
+ * Provides a JUnit 4 generic environment of Openflexo-core for testing
+ * purposes<br>
  * 
- * Note that there is a static variable called {@link #serviceManager} which is set while using
+ * Note that there is a static variable called {@link #serviceManager} which is
+ * set while using
  * {@link #instanciateTestServiceManager(Class...)}.<br>
- * The purpose of that variable is to share the same {@link FlexoServiceManager} while chaining some tests using @TestOrder annotation For
- * same reasons, a static {@link #resourceCenter} variable is also managed in this class
+ * The purpose of that variable is to share the same {@link FlexoServiceManager}
+ * while chaining some tests using @TestOrder annotation For
+ * same reasons, a static {@link #resourceCenter} variable is also managed in
+ * this class
  * 
  */
 public abstract class OpenflexoTestCase {
 
 	/**
 	 * !!!!! IMPORTANT !!!!!<br>
-	 * Do not forget to set back this flag to true when committing into a production environment
+	 * Do not forget to set back this flag to true when committing into a production
+	 * environment
 	 */
 	public static final boolean DELETE_TEST_RESOURCE_CENTER_AFTER_TEST_EXECUTION = true;
 
@@ -120,15 +125,21 @@ public abstract class OpenflexoTestCase {
 	protected static final String RESOURCE_CENTER_URI = "http://openflexo.org/test/TestResourceCenter";
 
 	/**
-	 * ResourceCenter being statically referenced while using makeNewDirectoryResourceCenter() methods
+	 * ResourceCenter being statically referenced while using
+	 * makeNewDirectoryResourceCenter() methods
 	 */
 	private static DirectoryResourceCenter resourceCenter;
+	//TODO do I need to understand this concept while working on XML Test ?
 
 	protected static FlexoServiceManager serviceManager;
+	//TODO do I need to understand this concept while working on XML Test ?
 
 	protected static File testResourceCenterDirectory;
-	protected static List<File> testResourceCenterDirectoriesToRemove;
+	//TODO do I need to understand this concept while working on XML Test ?
 
+	protected static List<File> testResourceCenterDirectoriesToRemove;
+	//TODO do I need to understand this concept while working on XML Test ?
+	
 	// We should have it unchanged to chain tests from right HOME dir
 	protected static File HOME_DIR;
 
@@ -220,22 +231,25 @@ public abstract class OpenflexoTestCase {
 		retval = new File("tmp/tests/FlexoResources/", resourceRelativeName);
 		if (retval.exists()) {
 			return retval;
-		}
-		else if (logger.isLoggable(Level.WARNING)) {
+		} else if (logger.isLoggable(Level.WARNING)) {
 			logger.warning("Could not find resource " + resourceRelativeName);
 		}
 		return null;
 	}
 
 	/**
-	 * Instantiate a default {@link FlexoServiceManager} well suited for test purpose<br>
-	 * FML and FML@RT technology adapters are activated in returned {@link FlexoServiceManager}<br>
+	 * Instantiate a default {@link FlexoServiceManager} well suited for test
+	 * purpose<br>
+	 * FML and FML@RT technology adapters are activated in returned
+	 * {@link FlexoServiceManager}<br>
 	 * Supplied technology adapters are also activated
 	 * 
 	 * @return a newly created {@link FlexoServiceManager}
 	 */
 	@SafeVarargs
-	protected static FlexoServiceManager instanciateTestServiceManager(Class<? extends TechnologyAdapter>... taClasses) {
+	protected static FlexoServiceManager instanciateTestServiceManager(
+			Class<? extends TechnologyAdapter>... taClasses) {
+				//TODO idf
 		File previousResourceCenterDirectoryToRemove = null;
 		if (testResourceCenterDirectory != null && testResourceCenterDirectory.exists()) {
 			previousResourceCenterDirectoryToRemove = testResourceCenterDirectory;
@@ -283,7 +297,8 @@ public abstract class OpenflexoTestCase {
 		}
 
 		for (Class<? extends TechnologyAdapter> technologyAdapterClass : taClasses) {
-			TechnologyAdapter ta = serviceManager.getTechnologyAdapterService().getTechnologyAdapter(technologyAdapterClass);
+			TechnologyAdapter ta = serviceManager.getTechnologyAdapterService()
+					.getTechnologyAdapter(technologyAdapterClass);
 			serviceManager.activateTechnologyAdapter(ta, true);
 		}
 
@@ -313,7 +328,8 @@ public abstract class OpenflexoTestCase {
 	}
 
 	/**
-	 * Create a new empty DirectoryResourceCenter for service manager referenced in static variable
+	 * Create a new empty DirectoryResourceCenter for service manager referenced in
+	 * static variable
 	 * 
 	 * @return
 	 * @throws IOException
@@ -323,46 +339,55 @@ public abstract class OpenflexoTestCase {
 	}
 
 	/**
-	 * Create a new empty {@link DirectoryResourceCenter} for supplied {@link FlexoServiceManager}
+	 * Create a new empty {@link DirectoryResourceCenter} for supplied
+	 * {@link FlexoServiceManager}
 	 * 
 	 * @return
 	 * @throws IOException
 	 */
-	public static DirectoryResourceCenter makeNewDirectoryResourceCenter(FlexoServiceManager serviceManager) throws IOException {
+	public static DirectoryResourceCenter makeNewDirectoryResourceCenter(FlexoServiceManager serviceManager)
+			throws IOException {
 		File tempFile = File.createTempFile("Temp", "");
 		testResourceCenterDirectory = new File(tempFile.getParentFile(), tempFile.getName() + "TestResourceCenter");
 		tempFile.delete();
 		testResourceCenterDirectory.mkdirs();
 		FlexoResourceCenterService rcService = serviceManager.getResourceCenterService();
-		resourceCenter = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(testResourceCenterDirectory, rcService);
+		resourceCenter = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(testResourceCenterDirectory,
+				rcService);
 		resourceCenter.setDefaultBaseURI(RESOURCE_CENTER_URI);
 		rcService.addToResourceCenters(resourceCenter);
 		return resourceCenter;
 	}
 
 	/**
-	 * Create a new empty {@link DirectoryResourceCenter} for supplied {@link FlexoServiceManager} while copying the contents of supplied
+	 * Create a new empty {@link DirectoryResourceCenter} for supplied
+	 * {@link FlexoServiceManager} while copying the contents of supplied
 	 * {@link FlexoResourceCenter}
 	 * 
-	 * Gives the same URI, remove supplied {@link FlexoResourceCenter} from the list of registered resource centers
+	 * Gives the same URI, remove supplied {@link FlexoResourceCenter} from the list
+	 * of registered resource centers
 	 * 
 	 * @return
 	 * @throws IOException
 	 */
-	public static DirectoryResourceCenter makeNewDirectoryResourceCenterFromExistingResourceCenter(FlexoServiceManager serviceManager,
+	public static DirectoryResourceCenter makeNewDirectoryResourceCenterFromExistingResourceCenter(
+			FlexoServiceManager serviceManager,
 			FlexoResourceCenter<?> existingResourcesRC) throws IOException {
 		File tempFile = File.createTempFile("Temp", "");
 		testResourceCenterDirectory = new File(tempFile.getParentFile(), tempFile.getName() + "TestResourceCenter");
 		tempFile.delete();
 		testResourceCenterDirectory.mkdirs();
 
-		logger.info("Copying " + existingResourcesRC.getBaseArtefactAsResource() + " to " + testResourceCenterDirectory);
+		logger.info(
+				"Copying " + existingResourcesRC.getBaseArtefactAsResource() + " to " + testResourceCenterDirectory);
 		logger.info("Resource: " + existingResourcesRC.getBaseArtefactAsResource().getClass());
 
-		FileUtils.copyResourceToDir(existingResourcesRC.getBaseArtefactAsResource(), testResourceCenterDirectory, CopyStrategy.REPLACE);
+		FileUtils.copyResourceToDir(existingResourcesRC.getBaseArtefactAsResource(), testResourceCenterDirectory,
+				CopyStrategy.REPLACE);
 
 		FlexoResourceCenterService rcService = serviceManager.getResourceCenterService();
-		DirectoryResourceCenter resourceCenter = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(testResourceCenterDirectory,
+		DirectoryResourceCenter resourceCenter = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(
+				testResourceCenterDirectory,
 				rcService);
 		resourceCenter.setDefaultBaseURI(existingResourcesRC.getDefaultBaseURI());
 		rcService.removeFromResourceCenters(existingResourcesRC);
@@ -373,7 +398,8 @@ public abstract class OpenflexoTestCase {
 	protected void reloadResourceCenter(Resource oldRCDirectory) {
 		if (oldRCDirectory instanceof FileResourceImpl) {
 			File directory = ((FileResourceImpl) oldRCDirectory).getFile();
-			File newDirectory = new File(((FileSystemBasedResourceCenter) resourceCenter).getRootDirectory(), directory.getName());
+			File newDirectory = new File(((FileSystemBasedResourceCenter) resourceCenter).getRootDirectory(),
+					directory.getName());
 			newDirectory.mkdirs();
 			try {
 				FileUtils.copyContentDirToDir(directory, newDirectory);
@@ -393,9 +419,9 @@ public abstract class OpenflexoTestCase {
 	protected void assertNotModified(FlexoResource<?> resource) {
 		try {
 			if (resource.isLoaded()) {
-				assertFalse("Resource " + resource.getURI() + " should not be modfied", resource.getLoadedResourceData().isModified());
-			}
-			else {
+				assertFalse("Resource " + resource.getURI() + " should not be modfied",
+						resource.getLoadedResourceData().isModified());
+			} else {
 				fail("Resource " + resource.getURI() + " should not be modified but is not even loaded");
 			}
 		} catch (AssertionFailedError e) {
@@ -407,9 +433,9 @@ public abstract class OpenflexoTestCase {
 	protected void assertModified(FlexoResource<?> resource) {
 		try {
 			if (resource.isLoaded()) {
-				assertTrue("Resource " + resource.getURI() + " should be modified", resource.getLoadedResourceData().isModified());
-			}
-			else {
+				assertTrue("Resource " + resource.getURI() + " should be modified",
+						resource.getLoadedResourceData().isModified());
+			} else {
 				fail("Resource " + resource.getURI() + " should be modified but is not even loaded");
 			}
 		} catch (AssertionFailedError e) {
@@ -465,7 +491,8 @@ public abstract class OpenflexoTestCase {
 	}
 
 	protected static void debugResources() {
-		Collection<? extends FlexoResource<?>> resourcesToDisplay = serviceManager.getResourceManager().getRegisteredResources();
+		Collection<? extends FlexoResource<?>> resourcesToDisplay = serviceManager.getResourceManager()
+				.getRegisteredResources();
 		logger.info("Registed resources: " + resourcesToDisplay.size());
 
 		int nameMaxLength = 0;
@@ -537,7 +564,8 @@ public abstract class OpenflexoTestCase {
 				}
 			}
 			throw new AssertionFailedError(
-					"AssertionFailedError when comparing lists, expected: " + set1 + " but was " + set2 + " Details = " + message);
+					"AssertionFailedError when comparing lists, expected: " + set1 + " but was " + set2 + " Details = "
+							+ message);
 		}
 	}
 
@@ -570,7 +598,8 @@ public abstract class OpenflexoTestCase {
 
 			for (ValidationError<?, ?> error : report.getAllErrors()) {
 				System.out.println("Found error: " + validationModel.localizedIssueMessage(error) + " details="
-						+ validationModel.localizedIssueDetailedInformations(error) + " Object: " + error.getValidable());
+						+ validationModel.localizedIssueDetailedInformations(error) + " Object: "
+						+ error.getValidable());
 			}
 
 			return report;

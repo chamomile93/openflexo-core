@@ -63,7 +63,8 @@ import org.openflexo.pamela.annotations.Setter;
  */
 @ModelEntity
 public interface FlexoResourceCenterService extends FlexoService, AccessibleProxyObject {
-
+	//TODO idf why, I came here from TestLibraryXMLModel why extend AccessibleProxyObject from Pamela ?
+	//TODO idf why, I came here from TestLibraryXMLModel
 	public static final String RESOURCE_CENTERS = "resourceCenters";
 	public static final String DIRECTORY_WATCHING_ENABLED = "directoryWatchingEnabled";
 

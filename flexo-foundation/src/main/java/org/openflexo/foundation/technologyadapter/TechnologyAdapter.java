@@ -112,10 +112,12 @@ import org.openflexo.toolbox.StringUtils;
 
 /**
  * This class represents a technology adapter<br>
- * A {@link TechnologyAdapter} is plugin loaded at run-time which defines and implements the required A.P.I used to connect Flexo Modelling
+ * A {@link TechnologyAdapter} is a plugin loaded at run-time which defines and
+ * implements the required A.P.I used to connect Flexo Modelling
  * Language Virtual Machine to a technology.<br>
  * 
- * Note: this code was partially adapted from Nicolas Daniels (Blue Pimento team)
+ * Note: this code was partially adapted from Nicolas Daniels (Blue Pimento
+ * team)
  * 
  * @author sylvain
  * 
@@ -171,7 +173,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Creates and return the {@link TechnologyContextManager} for this technology and for all {@link FlexoResourceCenter} declared in the
+	 * Creates and return the {@link TechnologyContextManager} for this technology
+	 * and for all {@link FlexoResourceCenter} declared in the
 	 * scope of {@link FlexoResourceCenterService}
 	 * 
 	 * @return
@@ -181,7 +184,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Return the {@link TechnologyContextManager} for this technology shared by all {@link FlexoResourceCenter} declared in the scope of
+	 * Return the {@link TechnologyContextManager} for this technology shared by all
+	 * {@link FlexoResourceCenter} declared in the scope of
 	 * {@link FlexoResourceCenterService}
 	 * 
 	 * @return
@@ -204,12 +208,14 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		if (!isActivated()) {
 			try {
 				isActivating = true;
-				technologyContextManager = createTechnologyContextManager(getTechnologyAdapterService().getFlexoResourceCenterService());
+				technologyContextManager = createTechnologyContextManager(
+						getTechnologyAdapterService().getFlexoResourceCenterService());
 				initResourceFactories();
 				initTechnologySpecificTypes(getTechnologyAdapterService());
 				locales = new LocalizedDelegateImpl(ResourceLocator.locateResource(getLocalizationDirectory()),
 						getTechnologyAdapterService().getServiceManager().getLocalizationService().getFlexoLocalizer(),
-						getTechnologyAdapterService().getServiceManager().getLocalizationService().getAutomaticSaving(), true);
+						getTechnologyAdapterService().getServiceManager().getLocalizationService().getAutomaticSaving(),
+						true);
 				loadPrivateResourceCenters();
 				isActivated = true;
 				getPropertyChangeSupport().firePropertyChange("activated", false, true);
@@ -255,7 +261,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Initialize the supplied resource center with the technology, if not already done
+	 * Initialize the supplied resource center with the technology, if not already
+	 * done
 	 * 
 	 * @param resourceCenter
 	 */
@@ -270,11 +277,14 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	/**
 	 * Initialize the supplied resource center with the technology<br>
 	 * 
-	 * Supplied resource center is scanned according to all declared {@link TechnologySpecificFlexoResourceFactory}.<br>
+	 * Supplied resource center is scanned according to all declared
+	 * {@link TechnologySpecificFlexoResourceFactory}.<br>
 	 * New technology-specific resources are build and registered.<br>
 	 * 
-	 * Note that if the technology declares model and meta-models, {@link TechnologySpecificFlexoResourceFactory} must be declared with a
-	 * specific order (metamodels BEFORE models), so that retrieving of models might find their respective metamodels
+	 * Note that if the technology declares model and meta-models,
+	 * {@link TechnologySpecificFlexoResourceFactory} must be declared with a
+	 * specific order (metamodels BEFORE models), so that retrieving of models might
+	 * find their respective metamodels
 	 * 
 	 * @param resourceCenter
 	 */
@@ -284,8 +294,10 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 			logger.fine("--------> performInitializeResourceCenter " + getName() + " for " + resourceCenter);
 		}
 
-		// We iterate on FlexoResourceFactory in the same order as they are declared in TechnologyAdapter
-		// (metamodels BEFORE models), so that retrieving of models might find their respective metamodels
+		// We iterate on FlexoResourceFactory in the same order as they are declared in
+		// TechnologyAdapter
+		// (metamodels BEFORE models), so that retrieving of models might find their
+		// respective metamodels
 		for (ITechnologySpecificFlexoResourceFactory<?, ?, ?> resourceFactory : getResourceFactories()) {
 
 			// Then we iterate on all resources found in the resource factory
@@ -294,7 +306,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 					FlexoResource<?> r = tryToLookupResource(resourceFactory, resourceCenter, serializationArtefact);
 					if (r != null) {
 						if (logger.isLoggable(Level.FINE)) {
-							logger.fine(">>>>>>>>>> Look-up resource " + r.getImplementedInterface().getSimpleName() + " " + r.getURI());
+							logger.fine(">>>>>>>>>> Look-up resource " + r.getImplementedInterface().getSimpleName()
+									+ " " + r.getURI());
 						}
 					}
 				}
@@ -328,8 +341,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		if (!SwingUtilities.isEventDispatchThread()) {
 			SwingUtilities.invokeLater(() -> notifyRepositoryStructureChanged());
 			// Call it to update the current repositories
-		}
-		else {
+		} else {
 			// Call it to update the current repositories
 			notifyRepositoryStructureChanged();
 		}
@@ -359,7 +371,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 				return resourceFactory.retrieveResource(serializationArtefact, resourceCenter);
 			}
 			// Attempt to convert it from older format
-			I convertedSerializationArtefact = resourceFactory.getConvertableArtefact(serializationArtefact, resourceCenter);
+			I convertedSerializationArtefact = resourceFactory.getConvertableArtefact(serializationArtefact,
+					resourceCenter);
 			if (convertedSerializationArtefact != null) {
 				R returned = resourceFactory.retrieveResource(convertedSerializationArtefact, resourceCenter);
 				returned.setNeedsConversion();
@@ -373,8 +386,10 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		return null;
 	}
 
-	protected <I> boolean isSerializationArtefactIgnorable(final FlexoResourceCenter<I> resourceCenter, final I contents) {
-		// This allows to ignore all resources contained in prj, that will be explored from their prj resource
+	protected <I> boolean isSerializationArtefactIgnorable(final FlexoResourceCenter<I> resourceCenter,
+			final I contents) {
+		// This allows to ignore all resources contained in prj, that will be explored
+		// from their prj resource
 		if (resourceCenter.isDirectory(contents)) {
 			if (FlexoResourceCenter.isContainedInDirectoryWithSuffix(resourceCenter, contents,
 					FlexoProjectResourceFactory.PROJECT_SUFFIX)) {
@@ -395,7 +410,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	 * 
 	 * @param resourceCenter
 	 * @param serializationArtefact
-	 * @return a boolean indicating if this file has been handled by the technology, when false ResourceCenter might resend notification
+	 * @return a boolean indicating if this file has been handled by the technology,
+	 *         when false ResourceCenter might resend notification
 	 */
 	public final <I> boolean contentsAdded(FlexoResourceCenter<I> resourceCenter, I serializationArtefact) {
 		boolean hasBeenLookedUp = false;
@@ -404,8 +420,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 				FlexoResource<?> resource = tryToLookupResource(resourceFactory, resourceCenter, serializationArtefact);
 				if (resource != null) {
 					hasBeenLookedUp = true;
-				}
-				else if (resourceCenter.isDirectory(serializationArtefact)) {
+				} else if (resourceCenter.isDirectory(serializationArtefact)) {
 					try {
 						foundFolder(resourceCenter, serializationArtefact);
 					} catch (IOException e) {
@@ -419,12 +434,14 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Called when an existing serialization artefact has been removed or deleted<br>
+	 * Called when an existing serialization artefact has been removed or
+	 * deleted<br>
 	 * The matching resources are looked-up and referenced from infrastructure
 	 * 
 	 * @param resourceCenter
 	 * @param serializationArtefact
-	 * @return a boolean indicating if this file removing has been handled by the technology, when false ResourceCenter might resend
+	 * @return a boolean indicating if this file removing has been handled by the
+	 *         technology, when false ResourceCenter might resend
 	 *         notification
 	 */
 	public static final <I> boolean contentsDeleted(FlexoResourceCenter<I> resourceCenter, I serializationArtefact) {
@@ -433,11 +450,13 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Called when an existing serialization artefact has been modified in directory representing this ResourceCenter
+	 * Called when an existing serialization artefact has been modified in directory
+	 * representing this ResourceCenter
 	 * 
 	 * @param resourceCenter
 	 * @param serializationArtefact
-	 * @return a boolean indicating if this file removing has been handled by the technology, when false ResourceCenter might resend
+	 * @return a boolean indicating if this file removing has been handled by the
+	 *         technology, when false ResourceCenter might resend
 	 *         notification
 	 */
 	public static final <I> boolean contentsModified(FlexoResourceCenter<I> resourceCenter, I serializationArtefact) {
@@ -446,14 +465,17 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Called when an existing serialization artefact has been renamed in directory representing this ResourceCenter
+	 * Called when an existing serialization artefact has been renamed in directory
+	 * representing this ResourceCenter
 	 * 
 	 * @param resourceCenter
 	 * @param serializationArtefact
-	 * @return a boolean indicating if this file removing has been handled by the technology, when false ResourceCenter might resend
+	 * @return a boolean indicating if this file removing has been handled by the
+	 *         technology, when false ResourceCenter might resend
 	 *         notification
 	 */
-	public static final <I> boolean contentsRenamed(FlexoResourceCenter<I> resourceCenter, I serializationArtefact, String oldName,
+	public static final <I> boolean contentsRenamed(FlexoResourceCenter<I> resourceCenter, I serializationArtefact,
+			String oldName,
 			String newName) {
 		// TODO
 		return false;
@@ -535,7 +557,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		availableVirtualModelInstanceNatures = new ArrayList<>();
 		Class<?> cl = getClass();
 		if (cl.isAnnotationPresent(DeclareVirtualModelInstanceNatures.class)) {
-			DeclareVirtualModelInstanceNatures allVirtualModelInstanceNatures = cl.getAnnotation(DeclareVirtualModelInstanceNatures.class);
+			DeclareVirtualModelInstanceNatures allVirtualModelInstanceNatures = cl
+					.getAnnotation(DeclareVirtualModelInstanceNatures.class);
 			for (Class<? extends VirtualModelInstanceNature> natureClass : allVirtualModelInstanceNatures.value()) {
 				availableVirtualModelInstanceNatures.add(natureClass);
 			}
@@ -549,7 +572,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		Class<?> cl = getClass();
 		if (cl.isAnnotationPresent(DeclareResourceFactories.class)) {
 			DeclareResourceFactories allResourceTypes = cl.getAnnotation(DeclareResourceFactories.class);
-			for (Class<? extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> resourceFactoryClass : allResourceTypes.value()) {
+			for (Class<? extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> resourceFactoryClass : allResourceTypes
+					.value()) {
 				Constructor<? extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> constructor;
 				try {
 					constructor = resourceFactoryClass.getConstructor();
@@ -560,19 +584,23 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 					logger.info("Initialized ResourceFactory for " + newFactory.getResourceClass().getSimpleName());
 				} catch (InstantiationException e) {
 					logger.warning(
-							"Unexpected InstantiationException while initializing ResourceFactory " + resourceFactoryClass.getSimpleName());
+							"Unexpected InstantiationException while initializing ResourceFactory "
+									+ resourceFactoryClass.getSimpleName());
 					e.printStackTrace();
 				} catch (NoSuchMethodException e) {
 					logger.warning(
-							"Unexpected NoSuchMethodException while initializing ResourceFactory " + resourceFactoryClass.getSimpleName());
+							"Unexpected NoSuchMethodException while initializing ResourceFactory "
+									+ resourceFactoryClass.getSimpleName());
 					e.printStackTrace();
 				} catch (SecurityException e) {
 					logger.warning(
-							"Unexpected SecurityException while initializing ResourceFactory " + resourceFactoryClass.getSimpleName());
+							"Unexpected SecurityException while initializing ResourceFactory "
+									+ resourceFactoryClass.getSimpleName());
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
 					logger.warning(
-							"Unexpected IllegalAccessException while initializing ResourceFactory " + resourceFactoryClass.getSimpleName());
+							"Unexpected IllegalAccessException while initializing ResourceFactory "
+									+ resourceFactoryClass.getSimpleName());
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
 					logger.warning("Unexpected IllegalArgumentException while initializing ResourceFactory "
@@ -593,14 +621,17 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 
 	/**
 	 * Creates and return a new {@link ModelSlot} of supplied class.<br>
-	 * This responsability is delegated to the {@link TechnologyAdapter} which manages with introspection its own {@link ModelSlot} types
+	 * This responsability is delegated to the {@link TechnologyAdapter} which
+	 * manages with introspection its own {@link ModelSlot} types
 	 * 
 	 * @param modelSlotClass
 	 * @param containerFlexoConcept
-	 *            the virtual model in which model slot should be created
+	 *                              the virtual model in which model slot should be
+	 *                              created
 	 * @return
 	 */
-	public final <MS extends ModelSlot<?, ?>> MS makeModelSlot(Class<MS> modelSlotClass, FlexoConcept containerFlexoConcept) {
+	public final <MS extends ModelSlot<?, ?>> MS makeModelSlot(Class<MS> modelSlotClass,
+			FlexoConcept containerFlexoConcept) {
 		// NPE Protection
 		if (containerFlexoConcept != null) {
 			FMLModelFactory factory = containerFlexoConcept.getFMLModelFactory();
@@ -620,16 +651,18 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	 * @param aFile
 	 * @return
 	 */
-	/* Unused
-	protected <R extends FlexoResource<?>, I> RepositoryFolder<R, I> retrieveRepositoryFolder(ResourceRepository<R, I> repository,
-			I serializationArtefact) {
-		try {
-			return repository.getParentRepositoryFolder(serializationArtefact, true);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return repository.getRootFolder();
-		}
-	}
+	/*
+	 * Unused
+	 * protected <R extends FlexoResource<?>, I> RepositoryFolder<R, I>
+	 * retrieveRepositoryFolder(ResourceRepository<R, I> repository,
+	 * I serializationArtefact) {
+	 * try {
+	 * return repository.getParentRepositoryFolder(serializationArtefact, true);
+	 * } catch (IOException e) {
+	 * e.printStackTrace();
+	 * return repository.getRootFolder();
+	 * }
+	 * }
 	 */
 
 	// Override when required
@@ -637,17 +670,21 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Return the list of all non-empty global repository for this technology adapter<br>
-	 * It is stated that the global repository contains all resources which supplied technology adapter has discovered and may interpret,
+	 * Return the list of all non-empty global repository for this technology
+	 * adapter<br>
+	 * It is stated that the global repository contains all resources which supplied
+	 * technology adapter has discovered and may interpret,
 	 * for a given resource center<br>
-	 * Global repositories are resource repositories which are generally given in GUIs (such as browsers) to display the contents of a
+	 * Global repositories are resource repositories which are generally given in
+	 * GUIs (such as browsers) to display the contents of a
 	 * resource center for a given technology
 	 * 
 	 * @param technologyAdapter
 	 * @return
 	 */
 	/**
-	 * Return the list of all non-empty {@link ResourceRepositoryImpl} discovered in the scope of {@link FlexoServiceManager}, related to
+	 * Return the list of all non-empty {@link ResourceRepositoryImpl} discovered in
+	 * the scope of {@link FlexoServiceManager}, related to
 	 * technology as supplied by {@link TechnologyAdapter} parameter
 	 * 
 	 * @param technologyAdapter
@@ -679,7 +716,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Return the list of all non-empty {@link ResourceRepositoryImpl} discovered in the scope of {@link FlexoServiceManager}, related to
+	 * Return the list of all non-empty {@link ResourceRepositoryImpl} discovered in
+	 * the scope of {@link FlexoServiceManager}, related to
 	 * technology as supplied by {@link TechnologyAdapter} parameter
 	 * 
 	 * @param technologyAdapter
@@ -689,7 +727,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		List<ResourceRepositoryImpl<?, I>> returned = new ArrayList<>();
 		for (FlexoResourceCenter<?> rc : new ArrayList<>(
 				getTechnologyAdapterService().getServiceManager().getResourceCenterService().getResourceCenters())) {
-			Collection<? extends ResourceRepositoryImpl<?, I>> repCollection = (Collection) rc.getRegistedRepositories(this, true);
+			Collection<? extends ResourceRepositoryImpl<?, I>> repCollection = (Collection) rc
+					.getRegistedRepositories(this, true);
 			if (repCollection != null) {
 				returned.addAll(repCollection);
 			}
@@ -698,7 +737,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Called to notify that the structure of registered and/or global repositories has changed
+	 * Called to notify that the structure of registered and/or global repositories
+	 * has changed
 	 */
 	public void notifyRepositoryStructureChanged() {
 
@@ -711,26 +751,34 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	 * Create a resource of a given technology, according to some conventions
 	 * 
 	 * @param resourceFactoryClass
-	 *            Class of factory beeing used: determine the type of resource to create
+	 *                             Class of factory beeing used: determine the type
+	 *                             of resource to create
 	 * @param resourceCenter
-	 *            Resource center in which the resource will be created
+	 *                             Resource center in which the resource will be
+	 *                             created
 	 * @param resourceName
-	 *            Name of the resource beeing created (when not empty the extension may complete resource name)
+	 *                             Name of the resource beeing created (when not
+	 *                             empty the extension may complete resource name)
 	 * @param resourceURI
-	 *            when not null, sets uri of resource
+	 *                             when not null, sets uri of resource
 	 * @param relativePath
-	 *            determine the location where the resource will be stored
+	 *                             determine the location where the resource will be
+	 *                             stored
 	 * @param extension
-	 *            when not null and not already present, will be appened to resourceName
+	 *                             when not null and not already present, will be
+	 *                             appened to resourceName
 	 * @param createEmptyContents
-	 *            when set to true, create empty contents (technology specific)
+	 *                             when set to true, create empty contents
+	 *                             (technology specific)
 	 * @return
 	 * @throws SaveResourceException
 	 * @throws ModelDefinitionException
 	 */
 	public <I, R extends TechnologyAdapterResource<?, ?>, RF extends ITechnologySpecificFlexoResourceFactory<R, ?, ?>> R createResource(
-			Class<RF> resourceFactoryClass, FlexoResourceCenter<I> resourceCenter, String resourceName, String resourceURI,
-			String relativePath, String extension, boolean createEmptyContents) throws SaveResourceException, ModelDefinitionException {
+			Class<RF> resourceFactoryClass, FlexoResourceCenter<I> resourceCenter, String resourceName,
+			String resourceURI,
+			String relativePath, String extension, boolean createEmptyContents)
+			throws SaveResourceException, ModelDefinitionException {
 
 		System.out.println("Creating resource from " + resourceFactoryClass);
 
@@ -738,11 +786,13 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 
 		System.out.println("ResourceFactory=" + resourceFactory);
 
-		I serializationArtefact = retrieveResourceSerializationArtefact(resourceCenter, resourceName, relativePath, extension);
+		I serializationArtefact = retrieveResourceSerializationArtefact(resourceCenter, resourceName, relativePath,
+				extension);
 
 		System.out.println("serialization artefact=" + serializationArtefact);
 
-		R returned = resourceFactory.makeResource(serializationArtefact, resourceCenter, resourceCenter.retrieveName(serializationArtefact),
+		R returned = resourceFactory.makeResource(serializationArtefact, resourceCenter,
+				resourceCenter.retrieveName(serializationArtefact),
 				resourceURI, createEmptyContents);
 
 		System.out.println("Return " + returned);
@@ -752,7 +802,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Internally used to retrieve serializationArtefact of a resource beeing created
+	 * Internally used to retrieve serializationArtefact of a resource beeing
+	 * created
 	 * 
 	 * @param resourceCenter
 	 * @param resourceName
@@ -760,7 +811,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	 * @param extension
 	 * @return
 	 */
-	public <I> I retrieveResourceSerializationArtefact(FlexoResourceCenter<I> resourceCenter, String resourceName, String relativePath,
+	public <I> I retrieveResourceSerializationArtefact(FlexoResourceCenter<I> resourceCenter, String resourceName,
+			String relativePath,
 			String extension) {
 
 		if (resourceCenter == null) {
@@ -778,8 +830,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 				extension = "." + extension;
 			}
 			artefactName = resourceName + extension;
-		}
-		else {
+		} else {
 			artefactName = resourceName;
 		}
 
@@ -812,7 +863,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	public void initTechnologySpecificTypes(TechnologyAdapterService taService) {
 	}
 
-	public String serializeType(TechnologySpecificType<TA> type, FMLCompilationUnit compilationUnit, boolean useTypeDefinitions) {
+	public String serializeType(TechnologySpecificType<TA> type, FMLCompilationUnit compilationUnit,
+			boolean useTypeDefinitions) {
 		return TypeUtils.simpleRepresentation(type);
 	}
 
@@ -825,7 +877,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 
 	/**
 	 * Return the locales relative to this technology<br>
-	 * If the technology is not activated, locales are not loaded, and this method will return null
+	 * If the technology is not activated, locales are not loaded, and this method
+	 * will return null
 	 * 
 	 * @return
 	 */
@@ -842,9 +895,12 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	protected abstract String getLocalizationDirectory();
 
 	/**
-	 * Add all the RCs that contain an identification of a FlexoResourceCenter in META-INF<br>
-	 * (identified by META-INF/PrivateRC/ID/org.openflexo.foundation.resource.FlexoResourceCenter)<br>
-	 * (ID is the identifier of technology adapter, given by {@link #getIdentifier()} method) Those ResourceCenters are private resource
+	 * Add all the RCs that contain an identification of a FlexoResourceCenter in
+	 * META-INF<br>
+	 * (identified by
+	 * META-INF/PrivateRC/ID/org.openflexo.foundation.resource.FlexoResourceCenter)<br>
+	 * (ID is the identifier of technology adapter, given by
+	 * {@link #getIdentifier()} method) Those ResourceCenters are private resource
 	 * center and will be used as system resource centers.
 	 * 
 	 * WARNING: should only be called once
@@ -856,11 +912,13 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 
 		FlexoServiceManager serviceManager = getTechnologyAdapterService().getServiceManager();
 		Enumeration<URL> urlList;
-		ArrayList<FlexoResourceCenter<?>> rcList = new ArrayList<>(serviceManager.getResourceCenterService().getResourceCenters());
+		ArrayList<FlexoResourceCenter<?>> rcList = new ArrayList<>(
+				serviceManager.getResourceCenterService().getResourceCenters());
 
 		try {
 			urlList = ClassLoader.getSystemClassLoader()
-					.getResources("META-INF/PrivateRC/" + getIdentifier() + "/" + FlexoResourceCenter.class.getCanonicalName());
+					.getResources("META-INF/PrivateRC/" + getIdentifier() + "/"
+							+ FlexoResourceCenter.class.getCanonicalName());
 
 			if (urlList != null && urlList.hasMoreElements()) {
 				FlexoResourceCenter<?> rc = null;
@@ -872,7 +930,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 					IOUtils.copy(url.openStream(), writer, "UTF-8");
 					String rcBaseUri = writer.toString();
 
-					System.out.println("Protocol " + url.getProtocol() + ": Attempt to loading RC " + rcBaseUri + " from " + url);
+					System.out.println(
+							"Protocol " + url.getProtocol() + ": Attempt to loading RC " + rcBaseUri + " from " + url);
 
 					rcExists = false;
 					for (FlexoResourceCenter<?> r : rcList) {
@@ -882,7 +941,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 						if (url.getProtocol().equals("file")) {
 							// When it is a file and it is contained in target/classes directory then we
 							// replace with directory from source code (development mode)
-							String dirPath = URLDecoder.decode(url.getPath().substring(0, url.getPath().indexOf("META-INF")), "UTF-8")
+							String dirPath = URLDecoder
+									.decode(url.getPath().substring(0, url.getPath().indexOf("META-INF")), "UTF-8")
 									.replace("target/classes", "src/main/resources");
 							if (getServiceManager().getResourceCenterService().isDevMode()) {
 								dirPath = dirPath.replace("/bin/main", "/src/main/resources/");
@@ -893,24 +953,25 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 								rc = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(rcDir,
 										serviceManager.getResourceCenterService());
 							}
-						}
-						else if (url.getProtocol().equals("jar")) {
+						} else if (url.getProtocol().equals("jar")) {
 
-							String jarPath = URLDecoder.decode(url.getPath().substring(0, url.getPath().indexOf("!")).replace("+", "%2B"),
+							String jarPath = URLDecoder.decode(
+									url.getPath().substring(0, url.getPath().indexOf("!")).replace("+", "%2B"),
 									"UTF-8");
 
 							URL jarURL = new URL(jarPath);
-							URI jarURI = new URI(jarURL.getProtocol(), jarURL.getUserInfo(), jarURL.getHost(), jarURL.getPort(),
+							URI jarURI = new URI(jarURL.getProtocol(), jarURL.getUserInfo(), jarURL.getHost(),
+									jarURL.getPort(),
 									jarURL.getPath(), jarURL.getQuery(), jarURL.getRef());
 							// TODO: non local resource is it closed somewhere
-							rc = JarResourceCenter.addJarFile(new JarFile(new File(jarURI)), serviceManager.getResourceCenterService());
+							rc = JarResourceCenter.addJarFile(new JarFile(new File(jarURI)),
+									serviceManager.getResourceCenterService());
 
+						} else {
+							logger.warning("INVESTIGATE: don't know how to deal with RC accessed through "
+									+ url.getProtocol());
 						}
-						else {
-							logger.warning("INVESTIGATE: don't know how to deal with RC accessed through " + url.getProtocol());
-						}
-					}
-					else {
+					} else {
 						logger.warning("an RC already exists with DefaultBaseURI: " + rcBaseUri);
 					}
 
@@ -938,7 +999,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	}
 
 	/**
-	 * Return type of an instance of supplied {@link VirtualModel} asserting this {@link VirtualModel} contractualize supplied
+	 * Return type of an instance of supplied {@link VirtualModel} asserting this
+	 * {@link VirtualModel} contractualize supplied
 	 * {@link ReflectedFMLRTModelSlot} class
 	 * 
 	 * @param vm
@@ -953,7 +1015,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	public <A extends AbstractCreationSchemeAction<A, FB, O>, FB extends AbstractCreationScheme, O extends VirtualModelInstance<?, ?>> AbstractCreationSchemeAction<A, FB, O> makeCreationSchemeAction(
 			FB behaviour, O vmInstance, FlexoBehaviourAction<?, ?, ?> ownerAction) {
 		if (behaviour instanceof CreationScheme) {
-			return (AbstractCreationSchemeAction<A, FB, O>) new CreationSchemeAction((CreationScheme) behaviour, vmInstance, null,
+			return (AbstractCreationSchemeAction<A, FB, O>) new CreationSchemeAction((CreationScheme) behaviour,
+					vmInstance, null,
 					ownerAction);
 		}
 		return null;
@@ -962,7 +1025,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	public <A extends AbstractCreationSchemeAction<A, FB, O>, FB extends AbstractCreationScheme, O extends VirtualModelInstance<?, ?>> AbstractCreationSchemeAction<A, FB, O> makeCreationSchemeAction(
 			FB behaviour, O vmInstance, FlexoEditor editor) {
 		if (behaviour instanceof CreationScheme) {
-			return (AbstractCreationSchemeAction<A, FB, O>) new CreationSchemeAction((CreationScheme) behaviour, vmInstance, null, editor);
+			return (AbstractCreationSchemeAction<A, FB, O>) new CreationSchemeAction((CreationScheme) behaviour,
+					vmInstance, null, editor);
 		}
 		return null;
 	}
@@ -974,7 +1038,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 	public String getHTMLReferenceDocumentation(Class<? extends FMLObject> fmlObjectClass) {
 
 		Resource htmlResource = ResourceLocator
-				.locateResource("Documentation/" + getIdentifier() + "/HTML/" + fmlObjectClass.getSimpleName() + ".html");
+				.locateResource(
+						"Documentation/" + getIdentifier() + "/HTML/" + fmlObjectClass.getSimpleName() + ".html");
 		System.out.println("Hop: " + htmlResource);
 		if (htmlResource != null && htmlResource.exists()) {
 			InputStream inputStream = null;

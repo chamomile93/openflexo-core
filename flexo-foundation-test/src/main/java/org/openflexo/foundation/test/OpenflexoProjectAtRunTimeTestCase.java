@@ -85,9 +85,13 @@ public abstract class OpenflexoProjectAtRunTimeTestCase extends OpenflexoTestCas
 	private static final Logger logger = FlexoLogger.getLogger(OpenflexoProjectAtRunTimeTestCase.class.getPackage().getName());
 
 	protected static FlexoEditor _editor;
+	//TODO do I need to understand this concept while working on XML Test ?
 	protected static FlexoProject<File> _project;
+	//TODO do I need to understand this concept while working on XML Test ?
 	protected static File _projectDirectory;
+	//TODO do I need to understand this concept while working on XML Test ?
 	protected static String _projectIdentifier;
+	//TODO do I need to understand this concept while working on XML Test ?
 
 	static {
 		try {

@@ -54,6 +54,7 @@ import org.openflexo.toolbox.StringUtils;
  * 
  */
 public interface FlexoService {
+	//TODO idf why, I came here from TestLibraryXMLModel
 
 	/**
 	 * Called by the {@link FlexoServiceManager} to register the service manager

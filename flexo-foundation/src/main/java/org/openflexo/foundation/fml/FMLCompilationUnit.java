@@ -115,6 +115,7 @@ import org.openflexo.toolbox.StringUtils;
 @ModelEntity
 @ImplementationClass(FMLCompilationUnit.FMLCompilationUnitImpl.class)
 public interface FMLCompilationUnit extends FMLObject, FMLPrettyPrintable, ResourceData<FMLCompilationUnit>, BindingEvaluationContext {
+	//TODO what is this concept ? I came here from class XMLToFMLConverter which uses a compilation unit
 
 	public static final String RESOURCE = "resource";
 	@PropertyIdentifier(type = FlexoVersion.class)
