@@ -47,6 +47,7 @@ import org.openflexo.pamela.AccessibleProxyObject;
 import org.openflexo.pamela.model.ModelProperty;
 import org.openflexo.pamela.model.PamelaVisitor;
 import org.openflexo.pamela.model.PamelaVisitor.VisitingStrategy;
+import org.openflexo.pamela.RuntimeMethod;
 
 /**
  * This is the default non-abstract implementation of {@link FlexoObject}.<br>
@@ -68,6 +69,18 @@ public class DefaultFlexoObject extends FlexoObjectImpl {
 	public boolean isModified() {
 		return localModified;
 	}
+
+	@Override
+	public void registerRuntimeMethod(String methodName, RuntimeMethod runtimeMethod){}
+
+
+	public boolean hasRuntimeMethod(String methodName){return false;}
+
+	@Override
+	public Object invokeRuntimeMethod(String methodName, Object... args){
+		return null;
+	}
+
 
 	@Override
 	public void performSuperSetModified(boolean modified) {
