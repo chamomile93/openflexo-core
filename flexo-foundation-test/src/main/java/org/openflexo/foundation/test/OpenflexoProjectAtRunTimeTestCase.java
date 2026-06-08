@@ -80,7 +80,8 @@ public abstract class OpenflexoProjectAtRunTimeTestCase extends OpenflexoTestCas
 	 * !!!!! IMPORTANT !!!!!<br>
 	 * Do not forget to set back this flag to true when committing into a production environment
 	 */
-	public static final boolean DELETE_PROJECT_AFTER_TEST_EXECUTION = true;
+	// TODO: check it's false for production
+	public static final boolean DELETE_PROJECT_AFTER_TEST_EXECUTION = false;
 
 	private static final Logger logger = FlexoLogger.getLogger(OpenflexoProjectAtRunTimeTestCase.class.getPackage().getName());
 
