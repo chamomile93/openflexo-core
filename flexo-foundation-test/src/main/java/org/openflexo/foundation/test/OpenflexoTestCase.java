@@ -131,6 +131,7 @@ public abstract class OpenflexoTestCase {
 	private static DirectoryResourceCenter resourceCenter;
 	//TODO do I need to understand this concept while working on XML Test ?
 
+	// TODO why it is null in the test instance "XMLFMLModelFactoryIntegrationTest" ?
 	protected static FlexoServiceManager serviceManager;
 	//TODO do I need to understand this concept while working on XML Test ?
 
@@ -247,6 +248,9 @@ public abstract class OpenflexoTestCase {
 	 * @return a newly created {@link FlexoServiceManager}
 	 */
 	@SafeVarargs
+	// TODO is this method invoke ? where ? yes, in the test
+	// TODO this seems likely to be the case that method is supposed to initialize "serviceManager" correctly
+	// TODO is it that we instantiate the "serviceManager" correctly for testCases to use ?
 	protected static FlexoServiceManager instanciateTestServiceManager(
 			Class<? extends TechnologyAdapter>... taClasses) {
 				//TODO idf

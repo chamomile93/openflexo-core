@@ -11,8 +11,11 @@ dependencies {
 
 apply plugin: 'sablecc'
 
+
+
 def generateGrammarSourceTask = tasks.named("generateGrammarSource")
 
+// TODO does it imply that runnning the task "processResources" from gradle will requires the task "generateGrammarSource" ? a regex of it didn't produce results
 // We explicity declare a dependence between those two tasks
 tasks.named("processResources") {
    dependsOn(generateGrammarSourceTask)
