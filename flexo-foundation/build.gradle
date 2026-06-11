@@ -9,6 +9,7 @@ dependencies {
   // Replacement for java.xml.bind
   implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
   implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+  // implementation 'org.alloytools:org.alloytools.alloy.application-6.3.0-SNAPSHOT'
 
   // external dep
   api group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'

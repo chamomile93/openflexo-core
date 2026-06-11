@@ -111,7 +111,7 @@ Tokens
  
 // file_name = file_char (file_char)*;
  
- resource_uri = '[http://' (uri_char)* ']';
+ resource_uri = '[' ('"')? 'http://' (uri_char)* ('"')? ']';
  
  blank = (' ' | 13 | 10)+;
 

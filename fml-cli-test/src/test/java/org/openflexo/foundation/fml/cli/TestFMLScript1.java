@@ -38,8 +38,7 @@
 
 package org.openflexo.foundation.fml.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -93,10 +92,11 @@ public class TestFMLScript1 extends FMLScriptParserTestCase {
 		assertNotNull(editor);
 
 		commandInterpreter = new CommandInterpreter(serviceManager, System.in, System.out, System.err,
-				HOME_DIR /*new File(System.getProperty("user.dir"))*/);
+				HOME_DIR /* new File(System.getProperty("user.dir")) */);
 
 		rcService = commandInterpreter.getServiceManager().getResourceCenterService();
-		FlexoResourceCenter<?> existingResourcesRC = rcService.getFlexoResourceCenter("http://openflexo.org/test/flexo-test-resources");
+		FlexoResourceCenter<?> existingResourcesRC = rcService
+				.getFlexoResourceCenter("http://openflexo.org/test/flexo-test-resources");
 		logger.info("Copying all files from " + existingResourcesRC);
 		testResourcesRC = makeNewDirectoryResourceCenterFromExistingResourceCenter(serviceManager, existingResourcesRC);
 		logger.info("Now working with " + testResourcesRC);
@@ -113,10 +113,12 @@ public class TestFMLScript1 extends FMLScriptParserTestCase {
 
 		final Resource fmlFile = ResourceLocator.locateResource("TestFMLScript1.fmlscript");
 
-		// System.out.println(FileUtils.fileContents(((FileResourceImpl) fmlFile).getFile()));
+		// System.out.println(FileUtils.fileContents(((FileResourceImpl)
+		// fmlFile).getFile()));
 
 		script = parseFMLScript(fmlFile, commandInterpreter);
-		// assertNotNull(rootNode = (FMLCompilationUnitNode) compilationUnit.getPrettyPrintDelegate());
+		// assertNotNull(rootNode = (FMLCompilationUnitNode)
+		// compilationUnit.getPrettyPrintDelegate());
 	}
 
 	@Test
@@ -128,7 +130,16 @@ public class TestFMLScript1 extends FMLScriptParserTestCase {
 
 		assertEquals(19, script.getCommands().size());
 		for (AbstractCommand command : script.getCommands()) {
-			System.out.println("Check " + command + " with " + command.getNode() + " of " + command.getNode().getClass());
+			System.out
+					.println("Check " + command + " with " + command.getNode() + " of " + command.getNode().getClass());
+
+			// TODO for later check why the "grammar" fix adding the "quotes" in the URI,
+			// make this test pass
+			// TODO idf how gradlew clean tests reports no error and running with vscode
+			// runner reports an error
+			// TODO this assert seems to fail line 18 , probably line 19 too, it doesn't
+			// seem to parse what's after "*" or the "uri" in "resources *
+			// ["http://openflexo.org/test/flexo-test-resources"];"
 			assertEquals(command.getOriginalCommandAsString(), command.toString());
 			System.out.println(">>> " + command.getOriginalCommandAsString());
 		}
@@ -136,7 +147,8 @@ public class TestFMLScript1 extends FMLScriptParserTestCase {
 
 	@Test
 	@TestOrder(4)
-	public void executeScript() throws ParseException, ModelDefinitionException, IOException, FMLCommandExecutionException {
+	public void executeScript()
+			throws ParseException, ModelDefinitionException, IOException, FMLCommandExecutionException {
 		log("Execute script");
 
 		script.execute();

@@ -66,11 +66,19 @@ public class AbstractModelFactoryIntegrationTestCase extends OpenflexoTestCase {
 			System.out.println("Instanciating FMLModelFactory integrating technology adapter " + ta);
 			TechnologyAdapterService taService = DefaultTechnologyAdapterService.getNewInstance(null);
 			taService.addToTechnologyAdapters(ta);
+			//TODO what is this ? it seems to be similar to Pamela "Factory"
 			FMLModelFactory factory = new FMLModelFactory(null, serviceManager);
 			for (Class<?> modelSlotClass : ta.getAvailableModelSlotTypes()) {
+				/* TODO why a XMLTechnologyAdapter has modelSlots? Why the following ?
+				* Check: interface org.openflexo.technologyadapter.xml.XMLModelSlot
+				* check: interface org.openflexo.technologyadapter.xml.FreeXMLModelSlot
+				* Check: interface org.openflexo.technologyadapter.xml.XMLMetaModelSlot
+				* Check: interface org.openflexo.technologyadapter.xml.FMLXMLModelSlot
+				*/
 				System.out.println("Check: " + modelSlotClass);
 				assertNotNull(factory.getModelContext().getModelEntity(modelSlotClass));
 			}
+			//TODO what is this doing ?
 			factory.checkMethodImplementations();
 
 		} catch (ModelDefinitionException e) {

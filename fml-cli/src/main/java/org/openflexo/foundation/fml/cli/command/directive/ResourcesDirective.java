@@ -95,7 +95,6 @@ public interface ResourcesDirective extends Directive<AResourcesDirective> {
 	public FlexoResourceCenter<?> getResourceCenter();
 
 	public static abstract class ResourcesDirectiveImpl extends DirectiveImpl<AResourcesDirective> implements ResourcesDirective {
-
 		@SuppressWarnings("unused")
 		private static final Logger logger = Logger.getLogger(ResourcesDirective.class.getPackage().getName());
 
