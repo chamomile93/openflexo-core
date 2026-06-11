@@ -74,7 +74,10 @@ import org.openflexo.toolbox.StringUtils;
  */
 @RunWith(Parameterized.class)
 public class TestFMLParser {
-
+	static {
+		System.out.println("TestFMLParser class loaded");
+	}
+	
 	@Parameterized.Parameters(name = "{1}")
 	public static Collection<Object[]> generateData() {
 		return Resources.getMatchingResource(ResourceLocator.locateResource("FMLParsingExamples"), ".fml");

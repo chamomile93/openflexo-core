@@ -1,0 +1,33 @@
+> Task :flexo-foundation:compileJava UP-TO-DATE
+> Task :flexo-foundation:processResources UP-TO-DATE
+> Task :flexo-foundation:classes UP-TO-DATE
+> Task :flexo-foundation:jar UP-TO-DATE
+> Task :flexo-test-resources:compileJava NO-SOURCE
+> Task :flexo-test-resources:processResources UP-TO-DATE
+> Task :flexo-test-resources:classes UP-TO-DATE
+> Task :flexo-test-resources:jar UP-TO-DATE
+> Task :fml-parser:generateGrammarSource UP-TO-DATE
+> Task :fml-parser:compileJava UP-TO-DATE
+> Task :fml-parser:processResources UP-TO-DATE
+> Task :fml-parser:classes UP-TO-DATE
+> Task :fml-parser:generateTestGrammarSource NO-SOURCE
+> Task :fml-parser:compileTestJava UP-TO-DATE
+> Task :fml-parser:processTestResources NO-SOURCE
+> Task :fml-parser:testClasses UP-TO-DATE
+
+> Task :fml-parser:test
+
+----------------------------------------------------------------------
+|  Results: SUCCESS (32 tests, 32 successes, 0 failures, 0 skipped)  |
+----------------------------------------------------------------------
+
+[Incubating] Problems report is available at: file:///home/yanisallouch/0RemoteGit/openflexo-core/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 6s
+10 actionable tasks: 1 executed, 9 up-to-date

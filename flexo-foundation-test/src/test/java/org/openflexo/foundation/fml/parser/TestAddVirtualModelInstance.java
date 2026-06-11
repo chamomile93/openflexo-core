@@ -38,10 +38,7 @@
 
 package org.openflexo.foundation.fml.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -83,13 +80,14 @@ public class TestAddVirtualModelInstance extends FMLParserTestCase {
 	@Test
 	@TestOrder(1)
 	public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
+		//TODO why NPE ?
 		instanciateTestServiceManager();
-
+		
 		editor = new DefaultFlexoEditor(null, serviceManager);
 		assertNotNull(editor);
-
+		
 	}
-
+	
 	@Test
 	@TestOrder(2)
 	public void loadCompilationUnit() throws ParseException, ModelDefinitionException, IOException {
@@ -100,15 +98,17 @@ public class TestAddVirtualModelInstance extends FMLParserTestCase {
 		// System.out.println("fmlFile=" + fmlFile);
 		// System.out.println(FileUtils.fileContents(((FileResourceImpl) fmlFile).getFile()));
 
+		//TODO why NPE ?
 		compilationUnit = testFMLCompilationUnit(fmlFile);
 		assertNotNull(rootNode = (FMLCompilationUnitNode) compilationUnit.getPrettyPrintDelegate());
 	}
-
+	
 	@Test
 	@TestOrder(3)
 	public void testNewSimpleInstance() throws ParseException, ModelDefinitionException, IOException {
 		log("testNewSimpleInstance()");
-
+		
+		//TODO why NPE ?
 		ActionScheme actionScheme = (ActionScheme) compilationUnit.getVirtualModel().getFlexoBehaviour("testNewInstance");
 		assertNotNull(actionScheme);
 
