@@ -11,6 +11,13 @@ dependencies {
 
 apply plugin: 'sablecc'
 
+sourceSets {
+    main {
+        java {
+            srcDir("$buildDir/generated-sources/sablecc/main")
+        }
+    }
+}
 
 
 def generateGrammarSourceTask = tasks.named("generateGrammarSource")

@@ -67,6 +67,7 @@ import org.openflexo.pamela.exceptions.ModelDefinitionException;
 import org.openflexo.rm.ResourceLocator;
 import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
+import org.openflexo.foundation.fml.parser.parser.Parser;
 
 /**
  * This unit test is intented to test View creation facilities with a ViewPoint created on the fly
@@ -102,7 +103,7 @@ public class TestCreateVirtualModelInstance extends OpenflexoProjectAtRunTimeTes
 	public void testCreateViewPoint() throws SaveResourceException, ModelDefinitionException, IOException {
 
 		log("testCreateViewPoint()");
-
+		Parser parser = new Parser().;
 		instanciateTestServiceManager();
 		resourceCenter = makeNewDirectoryResourceCenter();
 		assertNotNull(resourceCenter);
