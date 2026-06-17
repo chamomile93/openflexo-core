@@ -1,7 +1,6 @@
 use org.openflexo.ta.java.AlloyModelSlot as ALLOY;
 use org.openflexo.ta.java.PamelaModelSlot as PAMELA;
-use org.openflexo.ta.java.RepositoryModelSlot as
- JAVA_REPO;
+use org.openflexo.ta.java.RepositoryModelSlot as JAVA_REPO;
 use org.openflexo.ta.java.FileModelSlot as JAVA;
 
 /* A VirtualModel mapping Alloy and Pamela sources */

@@ -64,8 +64,8 @@ import org.openflexo.foundation.fml.action.CreateFlexoBehaviour.BehaviourParamet
 import org.openflexo.foundation.fml.editionaction.ExpressionAction;
 import org.openflexo.foundation.fml.editionaction.ReturnStatement;
 import org.openflexo.foundation.fml.rm.CompilationUnitResource;
-import org.openflexo.foundation.fml.rt.FMLRTTechnologyAdapter;
 import org.openflexo.foundation.fml.rt.FMLRTModelSlot;
+import org.openflexo.foundation.fml.rt.FMLRTTechnologyAdapter;
 
 public class GenerateUnimplementedPropertiesAndBehaviours
 		extends FlexoAction<GenerateUnimplementedPropertiesAndBehaviours, FlexoConcept, FMLObject>

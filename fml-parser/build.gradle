@@ -19,6 +19,11 @@ sourceSets {
     }
 }
 
+task printBuildDir {
+    doLast {
+        println "buildDir = " + buildDir
+    }
+}
 
 def generateGrammarSourceTask = tasks.named("generateGrammarSource")
 
@@ -28,3 +33,28 @@ tasks.named("processResources") {
    dependsOn(generateGrammarSourceTask)
 }
 
+tasks.register("printSourceSets") {
+    doLast {
+        sourceSets.each { set ->
+            println "SourceSet: " + set.name
+            println "  java.srcDirs = " + set.java.srcDirs
+            println "  allSource.srcDirs = " + set.allSource.srcDirs
+        }
+    }
+}
+
+//TODO why is there no "test" block configured in this build script and the presence of a "test" folder ?
+
+/*
+I would like to add "
+
+test {
+    debugOptions {
+        enabled = true" }
+    }
+or 
+
+test {
+    debug true
+}
+*/

@@ -103,7 +103,7 @@ public class TestCreateVirtualModelInstance extends OpenflexoProjectAtRunTimeTes
 	public void testCreateViewPoint() throws SaveResourceException, ModelDefinitionException, IOException {
 
 		log("testCreateViewPoint()");
-		Parser parser = new Parser().;
+		Parser parser = new Parser(null); // make the java language server add this generated class on the classpath, with the goal to run the unit test
 		instanciateTestServiceManager();
 		resourceCenter = makeNewDirectoryResourceCenter();
 		assertNotNull(resourceCenter);

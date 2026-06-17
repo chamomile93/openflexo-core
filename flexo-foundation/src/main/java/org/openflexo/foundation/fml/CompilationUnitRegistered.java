@@ -39,6 +39,7 @@
 package org.openflexo.foundation.fml;
 
 import org.openflexo.foundation.DataModification;
+import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.resource.FlexoResource;
 
 /**

@@ -70,6 +70,7 @@ public class TestAddVirtualModelInstanceCyberContract extends OpenflexoProjectAt
 	@TestOrder(1)
 	public void testLoadVirtualModel() throws FileNotFoundException, ResourceLoadingCancelledException, FlexoException {
 
+		//TODO is this here that the test-resources are added ?
 		instanciateTestServiceManager();
 		VirtualModelLibrary vpLib = serviceManager.getVirtualModelLibrary();
 		assertNotNull(vpLib);
