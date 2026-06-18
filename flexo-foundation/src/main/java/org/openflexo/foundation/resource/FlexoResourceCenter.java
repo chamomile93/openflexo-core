@@ -69,7 +69,7 @@ import org.openflexo.toolbox.FlexoVersion;
 import org.openflexo.xml.XMLRootElementInfo;
 
 /**
- * A {@link FlexoResourceCenter} is a symbolic repository storing {@link FlexoResource} from artefacts of type I
+ * A {@link FlexoResourceCenter} is a symbolic repository storing {@link FlexoResource} from artefacts of type {@link <I>}
  * 
  * @param <I>
  *            I is the type of iterable serialization artefacts this resource center stores

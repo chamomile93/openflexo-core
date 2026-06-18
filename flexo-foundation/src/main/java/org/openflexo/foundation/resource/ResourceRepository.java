@@ -19,6 +19,7 @@ import org.openflexo.pamela.annotations.ModelEntity;
  *            type of resources being stored in this {@link ResourceRepositoryImpl}
  * @param <I>
  *            serialization artefact type
+ * TODO idf "serialization artefact"
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(ResourceRepositoryImpl.class)

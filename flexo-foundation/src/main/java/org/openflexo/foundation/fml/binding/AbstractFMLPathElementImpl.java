@@ -58,6 +58,7 @@ import org.openflexo.toolbox.HasPropertyChangeSupport;
  * @author sylvain
  * 
  */
+//TODO why this name is duplicate of as in package connie ?
 public abstract class AbstractFMLPathElementImpl extends FMLObjectImpl implements BindingPathElement, HasPropertyChangeSupport {
 
 	private IBindingPathElement parent;

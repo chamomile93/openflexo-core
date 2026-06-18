@@ -54,8 +54,10 @@ import org.openflexo.pamela.annotations.ModelEntity;
  * 
  * @author sylvain
  * 
- * @param <R>
- * @param <TA>
+ * @param <R> a {@link Resource} \and {@link FlexoResource} type
+ * @param <TA> a {@link TechnologyAdapter} type
+ * @param <RD> a {@link ResourceData} \and {@link TechnologyObject} type
+ * @param <I> a {@link } type
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(TechnologyAdapterResourceRepository.TechnologyAdapterResourceRepositoryImpl.class)
