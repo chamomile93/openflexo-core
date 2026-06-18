@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 
+@SuppressWarnings("rawtypes")
 public interface IFlexoResourceFactory<R extends FlexoResource<RD>, RD extends ResourceData<RD>> {
 
 	/**

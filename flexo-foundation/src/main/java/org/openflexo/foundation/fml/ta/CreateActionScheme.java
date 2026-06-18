@@ -48,7 +48,7 @@ import org.openflexo.pamela.annotations.XMLElement;
 
 @Deprecated
 @ModelEntity
-@ImplementationClass(CreateActionScheme.CreateFlexoBehaviourImpl.class)
+@ImplementationClass(CreateActionScheme.CreateActionSchemeImpl.class)
 @XMLElement
 public interface CreateActionScheme extends CreateFlexoBehaviour<ActionScheme> {
 

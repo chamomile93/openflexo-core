@@ -59,7 +59,8 @@ import org.openflexo.pamela.annotations.ModelEntity;
  * @param <T>
  */
 @ModelEntity(isAbstract = true)
-@ImplementationClass(SelectClass.AbstractSelectClassImpl.class)
+//TODO idf too why the "impl" was referenced from the subtype, this is misleading 
+@ImplementationClass(AbstractSelectClass.AbstractSelectClassImpl.class)
 public abstract interface SelectClass<MS extends TypeAwareModelSlot<M, ?, ?>, M extends FlexoModel<M, ?> & TechnologyObject<?>, T extends IFlexoOntologyClass>
 		extends AbstractSelectClass<MS, M, T, List<T>>, FetchRequest<MS, M, T> {
 

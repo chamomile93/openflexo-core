@@ -59,7 +59,8 @@ import org.openflexo.pamela.annotations.ModelEntity;
  * @param <T>
  */
 @ModelEntity(isAbstract = true)
-@ImplementationClass(SelectIndividual.AbstractSelectIndividualImpl.class)
+//TODO idf why the annotation was referencing "SelectIndividual.AbstractSelectIndividualImpl.class". Maybe this is resolved in the code ? but the eclipse compiler was complaining.
+@ImplementationClass(AbstractSelectIndividual.AbstractSelectIndividualImpl.class)
 public abstract interface SelectIndividual<MS extends TypeAwareModelSlot<M, ?, ?>, M extends FlexoModel<M, ?> & TechnologyObject<?>, T extends IFlexoOntologyIndividual>
 		extends AbstractSelectIndividual<MS, M, T, List<T>>, FetchRequest<MS, M, T> {
 
