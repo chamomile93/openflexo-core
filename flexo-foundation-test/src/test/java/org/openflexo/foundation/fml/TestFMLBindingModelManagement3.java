@@ -672,7 +672,7 @@ public class TestFMLBindingModelManagement3 extends OpenflexoProjectAtRunTimeTes
 
 		VirtualModel reloadedViewPoint = retrievedVPResource.getCompilationUnit().getVirtualModel();
 		VirtualModel reloadedVM1 = reloadedViewPoint.getVirtualModelNamed("MyVM1");
-		assertNotNull(reloadedVM1);
+		assertNotNull(reloadedVM1); //TODO idf why this fails now 
 		VirtualModel reloadedVM2 = reloadedVM1.getVirtualModelNamed("MyVM2");
 		assertNotNull(reloadedVM2);
 		VirtualModel reloadedVM3 = reloadedVM2.getVirtualModelNamed("MyVM3");

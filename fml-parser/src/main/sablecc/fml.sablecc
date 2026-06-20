@@ -622,15 +622,22 @@ Productions
 
    inner_concept_decl =
       // basic role declaration
+  	 // of focus
        {java} [annotations]:annotation* visibility? type cardinality? variable_declarator semi
+     // maybe of focus
      | {fml} [annotations]:annotation* visibility? type cardinality? lidentifier kw_with [role]:uidentifier fml_parameters? semi
+     // maybe of focus
      | {fml_fully_qualified} [annotations]:annotation* visibility? type cardinality? lidentifier kw_with [ta_id]:cidentifier colon_colon [role]:uidentifier fml_parameters? semi
      // abstract property declaration
      | {abstract_property} [annotations]:annotation* visibility? kw_abstract type variable_declarator semi
+     // maybe of focus
      | {expression_property} [annotations]:annotation* visibility? type [identifier]:lidentifier kw_values [expression_value]:expression semi
+     // maybe of focus
      // get set property declaration
      | {get_set_property}    [annotations]:annotation* visibility? type lidentifier l_brc get_decl set_decl ? r_brc semi
+     // of focus
      | {behaviour_declaration} behaviour_decl
+     // of focus
      | {concept_declaration} concept_decl
      | {event_declaration} event_decl
      | {enum_declaration} enum_decl

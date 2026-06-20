@@ -180,7 +180,7 @@ public class TestCreateVirtualModel extends OpenflexoTestCase {
 		assertEquals(reloadedViewPoint, reloadedViewPoint.getResourceData().getVirtualModel());
 
 		VirtualModel reloadedVirtualModel = reloadedViewPoint.getVirtualModelNamed(VIRTUAL_MODEL_NAME);
-		assertNotNull(reloadedVirtualModel);
+		assertNotNull(reloadedVirtualModel); // TODO idf why this fails now
 
 		assertEquals(reloadedViewPoint, reloadedVirtualModel.getContainerVirtualModel());
 		assertEquals(reloadedVirtualModel, reloadedVirtualModel.getDeclaringCompilationUnit().getVirtualModel());

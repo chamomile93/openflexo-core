@@ -77,7 +77,7 @@ public class TestAddVirtualModelInstanceCyberContract extends OpenflexoProjectAt
 		
 		virtualModelCyberContract = vpLib.getVirtualModel("http://openflexo.org/test/TestResourceCenter/TestAddVirtualModelInstanceCyberContract.fml");
 		
-		assertNotNull(virtualModelCyberContract);
+		assertNotNull(virtualModelCyberContract); // TODO idf why this fails, probably because the logic does not exist
 		// assertNotNull(containedVM = virtualModelCyberContract.getVirtualModelNamed("MyVM"));
 
 		CompilationUnitResource virtualModelResource = virtualModelCyberContract.getResource();
@@ -96,7 +96,7 @@ public class TestAddVirtualModelInstanceCyberContract extends OpenflexoProjectAt
 	public void testPrettyPrint() {
 		// System.out.println("containedVM: " + containedVM.getCompilationUnit().getFMLPrettyPrint());
 
-		assertNotNull(creationScheme = virtualModelCyberContract.getCreationSchemes().get(0));
+		assertNotNull(creationScheme = virtualModelCyberContract.getCreationSchemes().get(0));//TODO idf why this fails
 		// assertEquals("vm = new MyVM::createInstance(\"foo\") with (name=\"myVMInstance\");",
 		// 		creationScheme.getControlGraph().getFMLPrettyPrint());
 
