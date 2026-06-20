@@ -131,6 +131,8 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 
 	private final List<ITechnologySpecificFlexoResourceFactory<?, ?, ?>> resourceFactories;
 
+	// we are looking for their type, and one way in java if by given a reference to the class
+	// TODO idf why a collection of typed Classes and not "? <: ModelSlot"
 	private List<Class<? extends ModelSlot<?, ?>>> availableModelSlotTypes;
 	private List<Class<? extends VirtualModelInstanceNature>> availableVirtualModelInstanceNatures;
 	private final List<Class<? extends TechnologyAdapterResource<?, ?>>> availableResourceTypes;
@@ -1022,6 +1024,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 		return null;
 	}
 
+	//TODO why need one for "editor" ?
 	public <A extends AbstractCreationSchemeAction<A, FB, O>, FB extends AbstractCreationScheme, O extends VirtualModelInstance<?, ?>> AbstractCreationSchemeAction<A, FB, O> makeCreationSchemeAction(
 			FB behaviour, O vmInstance, FlexoEditor editor) {
 		if (behaviour instanceof CreationScheme) {
