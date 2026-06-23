@@ -71,45 +71,6 @@ public class AbstractModelFactoryIntegrationTestCase extends OpenflexoTestCase {
             for (Class<?> modelSlotClass : ta.getAvailableModelSlotTypes()) {
                 log("Check: " + modelSlotClass);
                 assertNotNull(factory.getModelContext().getModelEntity(modelSlotClass));
-				/* stacktrace:
-				 * checkAlloyFMLTechnologyAdapter()
-******************************************************************************
-[org.openflexo.foundation.test.OpenflexoTestCase.log]
-Instanciating FMLModelFactory integrating technology adapter org.openflexo.ta.alloy.AlloyTechnologyAdapter@60cf62ad
-Check: interface org.openflexo.ta.alloy.AlloyModelSlot
-]]></system-out>
-  <system-err><![CDATA[Can't load log handler "java.util.logging.FileHandler"
-java.nio.file.NoSuchFileException: /home/user/Library/Logs/OpenFlexo/Openflexo0.log.0.lck
-java.nio.file.NoSuchFileException: /home/user/Library/Logs/OpenFlexo/Openflexo0.log.0.lck
-        at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
-        at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-        at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-        at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:181)
-        at java.base/java.nio.channels.FileChannel.open(FileChannel.java:298)
-        at java.base/java.nio.channels.FileChannel.open(FileChannel.java:357)
-        at java.logging/java.util.logging.FileHandler.openFiles(FileHandler.java:512)
-        at java.logging/java.util.logging.FileHandler.<init>(FileHandler.java:279)
-        at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-        at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-        at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-        at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
-        at java.base/java.lang.reflect.ReflectAccess.newInstance(ReflectAccess.java:128)
-        at java.base/jdk.internal.reflect.ReflectionFactory.newInstance(ReflectionFactory.java:347)
-        at java.base/java.lang.Class.newInstance(Class.java:647)
-        at java.logging/java.util.logging.LogManager.createLoggerHandlers(LogManager.java:1005)
-        at java.logging/java.util.logging.LogManager$4.run(LogManager.java:975)
-        at java.logging/java.util.logging.LogManager$4.run(LogManager.java:971)
-        at java.base/java.security.AccessController.doPrivileged(AccessController.java:318)
-        at java.logging/java.util.logging.LogManager.loadLoggerHandlers(LogManager.java:971)
-        at java.logging/java.util.logging.LogManager.initializeGlobalHandlers(LogManager.java:2424)
-        at java.logging/java.util.logging.LogManager$RootLogger.accessCheckedHandlers(LogManager.java:2526)
-        at java.logging/java.util.logging.Logger.getHandlers(Logger.java:2090)
-        at java.logging/java.util.logging.Logger.log(Logger.java:977)
-        at java.logging/java.util.logging.Logger.doLog(Logger.java:1007)
-        at java.logging/java.util.logging.Logger.log(Logger.java:1030)
-        at java.logging/java.util.logging.Logger.info(Logger.java:1803)
-        at org.openflexo.foundation.test.OpenflexoTestCase.log(OpenflexoTestCase.java:440)
-				 */
             }
             factory.checkMethodImplementations();
 
