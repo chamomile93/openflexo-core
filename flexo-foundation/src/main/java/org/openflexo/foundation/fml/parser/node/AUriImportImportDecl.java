@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AUriImportImportDecl extends PImportDecl
-{
+public final class AUriImportImportDecl extends PImportDecl {
     private TKwImport _kwImport_;
     private PReferenceByUri _object_;
     private TSemi _semi_;
 
-    public AUriImportImportDecl()
-    {
+    public AUriImportImportDecl() {
         // Constructor
     }
 
     public AUriImportImportDecl(
-        @SuppressWarnings("hiding") TKwImport _kwImport_,
-        @SuppressWarnings("hiding") PReferenceByUri _object_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwImport _kwImport_,
+            @SuppressWarnings("hiding") PReferenceByUri _object_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwImport(_kwImport_);
 
@@ -31,36 +28,29 @@ public final class AUriImportImportDecl extends PImportDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AUriImportImportDecl(
-            cloneNode(this._kwImport_),
-            cloneNode(this._object_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwImport_),
+                cloneNode(this._object_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAUriImportImportDecl(this);
     }
 
-    public TKwImport getKwImport()
-    {
+    public TKwImport getKwImport() {
         return this._kwImport_;
     }
 
-    public void setKwImport(TKwImport node)
-    {
-        if(this._kwImport_ != null)
-        {
+    public void setKwImport(TKwImport node) {
+        if (this._kwImport_ != null) {
             this._kwImport_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AUriImportImportDecl extends PImportDecl
         this._kwImport_ = node;
     }
 
-    public PReferenceByUri getObject()
-    {
+    public PReferenceByUri getObject() {
         return this._object_;
     }
 
-    public void setObject(PReferenceByUri node)
-    {
-        if(this._object_ != null)
-        {
+    public void setObject(PReferenceByUri node) {
+        if (this._object_ != null) {
             this._object_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AUriImportImportDecl extends PImportDecl
         this._object_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AUriImportImportDecl extends PImportDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwImport_)
-            + toString(this._object_)
-            + toString(this._semi_);
+                + toString(this._kwImport_)
+                + toString(this._object_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwImport_ == child)
-        {
+        if (this._kwImport_ == child) {
             this._kwImport_ = null;
             return;
         }
 
-        if(this._object_ == child)
-        {
+        if (this._object_ == child) {
             this._object_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AUriImportImportDecl extends PImportDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwImport_ == oldChild)
-        {
+        if (this._kwImport_ == oldChild) {
             setKwImport((TKwImport) newChild);
             return;
         }
 
-        if(this._object_ == oldChild)
-        {
+        if (this._object_ == oldChild) {
             setObject((PReferenceByUri) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

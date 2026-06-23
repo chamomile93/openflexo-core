@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFmlActionFmlCommand extends PFmlCommand
-{
+public final class AFmlActionFmlCommand extends PFmlCommand {
     private PCommandAssign _commandAssign_;
     private PFmlActionExp _fmlActionExp_;
 
-    public AFmlActionFmlCommand()
-    {
+    public AFmlActionFmlCommand() {
         // Constructor
     }
 
     public AFmlActionFmlCommand(
-        @SuppressWarnings("hiding") PCommandAssign _commandAssign_,
-        @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_)
-    {
+            @SuppressWarnings("hiding") PCommandAssign _commandAssign_,
+            @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_) {
         // Constructor
         setCommandAssign(_commandAssign_);
 
@@ -27,35 +24,28 @@ public final class AFmlActionFmlCommand extends PFmlCommand
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlActionFmlCommand(
-            cloneNode(this._commandAssign_),
-            cloneNode(this._fmlActionExp_));
+                cloneNode(this._commandAssign_),
+                cloneNode(this._fmlActionExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlActionFmlCommand(this);
     }
 
-    public PCommandAssign getCommandAssign()
-    {
+    public PCommandAssign getCommandAssign() {
         return this._commandAssign_;
     }
 
-    public void setCommandAssign(PCommandAssign node)
-    {
-        if(this._commandAssign_ != null)
-        {
+    public void setCommandAssign(PCommandAssign node) {
+        if (this._commandAssign_ != null) {
             this._commandAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AFmlActionFmlCommand extends PFmlCommand
         this._commandAssign_ = node;
     }
 
-    public PFmlActionExp getFmlActionExp()
-    {
+    public PFmlActionExp getFmlActionExp() {
         return this._fmlActionExp_;
     }
 
-    public void setFmlActionExp(PFmlActionExp node)
-    {
-        if(this._fmlActionExp_ != null)
-        {
+    public void setFmlActionExp(PFmlActionExp node) {
+        if (this._fmlActionExp_ != null) {
             this._fmlActionExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AFmlActionFmlCommand extends PFmlCommand
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._commandAssign_)
-            + toString(this._fmlActionExp_);
+                + toString(this._commandAssign_)
+                + toString(this._fmlActionExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._commandAssign_ == child)
-        {
+        if (this._commandAssign_ == child) {
             this._commandAssign_ = null;
             return;
         }
 
-        if(this._fmlActionExp_ == child)
-        {
+        if (this._fmlActionExp_ == child) {
             this._fmlActionExp_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AFmlActionFmlCommand extends PFmlCommand
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._commandAssign_ == oldChild)
-        {
+        if (this._commandAssign_ == oldChild) {
             setCommandAssign((PCommandAssign) newChild);
             return;
         }
 
-        if(this._fmlActionExp_ == oldChild)
-        {
+        if (this._fmlActionExp_ == oldChild) {
             setFmlActionExp((PFmlActionExp) newChild);
             return;
         }

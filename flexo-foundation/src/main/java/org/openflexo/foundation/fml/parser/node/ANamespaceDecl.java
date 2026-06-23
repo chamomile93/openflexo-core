@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ANamespaceDecl extends PNamespaceDecl
-{
+public final class ANamespaceDecl extends PNamespaceDecl {
     private TKwNamespace _kwNamespace_;
     private TLitString _stringLiteral_;
     private TKwAs _kwAs_;
     private PIdentifier _nsId_;
     private TSemi _semi_;
 
-    public ANamespaceDecl()
-    {
+    public ANamespaceDecl() {
         // Constructor
     }
 
     public ANamespaceDecl(
-        @SuppressWarnings("hiding") TKwNamespace _kwNamespace_,
-        @SuppressWarnings("hiding") TLitString _stringLiteral_,
-        @SuppressWarnings("hiding") TKwAs _kwAs_,
-        @SuppressWarnings("hiding") PIdentifier _nsId_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwNamespace _kwNamespace_,
+            @SuppressWarnings("hiding") TLitString _stringLiteral_,
+            @SuppressWarnings("hiding") TKwAs _kwAs_,
+            @SuppressWarnings("hiding") PIdentifier _nsId_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwNamespace(_kwNamespace_);
 
@@ -39,38 +36,31 @@ public final class ANamespaceDecl extends PNamespaceDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANamespaceDecl(
-            cloneNode(this._kwNamespace_),
-            cloneNode(this._stringLiteral_),
-            cloneNode(this._kwAs_),
-            cloneNode(this._nsId_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwNamespace_),
+                cloneNode(this._stringLiteral_),
+                cloneNode(this._kwAs_),
+                cloneNode(this._nsId_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANamespaceDecl(this);
     }
 
-    public TKwNamespace getKwNamespace()
-    {
+    public TKwNamespace getKwNamespace() {
         return this._kwNamespace_;
     }
 
-    public void setKwNamespace(TKwNamespace node)
-    {
-        if(this._kwNamespace_ != null)
-        {
+    public void setKwNamespace(TKwNamespace node) {
+        if (this._kwNamespace_ != null) {
             this._kwNamespace_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class ANamespaceDecl extends PNamespaceDecl
         this._kwNamespace_ = node;
     }
 
-    public TLitString getStringLiteral()
-    {
+    public TLitString getStringLiteral() {
         return this._stringLiteral_;
     }
 
-    public void setStringLiteral(TLitString node)
-    {
-        if(this._stringLiteral_ != null)
-        {
+    public void setStringLiteral(TLitString node) {
+        if (this._stringLiteral_ != null) {
             this._stringLiteral_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class ANamespaceDecl extends PNamespaceDecl
         this._stringLiteral_ = node;
     }
 
-    public TKwAs getKwAs()
-    {
+    public TKwAs getKwAs() {
         return this._kwAs_;
     }
 
-    public void setKwAs(TKwAs node)
-    {
-        if(this._kwAs_ != null)
-        {
+    public void setKwAs(TKwAs node) {
+        if (this._kwAs_ != null) {
             this._kwAs_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class ANamespaceDecl extends PNamespaceDecl
         this._kwAs_ = node;
     }
 
-    public PIdentifier getNsId()
-    {
+    public PIdentifier getNsId() {
         return this._nsId_;
     }
 
-    public void setNsId(PIdentifier node)
-    {
-        if(this._nsId_ != null)
-        {
+    public void setNsId(PIdentifier node) {
+        if (this._nsId_ != null) {
             this._nsId_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class ANamespaceDecl extends PNamespaceDecl
         this._nsId_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class ANamespaceDecl extends PNamespaceDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwNamespace_)
-            + toString(this._stringLiteral_)
-            + toString(this._kwAs_)
-            + toString(this._nsId_)
-            + toString(this._semi_);
+                + toString(this._kwNamespace_)
+                + toString(this._stringLiteral_)
+                + toString(this._kwAs_)
+                + toString(this._nsId_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwNamespace_ == child)
-        {
+        if (this._kwNamespace_ == child) {
             this._kwNamespace_ = null;
             return;
         }
 
-        if(this._stringLiteral_ == child)
-        {
+        if (this._stringLiteral_ == child) {
             this._stringLiteral_ = null;
             return;
         }
 
-        if(this._kwAs_ == child)
-        {
+        if (this._kwAs_ == child) {
             this._kwAs_ = null;
             return;
         }
 
-        if(this._nsId_ == child)
-        {
+        if (this._nsId_ == child) {
             this._nsId_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class ANamespaceDecl extends PNamespaceDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwNamespace_ == oldChild)
-        {
+        if (this._kwNamespace_ == oldChild) {
             setKwNamespace((TKwNamespace) newChild);
             return;
         }
 
-        if(this._stringLiteral_ == oldChild)
-        {
+        if (this._stringLiteral_ == oldChild) {
             setStringLiteral((TLitString) newChild);
             return;
         }
 
-        if(this._kwAs_ == oldChild)
-        {
+        if (this._kwAs_ == oldChild) {
             setKwAs((TKwAs) newChild);
             return;
         }
 
-        if(this._nsId_ == oldChild)
-        {
+        if (this._nsId_ == oldChild) {
             setNsId((PIdentifier) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class THistory extends Token
-{
-    public THistory()
-    {
+public final class THistory extends Token {
+    public THistory() {
         super.setText("history");
     }
 
-    public THistory(int line, int pos)
-    {
+    public THistory(int line, int pos) {
         super.setText("history");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new THistory(getLine(), getPos());
+    public Object clone() {
+        return new THistory(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTHistory(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change THistory text.");
     }
 }

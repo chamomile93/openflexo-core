@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ATypeDecl extends PTypeDecl
-{
+public final class ATypeDecl extends PTypeDecl {
     private TKwTypedef _kwTypedef_;
     private PTypeDeclType _type_;
     private TKwAs _kwAs_;
     private TUidentifier _name_;
     private TSemi _semi_;
 
-    public ATypeDecl()
-    {
+    public ATypeDecl() {
         // Constructor
     }
 
     public ATypeDecl(
-        @SuppressWarnings("hiding") TKwTypedef _kwTypedef_,
-        @SuppressWarnings("hiding") PTypeDeclType _type_,
-        @SuppressWarnings("hiding") TKwAs _kwAs_,
-        @SuppressWarnings("hiding") TUidentifier _name_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwTypedef _kwTypedef_,
+            @SuppressWarnings("hiding") PTypeDeclType _type_,
+            @SuppressWarnings("hiding") TKwAs _kwAs_,
+            @SuppressWarnings("hiding") TUidentifier _name_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwTypedef(_kwTypedef_);
 
@@ -39,38 +36,31 @@ public final class ATypeDecl extends PTypeDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ATypeDecl(
-            cloneNode(this._kwTypedef_),
-            cloneNode(this._type_),
-            cloneNode(this._kwAs_),
-            cloneNode(this._name_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwTypedef_),
+                cloneNode(this._type_),
+                cloneNode(this._kwAs_),
+                cloneNode(this._name_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseATypeDecl(this);
     }
 
-    public TKwTypedef getKwTypedef()
-    {
+    public TKwTypedef getKwTypedef() {
         return this._kwTypedef_;
     }
 
-    public void setKwTypedef(TKwTypedef node)
-    {
-        if(this._kwTypedef_ != null)
-        {
+    public void setKwTypedef(TKwTypedef node) {
+        if (this._kwTypedef_ != null) {
             this._kwTypedef_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class ATypeDecl extends PTypeDecl
         this._kwTypedef_ = node;
     }
 
-    public PTypeDeclType getType()
-    {
+    public PTypeDeclType getType() {
         return this._type_;
     }
 
-    public void setType(PTypeDeclType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PTypeDeclType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class ATypeDecl extends PTypeDecl
         this._type_ = node;
     }
 
-    public TKwAs getKwAs()
-    {
+    public TKwAs getKwAs() {
         return this._kwAs_;
     }
 
-    public void setKwAs(TKwAs node)
-    {
-        if(this._kwAs_ != null)
-        {
+    public void setKwAs(TKwAs node) {
+        if (this._kwAs_ != null) {
             this._kwAs_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class ATypeDecl extends PTypeDecl
         this._kwAs_ = node;
     }
 
-    public TUidentifier getName()
-    {
+    public TUidentifier getName() {
         return this._name_;
     }
 
-    public void setName(TUidentifier node)
-    {
-        if(this._name_ != null)
-        {
+    public void setName(TUidentifier node) {
+        if (this._name_ != null) {
             this._name_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class ATypeDecl extends PTypeDecl
         this._name_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class ATypeDecl extends PTypeDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwTypedef_)
-            + toString(this._type_)
-            + toString(this._kwAs_)
-            + toString(this._name_)
-            + toString(this._semi_);
+                + toString(this._kwTypedef_)
+                + toString(this._type_)
+                + toString(this._kwAs_)
+                + toString(this._name_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwTypedef_ == child)
-        {
+        if (this._kwTypedef_ == child) {
             this._kwTypedef_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._kwAs_ == child)
-        {
+        if (this._kwAs_ == child) {
             this._kwAs_ = null;
             return;
         }
 
-        if(this._name_ == child)
-        {
+        if (this._name_ == child) {
             this._name_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class ATypeDecl extends PTypeDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwTypedef_ == oldChild)
-        {
+        if (this._kwTypedef_ == oldChild) {
             setKwTypedef((TKwTypedef) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PTypeDeclType) newChild);
             return;
         }
 
-        if(this._kwAs_ == oldChild)
-        {
+        if (this._kwAs_ == oldChild) {
             setKwAs((TKwAs) newChild);
             return;
         }
 
-        if(this._name_ == oldChild)
-        {
+        if (this._name_ == oldChild) {
             setName((TUidentifier) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

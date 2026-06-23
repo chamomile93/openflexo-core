@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AEqEqualityExp extends PEqualityExp
-{
+public final class AEqEqualityExp extends PEqualityExp {
     private PEqualityExp _equalityExp_;
     private TEq _eq_;
     private PRelationalExp _relationalExp_;
 
-    public AEqEqualityExp()
-    {
+    public AEqEqualityExp() {
         // Constructor
     }
 
     public AEqEqualityExp(
-        @SuppressWarnings("hiding") PEqualityExp _equalityExp_,
-        @SuppressWarnings("hiding") TEq _eq_,
-        @SuppressWarnings("hiding") PRelationalExp _relationalExp_)
-    {
+            @SuppressWarnings("hiding") PEqualityExp _equalityExp_,
+            @SuppressWarnings("hiding") TEq _eq_,
+            @SuppressWarnings("hiding") PRelationalExp _relationalExp_) {
         // Constructor
         setEqualityExp(_equalityExp_);
 
@@ -31,36 +28,29 @@ public final class AEqEqualityExp extends PEqualityExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEqEqualityExp(
-            cloneNode(this._equalityExp_),
-            cloneNode(this._eq_),
-            cloneNode(this._relationalExp_));
+                cloneNode(this._equalityExp_),
+                cloneNode(this._eq_),
+                cloneNode(this._relationalExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEqEqualityExp(this);
     }
 
-    public PEqualityExp getEqualityExp()
-    {
+    public PEqualityExp getEqualityExp() {
         return this._equalityExp_;
     }
 
-    public void setEqualityExp(PEqualityExp node)
-    {
-        if(this._equalityExp_ != null)
-        {
+    public void setEqualityExp(PEqualityExp node) {
+        if (this._equalityExp_ != null) {
             this._equalityExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AEqEqualityExp extends PEqualityExp
         this._equalityExp_ = node;
     }
 
-    public TEq getEq()
-    {
+    public TEq getEq() {
         return this._eq_;
     }
 
-    public void setEq(TEq node)
-    {
-        if(this._eq_ != null)
-        {
+    public void setEq(TEq node) {
+        if (this._eq_ != null) {
             this._eq_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AEqEqualityExp extends PEqualityExp
         this._eq_ = node;
     }
 
-    public PRelationalExp getRelationalExp()
-    {
+    public PRelationalExp getRelationalExp() {
         return this._relationalExp_;
     }
 
-    public void setRelationalExp(PRelationalExp node)
-    {
-        if(this._relationalExp_ != null)
-        {
+    public void setRelationalExp(PRelationalExp node) {
+        if (this._relationalExp_ != null) {
             this._relationalExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AEqEqualityExp extends PEqualityExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._equalityExp_)
-            + toString(this._eq_)
-            + toString(this._relationalExp_);
+                + toString(this._equalityExp_)
+                + toString(this._eq_)
+                + toString(this._relationalExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._equalityExp_ == child)
-        {
+        if (this._equalityExp_ == child) {
             this._equalityExp_ = null;
             return;
         }
 
-        if(this._eq_ == child)
-        {
+        if (this._eq_ == child) {
             this._eq_ = null;
             return;
         }
 
-        if(this._relationalExp_ == child)
-        {
+        if (this._relationalExp_ == child) {
             this._relationalExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AEqEqualityExp extends PEqualityExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._equalityExp_ == oldChild)
-        {
+        if (this._equalityExp_ == oldChild) {
             setEqualityExp((PEqualityExp) newChild);
             return;
         }
 
-        if(this._eq_ == oldChild)
-        {
+        if (this._eq_ == oldChild) {
             setEq((TEq) newChild);
             return;
         }
 
-        if(this._relationalExp_ == oldChild)
-        {
+        if (this._relationalExp_ == oldChild) {
             setRelationalExp((PRelationalExp) newChild);
             return;
         }

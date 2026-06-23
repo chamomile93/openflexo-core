@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AExhaustiveResourcesDirective extends PResourcesDirective
-{
+public final class AExhaustiveResourcesDirective extends PResourcesDirective {
     private TResources _resources_;
 
-    public AExhaustiveResourcesDirective()
-    {
+    public AExhaustiveResourcesDirective() {
         // Constructor
     }
 
     public AExhaustiveResourcesDirective(
-        @SuppressWarnings("hiding") TResources _resources_)
-    {
+            @SuppressWarnings("hiding") TResources _resources_) {
         // Constructor
         setResources(_resources_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AExhaustiveResourcesDirective(
-            cloneNode(this._resources_));
+                cloneNode(this._resources_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAExhaustiveResourcesDirective(this);
     }
 
-    public TResources getResources()
-    {
+    public TResources getResources() {
         return this._resources_;
     }
 
-    public void setResources(TResources node)
-    {
-        if(this._resources_ != null)
-        {
+    public void setResources(TResources node) {
+        if (this._resources_ != null) {
             this._resources_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AExhaustiveResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._resources_);
+                + toString(this._resources_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._resources_ == child)
-        {
+        if (this._resources_ == child) {
             this._resources_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AExhaustiveResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._resources_ == oldChild)
-        {
+        if (this._resources_ == oldChild) {
             setResources((TResources) newChild);
             return;
         }

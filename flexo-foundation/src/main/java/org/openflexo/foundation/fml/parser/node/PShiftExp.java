@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PShiftExp extends Node
-{
+public abstract class PShiftExp extends Node {
     // Empty body
 }

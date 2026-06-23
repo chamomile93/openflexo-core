@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFloatingPointLiteral extends PLiteral
-{
+public final class AFloatingPointLiteral extends PLiteral {
     private TLitFloat _litFloat_;
 
-    public AFloatingPointLiteral()
-    {
+    public AFloatingPointLiteral() {
         // Constructor
     }
 
     public AFloatingPointLiteral(
-        @SuppressWarnings("hiding") TLitFloat _litFloat_)
-    {
+            @SuppressWarnings("hiding") TLitFloat _litFloat_) {
         // Constructor
         setLitFloat(_litFloat_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFloatingPointLiteral(
-            cloneNode(this._litFloat_));
+                cloneNode(this._litFloat_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFloatingPointLiteral(this);
     }
 
-    public TLitFloat getLitFloat()
-    {
+    public TLitFloat getLitFloat() {
         return this._litFloat_;
     }
 
-    public void setLitFloat(TLitFloat node)
-    {
-        if(this._litFloat_ != null)
-        {
+    public void setLitFloat(TLitFloat node) {
+        if (this._litFloat_ != null) {
             this._litFloat_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AFloatingPointLiteral extends PLiteral
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._litFloat_);
+                + toString(this._litFloat_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._litFloat_ == child)
-        {
+        if (this._litFloat_ == child) {
             this._litFloat_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AFloatingPointLiteral extends PLiteral
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._litFloat_ == oldChild)
-        {
+        if (this._litFloat_ == oldChild) {
             setLitFloat((TLitFloat) newChild);
             return;
         }

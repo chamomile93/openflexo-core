@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PWhereClause extends Node
-{
+public abstract class PWhereClause extends Node {
     // Empty body
 }

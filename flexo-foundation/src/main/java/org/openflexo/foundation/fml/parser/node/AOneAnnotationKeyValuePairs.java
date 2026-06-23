@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOneAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
-{
+public final class AOneAnnotationKeyValuePairs extends PAnnotationKeyValuePairs {
     private PAnnotationKeyValuePair _annotationKeyValuePair_;
 
-    public AOneAnnotationKeyValuePairs()
-    {
+    public AOneAnnotationKeyValuePairs() {
         // Constructor
     }
 
     public AOneAnnotationKeyValuePairs(
-        @SuppressWarnings("hiding") PAnnotationKeyValuePair _annotationKeyValuePair_)
-    {
+            @SuppressWarnings("hiding") PAnnotationKeyValuePair _annotationKeyValuePair_) {
         // Constructor
         setAnnotationKeyValuePair(_annotationKeyValuePair_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOneAnnotationKeyValuePairs(
-            cloneNode(this._annotationKeyValuePair_));
+                cloneNode(this._annotationKeyValuePair_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOneAnnotationKeyValuePairs(this);
     }
 
-    public PAnnotationKeyValuePair getAnnotationKeyValuePair()
-    {
+    public PAnnotationKeyValuePair getAnnotationKeyValuePair() {
         return this._annotationKeyValuePair_;
     }
 
-    public void setAnnotationKeyValuePair(PAnnotationKeyValuePair node)
-    {
-        if(this._annotationKeyValuePair_ != null)
-        {
+    public void setAnnotationKeyValuePair(PAnnotationKeyValuePair node) {
+        if (this._annotationKeyValuePair_ != null) {
             this._annotationKeyValuePair_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AOneAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotationKeyValuePair_);
+                + toString(this._annotationKeyValuePair_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotationKeyValuePair_ == child)
-        {
+        if (this._annotationKeyValuePair_ == child) {
             this._annotationKeyValuePair_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AOneAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._annotationKeyValuePair_ == oldChild)
-        {
+        if (this._annotationKeyValuePair_ == oldChild) {
             setAnnotationKeyValuePair((PAnnotationKeyValuePair) newChild);
             return;
         }

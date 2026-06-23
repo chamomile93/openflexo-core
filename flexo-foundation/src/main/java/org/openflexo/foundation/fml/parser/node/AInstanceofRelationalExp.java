@@ -2,31 +2,28 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AInstanceofRelationalExp extends PRelationalExp
-{
+public final class AInstanceofRelationalExp extends PRelationalExp {
+    private final LinkedList<PDim> _dims_ = new LinkedList<PDim>();
     private PShiftExp _shiftExp_;
     private TKwInstanceof _kwInstanceof_;
     private PType _type_;
-    private final LinkedList<PDim> _dims_ = new LinkedList<PDim>();
 
-    public AInstanceofRelationalExp()
-    {
+    public AInstanceofRelationalExp() {
         // Constructor
     }
 
     public AInstanceofRelationalExp(
-        @SuppressWarnings("hiding") PShiftExp _shiftExp_,
-        @SuppressWarnings("hiding") TKwInstanceof _kwInstanceof_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") List<?> _dims_)
-    {
+            @SuppressWarnings("hiding") PShiftExp _shiftExp_,
+            @SuppressWarnings("hiding") TKwInstanceof _kwInstanceof_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") List<?> _dims_) {
         // Constructor
         setShiftExp(_shiftExp_);
 
@@ -39,37 +36,30 @@ public final class AInstanceofRelationalExp extends PRelationalExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AInstanceofRelationalExp(
-            cloneNode(this._shiftExp_),
-            cloneNode(this._kwInstanceof_),
-            cloneNode(this._type_),
-            cloneList(this._dims_));
+                cloneNode(this._shiftExp_),
+                cloneNode(this._kwInstanceof_),
+                cloneNode(this._type_),
+                cloneList(this._dims_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAInstanceofRelationalExp(this);
     }
 
-    public PShiftExp getShiftExp()
-    {
+    public PShiftExp getShiftExp() {
         return this._shiftExp_;
     }
 
-    public void setShiftExp(PShiftExp node)
-    {
-        if(this._shiftExp_ != null)
-        {
+    public void setShiftExp(PShiftExp node) {
+        if (this._shiftExp_ != null) {
             this._shiftExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -79,22 +69,17 @@ public final class AInstanceofRelationalExp extends PRelationalExp
         this._shiftExp_ = node;
     }
 
-    public TKwInstanceof getKwInstanceof()
-    {
+    public TKwInstanceof getKwInstanceof() {
         return this._kwInstanceof_;
     }
 
-    public void setKwInstanceof(TKwInstanceof node)
-    {
-        if(this._kwInstanceof_ != null)
-        {
+    public void setKwInstanceof(TKwInstanceof node) {
+        if (this._kwInstanceof_ != null) {
             this._kwInstanceof_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -104,22 +89,17 @@ public final class AInstanceofRelationalExp extends PRelationalExp
         this._kwInstanceof_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -129,24 +109,19 @@ public final class AInstanceofRelationalExp extends PRelationalExp
         this._type_ = node;
     }
 
-    public LinkedList<PDim> getDims()
-    {
+    public LinkedList<PDim> getDims() {
         return this._dims_;
     }
 
-    public void setDims(List<?> list)
-    {
-        for(PDim e : this._dims_)
-        {
+    public void setDims(List<?> list) {
+        for (PDim e : this._dims_) {
             e.parent(null);
         }
         this._dims_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PDim e = (PDim) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -156,39 +131,33 @@ public final class AInstanceofRelationalExp extends PRelationalExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._shiftExp_)
-            + toString(this._kwInstanceof_)
-            + toString(this._type_)
-            + toString(this._dims_);
+                + toString(this._shiftExp_)
+                + toString(this._kwInstanceof_)
+                + toString(this._type_)
+                + toString(this._dims_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._shiftExp_ == child)
-        {
+        if (this._shiftExp_ == child) {
             this._shiftExp_ = null;
             return;
         }
 
-        if(this._kwInstanceof_ == child)
-        {
+        if (this._kwInstanceof_ == child) {
             this._kwInstanceof_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._dims_.remove(child))
-        {
+        if (this._dims_.remove(child)) {
             return;
         }
 
@@ -196,33 +165,26 @@ public final class AInstanceofRelationalExp extends PRelationalExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._shiftExp_ == oldChild)
-        {
+        if (this._shiftExp_ == oldChild) {
             setShiftExp((PShiftExp) newChild);
             return;
         }
 
-        if(this._kwInstanceof_ == oldChild)
-        {
+        if (this._kwInstanceof_ == oldChild) {
             setKwInstanceof((TKwInstanceof) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        for(ListIterator<PDim> i = this._dims_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PDim> i = this._dims_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PDim) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);

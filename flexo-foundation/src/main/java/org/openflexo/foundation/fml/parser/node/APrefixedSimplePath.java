@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrefixedSimplePath extends PSimplePath
-{
+public final class APrefixedSimplePath extends PSimplePath {
     private PSimplePathPrefix _prefix_;
     private PSimplePath _simplePath_;
 
-    public APrefixedSimplePath()
-    {
+    public APrefixedSimplePath() {
         // Constructor
     }
 
     public APrefixedSimplePath(
-        @SuppressWarnings("hiding") PSimplePathPrefix _prefix_,
-        @SuppressWarnings("hiding") PSimplePath _simplePath_)
-    {
+            @SuppressWarnings("hiding") PSimplePathPrefix _prefix_,
+            @SuppressWarnings("hiding") PSimplePath _simplePath_) {
         // Constructor
         setPrefix(_prefix_);
 
@@ -27,35 +24,28 @@ public final class APrefixedSimplePath extends PSimplePath
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrefixedSimplePath(
-            cloneNode(this._prefix_),
-            cloneNode(this._simplePath_));
+                cloneNode(this._prefix_),
+                cloneNode(this._simplePath_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrefixedSimplePath(this);
     }
 
-    public PSimplePathPrefix getPrefix()
-    {
+    public PSimplePathPrefix getPrefix() {
         return this._prefix_;
     }
 
-    public void setPrefix(PSimplePathPrefix node)
-    {
-        if(this._prefix_ != null)
-        {
+    public void setPrefix(PSimplePathPrefix node) {
+        if (this._prefix_ != null) {
             this._prefix_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APrefixedSimplePath extends PSimplePath
         this._prefix_ = node;
     }
 
-    public PSimplePath getSimplePath()
-    {
+    public PSimplePath getSimplePath() {
         return this._simplePath_;
     }
 
-    public void setSimplePath(PSimplePath node)
-    {
-        if(this._simplePath_ != null)
-        {
+    public void setSimplePath(PSimplePath node) {
+        if (this._simplePath_ != null) {
             this._simplePath_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APrefixedSimplePath extends PSimplePath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._prefix_)
-            + toString(this._simplePath_);
+                + toString(this._prefix_)
+                + toString(this._simplePath_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._prefix_ == child)
-        {
+        if (this._prefix_ == child) {
             this._prefix_ = null;
             return;
         }
 
-        if(this._simplePath_ == child)
-        {
+        if (this._simplePath_ == child) {
             this._simplePath_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APrefixedSimplePath extends PSimplePath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._prefix_ == oldChild)
-        {
+        if (this._prefix_ == oldChild) {
             setPrefix((PSimplePathPrefix) newChild);
             return;
         }
 
-        if(this._simplePath_ == oldChild)
-        {
+        if (this._simplePath_ == oldChild) {
             setSimplePath((PSimplePath) newChild);
             return;
         }

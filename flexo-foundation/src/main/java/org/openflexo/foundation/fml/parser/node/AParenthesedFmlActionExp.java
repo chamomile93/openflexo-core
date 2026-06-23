@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AParenthesedFmlActionExp extends PFmlActionExp
-{
+public final class AParenthesedFmlActionExp extends PFmlActionExp {
     private TLPar _lPar_;
     private PFmlActionExp _fmlActionExp_;
     private TRPar _rPar_;
 
-    public AParenthesedFmlActionExp()
-    {
+    public AParenthesedFmlActionExp() {
         // Constructor
     }
 
     public AParenthesedFmlActionExp(
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setLPar(_lPar_);
 
@@ -31,36 +28,29 @@ public final class AParenthesedFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AParenthesedFmlActionExp(
-            cloneNode(this._lPar_),
-            cloneNode(this._fmlActionExp_),
-            cloneNode(this._rPar_));
+                cloneNode(this._lPar_),
+                cloneNode(this._fmlActionExp_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAParenthesedFmlActionExp(this);
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AParenthesedFmlActionExp extends PFmlActionExp
         this._lPar_ = node;
     }
 
-    public PFmlActionExp getFmlActionExp()
-    {
+    public PFmlActionExp getFmlActionExp() {
         return this._fmlActionExp_;
     }
 
-    public void setFmlActionExp(PFmlActionExp node)
-    {
-        if(this._fmlActionExp_ != null)
-        {
+    public void setFmlActionExp(PFmlActionExp node) {
+        if (this._fmlActionExp_ != null) {
             this._fmlActionExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AParenthesedFmlActionExp extends PFmlActionExp
         this._fmlActionExp_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AParenthesedFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lPar_)
-            + toString(this._fmlActionExp_)
-            + toString(this._rPar_);
+                + toString(this._lPar_)
+                + toString(this._fmlActionExp_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._fmlActionExp_ == child)
-        {
+        if (this._fmlActionExp_ == child) {
             this._fmlActionExp_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AParenthesedFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._fmlActionExp_ == oldChild)
-        {
+        if (this._fmlActionExp_ == oldChild) {
             setFmlActionExp((PFmlActionExp) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AShortPrimitiveType extends PPrimitiveType
-{
+public final class AShortPrimitiveType extends PPrimitiveType {
     private TTyShort _tyShort_;
 
-    public AShortPrimitiveType()
-    {
+    public AShortPrimitiveType() {
         // Constructor
     }
 
     public AShortPrimitiveType(
-        @SuppressWarnings("hiding") TTyShort _tyShort_)
-    {
+            @SuppressWarnings("hiding") TTyShort _tyShort_) {
         // Constructor
         setTyShort(_tyShort_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AShortPrimitiveType(
-            cloneNode(this._tyShort_));
+                cloneNode(this._tyShort_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAShortPrimitiveType(this);
     }
 
-    public TTyShort getTyShort()
-    {
+    public TTyShort getTyShort() {
         return this._tyShort_;
     }
 
-    public void setTyShort(TTyShort node)
-    {
-        if(this._tyShort_ != null)
-        {
+    public void setTyShort(TTyShort node) {
+        if (this._tyShort_ != null) {
             this._tyShort_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AShortPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tyShort_);
+                + toString(this._tyShort_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tyShort_ == child)
-        {
+        if (this._tyShort_ == child) {
             this._tyShort_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AShortPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tyShort_ == oldChild)
-        {
+        if (this._tyShort_ == oldChild) {
             setTyShort((TTyShort) newChild);
             return;
         }

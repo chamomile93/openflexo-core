@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AStarAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class AStarAssignAssignmentOperator extends PAssignmentOperator {
     private TStarAssign _starAssign_;
 
-    public AStarAssignAssignmentOperator()
-    {
+    public AStarAssignAssignmentOperator() {
         // Constructor
     }
 
     public AStarAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TStarAssign _starAssign_)
-    {
+            @SuppressWarnings("hiding") TStarAssign _starAssign_) {
         // Constructor
         setStarAssign(_starAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AStarAssignAssignmentOperator(
-            cloneNode(this._starAssign_));
+                cloneNode(this._starAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAStarAssignAssignmentOperator(this);
     }
 
-    public TStarAssign getStarAssign()
-    {
+    public TStarAssign getStarAssign() {
         return this._starAssign_;
     }
 
-    public void setStarAssign(TStarAssign node)
-    {
-        if(this._starAssign_ != null)
-        {
+    public void setStarAssign(TStarAssign node) {
+        if (this._starAssign_ != null) {
             this._starAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AStarAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._starAssign_);
+                + toString(this._starAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._starAssign_ == child)
-        {
+        if (this._starAssign_ == child) {
             this._starAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AStarAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._starAssign_ == oldChild)
-        {
+        if (this._starAssign_ == oldChild) {
             setStarAssign((TStarAssign) newChild);
             return;
         }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AMethodInvocationStatementExpression extends PStatementExpression
-{
+public final class AMethodInvocationStatementExpression extends PStatementExpression {
     private PMethodInvocation _methodInvocation_;
 
-    public AMethodInvocationStatementExpression()
-    {
+    public AMethodInvocationStatementExpression() {
         // Constructor
     }
 
     public AMethodInvocationStatementExpression(
-        @SuppressWarnings("hiding") PMethodInvocation _methodInvocation_)
-    {
+            @SuppressWarnings("hiding") PMethodInvocation _methodInvocation_) {
         // Constructor
         setMethodInvocation(_methodInvocation_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AMethodInvocationStatementExpression(
-            cloneNode(this._methodInvocation_));
+                cloneNode(this._methodInvocation_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAMethodInvocationStatementExpression(this);
     }
 
-    public PMethodInvocation getMethodInvocation()
-    {
+    public PMethodInvocation getMethodInvocation() {
         return this._methodInvocation_;
     }
 
-    public void setMethodInvocation(PMethodInvocation node)
-    {
-        if(this._methodInvocation_ != null)
-        {
+    public void setMethodInvocation(PMethodInvocation node) {
+        if (this._methodInvocation_ != null) {
             this._methodInvocation_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AMethodInvocationStatementExpression extends PStatementExpres
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._methodInvocation_);
+                + toString(this._methodInvocation_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._methodInvocation_ == child)
-        {
+        if (this._methodInvocation_ == child) {
             this._methodInvocation_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AMethodInvocationStatementExpression extends PStatementExpres
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._methodInvocation_ == oldChild)
-        {
+        if (this._methodInvocation_ == oldChild) {
             setMethodInvocation((PMethodInvocation) newChild);
             return;
         }

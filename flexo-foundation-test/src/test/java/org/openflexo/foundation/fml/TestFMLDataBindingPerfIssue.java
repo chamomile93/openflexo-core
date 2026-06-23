@@ -1,52 +1,43 @@
 /**
- * 
+ *
  * Copyright (c) 2013-2014, Openflexo
  * Copyright (c) 2012-2012, AgileBirds
- * 
- * This file is part of Connie-core, a component of the software infrastructure 
+ * <p>
+ * This file is part of Connie-core, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,185 +61,186 @@ import org.openflexo.rm.ResourceLocator;
 import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+
+import static org.junit.Assert.*;
+
 /**
  * Test {@link DataBinding} analysis in the context of FML {@link VirtualModel} on which we perform changes
- * 
+ *
  * @author sylvain
  *
  */
 @RunWith(OrderedRunner.class)
 public class TestFMLDataBindingPerfIssue extends OpenflexoTestCase {
 
-	public static final String VIEWPOINT_NAME = "TestViewPoint";
-	public static final String VIEWPOINT_URI = "http://openflexo.org/test/TestViewPoint";
-	public static final String VIRTUAL_MODEL_NAME = "TestVirtualModel";
+    public static final String VIEWPOINT_NAME = "TestViewPoint";
+    public static final String VIEWPOINT_URI = "http://openflexo.org/test/TestViewPoint";
+    public static final String VIRTUAL_MODEL_NAME = "TestVirtualModel";
+    static FlexoEditor editor;
+    static VirtualModel topVirtualModel;
+    static VirtualModel virtualModel;
+    private static DirectoryResourceCenter resourceCenter;
+    private static PrimitiveRole<String> stringProperty1;
+    private static ActionScheme actionScheme;
+    private static DataBinding<String> expr1;
+    private static DataBinding<String> expr2;
 
-	private static DirectoryResourceCenter resourceCenter;
+    public void genericTest(Bindable bindable, String bindingPath, boolean expectedValidity, Type expectedType) {
 
-	static FlexoEditor editor;
-	static VirtualModel topVirtualModel;
-	static VirtualModel virtualModel;
+        DataBinding<?> db = makeBinding(bindable, bindingPath, expectedValidity, expectedType);
+        db.delete();
+    }
 
-	private static PrimitiveRole<String> stringProperty1;
-	private static ActionScheme actionScheme;
+    public DataBinding<?> makeBinding(Bindable bindable, String bindingPath, boolean expectedValidity, Type expectedType) {
 
-	public void genericTest(Bindable bindable, String bindingPath, boolean expectedValidity, Type expectedType) {
+        System.out.println("Evaluate " + bindingPath);
 
-		DataBinding<?> db = makeBinding(bindable, bindingPath, expectedValidity, expectedType);
-		db.delete();
-	}
+        DataBinding<?> dataBinding = new DataBinding<>(bindingPath, bindable, expectedType, DataBinding.BindingDefinitionType.GET);
 
-	public DataBinding<?> makeBinding(Bindable bindable, String bindingPath, boolean expectedValidity, Type expectedType) {
+        if (dataBinding.getExpression() != null) {
+            System.out.println(
+                    "Parsed " + dataBinding + " as " + dataBinding.getExpression() + " of " + dataBinding.getExpression().getClass());
 
-		System.out.println("Evaluate " + bindingPath);
+            assertEquals(expectedValidity, dataBinding.isValid());
 
-		DataBinding<?> dataBinding = new DataBinding<>(bindingPath, bindable, expectedType, DataBinding.BindingDefinitionType.GET);
+            if (dataBinding.isValid()) {
+                assertEquals(expectedType, dataBinding.getAnalyzedType());
+            }
 
-		if (dataBinding.getExpression() != null) {
-			System.out.println(
-					"Parsed " + dataBinding + " as " + dataBinding.getExpression() + " of " + dataBinding.getExpression().getClass());
+            return dataBinding;
 
-			assertEquals(expectedValidity, dataBinding.isValid());
+        }
+        System.out.println("Could not Parse " + dataBinding + " defined as " + dataBinding);
+        fail("Unparseable binding");
+        return null;
+    }
 
-			if (dataBinding.isValid()) {
-				assertEquals(expectedType, dataBinding.getAnalyzedType());
-			}
+    /**
+     * Test the VP creation
+     *
+     * @throws ModelDefinitionException
+     * @throws SaveResourceException
+     * @throws IOException
+     */
+    @Test
+    @TestOrder(1)
+    public void testCreateViewPoint() throws SaveResourceException, ModelDefinitionException, IOException {
+        instanciateTestServiceManager();
 
-			return dataBinding;
+        resourceCenter = makeNewDirectoryResourceCenter();
+        assertNotNull(resourceCenter);
+        System.out.println("ResourceCenter= " + resourceCenter);
 
-		}
-		System.out.println("Could not Parse " + dataBinding + " defined as " + dataBinding);
-		fail("Unparseable binding");
-		return null;
-	}
+        FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
+                .getTechnologyAdapter(FMLTechnologyAdapter.class);
+        CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
 
-	/**
-	 * Test the VP creation
-	 * 
-	 * @throws ModelDefinitionException
-	 * @throws SaveResourceException
-	 * @throws IOException
-	 */
-	@Test
-	@TestOrder(1)
-	public void testCreateViewPoint() throws SaveResourceException, ModelDefinitionException, IOException {
-		instanciateTestServiceManager();
+        CompilationUnitResource newVirtualModelResource = factory.makeTopLevelCompilationUnitResource(VIEWPOINT_NAME, VIEWPOINT_URI,
+                fmlTechnologyAdapter.getGlobalRepository(resourceCenter).getRootFolder(), true);
+        topVirtualModel = newVirtualModelResource.getLoadedResourceData().getVirtualModel();
 
-		resourceCenter = makeNewDirectoryResourceCenter();
-		assertNotNull(resourceCenter);
-		System.out.println("ResourceCenter= " + resourceCenter);
+        assertTrue(topVirtualModel.getResource().getDirectory() != null);
+        assertTrue(topVirtualModel.getResource().getIODelegate().exists());
 
-		FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
-				.getTechnologyAdapter(FMLTechnologyAdapter.class);
-		CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
+        assertEquals(topVirtualModel, topVirtualModel.getDeclaringCompilationUnit().getVirtualModel());
+        assertEquals(null, topVirtualModel.getContainerVirtualModel());
+        assertEquals(topVirtualModel, topVirtualModel.getFlexoConcept());
+        assertEquals(topVirtualModel, topVirtualModel.getResourceData().getVirtualModel());
+    }
 
-		CompilationUnitResource newVirtualModelResource = factory.makeTopLevelCompilationUnitResource(VIEWPOINT_NAME, VIEWPOINT_URI,
-				fmlTechnologyAdapter.getGlobalRepository(resourceCenter).getRootFolder(), true);
-		topVirtualModel = newVirtualModelResource.getLoadedResourceData().getVirtualModel();
+    /**
+     * Test the VirtualModel creation
+     *
+     * @throws ModelDefinitionException
+     */
+    @Test
+    @TestOrder(2)
+    public void testCreateVirtualModel() throws SaveResourceException, ModelDefinitionException {
 
-		assertTrue(topVirtualModel.getResource().getDirectory() != null);
-		assertTrue(topVirtualModel.getResource().getIODelegate().exists());
+        FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
+                .getTechnologyAdapter(FMLTechnologyAdapter.class);
+        CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
+        CompilationUnitResource newVMResource = factory.makeContainedCompilationUnitResource(VIRTUAL_MODEL_NAME,
+                topVirtualModel.getResource(), true);
+        virtualModel = newVMResource.getLoadedResourceData().getVirtualModel();
 
-		assertEquals(topVirtualModel, topVirtualModel.getDeclaringCompilationUnit().getVirtualModel());
-		assertEquals(null, topVirtualModel.getContainerVirtualModel());
-		assertEquals(topVirtualModel, topVirtualModel.getFlexoConcept());
-		assertEquals(topVirtualModel, topVirtualModel.getResourceData().getVirtualModel());
-	}
+        assertTrue(ResourceLocator.retrieveResourceAsFile(virtualModel.getResource().getDirectory()).exists());
+        assertTrue(virtualModel.getResource().getIODelegate().exists());
 
-	/**
-	 * Test the VirtualModel creation
-	 * 
-	 * @throws ModelDefinitionException
-	 */
-	@Test
-	@TestOrder(2)
-	public void testCreateVirtualModel() throws SaveResourceException, ModelDefinitionException {
+        assertSame(topVirtualModel, virtualModel.getContainerVirtualModel());
 
-		FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
-				.getTechnologyAdapter(FMLTechnologyAdapter.class);
-		CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
-		CompilationUnitResource newVMResource = factory.makeContainedCompilationUnitResource(VIRTUAL_MODEL_NAME,
-				topVirtualModel.getResource(), true);
-		virtualModel = newVMResource.getLoadedResourceData().getVirtualModel();
+        assertEquals(virtualModel, virtualModel.getFlexoConcept());
 
-		assertTrue(ResourceLocator.retrieveResourceAsFile(virtualModel.getResource().getDirectory()).exists());
-		assertTrue(virtualModel.getResource().getIODelegate().exists());
+        CreatePrimitiveRole createPR1 = CreatePrimitiveRole.actionType.makeNewAction(virtualModel, null, editor);
+        createPR1.setRoleName("aString");
+        createPR1.setPrimitiveType(PrimitiveType.String);
+        createPR1.doAction();
+        stringProperty1 = (PrimitiveRole<String>) createPR1.getNewFlexoRole();
+        assertNotNull(stringProperty1);
 
-		assertSame(topVirtualModel, virtualModel.getContainerVirtualModel());
+    }
 
-		assertEquals(virtualModel, virtualModel.getFlexoConcept());
+    /**
+     * Test the FlexoConcept creation
+     */
+    @Test
+    @TestOrder(3)
+    public void testCreateEditor() {
+        editor = new DefaultFlexoEditor(null, serviceManager);
+        assertNotNull(editor);
+    }
 
-		CreatePrimitiveRole createPR1 = CreatePrimitiveRole.actionType.makeNewAction(virtualModel, null, editor);
-		createPR1.setRoleName("aString");
-		createPR1.setPrimitiveType(PrimitiveType.String);
-		createPR1.doAction();
-		stringProperty1 = (PrimitiveRole<String>) createPR1.getNewFlexoRole();
-		assertNotNull(stringProperty1);
+    @Test
+    @TestOrder(11)
+    public void testCreateAnActionScheme() {
 
-	}
+        CreateFlexoBehaviour createActionScheme = CreateFlexoBehaviour.actionType.makeNewAction(virtualModel, null, editor);
+        createActionScheme.setFlexoBehaviourClass(ActionScheme.class);
+        createActionScheme.doAction();
+        actionScheme = (ActionScheme) createActionScheme.getNewFlexoBehaviour();
+        assertNotNull(actionScheme);
 
-	/**
-	 * Test the FlexoConcept creation
-	 */
-	@Test
-	@TestOrder(3)
-	public void testCreateEditor() {
-		editor = new DefaultFlexoEditor(null, serviceManager);
-		assertNotNull(editor);
-	}
+        CreateEditionAction createExpressionAction = CreateEditionAction.actionType.makeNewAction(actionScheme.getControlGraph(), null,
+                editor);
+        createExpressionAction.setEditionActionClass(ExpressionAction.class);
+        createExpressionAction.doAction();
+        ExpressionAction<String> expression = (ExpressionAction) createExpressionAction.getNewEditionAction();
+        assertNotNull(expression);
+        expression.setExpression(expr1 = new DataBinding<>("aString"));
+        if (!expr1.isValid()) {
+            System.out.println("Not valid: " + expr1);
+            System.out.println("Reason: " + expr1.invalidBindingReason());
+        }
+        assertTrue(expr1.isValid());
 
-	@Test
-	@TestOrder(11)
-	public void testCreateAnActionScheme() {
+        CreateEditionAction createExpressionAction2 = CreateEditionAction.actionType.makeNewAction(actionScheme.getControlGraph(), null,
+                editor);
+        createExpressionAction2.setEditionActionClass(ExpressionAction.class);
+        createExpressionAction2.doAction();
+        ExpressionAction<String> expression2 = (ExpressionAction) createExpressionAction2.getNewEditionAction();
+        expression2.setExpression(expr2 = new DataBinding<>("aString+\"toto\""));
 
-		CreateFlexoBehaviour createActionScheme = CreateFlexoBehaviour.actionType.makeNewAction(virtualModel, null, editor);
-		createActionScheme.setFlexoBehaviourClass(ActionScheme.class);
-		createActionScheme.doAction();
-		actionScheme = (ActionScheme) createActionScheme.getNewFlexoBehaviour();
-		assertNotNull(actionScheme);
+        assertNotNull(expression2);
+        assertTrue(expr2.isValid());
 
-		CreateEditionAction createExpressionAction = CreateEditionAction.actionType.makeNewAction(actionScheme.getControlGraph(), null,
-				editor);
-		createExpressionAction.setEditionActionClass(ExpressionAction.class);
-		createExpressionAction.doAction();
-		ExpressionAction<String> expression = (ExpressionAction) createExpressionAction.getNewEditionAction();
-		assertNotNull(expression);
-		expression.setExpression(expr1 = new DataBinding<>("aString"));
-		if (!expr1.isValid()) {
-			System.out.println("Not valid: " + expr1);
-			System.out.println("Reason: " + expr1.invalidBindingReason());
-		}
-		assertTrue(expr1.isValid());
+    }
 
-		CreateEditionAction createExpressionAction2 = CreateEditionAction.actionType.makeNewAction(actionScheme.getControlGraph(), null,
-				editor);
-		createExpressionAction2.setEditionActionClass(ExpressionAction.class);
-		createExpressionAction2.doAction();
-		ExpressionAction<String> expression2 = (ExpressionAction) createExpressionAction2.getNewEditionAction();
-		expression2.setExpression(expr2 = new DataBinding<>("aString+\"toto\""));
+    @Test
+    @TestOrder(20)
+    public void testTrivialCase() throws InvalidNameException {
 
-		assertNotNull(expression2);
-		assertTrue(expr2.isValid());
+        System.out.println(virtualModel.getFMLPrettyPrint());
 
-	}
+        stringProperty1.setName("renamedProperty");
 
-	private static DataBinding<String> expr1;
-	private static DataBinding<String> expr2;
+        System.out.println(virtualModel.getFMLPrettyPrint());
 
-	@Test
-	@TestOrder(20)
-	public void testTrivialCase() throws InvalidNameException {
-
-		System.out.println(virtualModel.getFMLPrettyPrint());
-
-		stringProperty1.setName("renamedProperty");
-
-		System.out.println(virtualModel.getFMLPrettyPrint());
-
-		assertTrue(expr1.isValid());
-		assertEquals("renamedProperty", expr1.toString());
-		assertTrue(expr2.isValid());
-		assertEquals("renamedProperty + \"toto\"", expr2.toString());
-	}
+        assertTrue(expr1.isValid());
+        assertEquals("renamedProperty", expr1.toString());
+        assertTrue(expr2.isValid());
+        assertEquals("renamedProperty + \"toto\"", expr2.toString());
+    }
 
 }

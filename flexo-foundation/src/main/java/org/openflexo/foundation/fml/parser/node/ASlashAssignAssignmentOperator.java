@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASlashAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class ASlashAssignAssignmentOperator extends PAssignmentOperator {
     private TSlashAssign _slashAssign_;
 
-    public ASlashAssignAssignmentOperator()
-    {
+    public ASlashAssignAssignmentOperator() {
         // Constructor
     }
 
     public ASlashAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TSlashAssign _slashAssign_)
-    {
+            @SuppressWarnings("hiding") TSlashAssign _slashAssign_) {
         // Constructor
         setSlashAssign(_slashAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASlashAssignAssignmentOperator(
-            cloneNode(this._slashAssign_));
+                cloneNode(this._slashAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASlashAssignAssignmentOperator(this);
     }
 
-    public TSlashAssign getSlashAssign()
-    {
+    public TSlashAssign getSlashAssign() {
         return this._slashAssign_;
     }
 
-    public void setSlashAssign(TSlashAssign node)
-    {
-        if(this._slashAssign_ != null)
-        {
+    public void setSlashAssign(TSlashAssign node) {
+        if (this._slashAssign_ != null) {
             this._slashAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASlashAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._slashAssign_);
+                + toString(this._slashAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._slashAssign_ == child)
-        {
+        if (this._slashAssign_ == child) {
             this._slashAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASlashAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._slashAssign_ == oldChild)
-        {
+        if (this._slashAssign_ == oldChild) {
             setSlashAssign((TSlashAssign) newChild);
             return;
         }

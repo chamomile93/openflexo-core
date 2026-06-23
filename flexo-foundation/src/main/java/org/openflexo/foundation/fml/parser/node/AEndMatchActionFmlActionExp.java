@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AEndMatchActionFmlActionExp extends PFmlActionExp
-{
+public final class AEndMatchActionFmlActionExp extends PFmlActionExp {
     private TKwEnd _kwEnd_;
     private TKwMatch _kwMatch_;
     private TUidentifier _conceptName_;
     private PInClause _inClause_;
     private PAbstractActionClause _abstractActionClause_;
 
-    public AEndMatchActionFmlActionExp()
-    {
+    public AEndMatchActionFmlActionExp() {
         // Constructor
     }
 
     public AEndMatchActionFmlActionExp(
-        @SuppressWarnings("hiding") TKwEnd _kwEnd_,
-        @SuppressWarnings("hiding") TKwMatch _kwMatch_,
-        @SuppressWarnings("hiding") TUidentifier _conceptName_,
-        @SuppressWarnings("hiding") PInClause _inClause_,
-        @SuppressWarnings("hiding") PAbstractActionClause _abstractActionClause_)
-    {
+            @SuppressWarnings("hiding") TKwEnd _kwEnd_,
+            @SuppressWarnings("hiding") TKwMatch _kwMatch_,
+            @SuppressWarnings("hiding") TUidentifier _conceptName_,
+            @SuppressWarnings("hiding") PInClause _inClause_,
+            @SuppressWarnings("hiding") PAbstractActionClause _abstractActionClause_) {
         // Constructor
         setKwEnd(_kwEnd_);
 
@@ -39,38 +36,31 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEndMatchActionFmlActionExp(
-            cloneNode(this._kwEnd_),
-            cloneNode(this._kwMatch_),
-            cloneNode(this._conceptName_),
-            cloneNode(this._inClause_),
-            cloneNode(this._abstractActionClause_));
+                cloneNode(this._kwEnd_),
+                cloneNode(this._kwMatch_),
+                cloneNode(this._conceptName_),
+                cloneNode(this._inClause_),
+                cloneNode(this._abstractActionClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEndMatchActionFmlActionExp(this);
     }
 
-    public TKwEnd getKwEnd()
-    {
+    public TKwEnd getKwEnd() {
         return this._kwEnd_;
     }
 
-    public void setKwEnd(TKwEnd node)
-    {
-        if(this._kwEnd_ != null)
-        {
+    public void setKwEnd(TKwEnd node) {
+        if (this._kwEnd_ != null) {
             this._kwEnd_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
         this._kwEnd_ = node;
     }
 
-    public TKwMatch getKwMatch()
-    {
+    public TKwMatch getKwMatch() {
         return this._kwMatch_;
     }
 
-    public void setKwMatch(TKwMatch node)
-    {
-        if(this._kwMatch_ != null)
-        {
+    public void setKwMatch(TKwMatch node) {
+        if (this._kwMatch_ != null) {
             this._kwMatch_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
         this._kwMatch_ = node;
     }
 
-    public TUidentifier getConceptName()
-    {
+    public TUidentifier getConceptName() {
         return this._conceptName_;
     }
 
-    public void setConceptName(TUidentifier node)
-    {
-        if(this._conceptName_ != null)
-        {
+    public void setConceptName(TUidentifier node) {
+        if (this._conceptName_ != null) {
             this._conceptName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
         this._conceptName_ = node;
     }
 
-    public PInClause getInClause()
-    {
+    public PInClause getInClause() {
         return this._inClause_;
     }
 
-    public void setInClause(PInClause node)
-    {
-        if(this._inClause_ != null)
-        {
+    public void setInClause(PInClause node) {
+        if (this._inClause_ != null) {
             this._inClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
         this._inClause_ = node;
     }
 
-    public PAbstractActionClause getAbstractActionClause()
-    {
+    public PAbstractActionClause getAbstractActionClause() {
         return this._abstractActionClause_;
     }
 
-    public void setAbstractActionClause(PAbstractActionClause node)
-    {
-        if(this._abstractActionClause_ != null)
-        {
+    public void setAbstractActionClause(PAbstractActionClause node) {
+        if (this._abstractActionClause_ != null) {
             this._abstractActionClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwEnd_)
-            + toString(this._kwMatch_)
-            + toString(this._conceptName_)
-            + toString(this._inClause_)
-            + toString(this._abstractActionClause_);
+                + toString(this._kwEnd_)
+                + toString(this._kwMatch_)
+                + toString(this._conceptName_)
+                + toString(this._inClause_)
+                + toString(this._abstractActionClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwEnd_ == child)
-        {
+        if (this._kwEnd_ == child) {
             this._kwEnd_ = null;
             return;
         }
 
-        if(this._kwMatch_ == child)
-        {
+        if (this._kwMatch_ == child) {
             this._kwMatch_ = null;
             return;
         }
 
-        if(this._conceptName_ == child)
-        {
+        if (this._conceptName_ == child) {
             this._conceptName_ = null;
             return;
         }
 
-        if(this._inClause_ == child)
-        {
+        if (this._inClause_ == child) {
             this._inClause_ = null;
             return;
         }
 
-        if(this._abstractActionClause_ == child)
-        {
+        if (this._abstractActionClause_ == child) {
             this._abstractActionClause_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AEndMatchActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwEnd_ == oldChild)
-        {
+        if (this._kwEnd_ == oldChild) {
             setKwEnd((TKwEnd) newChild);
             return;
         }
 
-        if(this._kwMatch_ == oldChild)
-        {
+        if (this._kwMatch_ == oldChild) {
             setKwMatch((TKwMatch) newChild);
             return;
         }
 
-        if(this._conceptName_ == oldChild)
-        {
+        if (this._conceptName_ == oldChild) {
             setConceptName((TUidentifier) newChild);
             return;
         }
 
-        if(this._inClause_ == oldChild)
-        {
+        if (this._inClause_ == oldChild) {
             setInClause((PInClause) newChild);
             return;
         }
 
-        if(this._abstractActionClause_ == oldChild)
-        {
+        if (this._abstractActionClause_ == oldChild) {
             setAbstractActionClause((PAbstractActionClause) newChild);
             return;
         }

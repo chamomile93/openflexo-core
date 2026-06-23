@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TBarAssign extends Token
-{
-    public TBarAssign()
-    {
+public final class TBarAssign extends Token {
+    public TBarAssign() {
         super.setText("|=");
     }
 
-    public TBarAssign(int line, int pos)
-    {
+    public TBarAssign(int line, int pos) {
         super.setText("|=");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TBarAssign(getLine(), getPos());
+    public Object clone() {
+        return new TBarAssign(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTBarAssign(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TBarAssign text.");
     }
 }

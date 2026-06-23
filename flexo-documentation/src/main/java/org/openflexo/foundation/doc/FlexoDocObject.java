@@ -24,65 +24,57 @@ import org.openflexo.foundation.InnerResourceData;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.foundation.technologyadapter.TechnologyObject;
 import org.openflexo.localization.LocalizedDelegate;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ImplementationClass;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Setter;
+import org.openflexo.pamela.annotations.*;
 
 /**
  * This concept provides abstraction for an object involved in generic FlexoDocumentation A.P.I
- * 
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(FlexoDocObject.FlexoDocObjectImpl.class)
 public interface FlexoDocObject<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-		extends TechnologyObject<TA>, InnerResourceData<D> {
+        extends TechnologyObject<TA>, InnerResourceData<D> {
 
-	@PropertyIdentifier(type = FlexoDocument.class)
-	public static final String DOCUMENT_KEY = "document";
+    @PropertyIdentifier(type = FlexoDocument.class)
+    public static final String DOCUMENT_KEY = "document";
 
-	@Getter(value = DOCUMENT_KEY)
-	public D getFlexoDocument();
+    @Getter(value = DOCUMENT_KEY)
+    public D getFlexoDocument();
 
-	@Setter(DOCUMENT_KEY)
-	public void setFlexoDocument(D flexoDocument);
+    @Setter(DOCUMENT_KEY)
+    public void setFlexoDocument(D flexoDocument);
 
-	public static abstract class FlexoDocObjectImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoObjectImpl implements FlexoDocObject<D, TA> {
+    public static abstract class FlexoDocObjectImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoObjectImpl implements FlexoDocObject<D, TA> {
 
-		public FlexoDocObjectImpl() {
-			super();
-		}
+        public FlexoDocObjectImpl() {
+            super();
+        }
 
-		@Override
-		public D getResourceData() {
-			return getFlexoDocument();
-		}
+        @Override
+        public D getResourceData() {
+            return getFlexoDocument();
+        }
 
-		@Override
-		public TA getTechnologyAdapter() {
-			if (getFlexoDocument() != null) {
-				return getFlexoDocument().getTechnologyAdapter();
-			}
-			return null;
-		}
+        @Override
+        public TA getTechnologyAdapter() {
+            if (getFlexoDocument() != null) {
+                return getFlexoDocument().getTechnologyAdapter();
+            }
+            return null;
+        }
 
-		@Override
-		public LocalizedDelegate getLocales() {
-			if (getTechnologyAdapter() != null) {
-				return getTechnologyAdapter().getLocales();
-			}
-			return super.getLocales();
-		}
+        @Override
+        public LocalizedDelegate getLocales() {
+            if (getTechnologyAdapter() != null) {
+                return getTechnologyAdapter().getLocales();
+            }
+            return super.getLocales();
+        }
 
-	}
+    }
 
 }

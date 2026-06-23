@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APreIncrExp extends PPreIncrExp
-{
+public final class APreIncrExp extends PPreIncrExp {
     private TPlusPlus _plusPlus_;
     private PUnaryExp _unaryExp_;
 
-    public APreIncrExp()
-    {
+    public APreIncrExp() {
         // Constructor
     }
 
     public APreIncrExp(
-        @SuppressWarnings("hiding") TPlusPlus _plusPlus_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") TPlusPlus _plusPlus_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setPlusPlus(_plusPlus_);
 
@@ -27,35 +24,28 @@ public final class APreIncrExp extends PPreIncrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APreIncrExp(
-            cloneNode(this._plusPlus_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._plusPlus_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPreIncrExp(this);
     }
 
-    public TPlusPlus getPlusPlus()
-    {
+    public TPlusPlus getPlusPlus() {
         return this._plusPlus_;
     }
 
-    public void setPlusPlus(TPlusPlus node)
-    {
-        if(this._plusPlus_ != null)
-        {
+    public void setPlusPlus(TPlusPlus node) {
+        if (this._plusPlus_ != null) {
             this._plusPlus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APreIncrExp extends PPreIncrExp
         this._plusPlus_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APreIncrExp extends PPreIncrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._plusPlus_)
-            + toString(this._unaryExp_);
+                + toString(this._plusPlus_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._plusPlus_ == child)
-        {
+        if (this._plusPlus_ == child) {
             this._plusPlus_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APreIncrExp extends PPreIncrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._plusPlus_ == oldChild)
-        {
+        if (this._plusPlus_ == oldChild) {
             setPlusPlus((TPlusPlus) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

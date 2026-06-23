@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PQualifiedInstance extends Node
-{
+public abstract class PQualifiedInstance extends Node {
     // Empty body
 }

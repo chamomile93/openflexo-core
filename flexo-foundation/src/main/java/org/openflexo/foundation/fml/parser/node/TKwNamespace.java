@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwNamespace extends Token
-{
-    public TKwNamespace()
-    {
+public final class TKwNamespace extends Token {
+    public TKwNamespace() {
         super.setText("namespace");
     }
 
-    public TKwNamespace(int line, int pos)
-    {
+    public TKwNamespace(int line, int pos) {
         super.setText("namespace");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwNamespace(getLine(), getPos());
+    public Object clone() {
+        return new TKwNamespace(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwNamespace(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwNamespace text.");
     }
 }

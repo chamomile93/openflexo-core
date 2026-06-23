@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PSelectType extends Node
-{
+public abstract class PSelectType extends Node {
     // Empty body
 }

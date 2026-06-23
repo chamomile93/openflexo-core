@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADoubleDotPathPath extends PPath
-{
+public final class ADoubleDotPathPath extends PPath {
     private TDotDot _dotDot_;
     private TSlash _slash_;
     private PPath _path_;
 
-    public ADoubleDotPathPath()
-    {
+    public ADoubleDotPathPath() {
         // Constructor
     }
 
     public ADoubleDotPathPath(
-        @SuppressWarnings("hiding") TDotDot _dotDot_,
-        @SuppressWarnings("hiding") TSlash _slash_,
-        @SuppressWarnings("hiding") PPath _path_)
-    {
+            @SuppressWarnings("hiding") TDotDot _dotDot_,
+            @SuppressWarnings("hiding") TSlash _slash_,
+            @SuppressWarnings("hiding") PPath _path_) {
         // Constructor
         setDotDot(_dotDot_);
 
@@ -31,36 +28,29 @@ public final class ADoubleDotPathPath extends PPath
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADoubleDotPathPath(
-            cloneNode(this._dotDot_),
-            cloneNode(this._slash_),
-            cloneNode(this._path_));
+                cloneNode(this._dotDot_),
+                cloneNode(this._slash_),
+                cloneNode(this._path_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADoubleDotPathPath(this);
     }
 
-    public TDotDot getDotDot()
-    {
+    public TDotDot getDotDot() {
         return this._dotDot_;
     }
 
-    public void setDotDot(TDotDot node)
-    {
-        if(this._dotDot_ != null)
-        {
+    public void setDotDot(TDotDot node) {
+        if (this._dotDot_ != null) {
             this._dotDot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ADoubleDotPathPath extends PPath
         this._dotDot_ = node;
     }
 
-    public TSlash getSlash()
-    {
+    public TSlash getSlash() {
         return this._slash_;
     }
 
-    public void setSlash(TSlash node)
-    {
-        if(this._slash_ != null)
-        {
+    public void setSlash(TSlash node) {
+        if (this._slash_ != null) {
             this._slash_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ADoubleDotPathPath extends PPath
         this._slash_ = node;
     }
 
-    public PPath getPath()
-    {
+    public PPath getPath() {
         return this._path_;
     }
 
-    public void setPath(PPath node)
-    {
-        if(this._path_ != null)
-        {
+    public void setPath(PPath node) {
+        if (this._path_ != null) {
             this._path_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ADoubleDotPathPath extends PPath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._dotDot_)
-            + toString(this._slash_)
-            + toString(this._path_);
+                + toString(this._dotDot_)
+                + toString(this._slash_)
+                + toString(this._path_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._dotDot_ == child)
-        {
+        if (this._dotDot_ == child) {
             this._dotDot_ = null;
             return;
         }
 
-        if(this._slash_ == child)
-        {
+        if (this._slash_ == child) {
             this._slash_ = null;
             return;
         }
 
-        if(this._path_ == child)
-        {
+        if (this._path_ == child) {
             this._path_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ADoubleDotPathPath extends PPath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._dotDot_ == oldChild)
-        {
+        if (this._dotDot_ == oldChild) {
             setDotDot((TDotDot) newChild);
             return;
         }
 
-        if(this._slash_ == oldChild)
-        {
+        if (this._slash_ == oldChild) {
             setSlash((TSlash) newChild);
             return;
         }
 
-        if(this._path_ == oldChild)
-        {
+        if (this._path_ == oldChild) {
             setPath((PPath) newChild);
             return;
         }

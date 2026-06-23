@@ -29,33 +29,29 @@ import org.openflexo.foundation.technologyadapter.TechnologyObject;
 /**
  * Abstract implementation a factory that manages the life-cycle of a given type of {@link TechnologyAdapterResource} managed by a given
  * technology
- * 
- * @author sylvain
  *
- * @param <R>
- *            type of FlexoResource being handled by this factory, implementing both {@link TechnologyAdapterResource} and
- *            {@link PamelaResource}
- * @param <RD>
- *            type of {@link ResourceData} managed by resources (contents of resources)
- * @param <TA>
- *            type of {@link TechnologyAdapter}
+ * @param <R>  type of FlexoResource being handled by this factory, implementing both {@link TechnologyAdapterResource} and
+ *             {@link PamelaResource}
+ * @param <RD> type of {@link ResourceData} managed by resources (contents of resources)
+ * @param <TA> type of {@link TechnologyAdapter}
+ * @author sylvain
  */
 @SuppressWarnings("rawtypes")
 public interface ITechnologySpecificFlexoResourceFactory<R extends TechnologyAdapterResource<RD, TA>, RD extends ResourceData<RD> & TechnologyObject<TA>, TA extends TechnologyAdapter<TA>>
-		extends IFlexoResourceFactory<R, RD> {
+        extends IFlexoResourceFactory<R, RD> {
 
-	public FlexoResourceType getResourceType();
+    public FlexoResourceType getResourceType();
 
-	public Class<TA> getTechnologyAdapterClass();
+    public Class<TA> getTechnologyAdapterClass();
 
-	public TA getTechnologyAdapter(FlexoServiceManager sm);
+    public TA getTechnologyAdapter(FlexoServiceManager sm);
 
-	public TechnologyContextManager<TA> getTechnologyContextManager(FlexoServiceManager sm);
+    public TechnologyContextManager<TA> getTechnologyContextManager(FlexoServiceManager sm);
 
-	@Override
-	public Class<R> getResourceClass();
+    @Override
+    public Class<R> getResourceClass();
 
-	@Override
-	public Class<RD> getResourceDataClass();
+    @Override
+    public Class<RD> getResourceDataClass();
 
 }

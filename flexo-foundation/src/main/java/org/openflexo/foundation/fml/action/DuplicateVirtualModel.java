@@ -1,47 +1,42 @@
 /**
- * 
+ *
  * Copyright (c) 2014-2015, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.action;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Vector;
-import java.util.logging.Logger;
 
 import org.openflexo.foundation.FlexoEditor;
 import org.openflexo.foundation.FlexoObject.FlexoObjectImpl;
@@ -49,11 +44,7 @@ import org.openflexo.foundation.InvalidNameException;
 import org.openflexo.foundation.action.FlexoAction;
 import org.openflexo.foundation.action.FlexoActionFactory;
 import org.openflexo.foundation.action.TechnologySpecificFlexoAction;
-import org.openflexo.foundation.fml.FMLCompilationUnit;
-import org.openflexo.foundation.fml.FMLObject;
-import org.openflexo.foundation.fml.FMLTechnologyAdapter;
-import org.openflexo.foundation.fml.VirtualModel;
-import org.openflexo.foundation.fml.VirtualModelLibrary;
+import org.openflexo.foundation.fml.*;
 import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.fml.rm.CompilationUnitResourceFactory;
 import org.openflexo.foundation.resource.RepositoryFolder;
@@ -62,300 +53,300 @@ import org.openflexo.pamela.exceptions.ModelDefinitionException;
 import org.openflexo.toolbox.JavaUtils;
 import org.openflexo.toolbox.StringUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Vector;
+import java.util.logging.Logger;
+
 public class DuplicateVirtualModel extends FlexoAction<DuplicateVirtualModel, VirtualModel, FMLObject>
-		implements TechnologySpecificFlexoAction<FMLTechnologyAdapter> {
+        implements TechnologySpecificFlexoAction<FMLTechnologyAdapter> {
 
-	private static final Logger logger = Logger.getLogger(DuplicateVirtualModel.class.getPackage().getName());
+    private static final Logger logger = Logger.getLogger(DuplicateVirtualModel.class.getPackage().getName());
 
-	public static FlexoActionFactory<DuplicateVirtualModel, VirtualModel, FMLObject> actionType = new FlexoActionFactory<DuplicateVirtualModel, VirtualModel, FMLObject>(
-			"duplicate", FlexoActionFactory.refactorMenu, FlexoActionFactory.defaultGroup, FlexoActionFactory.NORMAL_ACTION_TYPE) {
+    public static FlexoActionFactory<DuplicateVirtualModel, VirtualModel, FMLObject> actionType = new FlexoActionFactory<DuplicateVirtualModel, VirtualModel, FMLObject>(
+            "duplicate", FlexoActionFactory.refactorMenu, FlexoActionFactory.defaultGroup, FlexoActionFactory.NORMAL_ACTION_TYPE) {
 
-		/**
-		 * Factory method
-		 */
-		@Override
-		public DuplicateVirtualModel makeNewAction(VirtualModel focusedObject, Vector<FMLObject> globalSelection, FlexoEditor editor) {
-			return new DuplicateVirtualModel(focusedObject, globalSelection, editor);
-		}
+        /**
+         * Factory method
+         */
+        @Override
+        public DuplicateVirtualModel makeNewAction(VirtualModel focusedObject, Vector<FMLObject> globalSelection, FlexoEditor editor) {
+            return new DuplicateVirtualModel(focusedObject, globalSelection, editor);
+        }
 
-		@Override
-		public boolean isVisibleForSelection(VirtualModel object, Vector<FMLObject> globalSelection) {
-			return object != null;
-		}
+        @Override
+        public boolean isVisibleForSelection(VirtualModel object, Vector<FMLObject> globalSelection) {
+            return object != null;
+        }
 
-		@Override
-		public boolean isEnabledForSelection(VirtualModel object, Vector<FMLObject> globalSelection) {
-			return object != null;
-		}
+        @Override
+        public boolean isEnabledForSelection(VirtualModel object, Vector<FMLObject> globalSelection) {
+            return object != null;
+        }
 
-	};
+    };
 
-	static {
-		FlexoObjectImpl.addActionForClass(DuplicateVirtualModel.actionType, VirtualModel.class);
-	}
+    static {
+        FlexoObjectImpl.addActionForClass(DuplicateVirtualModel.actionType, VirtualModel.class);
+    }
 
-	private String newVirtualModelName;
-	private String newVirtualModelURI;
-	private String newVirtualModelDescription;
+    private String newVirtualModelName;
+    private String newVirtualModelURI;
+    private String newVirtualModelDescription;
+    private VirtualModel duplicate;
+    private RepositoryFolder<CompilationUnitResource, ?> targetFolder;
+    private CompilationUnitResource targetContainer;
+    DuplicateVirtualModel(VirtualModel focusedObject, Vector<FMLObject> globalSelection, FlexoEditor editor) {
+        super(actionType, focusedObject, globalSelection, editor);
+        newVirtualModelName = focusedObject.getName();
+        newVirtualModelDescription = focusedObject.getDescription();
+        if (!focusedObject.getResource().computeDefaultURI().equals(focusedObject.getURI())) {
+            newVirtualModelURI = focusedObject.getURI();
+        }
+    }
 
-	DuplicateVirtualModel(VirtualModel focusedObject, Vector<FMLObject> globalSelection, FlexoEditor editor) {
-		super(actionType, focusedObject, globalSelection, editor);
-		newVirtualModelName = focusedObject.getName();
-		newVirtualModelDescription = focusedObject.getDescription();
-		if (!focusedObject.getResource().computeDefaultURI().equals(focusedObject.getURI())) {
-			newVirtualModelURI = focusedObject.getURI();
-		}
-	}
+    public RepositoryFolder<CompilationUnitResource, ?> getTargetFolder() {
+        return targetFolder;
+    }
 
-	private VirtualModel duplicate;
-	private RepositoryFolder<CompilationUnitResource, ?> targetFolder;
-	private CompilationUnitResource targetContainer;
+    public void setTargetFolder(RepositoryFolder<CompilationUnitResource, ?> targetFolder) {
+        if ((targetFolder == null && this.targetFolder != null) || (targetFolder != null && !targetFolder.equals(this.targetFolder))) {
+            RepositoryFolder<CompilationUnitResource, ?> oldValue = this.targetFolder;
+            this.targetFolder = targetFolder;
+            getPropertyChangeSupport().firePropertyChange("targetFolder", oldValue, targetFolder);
+        }
+    }
 
-	public RepositoryFolder<CompilationUnitResource, ?> getTargetFolder() {
-		return targetFolder;
-	}
+    public CompilationUnitResource getTargetContainer() {
+        return targetContainer;
+    }
 
-	public void setTargetFolder(RepositoryFolder<CompilationUnitResource, ?> targetFolder) {
-		if ((targetFolder == null && this.targetFolder != null) || (targetFolder != null && !targetFolder.equals(this.targetFolder))) {
-			RepositoryFolder<CompilationUnitResource, ?> oldValue = this.targetFolder;
-			this.targetFolder = targetFolder;
-			getPropertyChangeSupport().firePropertyChange("targetFolder", oldValue, targetFolder);
-		}
-	}
+    public void setTargetContainer(CompilationUnitResource targetContainer) {
+        if ((targetContainer == null && this.targetContainer != null)
+                || (targetContainer != null && !targetContainer.equals(this.targetContainer))) {
+            CompilationUnitResource oldValue = this.targetContainer;
+            this.targetContainer = targetContainer;
+            getPropertyChangeSupport().firePropertyChange("targetContainer", oldValue, targetContainer);
+        }
+    }
 
-	public CompilationUnitResource getTargetContainer() {
-		return targetContainer;
-	}
+    @Override
+    protected void doAction(Object context) throws InvalidNameException {
 
-	public void setTargetContainer(CompilationUnitResource targetContainer) {
-		if ((targetContainer == null && this.targetContainer != null)
-				|| (targetContainer != null && !targetContainer.equals(this.targetContainer))) {
-			CompilationUnitResource oldValue = this.targetContainer;
-			this.targetContainer = targetContainer;
-			getPropertyChangeSupport().firePropertyChange("targetContainer", oldValue, targetContainer);
-		}
-	}
+        // System.out.println("Duplicate " + getFocusedObject());
 
-	@Override
-	protected void doAction(Object context) throws InvalidNameException {
+        getFocusedObject().getCompilationUnit().loadContainedVirtualModelsWhenUnloaded();
 
-		// System.out.println("Duplicate " + getFocusedObject());
+        if (getFocusedObject().getContainerVirtualModel() == null) {
+            RepositoryFolder currentFolder = getFocusedObject().getResource().getResourceCenter()
+                    .getRepositoryFolder(getFocusedObject().getResource());
+            duplicate = duplicateVirtualModel(getFocusedObject(), getTargetFolder() != null ? getTargetFolder() : currentFolder,
+                    getNewVirtualModelName(), getNewVirtualModelURI(), getNewVirtualModelDescription()).getVirtualModel();
+        } else {
+            duplicate = duplicateVirtualModel(getFocusedObject(),
+                    getTargetContainer() != null ? getTargetContainer()
+                            : (CompilationUnitResource) getFocusedObject().getContainerVirtualModel().getResource(),
+                    getNewVirtualModelName(), getNewVirtualModelDescription()).getVirtualModel();
+        }
 
-		getFocusedObject().getCompilationUnit().loadContainedVirtualModelsWhenUnloaded();
+    }
 
-		if (getFocusedObject().getContainerVirtualModel() == null) {
-			RepositoryFolder currentFolder = getFocusedObject().getResource().getResourceCenter()
-					.getRepositoryFolder(getFocusedObject().getResource());
-			duplicate = duplicateVirtualModel(getFocusedObject(), getTargetFolder() != null ? getTargetFolder() : currentFolder,
-					getNewVirtualModelName(), getNewVirtualModelURI(), getNewVirtualModelDescription()).getVirtualModel();
-		}
-		else {
-			duplicate = duplicateVirtualModel(getFocusedObject(),
-					getTargetContainer() != null ? getTargetContainer()
-							: (CompilationUnitResource) getFocusedObject().getContainerVirtualModel().getResource(),
-					getNewVirtualModelName(), getNewVirtualModelDescription()).getVirtualModel();
-		}
+    private FMLCompilationUnit duplicateVirtualModel(VirtualModel source, RepositoryFolder folder, String newName, String newURI,
+                                                     String newDescription) throws InvalidNameException {
 
-	}
+        // System.out.println("Duplicate top-level VM " + source);
 
-	private FMLCompilationUnit duplicateVirtualModel(VirtualModel source, RepositoryFolder folder, String newName, String newURI,
-			String newDescription) throws InvalidNameException {
+        FMLCompilationUnit returned = null;
 
-		// System.out.println("Duplicate top-level VM " + source);
+        CompilationUnitResourceFactory resourceFactory = getFMLTechnologyAdapter().getCompilationUnitResourceFactory();
+        try {
+            CompilationUnitResource virtualModelResource = null;
+            // This is a top-level VM
+            virtualModelResource = resourceFactory.makeTopLevelCompilationUnitResource(newName, null, folder, false);
+            returned = (FMLCompilationUnit) source.getCompilationUnit().cloneObject();
+            System.out.println(source.getFMLModelFactory().stringRepresentation(returned));
+            // Take care to disconnect the resource !
+            returned.setResource(null);
+            returned.setName(newName);
+            returned.getVirtualModel().setURI(newURI);
+            returned.setDescription(newDescription);
+            virtualModelResource.setResourceData(returned);
+            returned.setResource(virtualModelResource);
+            virtualModelResource.save();
 
-		FMLCompilationUnit returned = null;
+            for (VirtualModel virtualModel : source.getVirtualModels()) {
+                duplicateVirtualModel(virtualModel, virtualModelResource, virtualModel.getName(), virtualModel.getDescription());
+            }
 
-		CompilationUnitResourceFactory resourceFactory = getFMLTechnologyAdapter().getCompilationUnitResourceFactory();
-		try {
-			CompilationUnitResource virtualModelResource = null;
-			// This is a top-level VM
-			virtualModelResource = resourceFactory.makeTopLevelCompilationUnitResource(newName, null, folder, false);
-			returned = (FMLCompilationUnit) source.getCompilationUnit().cloneObject();
-			System.out.println(source.getFMLModelFactory().stringRepresentation(returned));
-			// Take care to disconnect the resource !
-			returned.setResource(null);
-			returned.setName(newName);
-			returned.getVirtualModel().setURI(newURI);
-			returned.setDescription(newDescription);
-			virtualModelResource.setResourceData(returned);
-			returned.setResource(virtualModelResource);
-			virtualModelResource.save();
+        } catch (SaveResourceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ModelDefinitionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return returned;
+    }
 
-			for (VirtualModel virtualModel : source.getVirtualModels()) {
-				duplicateVirtualModel(virtualModel, virtualModelResource, virtualModel.getName(), virtualModel.getDescription());
-			}
+    private FMLCompilationUnit duplicateVirtualModel(VirtualModel source, CompilationUnitResource containerResource, String newName,
+                                                     String newDescription) throws InvalidNameException {
 
-		} catch (SaveResourceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ModelDefinitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return returned;
-	}
+        // System.out.println("Duplicate contained VM " + source);
 
-	private FMLCompilationUnit duplicateVirtualModel(VirtualModel source, CompilationUnitResource containerResource, String newName,
-			String newDescription) throws InvalidNameException {
+        FMLCompilationUnit returned = null;
 
-		// System.out.println("Duplicate contained VM " + source);
+        CompilationUnitResourceFactory resourceFactory = getFMLTechnologyAdapter().getCompilationUnitResourceFactory();
+        try {
+            CompilationUnitResource virtualModelResource = null;
+            virtualModelResource = resourceFactory.makeContainedCompilationUnitResource(newName, containerResource, false);
+            returned = (FMLCompilationUnit) source.getCompilationUnit().cloneObject();
+            System.out.println(source.getFMLModelFactory().stringRepresentation(returned));
+            // Take care to disconnect the resource !
+            returned.setResource(null);
+            returned.setName(newName);
+            returned.setDescription(newDescription);
+            virtualModelResource.setResourceData(returned);
+            returned.setResource(virtualModelResource);
+            virtualModelResource.save();
 
-		FMLCompilationUnit returned = null;
+            for (VirtualModel virtualModel : source.getVirtualModels()) {
+                duplicateVirtualModel(virtualModel, virtualModelResource, virtualModel.getName(), virtualModel.getDescription());
+            }
 
-		CompilationUnitResourceFactory resourceFactory = getFMLTechnologyAdapter().getCompilationUnitResourceFactory();
-		try {
-			CompilationUnitResource virtualModelResource = null;
-			virtualModelResource = resourceFactory.makeContainedCompilationUnitResource(newName, containerResource, false);
-			returned = (FMLCompilationUnit) source.getCompilationUnit().cloneObject();
-			System.out.println(source.getFMLModelFactory().stringRepresentation(returned));
-			// Take care to disconnect the resource !
-			returned.setResource(null);
-			returned.setName(newName);
-			returned.setDescription(newDescription);
-			virtualModelResource.setResourceData(returned);
-			returned.setResource(virtualModelResource);
-			virtualModelResource.save();
+        } catch (SaveResourceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ModelDefinitionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return returned;
+    }
 
-			for (VirtualModel virtualModel : source.getVirtualModels()) {
-				duplicateVirtualModel(virtualModel, virtualModelResource, virtualModel.getName(), virtualModel.getDescription());
-			}
+    public VirtualModel getDuplicate() {
+        return duplicate;
+    }
 
-		} catch (SaveResourceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ModelDefinitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return returned;
-	}
+    @Override
+    public Class<? extends FMLTechnologyAdapter> getTechnologyAdapterClass() {
+        return FMLTechnologyAdapter.class;
+    }
 
-	public VirtualModel getDuplicate() {
-		return duplicate;
-	}
+    public FMLTechnologyAdapter getFMLTechnologyAdapter() {
+        return getServiceManager().getTechnologyAdapterService().getTechnologyAdapter(FMLTechnologyAdapter.class);
+    }
 
-	@Override
-	public Class<? extends FMLTechnologyAdapter> getTechnologyAdapterClass() {
-		return FMLTechnologyAdapter.class;
-	}
+    public String getNewVirtualModelName() {
+        return newVirtualModelName;
+    }
 
-	public FMLTechnologyAdapter getFMLTechnologyAdapter() {
-		return getServiceManager().getTechnologyAdapterService().getTechnologyAdapter(FMLTechnologyAdapter.class);
-	}
+    public void setNewVirtualModelName(String newViewPointName) {
+        this.newVirtualModelName = newViewPointName;
+        getPropertyChangeSupport().firePropertyChange("newVirtualModelName", null, newViewPointName);
+        getPropertyChangeSupport().firePropertyChange("newVirtualModelURI", null, getNewVirtualModelURI());
+    }
 
-	public String getNewVirtualModelName() {
-		return newVirtualModelName;
-	}
+    public String getNewVirtualModelDescription() {
+        return newVirtualModelDescription;
+    }
 
-	public void setNewVirtualModelName(String newViewPointName) {
-		this.newVirtualModelName = newViewPointName;
-		getPropertyChangeSupport().firePropertyChange("newVirtualModelName", null, newViewPointName);
-		getPropertyChangeSupport().firePropertyChange("newVirtualModelURI", null, getNewVirtualModelURI());
-	}
+    public void setNewVirtualModelDescription(String newVirtualModelDescription) {
+        this.newVirtualModelDescription = newVirtualModelDescription;
+        getPropertyChangeSupport().firePropertyChange("newVirtualModelDescription", null, newVirtualModelDescription);
+    }
 
-	public String getNewVirtualModelDescription() {
-		return newVirtualModelDescription;
-	}
+    private String getBaseName() {
+        return JavaUtils.getClassName(getNewVirtualModelName());
+    }
 
-	public void setNewVirtualModelDescription(String newVirtualModelDescription) {
-		this.newVirtualModelDescription = newVirtualModelDescription;
-		getPropertyChangeSupport().firePropertyChange("newVirtualModelDescription", null, newVirtualModelDescription);
-	}
+    public String getNewVirtualModelURI() {
+        if (newVirtualModelURI == null) {
+            String baseURI;
+            if (getFocusedObject().getContainerVirtualModel() != null) {
+                VirtualModel containerVirtualModel = (getTargetContainer() != null
+                        ? getTargetContainer().getCompilationUnit().getVirtualModel()
+                        : getFocusedObject().getContainerVirtualModel());
+                // baseURI = getFocusedObject().getOwningVirtualModel().getURI();fds
+                baseURI = containerVirtualModel.getURI();
+            } else {
+                RepositoryFolder currentFolder = getFocusedObject().getResource().getResourceCenter()
+                        .getRepositoryFolder(getFocusedObject().getResource());
+                RepositoryFolder folder = (getTargetFolder() != null ? getTargetFolder() : currentFolder);
+                baseURI = folder.getDefaultBaseURI();
+            }
+            if (!baseURI.endsWith("/")) {
+                baseURI = baseURI + "/";
+            }
+            return baseURI + getBaseName() + CompilationUnitResourceFactory.FML_SUFFIX;
+        }
 
-	private String getBaseName() {
-		return JavaUtils.getClassName(getNewVirtualModelName());
-	}
+        return newVirtualModelURI;
+    }
 
-	public String getNewVirtualModelURI() {
-		if (newVirtualModelURI == null) {
-			String baseURI;
-			if (getFocusedObject().getContainerVirtualModel() != null) {
-				VirtualModel containerVirtualModel = (getTargetContainer() != null
-						? getTargetContainer().getCompilationUnit().getVirtualModel()
-						: getFocusedObject().getContainerVirtualModel());
-				// baseURI = getFocusedObject().getOwningVirtualModel().getURI();fds
-				baseURI = containerVirtualModel.getURI();
-			}
-			else {
-				RepositoryFolder currentFolder = getFocusedObject().getResource().getResourceCenter()
-						.getRepositoryFolder(getFocusedObject().getResource());
-				RepositoryFolder folder = (getTargetFolder() != null ? getTargetFolder() : currentFolder);
-				baseURI = folder.getDefaultBaseURI();
-			}
-			if (!baseURI.endsWith("/")) {
-				baseURI = baseURI + "/";
-			}
-			return baseURI + getBaseName() + CompilationUnitResourceFactory.FML_SUFFIX;
-		}
+    public void setNewVirtualModelURI(String newVirtualModelURI) {
+        this.newVirtualModelURI = newVirtualModelURI;
+        getPropertyChangeSupport().firePropertyChange("newVirtualModelURI", null, newVirtualModelURI);
 
-		return newVirtualModelURI;
-	}
+    }
 
-	public void setNewVirtualModelURI(String newVirtualModelURI) {
-		this.newVirtualModelURI = newVirtualModelURI;
-		getPropertyChangeSupport().firePropertyChange("newVirtualModelURI", null, newVirtualModelURI);
+    public VirtualModelLibrary getVirtualModelLibrary() {
+        return getServiceManager().getVirtualModelLibrary();
+    }
 
-	}
+    public boolean isNewVirtualModelNameValid() {
+        if (StringUtils.isEmpty(getNewVirtualModelName())) {
+            // System.out.println("Empty name: " + getNewVirtualModelName());
+            return false;
+        }
 
-	public VirtualModelLibrary getVirtualModelLibrary() {
-		return getServiceManager().getVirtualModelLibrary();
-	}
+        if (getFocusedObject().getContainerVirtualModel() == null) {
+            RepositoryFolder currentFolder = getFocusedObject().getResource().getResourceCenter()
+                    .getRepositoryFolder(getFocusedObject().getResource());
+            RepositoryFolder folder = (getTargetFolder() != null ? getTargetFolder() : currentFolder);
+            if (folder.getResourceWithName(getNewVirtualModelName()) != null) {
+                return false;
+            }
+        } else {
+            VirtualModel containerVirtualModel = (getTargetContainer() != null ? getTargetContainer().getCompilationUnit().getVirtualModel()
+                    : getFocusedObject().getContainerVirtualModel());
+            if (containerVirtualModel.getVirtualModelNamed(getNewVirtualModelName()) != null) {
+                // System.out.println("Existing resource : " + getNewVirtualModelName() + " in container " + containerVirtualModel);
+                return false;
+            }
+        }
 
-	public boolean isNewVirtualModelNameValid() {
-		if (StringUtils.isEmpty(getNewVirtualModelName())) {
-			// System.out.println("Empty name: " + getNewVirtualModelName());
-			return false;
-		}
+        return true;
+    }
 
-		if (getFocusedObject().getContainerVirtualModel() == null) {
-			RepositoryFolder currentFolder = getFocusedObject().getResource().getResourceCenter()
-					.getRepositoryFolder(getFocusedObject().getResource());
-			RepositoryFolder folder = (getTargetFolder() != null ? getTargetFolder() : currentFolder);
-			if (folder.getResourceWithName(getNewVirtualModelName()) != null) {
-				return false;
-			}
-		}
-		else {
-			VirtualModel containerVirtualModel = (getTargetContainer() != null ? getTargetContainer().getCompilationUnit().getVirtualModel()
-					: getFocusedObject().getContainerVirtualModel());
-			if (containerVirtualModel.getVirtualModelNamed(getNewVirtualModelName()) != null) {
-				// System.out.println("Existing resource : " + getNewVirtualModelName() + " in container " + containerVirtualModel);
-				return false;
-			}
-		}
+    public boolean isNewVirtualModelURIValid() {
+        if (StringUtils.isEmpty(getNewVirtualModelURI())) {
+            return false;
+        }
+        try {
+            new URL(getNewVirtualModelURI());
+        } catch (MalformedURLException e) {
+            return false;
+        }
+        if (getVirtualModelLibrary() == null) {
+            return false;
+        }
+        if (getVirtualModelLibrary().getCompilationUnitResource(getNewVirtualModelURI()) != null) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public boolean isNewVirtualModelURIValid() {
-		if (StringUtils.isEmpty(getNewVirtualModelURI())) {
-			return false;
-		}
-		try {
-			new URL(getNewVirtualModelURI());
-		} catch (MalformedURLException e) {
-			return false;
-		}
-		if (getVirtualModelLibrary() == null) {
-			return false;
-		}
-		if (getVirtualModelLibrary().getCompilationUnitResource(getNewVirtualModelURI()) != null) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
-	public boolean isValid() {
-		if (!isNewVirtualModelNameValid()) {
-			return false;
-		}
-		if (!isNewVirtualModelURIValid()) {
-			// System.out.println("URI not valid: " + getNewVirtualModelURI());
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean isValid() {
+        if (!isNewVirtualModelNameValid()) {
+            return false;
+        }
+        if (!isNewVirtualModelURIValid()) {
+            // System.out.println("URI not valid: " + getNewVirtualModelURI());
+            return false;
+        }
+        return true;
+    }
 
 }

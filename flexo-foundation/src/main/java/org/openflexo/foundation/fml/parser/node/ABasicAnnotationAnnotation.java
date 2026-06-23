@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABasicAnnotationAnnotation extends PAnnotation
-{
+public final class ABasicAnnotationAnnotation extends PAnnotation {
     private TAt _at_;
     private PAnnotationTag _tag_;
 
-    public ABasicAnnotationAnnotation()
-    {
+    public ABasicAnnotationAnnotation() {
         // Constructor
     }
 
     public ABasicAnnotationAnnotation(
-        @SuppressWarnings("hiding") TAt _at_,
-        @SuppressWarnings("hiding") PAnnotationTag _tag_)
-    {
+            @SuppressWarnings("hiding") TAt _at_,
+            @SuppressWarnings("hiding") PAnnotationTag _tag_) {
         // Constructor
         setAt(_at_);
 
@@ -27,35 +24,28 @@ public final class ABasicAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABasicAnnotationAnnotation(
-            cloneNode(this._at_),
-            cloneNode(this._tag_));
+                cloneNode(this._at_),
+                cloneNode(this._tag_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABasicAnnotationAnnotation(this);
     }
 
-    public TAt getAt()
-    {
+    public TAt getAt() {
         return this._at_;
     }
 
-    public void setAt(TAt node)
-    {
-        if(this._at_ != null)
-        {
+    public void setAt(TAt node) {
+        if (this._at_ != null) {
             this._at_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ABasicAnnotationAnnotation extends PAnnotation
         this._at_ = node;
     }
 
-    public PAnnotationTag getTag()
-    {
+    public PAnnotationTag getTag() {
         return this._tag_;
     }
 
-    public void setTag(PAnnotationTag node)
-    {
-        if(this._tag_ != null)
-        {
+    public void setTag(PAnnotationTag node) {
+        if (this._tag_ != null) {
             this._tag_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ABasicAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._at_)
-            + toString(this._tag_);
+                + toString(this._at_)
+                + toString(this._tag_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._at_ == child)
-        {
+        if (this._at_ == child) {
             this._at_ = null;
             return;
         }
 
-        if(this._tag_ == child)
-        {
+        if (this._tag_ == child) {
             this._tag_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ABasicAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._at_ == oldChild)
-        {
+        if (this._at_ == oldChild) {
             setAt((TAt) newChild);
             return;
         }
 
-        if(this._tag_ == oldChild)
-        {
+        if (this._tag_ == oldChild) {
             setTag((PAnnotationTag) newChild);
             return;
         }

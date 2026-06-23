@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ATildeUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
-{
+public final class ATildeUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus {
     private TTilde _tilde_;
     private PUnaryExp _unaryExp_;
 
-    public ATildeUnaryExpNotPlusMinus()
-    {
+    public ATildeUnaryExpNotPlusMinus() {
         // Constructor
     }
 
     public ATildeUnaryExpNotPlusMinus(
-        @SuppressWarnings("hiding") TTilde _tilde_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") TTilde _tilde_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setTilde(_tilde_);
 
@@ -27,35 +24,28 @@ public final class ATildeUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ATildeUnaryExpNotPlusMinus(
-            cloneNode(this._tilde_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._tilde_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseATildeUnaryExpNotPlusMinus(this);
     }
 
-    public TTilde getTilde()
-    {
+    public TTilde getTilde() {
         return this._tilde_;
     }
 
-    public void setTilde(TTilde node)
-    {
-        if(this._tilde_ != null)
-        {
+    public void setTilde(TTilde node) {
+        if (this._tilde_ != null) {
             this._tilde_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ATildeUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
         this._tilde_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ATildeUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tilde_)
-            + toString(this._unaryExp_);
+                + toString(this._tilde_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tilde_ == child)
-        {
+        if (this._tilde_ == child) {
             this._tilde_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ATildeUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tilde_ == oldChild)
-        {
+        if (this._tilde_ == oldChild) {
             setTilde((TTilde) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

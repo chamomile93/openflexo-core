@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABehaviourDeclarationInnerConceptDecl extends PInnerConceptDecl
-{
+public final class ABehaviourDeclarationInnerConceptDecl extends PInnerConceptDecl {
     private PBehaviourDecl _behaviourDecl_;
 
-    public ABehaviourDeclarationInnerConceptDecl()
-    {
+    public ABehaviourDeclarationInnerConceptDecl() {
         // Constructor
     }
 
     public ABehaviourDeclarationInnerConceptDecl(
-        @SuppressWarnings("hiding") PBehaviourDecl _behaviourDecl_)
-    {
+            @SuppressWarnings("hiding") PBehaviourDecl _behaviourDecl_) {
         // Constructor
         setBehaviourDecl(_behaviourDecl_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABehaviourDeclarationInnerConceptDecl(
-            cloneNode(this._behaviourDecl_));
+                cloneNode(this._behaviourDecl_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABehaviourDeclarationInnerConceptDecl(this);
     }
 
-    public PBehaviourDecl getBehaviourDecl()
-    {
+    public PBehaviourDecl getBehaviourDecl() {
         return this._behaviourDecl_;
     }
 
-    public void setBehaviourDecl(PBehaviourDecl node)
-    {
-        if(this._behaviourDecl_ != null)
-        {
+    public void setBehaviourDecl(PBehaviourDecl node) {
+        if (this._behaviourDecl_ != null) {
             this._behaviourDecl_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ABehaviourDeclarationInnerConceptDecl extends PInnerConceptDe
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._behaviourDecl_);
+                + toString(this._behaviourDecl_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._behaviourDecl_ == child)
-        {
+        if (this._behaviourDecl_ == child) {
             this._behaviourDecl_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ABehaviourDeclarationInnerConceptDecl extends PInnerConceptDe
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._behaviourDecl_ == oldChild)
-        {
+        if (this._behaviourDecl_ == oldChild) {
             setBehaviourDecl((PBehaviourDecl) newChild);
             return;
         }

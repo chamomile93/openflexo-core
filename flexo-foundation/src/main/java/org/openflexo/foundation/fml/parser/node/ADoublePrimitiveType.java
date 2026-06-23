@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADoublePrimitiveType extends PPrimitiveType
-{
+public final class ADoublePrimitiveType extends PPrimitiveType {
     private TTyDouble _tyDouble_;
 
-    public ADoublePrimitiveType()
-    {
+    public ADoublePrimitiveType() {
         // Constructor
     }
 
     public ADoublePrimitiveType(
-        @SuppressWarnings("hiding") TTyDouble _tyDouble_)
-    {
+            @SuppressWarnings("hiding") TTyDouble _tyDouble_) {
         // Constructor
         setTyDouble(_tyDouble_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADoublePrimitiveType(
-            cloneNode(this._tyDouble_));
+                cloneNode(this._tyDouble_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADoublePrimitiveType(this);
     }
 
-    public TTyDouble getTyDouble()
-    {
+    public TTyDouble getTyDouble() {
         return this._tyDouble_;
     }
 
-    public void setTyDouble(TTyDouble node)
-    {
-        if(this._tyDouble_ != null)
-        {
+    public void setTyDouble(TTyDouble node) {
+        if (this._tyDouble_ != null) {
             this._tyDouble_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ADoublePrimitiveType extends PPrimitiveType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tyDouble_);
+                + toString(this._tyDouble_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tyDouble_ == child)
-        {
+        if (this._tyDouble_ == child) {
             this._tyDouble_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ADoublePrimitiveType extends PPrimitiveType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tyDouble_ == oldChild)
-        {
+        if (this._tyDouble_ == oldChild) {
             setTyDouble((TTyDouble) newChild);
             return;
         }

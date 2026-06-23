@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AConditionalExpression extends PExpression
-{
+public final class AConditionalExpression extends PExpression {
     private PConditionalExp _conditionalExp_;
 
-    public AConditionalExpression()
-    {
+    public AConditionalExpression() {
         // Constructor
     }
 
     public AConditionalExpression(
-        @SuppressWarnings("hiding") PConditionalExp _conditionalExp_)
-    {
+            @SuppressWarnings("hiding") PConditionalExp _conditionalExp_) {
         // Constructor
         setConditionalExp(_conditionalExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AConditionalExpression(
-            cloneNode(this._conditionalExp_));
+                cloneNode(this._conditionalExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAConditionalExpression(this);
     }
 
-    public PConditionalExp getConditionalExp()
-    {
+    public PConditionalExp getConditionalExp() {
         return this._conditionalExp_;
     }
 
-    public void setConditionalExp(PConditionalExp node)
-    {
-        if(this._conditionalExp_ != null)
-        {
+    public void setConditionalExp(PConditionalExp node) {
+        if (this._conditionalExp_ != null) {
             this._conditionalExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AConditionalExpression extends PExpression
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._conditionalExp_);
+                + toString(this._conditionalExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._conditionalExp_ == child)
-        {
+        if (this._conditionalExp_ == child) {
             this._conditionalExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AConditionalExpression extends PExpression
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._conditionalExp_ == oldChild)
-        {
+        if (this._conditionalExp_ == oldChild) {
             setConditionalExp((PConditionalExp) newChild);
             return;
         }

@@ -1,42 +1,46 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.task;
+
+import org.openflexo.foundation.FlexoService;
+import org.openflexo.foundation.FlexoServiceImpl;
+import org.openflexo.foundation.task.FlexoTask.TaskStatus;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -46,208 +50,202 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.openflexo.foundation.FlexoService;
-import org.openflexo.foundation.FlexoServiceImpl;
-import org.openflexo.foundation.task.FlexoTask.TaskStatus;
-
 public class ThreadPoolFlexoTaskManager extends FlexoServiceImpl implements FlexoTaskManager {
 
-	private static final int DEFAULT_THREAD_POOL_SIZE = 5;
+    private static final int DEFAULT_THREAD_POOL_SIZE = 5;
 
-	private final FlexoThreadFactory threadFactory;
-	private final ExecutorService executor;
+    private final FlexoThreadFactory threadFactory;
+    private final ExecutorService executor;
 
-	private final List<FlexoTask> scheduledTasks;
+    private final List<FlexoTask> scheduledTasks;
 
-	private final PropertyChangeSupport pcSupport;
+    private final PropertyChangeSupport pcSupport;
 
-	public static ThreadPoolFlexoTaskManager createInstance(int threadPoolSize) {
-		return new ThreadPoolFlexoTaskManager(threadPoolSize);
-	}
+    private ThreadPoolFlexoTaskManager(int threadPoolSize) {
 
-	public static ThreadPoolFlexoTaskManager createInstance() {
-		return new ThreadPoolFlexoTaskManager(DEFAULT_THREAD_POOL_SIZE);
-	}
+        pcSupport = new PropertyChangeSupport(this);
 
-	private ThreadPoolFlexoTaskManager(int threadPoolSize) {
+        threadFactory = new FlexoThreadFactory();
 
-		pcSupport = new PropertyChangeSupport(this);
+        executor = new ThreadPoolExecutor(threadPoolSize, threadPoolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
+                threadFactory) {
+            @Override
+            protected synchronized void beforeExecute(Thread t, Runnable r) {
+                if (t instanceof FlexoTaskThread && r instanceof FlexoTask) {
+                    ((FlexoTask) r).startExecution((FlexoTaskThread) t);
+                    logger.fine("Executing " + r + " in thread " + t);
+                }
+            }
 
-		threadFactory = new FlexoThreadFactory();
+            @Override
+            protected synchronized void afterExecute(Runnable task, Throwable t) {
+                if (task instanceof FlexoTask) {
+                    scheduledTasks.remove(task);
+                    getPropertyChangeSupport().firePropertyChange(SCHEDULED_TASK_PROPERTY, task, null);
+                    ((FlexoTask) task).finishedExecution();
+                    logger.fine("Finished executing " + task);
+                    launchReadyToExecuteTasks();
+                }
+            }
+        };
 
-		executor = new ThreadPoolExecutor(threadPoolSize, threadPoolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),
-				threadFactory) {
-			@Override
-			protected synchronized void beforeExecute(Thread t, Runnable r) {
-				if (t instanceof FlexoTaskThread && r instanceof FlexoTask) {
-					((FlexoTask) r).startExecution((FlexoTaskThread) t);
-					logger.fine("Executing " + r + " in thread " + t);
-				}
-			}
+        scheduledTasks = new ArrayList<>();
+    }
 
-			@Override
-			protected synchronized void afterExecute(Runnable task, Throwable t) {
-				if (task instanceof FlexoTask) {
-					scheduledTasks.remove(task);
-					getPropertyChangeSupport().firePropertyChange(SCHEDULED_TASK_PROPERTY, task, null);
-					((FlexoTask) task).finishedExecution();
-					logger.fine("Finished executing " + task);
-					launchReadyToExecuteTasks();
-				}
-			}
-		};
+    public static ThreadPoolFlexoTaskManager createInstance(int threadPoolSize) {
+        return new ThreadPoolFlexoTaskManager(threadPoolSize);
+    }
 
-		scheduledTasks = new ArrayList<>();
-	}
+    public static ThreadPoolFlexoTaskManager createInstance() {
+        return new ThreadPoolFlexoTaskManager(DEFAULT_THREAD_POOL_SIZE);
+    }
 
-	@Override
-	public String getServiceName() {
-		return "ThreadPoolFlexoTaskManager";
-	}
+    @Override
+    public String getServiceName() {
+        return "ThreadPoolFlexoTaskManager";
+    }
 
-	@Override
-	public void initialize() {
-		// Nothing to do
-		logger.info("FlexoTaskManager has been initialized");
-		status = Status.Started;
-	}
+    @Override
+    public void initialize() {
+        // Nothing to do
+        logger.info("FlexoTaskManager has been initialized");
+        status = Status.Started;
+    }
 
-	@Override
-	public PropertyChangeSupport getPropertyChangeSupport() {
-		return pcSupport;
-	}
+    @Override
+    public PropertyChangeSupport getPropertyChangeSupport() {
+        return pcSupport;
+    }
 
-	@Override
-	public String getDeletedProperty() {
-		return null;
-	}
+    @Override
+    public String getDeletedProperty() {
+        return null;
+    }
 
-	/**
-	 * Sequentially execute supplied tasks
-	 * 
-	 * @param tasks
-	 */
-	@Override
-	public synchronized void scheduleExecution(FlexoTask... tasks) {
-		if (isTerminated()) {
-			return;
-		}
-		FlexoTask previous = null;
-		for (FlexoTask task : tasks) {
-			if (previous != null) {
-				task.addToDependantTasks(previous);
-			}
-			scheduledTasks.add(task);
-			getPropertyChangeSupport().firePropertyChange(SCHEDULED_TASK_PROPERTY, null, task);
-			previous = task;
-		}
+    /**
+     * Sequentially execute supplied tasks
+     *
+     * @param tasks
+     */
+    @Override
+    public synchronized void scheduleExecution(FlexoTask... tasks) {
+        if (isTerminated()) {
+            return;
+        }
+        FlexoTask previous = null;
+        for (FlexoTask task : tasks) {
+            if (previous != null) {
+                task.addToDependantTasks(previous);
+            }
+            scheduledTasks.add(task);
+            getPropertyChangeSupport().firePropertyChange(SCHEDULED_TASK_PROPERTY, null, task);
+            previous = task;
+        }
 
-		launchReadyToExecuteTasks();
-	}
+        launchReadyToExecuteTasks();
+    }
 
-	private synchronized void launchReadyToExecuteTasks(FlexoTask... ignoredTasks) {
-		// System.out.println("launchReadyToExecuteTasks()");
-		for (FlexoTask task : new ArrayList<>(getScheduledTasks())) {
-			if (task.isReadyToExecute()) {
-				boolean ignored = false;
-				if (ignoredTasks.length > 0) {
-					for (int i = 0; i < ignoredTasks.length; i++) {
-						FlexoTask ignoredTask = ignoredTasks[i];
-						if (task == ignoredTask) {
-							logger.fine("Ignoring " + task);
-							ignored = true;
-						}
-					}
-				}
-				if (!ignored) {
-					logger.fine("Task " + task + " is ready to execute");
-					task.executionScheduled();
-					executor.execute(task);
-				}
-				else {
-					logger.fine("Task " + task + " is to be ignored");
-				}
-			}
-			else {
-				logger.fine("Task " + task + " is NOT ready to execute");
-			}
-		}
-	}
+    private synchronized void launchReadyToExecuteTasks(FlexoTask... ignoredTasks) {
+        // System.out.println("launchReadyToExecuteTasks()");
+        for (FlexoTask task : new ArrayList<>(getScheduledTasks())) {
+            if (task.isReadyToExecute()) {
+                boolean ignored = false;
+                if (ignoredTasks.length > 0) {
+                    for (int i = 0; i < ignoredTasks.length; i++) {
+                        FlexoTask ignoredTask = ignoredTasks[i];
+                        if (task == ignoredTask) {
+                            logger.fine("Ignoring " + task);
+                            ignored = true;
+                        }
+                    }
+                }
+                if (!ignored) {
+                    logger.fine("Task " + task + " is ready to execute");
+                    task.executionScheduled();
+                    executor.execute(task);
+                } else {
+                    logger.fine("Task " + task + " is to be ignored");
+                }
+            } else {
+                logger.fine("Task " + task + " is NOT ready to execute");
+            }
+        }
+    }
 
-	@Override
-	public void stopExecution(FlexoTask task) {
-		task.stopExecution();
-		// task.getThread().interrupt();
-		// task.finishedExecution();
-		// scheduledTasks.remove(task);
-	}
+    @Override
+    public void stopExecution(FlexoTask task) {
+        task.stopExecution();
+        // task.getThread().interrupt();
+        // task.finishedExecution();
+        // scheduledTasks.remove(task);
+    }
 
-	@Override
-	public boolean isTerminated() {
-		return (executor.isTerminated() && scheduledTasks.size() == 0);
-	}
+    @Override
+    public boolean isTerminated() {
+        return (executor.isTerminated() && scheduledTasks.size() == 0);
+    }
 
-	@Override
-	public void shutdownAndWait() {
-		executor.shutdown();
+    @Override
+    public void shutdownAndWait() {
+        executor.shutdown();
 
-		while (!isTerminated()) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		logger.fine("Finished all threads");
-	}
+        while (!isTerminated()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.fine("Finished all threads");
+    }
 
-	@Override
-	public void stop() {
-		executor.shutdown();
-	}
+    @Override
+    public void stop() {
+        executor.shutdown();
+    }
 
-	@Override
-	public void shutdownAndExecute(final Runnable r) {
-		Thread t = new Thread(() -> {
-			shutdownAndWait();
-			r.run();
-		}, "Shutdown");
-		t.start();
-	}
+    @Override
+    public void shutdownAndExecute(final Runnable r) {
+        Thread t = new Thread(() -> {
+            shutdownAndWait();
+            r.run();
+        }, "Shutdown");
+        t.start();
+    }
 
-	@Override
-	public synchronized List<FlexoTask> getScheduledTasks() {
-		return scheduledTasks;
-	}
+    @Override
+    public synchronized List<FlexoTask> getScheduledTasks() {
+        return scheduledTasks;
+    }
 
-	@Override
-	public void receiveNotification(FlexoService caller, ServiceNotification notification) {
-		// logger.info(getClass().getSimpleName() + " service received notification " + notification + " from " + caller);
-	}
+    @Override
+    public void receiveNotification(FlexoService caller, ServiceNotification notification) {
+        // logger.info(getClass().getSimpleName() + " service received notification " + notification + " from " + caller);
+    }
 
-	// private int i = 0;
+    // private int i = 0;
 
-	@Override
-	public void waitTask(FlexoTask task) {
-		if (task.getTaskStatus() != TaskStatus.WAITING && task.getTaskStatus() != TaskStatus.RUNNING
-				&& task.getTaskStatus() != TaskStatus.READY_TO_EXECUTE) {
-			return;
-		}
-		while (task.getTaskStatus() == TaskStatus.WAITING || task.getTaskStatus() == TaskStatus.RUNNING
-				|| task.getTaskStatus() == TaskStatus.READY_TO_EXECUTE) {
+    @Override
+    public void waitTask(FlexoTask task) {
+        if (task.getTaskStatus() != TaskStatus.WAITING && task.getTaskStatus() != TaskStatus.RUNNING
+                && task.getTaskStatus() != TaskStatus.READY_TO_EXECUTE) {
+            return;
+        }
+        while (task.getTaskStatus() == TaskStatus.WAITING || task.getTaskStatus() == TaskStatus.RUNNING
+                || task.getTaskStatus() == TaskStatus.READY_TO_EXECUTE) {
 
 			/*if (Thread.currentThread() instanceof FlexoTaskThread && i % 10 == 0) {
 				System.out.println("Task " + ((FlexoTaskThread) Thread.currentThread()).getTask() + " beeing waiting task <" + task + "");
 			}*/
 
-			try {
-				Thread.sleep(100);
-				// i++;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		return;
-	}
+            try {
+                Thread.sleep(100);
+                // i++;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return;
+    }
 
 }

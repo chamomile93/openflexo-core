@@ -5,24 +5,21 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AQualifiedWhereClause extends PQualifiedWhereClause
-{
+public final class AQualifiedWhereClause extends PQualifiedWhereClause {
     private TKwWhere _kwWhere_;
     private TLPar _lPar_;
     private PQualifiedArgumentList _qualifiedArgumentList_;
     private TRPar _rPar_;
 
-    public AQualifiedWhereClause()
-    {
+    public AQualifiedWhereClause() {
         // Constructor
     }
 
     public AQualifiedWhereClause(
-        @SuppressWarnings("hiding") TKwWhere _kwWhere_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PQualifiedArgumentList _qualifiedArgumentList_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TKwWhere _kwWhere_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PQualifiedArgumentList _qualifiedArgumentList_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setKwWhere(_kwWhere_);
 
@@ -35,37 +32,30 @@ public final class AQualifiedWhereClause extends PQualifiedWhereClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AQualifiedWhereClause(
-            cloneNode(this._kwWhere_),
-            cloneNode(this._lPar_),
-            cloneNode(this._qualifiedArgumentList_),
-            cloneNode(this._rPar_));
+                cloneNode(this._kwWhere_),
+                cloneNode(this._lPar_),
+                cloneNode(this._qualifiedArgumentList_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAQualifiedWhereClause(this);
     }
 
-    public TKwWhere getKwWhere()
-    {
+    public TKwWhere getKwWhere() {
         return this._kwWhere_;
     }
 
-    public void setKwWhere(TKwWhere node)
-    {
-        if(this._kwWhere_ != null)
-        {
+    public void setKwWhere(TKwWhere node) {
+        if (this._kwWhere_ != null) {
             this._kwWhere_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -75,22 +65,17 @@ public final class AQualifiedWhereClause extends PQualifiedWhereClause
         this._kwWhere_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -100,22 +85,17 @@ public final class AQualifiedWhereClause extends PQualifiedWhereClause
         this._lPar_ = node;
     }
 
-    public PQualifiedArgumentList getQualifiedArgumentList()
-    {
+    public PQualifiedArgumentList getQualifiedArgumentList() {
         return this._qualifiedArgumentList_;
     }
 
-    public void setQualifiedArgumentList(PQualifiedArgumentList node)
-    {
-        if(this._qualifiedArgumentList_ != null)
-        {
+    public void setQualifiedArgumentList(PQualifiedArgumentList node) {
+        if (this._qualifiedArgumentList_ != null) {
             this._qualifiedArgumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -125,22 +105,17 @@ public final class AQualifiedWhereClause extends PQualifiedWhereClause
         this._qualifiedArgumentList_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -151,39 +126,33 @@ public final class AQualifiedWhereClause extends PQualifiedWhereClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwWhere_)
-            + toString(this._lPar_)
-            + toString(this._qualifiedArgumentList_)
-            + toString(this._rPar_);
+                + toString(this._kwWhere_)
+                + toString(this._lPar_)
+                + toString(this._qualifiedArgumentList_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwWhere_ == child)
-        {
+        if (this._kwWhere_ == child) {
             this._kwWhere_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._qualifiedArgumentList_ == child)
-        {
+        if (this._qualifiedArgumentList_ == child) {
             this._qualifiedArgumentList_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -192,29 +161,24 @@ public final class AQualifiedWhereClause extends PQualifiedWhereClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwWhere_ == oldChild)
-        {
+        if (this._kwWhere_ == oldChild) {
             setKwWhere((TKwWhere) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._qualifiedArgumentList_ == oldChild)
-        {
+        if (this._qualifiedArgumentList_ == oldChild) {
             setQualifiedArgumentList((PQualifiedArgumentList) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

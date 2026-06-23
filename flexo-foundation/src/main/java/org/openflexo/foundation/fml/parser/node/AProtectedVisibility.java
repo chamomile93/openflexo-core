@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AProtectedVisibility extends PVisibility
-{
+public final class AProtectedVisibility extends PVisibility {
     private TKwProtected _kwProtected_;
 
-    public AProtectedVisibility()
-    {
+    public AProtectedVisibility() {
         // Constructor
     }
 
     public AProtectedVisibility(
-        @SuppressWarnings("hiding") TKwProtected _kwProtected_)
-    {
+            @SuppressWarnings("hiding") TKwProtected _kwProtected_) {
         // Constructor
         setKwProtected(_kwProtected_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AProtectedVisibility(
-            cloneNode(this._kwProtected_));
+                cloneNode(this._kwProtected_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAProtectedVisibility(this);
     }
 
-    public TKwProtected getKwProtected()
-    {
+    public TKwProtected getKwProtected() {
         return this._kwProtected_;
     }
 
-    public void setKwProtected(TKwProtected node)
-    {
-        if(this._kwProtected_ != null)
-        {
+    public void setKwProtected(TKwProtected node) {
+        if (this._kwProtected_ != null) {
             this._kwProtected_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AProtectedVisibility extends PVisibility
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwProtected_);
+                + toString(this._kwProtected_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwProtected_ == child)
-        {
+        if (this._kwProtected_ == child) {
             this._kwProtected_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AProtectedVisibility extends PVisibility
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwProtected_ == oldChild)
-        {
+        if (this._kwProtected_ == oldChild) {
             setKwProtected((TKwProtected) newChild);
             return;
         }

@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACaretExclusiveOrExp extends PExclusiveOrExp
-{
+public final class ACaretExclusiveOrExp extends PExclusiveOrExp {
     private PExclusiveOrExp _exclusiveOrExp_;
     private TCaret _caret_;
     private PAndExp _andExp_;
 
-    public ACaretExclusiveOrExp()
-    {
+    public ACaretExclusiveOrExp() {
         // Constructor
     }
 
     public ACaretExclusiveOrExp(
-        @SuppressWarnings("hiding") PExclusiveOrExp _exclusiveOrExp_,
-        @SuppressWarnings("hiding") TCaret _caret_,
-        @SuppressWarnings("hiding") PAndExp _andExp_)
-    {
+            @SuppressWarnings("hiding") PExclusiveOrExp _exclusiveOrExp_,
+            @SuppressWarnings("hiding") TCaret _caret_,
+            @SuppressWarnings("hiding") PAndExp _andExp_) {
         // Constructor
         setExclusiveOrExp(_exclusiveOrExp_);
 
@@ -31,36 +28,29 @@ public final class ACaretExclusiveOrExp extends PExclusiveOrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACaretExclusiveOrExp(
-            cloneNode(this._exclusiveOrExp_),
-            cloneNode(this._caret_),
-            cloneNode(this._andExp_));
+                cloneNode(this._exclusiveOrExp_),
+                cloneNode(this._caret_),
+                cloneNode(this._andExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACaretExclusiveOrExp(this);
     }
 
-    public PExclusiveOrExp getExclusiveOrExp()
-    {
+    public PExclusiveOrExp getExclusiveOrExp() {
         return this._exclusiveOrExp_;
     }
 
-    public void setExclusiveOrExp(PExclusiveOrExp node)
-    {
-        if(this._exclusiveOrExp_ != null)
-        {
+    public void setExclusiveOrExp(PExclusiveOrExp node) {
+        if (this._exclusiveOrExp_ != null) {
             this._exclusiveOrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ACaretExclusiveOrExp extends PExclusiveOrExp
         this._exclusiveOrExp_ = node;
     }
 
-    public TCaret getCaret()
-    {
+    public TCaret getCaret() {
         return this._caret_;
     }
 
-    public void setCaret(TCaret node)
-    {
-        if(this._caret_ != null)
-        {
+    public void setCaret(TCaret node) {
+        if (this._caret_ != null) {
             this._caret_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ACaretExclusiveOrExp extends PExclusiveOrExp
         this._caret_ = node;
     }
 
-    public PAndExp getAndExp()
-    {
+    public PAndExp getAndExp() {
         return this._andExp_;
     }
 
-    public void setAndExp(PAndExp node)
-    {
-        if(this._andExp_ != null)
-        {
+    public void setAndExp(PAndExp node) {
+        if (this._andExp_ != null) {
             this._andExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ACaretExclusiveOrExp extends PExclusiveOrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._exclusiveOrExp_)
-            + toString(this._caret_)
-            + toString(this._andExp_);
+                + toString(this._exclusiveOrExp_)
+                + toString(this._caret_)
+                + toString(this._andExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._exclusiveOrExp_ == child)
-        {
+        if (this._exclusiveOrExp_ == child) {
             this._exclusiveOrExp_ = null;
             return;
         }
 
-        if(this._caret_ == child)
-        {
+        if (this._caret_ == child) {
             this._caret_ = null;
             return;
         }
 
-        if(this._andExp_ == child)
-        {
+        if (this._andExp_ == child) {
             this._andExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ACaretExclusiveOrExp extends PExclusiveOrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._exclusiveOrExp_ == oldChild)
-        {
+        if (this._exclusiveOrExp_ == oldChild) {
             setExclusiveOrExp((PExclusiveOrExp) newChild);
             return;
         }
 
-        if(this._caret_ == oldChild)
-        {
+        if (this._caret_ == oldChild) {
             setCaret((TCaret) newChild);
             return;
         }
 
-        if(this._andExp_ == oldChild)
-        {
+        if (this._andExp_ == oldChild) {
             setAndExp((PAndExp) newChild);
             return;
         }

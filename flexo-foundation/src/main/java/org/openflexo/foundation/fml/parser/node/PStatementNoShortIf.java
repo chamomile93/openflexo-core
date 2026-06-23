@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PStatementNoShortIf extends Node
-{
+public abstract class PStatementNoShortIf extends Node {
     // Empty body
 }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASimpleAndExp extends PAndExp
-{
+public final class ASimpleAndExp extends PAndExp {
     private PEqualityExp _equalityExp_;
 
-    public ASimpleAndExp()
-    {
+    public ASimpleAndExp() {
         // Constructor
     }
 
     public ASimpleAndExp(
-        @SuppressWarnings("hiding") PEqualityExp _equalityExp_)
-    {
+            @SuppressWarnings("hiding") PEqualityExp _equalityExp_) {
         // Constructor
         setEqualityExp(_equalityExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASimpleAndExp(
-            cloneNode(this._equalityExp_));
+                cloneNode(this._equalityExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASimpleAndExp(this);
     }
 
-    public PEqualityExp getEqualityExp()
-    {
+    public PEqualityExp getEqualityExp() {
         return this._equalityExp_;
     }
 
-    public void setEqualityExp(PEqualityExp node)
-    {
-        if(this._equalityExp_ != null)
-        {
+    public void setEqualityExp(PEqualityExp node) {
+        if (this._equalityExp_ != null) {
             this._equalityExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASimpleAndExp extends PAndExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._equalityExp_);
+                + toString(this._equalityExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._equalityExp_ == child)
-        {
+        if (this._equalityExp_ == child) {
             this._equalityExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASimpleAndExp extends PAndExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._equalityExp_ == oldChild)
-        {
+        if (this._equalityExp_ == oldChild) {
             setEqualityExp((PEqualityExp) newChild);
             return;
         }

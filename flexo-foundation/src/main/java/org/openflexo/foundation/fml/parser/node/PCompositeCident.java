@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PCompositeCident extends Node
-{
+public abstract class PCompositeCident extends Node {
     // Empty body
 }

@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatementNoShortIf
-{
+public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatementNoShortIf {
     private TKwWhile _kwWhile_;
     private TLPar _lPar_;
     private PExpression _expression_;
     private TRPar _rPar_;
     private PStatementNoShortIf _statementNoShortIf_;
 
-    public AWhileStatementNoShortIfStatementNoShortIf()
-    {
+    public AWhileStatementNoShortIfStatementNoShortIf() {
         // Constructor
     }
 
     public AWhileStatementNoShortIfStatementNoShortIf(
-        @SuppressWarnings("hiding") TKwWhile _kwWhile_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PStatementNoShortIf _statementNoShortIf_)
-    {
+            @SuppressWarnings("hiding") TKwWhile _kwWhile_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PStatementNoShortIf _statementNoShortIf_) {
         // Constructor
         setKwWhile(_kwWhile_);
 
@@ -39,38 +36,31 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AWhileStatementNoShortIfStatementNoShortIf(
-            cloneNode(this._kwWhile_),
-            cloneNode(this._lPar_),
-            cloneNode(this._expression_),
-            cloneNode(this._rPar_),
-            cloneNode(this._statementNoShortIf_));
+                cloneNode(this._kwWhile_),
+                cloneNode(this._lPar_),
+                cloneNode(this._expression_),
+                cloneNode(this._rPar_),
+                cloneNode(this._statementNoShortIf_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAWhileStatementNoShortIfStatementNoShortIf(this);
     }
 
-    public TKwWhile getKwWhile()
-    {
+    public TKwWhile getKwWhile() {
         return this._kwWhile_;
     }
 
-    public void setKwWhile(TKwWhile node)
-    {
-        if(this._kwWhile_ != null)
-        {
+    public void setKwWhile(TKwWhile node) {
+        if (this._kwWhile_ != null) {
             this._kwWhile_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
         this._kwWhile_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
         this._lPar_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
         this._expression_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
         this._rPar_ = node;
     }
 
-    public PStatementNoShortIf getStatementNoShortIf()
-    {
+    public PStatementNoShortIf getStatementNoShortIf() {
         return this._statementNoShortIf_;
     }
 
-    public void setStatementNoShortIf(PStatementNoShortIf node)
-    {
-        if(this._statementNoShortIf_ != null)
-        {
+    public void setStatementNoShortIf(PStatementNoShortIf node) {
+        if (this._statementNoShortIf_ != null) {
             this._statementNoShortIf_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwWhile_)
-            + toString(this._lPar_)
-            + toString(this._expression_)
-            + toString(this._rPar_)
-            + toString(this._statementNoShortIf_);
+                + toString(this._kwWhile_)
+                + toString(this._lPar_)
+                + toString(this._expression_)
+                + toString(this._rPar_)
+                + toString(this._statementNoShortIf_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwWhile_ == child)
-        {
+        if (this._kwWhile_ == child) {
             this._kwWhile_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._statementNoShortIf_ == child)
-        {
+        if (this._statementNoShortIf_ == child) {
             this._statementNoShortIf_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AWhileStatementNoShortIfStatementNoShortIf extends PStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwWhile_ == oldChild)
-        {
+        if (this._kwWhile_ == oldChild) {
             setKwWhile((TKwWhile) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._statementNoShortIf_ == oldChild)
-        {
+        if (this._statementNoShortIf_ == oldChild) {
             setStatementNoShortIf((PStatementNoShortIf) newChild);
             return;
         }

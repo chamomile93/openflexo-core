@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFromClause extends PFromClause
-{
+public final class AFromClause extends PFromClause {
     private TKwFrom _kwFrom_;
     private PExpression _expression_;
 
-    public AFromClause()
-    {
+    public AFromClause() {
         // Constructor
     }
 
     public AFromClause(
-        @SuppressWarnings("hiding") TKwFrom _kwFrom_,
-        @SuppressWarnings("hiding") PExpression _expression_)
-    {
+            @SuppressWarnings("hiding") TKwFrom _kwFrom_,
+            @SuppressWarnings("hiding") PExpression _expression_) {
         // Constructor
         setKwFrom(_kwFrom_);
 
@@ -27,35 +24,28 @@ public final class AFromClause extends PFromClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFromClause(
-            cloneNode(this._kwFrom_),
-            cloneNode(this._expression_));
+                cloneNode(this._kwFrom_),
+                cloneNode(this._expression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFromClause(this);
     }
 
-    public TKwFrom getKwFrom()
-    {
+    public TKwFrom getKwFrom() {
         return this._kwFrom_;
     }
 
-    public void setKwFrom(TKwFrom node)
-    {
-        if(this._kwFrom_ != null)
-        {
+    public void setKwFrom(TKwFrom node) {
+        if (this._kwFrom_ != null) {
             this._kwFrom_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AFromClause extends PFromClause
         this._kwFrom_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AFromClause extends PFromClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwFrom_)
-            + toString(this._expression_);
+                + toString(this._kwFrom_)
+                + toString(this._expression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwFrom_ == child)
-        {
+        if (this._kwFrom_ == child) {
             this._kwFrom_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AFromClause extends PFromClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwFrom_ == oldChild)
-        {
+        if (this._kwFrom_ == oldChild) {
             setKwFrom((TKwFrom) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }

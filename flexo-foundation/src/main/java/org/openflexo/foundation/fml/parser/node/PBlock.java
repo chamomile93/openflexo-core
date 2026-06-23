@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PBlock extends Node
-{
+public abstract class PBlock extends Node {
     // Empty body
 }

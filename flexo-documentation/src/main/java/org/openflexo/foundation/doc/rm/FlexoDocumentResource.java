@@ -29,15 +29,15 @@ import org.openflexo.pamela.annotations.ModelEntity;
 
 /**
  * Abstract representation of a {@link TechnologyAdapterResource} encoding a {@link FlexoDocument}
- * 
+ *
  * @param <D>
  * @param <TA>
  * @param <F>
  */
 @ModelEntity(isAbstract = true)
 public abstract interface FlexoDocumentResource<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>, F extends DocumentFactory<D, TA>>
-		extends TechnologyAdapterResource<D, TA>, PamelaResource<D, F> {
+        extends TechnologyAdapterResource<D, TA>, PamelaResource<D, F> {
 
-	public D getDocument();
+    public D getDocument();
 
 }

@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwWhere extends Token
-{
-    public TKwWhere()
-    {
+public final class TKwWhere extends Token {
+    public TKwWhere() {
         super.setText("where");
     }
 
-    public TKwWhere(int line, int pos)
-    {
+    public TKwWhere(int line, int pos) {
         super.setText("where");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwWhere(getLine(), getPos());
+    public Object clone() {
+        return new TKwWhere(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwWhere(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwWhere text.");
     }
 }

@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TTyFloat extends Token
-{
-    public TTyFloat()
-    {
+public final class TTyFloat extends Token {
+    public TTyFloat() {
         super.setText("float");
     }
 
-    public TTyFloat(int line, int pos)
-    {
+    public TTyFloat(int line, int pos) {
         super.setText("float");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TTyFloat(getLine(), getPos());
+    public Object clone() {
+        return new TTyFloat(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTTyFloat(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TTyFloat text.");
     }
 }

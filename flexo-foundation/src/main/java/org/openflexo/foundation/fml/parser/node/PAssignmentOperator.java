@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PAssignmentOperator extends Node
-{
+public abstract class PAssignmentOperator extends Node {
     // Empty body
 }

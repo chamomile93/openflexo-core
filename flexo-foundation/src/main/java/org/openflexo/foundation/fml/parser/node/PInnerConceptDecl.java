@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PInnerConceptDecl extends Node
-{
+public abstract class PInnerConceptDecl extends Node {
     // Empty body
 }

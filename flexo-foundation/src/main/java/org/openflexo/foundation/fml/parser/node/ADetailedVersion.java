@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADetailedVersion extends PVersion
-{
+public final class ADetailedVersion extends PVersion {
     private TLitFloat _float1_;
     private TLitFloat _float2_;
     private TLidentifier _additional_;
 
-    public ADetailedVersion()
-    {
+    public ADetailedVersion() {
         // Constructor
     }
 
     public ADetailedVersion(
-        @SuppressWarnings("hiding") TLitFloat _float1_,
-        @SuppressWarnings("hiding") TLitFloat _float2_,
-        @SuppressWarnings("hiding") TLidentifier _additional_)
-    {
+            @SuppressWarnings("hiding") TLitFloat _float1_,
+            @SuppressWarnings("hiding") TLitFloat _float2_,
+            @SuppressWarnings("hiding") TLidentifier _additional_) {
         // Constructor
         setFloat1(_float1_);
 
@@ -31,36 +28,29 @@ public final class ADetailedVersion extends PVersion
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADetailedVersion(
-            cloneNode(this._float1_),
-            cloneNode(this._float2_),
-            cloneNode(this._additional_));
+                cloneNode(this._float1_),
+                cloneNode(this._float2_),
+                cloneNode(this._additional_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADetailedVersion(this);
     }
 
-    public TLitFloat getFloat1()
-    {
+    public TLitFloat getFloat1() {
         return this._float1_;
     }
 
-    public void setFloat1(TLitFloat node)
-    {
-        if(this._float1_ != null)
-        {
+    public void setFloat1(TLitFloat node) {
+        if (this._float1_ != null) {
             this._float1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ADetailedVersion extends PVersion
         this._float1_ = node;
     }
 
-    public TLitFloat getFloat2()
-    {
+    public TLitFloat getFloat2() {
         return this._float2_;
     }
 
-    public void setFloat2(TLitFloat node)
-    {
-        if(this._float2_ != null)
-        {
+    public void setFloat2(TLitFloat node) {
+        if (this._float2_ != null) {
             this._float2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ADetailedVersion extends PVersion
         this._float2_ = node;
     }
 
-    public TLidentifier getAdditional()
-    {
+    public TLidentifier getAdditional() {
         return this._additional_;
     }
 
-    public void setAdditional(TLidentifier node)
-    {
-        if(this._additional_ != null)
-        {
+    public void setAdditional(TLidentifier node) {
+        if (this._additional_ != null) {
             this._additional_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ADetailedVersion extends PVersion
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._float1_)
-            + toString(this._float2_)
-            + toString(this._additional_);
+                + toString(this._float1_)
+                + toString(this._float2_)
+                + toString(this._additional_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._float1_ == child)
-        {
+        if (this._float1_ == child) {
             this._float1_ = null;
             return;
         }
 
-        if(this._float2_ == child)
-        {
+        if (this._float2_ == child) {
             this._float2_ = null;
             return;
         }
 
-        if(this._additional_ == child)
-        {
+        if (this._additional_ == child) {
             this._additional_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ADetailedVersion extends PVersion
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._float1_ == oldChild)
-        {
+        if (this._float1_ == oldChild) {
             setFloat1((TLitFloat) newChild);
             return;
         }
 
-        if(this._float2_ == oldChild)
-        {
+        if (this._float2_ == oldChild) {
             setFloat2((TLitFloat) newChild);
             return;
         }
 
-        if(this._additional_ == oldChild)
-        {
+        if (this._additional_ == oldChild) {
             setAdditional((TLidentifier) newChild);
             return;
         }

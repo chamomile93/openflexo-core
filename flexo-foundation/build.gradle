@@ -1,23 +1,23 @@
 dependencies {
-  // openflexo dep
-  api flexoP2PP()
-  api flexoLocalization()
-  api pamela()
-  // Still to be removed
-  implementation flexoGraphicUtils() // used for icon mgt in FlexoConcept
+    // openflexo dep
+    api flexoP2PP()
+    api flexoLocalization()
+    api pamela()
+    // Still to be removed
+    implementation flexoGraphicUtils() // used for icon mgt in FlexoConcept
 
-  // Replacement for java.xml.bind
-  implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-  implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
-  // implementation 'org.alloytools:org.alloytools.alloy.application-6.3.0-SNAPSHOT'
+    // Replacement for java.xml.bind
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    // implementation 'org.alloytools:org.alloytools.alloy.application-6.3.0-SNAPSHOT'
 
-  // external dep
-  api group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
-  api group: 'com.google.inject', name: 'guice', version: '4.2.3'
- // api group: 'findbugs', name: 'annotations', version: '1.0.0'
-  implementation group: 'xerces', name: 'xercesImpl', version: '2.12.2',  {
-       exclude group: "xml-apis", module: "xml-apis"
-  }
+    // external dep
+    api group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.8.0.202006091008-r'
+    api group: 'com.google.inject', name: 'guice', version: '4.2.3'
+    // api group: 'findbugs', name: 'annotations', version: '1.0.0'
+    implementation group: 'xerces', name: 'xercesImpl', version: '2.12.2', {
+        exclude group: "xml-apis", module: "xml-apis"
+    }
 
 }
 

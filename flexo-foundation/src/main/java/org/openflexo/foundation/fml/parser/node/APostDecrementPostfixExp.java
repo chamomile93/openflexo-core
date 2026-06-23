@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APostDecrementPostfixExp extends PPostfixExp
-{
+public final class APostDecrementPostfixExp extends PPostfixExp {
     private PPostDecrExp _postDecrExp_;
 
-    public APostDecrementPostfixExp()
-    {
+    public APostDecrementPostfixExp() {
         // Constructor
     }
 
     public APostDecrementPostfixExp(
-        @SuppressWarnings("hiding") PPostDecrExp _postDecrExp_)
-    {
+            @SuppressWarnings("hiding") PPostDecrExp _postDecrExp_) {
         // Constructor
         setPostDecrExp(_postDecrExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APostDecrementPostfixExp(
-            cloneNode(this._postDecrExp_));
+                cloneNode(this._postDecrExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPostDecrementPostfixExp(this);
     }
 
-    public PPostDecrExp getPostDecrExp()
-    {
+    public PPostDecrExp getPostDecrExp() {
         return this._postDecrExp_;
     }
 
-    public void setPostDecrExp(PPostDecrExp node)
-    {
-        if(this._postDecrExp_ != null)
-        {
+    public void setPostDecrExp(PPostDecrExp node) {
+        if (this._postDecrExp_ != null) {
             this._postDecrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APostDecrementPostfixExp extends PPostfixExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._postDecrExp_);
+                + toString(this._postDecrExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._postDecrExp_ == child)
-        {
+        if (this._postDecrExp_ == child) {
             this._postDecrExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APostDecrementPostfixExp extends PPostfixExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._postDecrExp_ == oldChild)
-        {
+        if (this._postDecrExp_ == oldChild) {
             setPostDecrExp((PPostDecrExp) newChild);
             return;
         }

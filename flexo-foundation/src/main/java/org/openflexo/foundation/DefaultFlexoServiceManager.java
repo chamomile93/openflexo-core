@@ -1,45 +1,43 @@
 /**
- * 
+ *
  * Copyright (c) 2013-2014, Openflexo
  * Copyright (c) 2012-2012, AgileBirds
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation;
-
-import java.util.ServiceLoader;
 
 import org.openflexo.connie.DataBinding;
 import org.openflexo.connie.DataBinding.CachingStrategy;
@@ -52,225 +50,222 @@ import org.openflexo.foundation.nature.ProjectNatureService;
 import org.openflexo.foundation.nature.ScreenshotService;
 import org.openflexo.foundation.project.FlexoProjectImpl.FlexoProjectReferenceLoader;
 import org.openflexo.foundation.project.ProjectLoader;
-import org.openflexo.foundation.resource.DefaultResourceCenterService;
-import org.openflexo.foundation.resource.FlexoResource;
-import org.openflexo.foundation.resource.FlexoResourceCenter;
-import org.openflexo.foundation.resource.FlexoResourceCenterService;
-import org.openflexo.foundation.resource.ResourceManager;
-import org.openflexo.foundation.resource.ResourceRepository;
+import org.openflexo.foundation.resource.*;
 import org.openflexo.foundation.task.FlexoTaskManager;
 import org.openflexo.foundation.task.ThreadPoolFlexoTaskManager;
 import org.openflexo.foundation.technologyadapter.DefaultTechnologyAdapterService;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapterService;
 
+import java.util.ServiceLoader;
+
 /**
  * Default implementation of {@link FlexoServiceManager}
- * 
+ *
  * Provides a {@link FlexoEditor} and a base collection of {@link FlexoService} (for use in headless mode)
- * 
- * 
+ *
+ *
  * @author sylvain
- * 
+ *
  */
 public class DefaultFlexoServiceManager extends FlexoServiceManager {
 
-	private FlexoEditor applicationEditor;
+    private FlexoEditor applicationEditor;
 
-	/**
-	 * Initialize a new {@link DefaultFlexoServiceManager}
-	 * 
-	 * @param localizationRelativePath
-	 *            a String identifying a relative path to use for main localization (such as "FlexoLocalization/MyLocales") of the
-	 *            application
-	 * @param devMode
-	 *            true when 'developer' mode set to true (enable more services)
-	 */
-	public DefaultFlexoServiceManager(String localizationRelativePath, boolean enableDirectoryWatching, boolean devMode) {
+    /**
+     * Initialize a new {@link DefaultFlexoServiceManager}
+     *
+     * @param localizationRelativePath
+     *            a String identifying a relative path to use for main localization (such as "FlexoLocalization/MyLocales") of the
+     *            application
+     * @param devMode
+     *            true when 'developer' mode set to true (enable more services)
+     */
+    public DefaultFlexoServiceManager(String localizationRelativePath, boolean enableDirectoryWatching, boolean devMode) {
 
-		DataBinding.setDefaultCachingStrategy(CachingStrategy.PRAGMATIC_CACHE);
+        DataBinding.setDefaultCachingStrategy(CachingStrategy.PRAGMATIC_CACHE);
 
-		LocalizationService localizationService = createLocalizationService(localizationRelativePath);
-		registerService(localizationService);
+        LocalizationService localizationService = createLocalizationService(localizationRelativePath);
+        registerService(localizationService);
 
-		FlexoEditingContext editingContext = createEditingContext();
-		registerService(editingContext);
+        FlexoEditingContext editingContext = createEditingContext();
+        registerService(editingContext);
 
-		FlexoTaskManager taskManager = createTaskManager();
-		registerService(taskManager);
+        FlexoTaskManager taskManager = createTaskManager();
+        registerService(taskManager);
 
-		ResourceManager resourceManager = createResourceManager();
-		registerService(resourceManager);
-		FlexoProjectReferenceLoader projectReferenceLoader = createProjectReferenceLoader();
-		if (projectReferenceLoader != null) {
-			registerService(projectReferenceLoader);
-		}
+        ResourceManager resourceManager = createResourceManager();
+        registerService(resourceManager);
+        FlexoProjectReferenceLoader projectReferenceLoader = createProjectReferenceLoader();
+        if (projectReferenceLoader != null) {
+            registerService(projectReferenceLoader);
+        }
 
-		ProjectLoader projectLoaderService = createProjectLoaderService();
-		registerService(projectLoaderService);
+        ProjectLoader projectLoaderService = createProjectLoaderService();
+        registerService(projectLoaderService);
 
-		ProjectNatureService projectNatureService = createProjectNatureService();
-		registerService(projectNatureService);
+        ProjectNatureService projectNatureService = createProjectNatureService();
+        registerService(projectNatureService);
 
-		FlexoResourceCenterService resourceCenterService = createResourceCenterService(enableDirectoryWatching);
-		registerService(resourceCenterService);
+        FlexoResourceCenterService resourceCenterService = createResourceCenterService(enableDirectoryWatching);
+        registerService(resourceCenterService);
 
-		TechnologyAdapterService technologyAdapterService = createTechnologyAdapterService(resourceCenterService);
-		registerService(technologyAdapterService);
+        TechnologyAdapterService technologyAdapterService = createTechnologyAdapterService(resourceCenterService);
+        registerService(technologyAdapterService);
 
-		VirtualModelLibrary virtualModelLibrary = createViewPointLibraryService();
-		registerService(virtualModelLibrary);
+        VirtualModelLibrary virtualModelLibrary = createViewPointLibraryService();
+        registerService(virtualModelLibrary);
 
-		ScreenshotService screenshotService = createScreenshotService();
-		registerService(screenshotService);
+        ScreenshotService screenshotService = createScreenshotService();
+        registerService(screenshotService);
 
-		registerAvailableServices();
+        registerAvailableServices();
 
-		applicationEditor = createApplicationEditor();
+        applicationEditor = createApplicationEditor();
 
-	}
+    }
 
-	/**
-	 * Retrieve all services available in the classpath and register them.
-	 * 
-	 * Those services are found using META-INF informations collected in classpath
-	 */
-	@Override
-	protected void registerAvailableServices() {
-		// Load all other services found in the classpath (using java ServiceLoader)
-		// (Those services are found using META-INF informations collected in classpath)
-		ServiceLoader<FlexoService> loader = ServiceLoader.load(FlexoService.class);
+    /**
+     * Retrieve all services available in the classpath and register them.
+     *
+     * Those services are found using META-INF informations collected in classpath
+     */
+    @Override
+    protected void registerAvailableServices() {
+        // Load all other services found in the classpath (using java ServiceLoader)
+        // (Those services are found using META-INF informations collected in classpath)
+        ServiceLoader<FlexoService> loader = ServiceLoader.load(FlexoService.class);
 
-		for (FlexoService service : loader) {
-			logger.info("Register service " + service);
-			registerService(service);
-		}
+        for (FlexoService service : loader) {
+            logger.info("Register service " + service);
+            registerService(service);
+        }
 
-	}
+    }
 
 	/*@Override
 	protected LSPService createLspService() {
 		return LSPService.createInstance();
 	}*/
 
-	@Override
-	protected FlexoEditingContext createEditingContext() {
-		return FlexoEditingContext.createInstance();
-	}
+    @Override
+    protected FlexoEditingContext createEditingContext() {
+        return FlexoEditingContext.createInstance();
+    }
 
-	@Override
-	protected ResourceManager createResourceManager() {
-		return ResourceManager.createInstance();
-	}
+    @Override
+    protected ResourceManager createResourceManager() {
+        return ResourceManager.createInstance();
+    }
 
-	@Override
-	protected FlexoResourceCenterService createResourceCenterService(boolean enableDirectoryWatching) {
-		return DefaultResourceCenterService.getNewInstance(true, false);
-	}
+    @Override
+    protected FlexoResourceCenterService createResourceCenterService(boolean enableDirectoryWatching) {
+        return DefaultResourceCenterService.getNewInstance(true, false);
+    }
 
-	@Override
-	protected TechnologyAdapterService createTechnologyAdapterService(FlexoResourceCenterService resourceCenterService) {
-		return DefaultTechnologyAdapterService.getNewInstance(resourceCenterService);
-	}
+    @Override
+    protected TechnologyAdapterService createTechnologyAdapterService(FlexoResourceCenterService resourceCenterService) {
+        return DefaultTechnologyAdapterService.getNewInstance(resourceCenterService);
+    }
 
-	@Override
-	protected ProjectNatureService createProjectNatureService() {
-		return DefaultProjectNatureService.getNewInstance();
-	}
+    @Override
+    protected ProjectNatureService createProjectNatureService() {
+        return DefaultProjectNatureService.getNewInstance();
+    }
 
-	@Override
-	protected VirtualModelLibrary createViewPointLibraryService() {
-		return new VirtualModelLibrary();
-	}
+    @Override
+    protected VirtualModelLibrary createViewPointLibraryService() {
+        return new VirtualModelLibrary();
+    }
 
-	@Override
-	protected FlexoTaskManager createTaskManager() {
-		return ThreadPoolFlexoTaskManager.createInstance();
-	}
+    @Override
+    protected FlexoTaskManager createTaskManager() {
+        return ThreadPoolFlexoTaskManager.createInstance();
+    }
 
-	@Override
-	protected ScreenshotService createScreenshotService() {
-		return DefaultScreenshotService.createInstance();
-	}
+    @Override
+    protected ScreenshotService createScreenshotService() {
+        return DefaultScreenshotService.createInstance();
+    }
 
-	@Override
-	protected ProjectLoader createProjectLoaderService() {
-		return new ProjectLoader();
-	}
+    @Override
+    protected ProjectLoader createProjectLoaderService() {
+        return new ProjectLoader();
+    }
 
-	@Override
-	protected FlexoProjectReferenceLoader createProjectReferenceLoader() {
-		// Please override
-		return null;
-	}
+    @Override
+    protected FlexoProjectReferenceLoader createProjectReferenceLoader() {
+        // Please override
+        return null;
+    }
 
-	public final FlexoEditor getApplicationEditor() {
-		return applicationEditor;
-	}
+    public final FlexoEditor getApplicationEditor() {
+        return applicationEditor;
+    }
 
-	@Override
-	public FlexoEditor getDefaultEditor() {
-		return getApplicationEditor();
-	}
+    @Override
+    public FlexoEditor getDefaultEditor() {
+        return getApplicationEditor();
+    }
 
-	@Override
-	protected FlexoEditor createApplicationEditor() {
-		// Please override
-		return new DefaultFlexoEditor(null, this);
-	}
+    @Override
+    protected FlexoEditor createApplicationEditor() {
+        // Please override
+        return new DefaultFlexoEditor(null, this);
+    }
 
-	@Override
-	protected LocalizationService createLocalizationService(String relativePath) {
-		LocalizationService returned = new DefaultLocalizationService();
-		returned.setGeneralLocalizerRelativePath(relativePath);
-		return returned;
-	}
+    @Override
+    protected LocalizationService createLocalizationService(String relativePath) {
+        LocalizationService returned = new DefaultLocalizationService();
+        returned.setGeneralLocalizerRelativePath(relativePath);
+        return returned;
+    }
 
-	public String debug() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("**********************************************\n");
-		sb.append("FLEXO SERVICE MANAGER: " + getClass() + "\n");
-		sb.append("**********************************************\n");
-		sb.append("Registered services: " + getRegisteredServices().size() + "\n");
-		for (FlexoService s : getRegisteredServices()) {
-			sb.append("Service: " + s.getClass().getSimpleName() + "\n");
-		}
-		if (getTechnologyAdapterService() != null) {
-			sb.append("**********************************************\n");
-			sb.append("Technology Adapter Service: " + getTechnologyAdapterService().getClass().getSimpleName() + " technology adapters: "
-					+ getTechnologyAdapterService().getTechnologyAdapters().size() + "\n");
-			for (TechnologyAdapter<?> ta : getTechnologyAdapterService().getTechnologyAdapters()) {
-				sb.append("> " + ta.getName() + "\n");
-			}
-		}
-		if (getResourceCenterService() != null) {
-			sb.append("**********************************************\n");
-			sb.append("Resource Center Service: " + getResourceCenterService().getClass().getSimpleName() + " resource centers: "
-					+ getResourceCenterService().getResourceCenters().size() + "\n");
-			for (FlexoResourceCenter<?> rc : getResourceCenterService().getResourceCenters()) {
-				sb.append("> " + rc.getName() + "\n");
-			}
-		}
-		if (getResourceManager() != null) {
-			sb.append("**********************************************\n");
-			sb.append("ResourceManager / Information Space\n");
-			if (getTechnologyAdapterService() != null) {
-				for (TechnologyAdapter<?> ta : getTechnologyAdapterService().getTechnologyAdapters()) {
-					for (ResourceRepository<?, ?> rep : getResourceManager().getAllRepositories(ta)) {
-						System.out.println("Technology adapter: " + ta + " repository: " + rep + "\n");
-						for (FlexoResource<?> r : rep.getAllResources()) {
-							sb.append("> " + r.getURI() + "\n");
-						}
-					}
-				}
-			}
-		}
-		sb.append("**********************************************");
-		return sb.toString();
-	}
+    public String debug() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("**********************************************\n");
+        sb.append("FLEXO SERVICE MANAGER: " + getClass() + "\n");
+        sb.append("**********************************************\n");
+        sb.append("Registered services: " + getRegisteredServices().size() + "\n");
+        for (FlexoService s : getRegisteredServices()) {
+            sb.append("Service: " + s.getClass().getSimpleName() + "\n");
+        }
+        if (getTechnologyAdapterService() != null) {
+            sb.append("**********************************************\n");
+            sb.append("Technology Adapter Service: " + getTechnologyAdapterService().getClass().getSimpleName() + " technology adapters: "
+                    + getTechnologyAdapterService().getTechnologyAdapters().size() + "\n");
+            for (TechnologyAdapter<?> ta : getTechnologyAdapterService().getTechnologyAdapters()) {
+                sb.append("> " + ta.getName() + "\n");
+            }
+        }
+        if (getResourceCenterService() != null) {
+            sb.append("**********************************************\n");
+            sb.append("Resource Center Service: " + getResourceCenterService().getClass().getSimpleName() + " resource centers: "
+                    + getResourceCenterService().getResourceCenters().size() + "\n");
+            for (FlexoResourceCenter<?> rc : getResourceCenterService().getResourceCenters()) {
+                sb.append("> " + rc.getName() + "\n");
+            }
+        }
+        if (getResourceManager() != null) {
+            sb.append("**********************************************\n");
+            sb.append("ResourceManager / Information Space\n");
+            if (getTechnologyAdapterService() != null) {
+                for (TechnologyAdapter<?> ta : getTechnologyAdapterService().getTechnologyAdapters()) {
+                    for (ResourceRepository<?, ?> rep : getResourceManager().getAllRepositories(ta)) {
+                        System.out.println("Technology adapter: " + ta + " repository: " + rep + "\n");
+                        for (FlexoResource<?> r : rep.getAllResources()) {
+                            sb.append("> " + r.getURI() + "\n");
+                        }
+                    }
+                }
+            }
+        }
+        sb.append("**********************************************");
+        return sb.toString();
+    }
 
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "@" + Integer.toHexString(hashCode());
-	}
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "@" + Integer.toHexString(hashCode());
+    }
 }

@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFullQualifiedNewInstance extends PNewInstance
-{
+public final class AFullQualifiedNewInstance extends PNewInstance {
     private PNewContainmentClause _newContainmentClause_;
     private TKwNew _kwNew_;
     private TUidentifier _conceptName_;
@@ -17,22 +16,20 @@ public final class AFullQualifiedNewInstance extends PNewInstance
     private TRPar _rPar_;
     private PPreciseFmlParametersClause _preciseFmlParametersClause_;
 
-    public AFullQualifiedNewInstance()
-    {
+    public AFullQualifiedNewInstance() {
         // Constructor
     }
 
     public AFullQualifiedNewInstance(
-        @SuppressWarnings("hiding") PNewContainmentClause _newContainmentClause_,
-        @SuppressWarnings("hiding") TKwNew _kwNew_,
-        @SuppressWarnings("hiding") TUidentifier _conceptName_,
-        @SuppressWarnings("hiding") TColonColon _colonColon_,
-        @SuppressWarnings("hiding") TLidentifier _constructorName_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PArgumentList _argumentList_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PPreciseFmlParametersClause _preciseFmlParametersClause_)
-    {
+            @SuppressWarnings("hiding") PNewContainmentClause _newContainmentClause_,
+            @SuppressWarnings("hiding") TKwNew _kwNew_,
+            @SuppressWarnings("hiding") TUidentifier _conceptName_,
+            @SuppressWarnings("hiding") TColonColon _colonColon_,
+            @SuppressWarnings("hiding") TLidentifier _constructorName_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PArgumentList _argumentList_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PPreciseFmlParametersClause _preciseFmlParametersClause_) {
         // Constructor
         setNewContainmentClause(_newContainmentClause_);
 
@@ -55,42 +52,35 @@ public final class AFullQualifiedNewInstance extends PNewInstance
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFullQualifiedNewInstance(
-            cloneNode(this._newContainmentClause_),
-            cloneNode(this._kwNew_),
-            cloneNode(this._conceptName_),
-            cloneNode(this._colonColon_),
-            cloneNode(this._constructorName_),
-            cloneNode(this._lPar_),
-            cloneNode(this._argumentList_),
-            cloneNode(this._rPar_),
-            cloneNode(this._preciseFmlParametersClause_));
+                cloneNode(this._newContainmentClause_),
+                cloneNode(this._kwNew_),
+                cloneNode(this._conceptName_),
+                cloneNode(this._colonColon_),
+                cloneNode(this._constructorName_),
+                cloneNode(this._lPar_),
+                cloneNode(this._argumentList_),
+                cloneNode(this._rPar_),
+                cloneNode(this._preciseFmlParametersClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFullQualifiedNewInstance(this);
     }
 
-    public PNewContainmentClause getNewContainmentClause()
-    {
+    public PNewContainmentClause getNewContainmentClause() {
         return this._newContainmentClause_;
     }
 
-    public void setNewContainmentClause(PNewContainmentClause node)
-    {
-        if(this._newContainmentClause_ != null)
-        {
+    public void setNewContainmentClause(PNewContainmentClause node) {
+        if (this._newContainmentClause_ != null) {
             this._newContainmentClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -100,22 +90,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._newContainmentClause_ = node;
     }
 
-    public TKwNew getKwNew()
-    {
+    public TKwNew getKwNew() {
         return this._kwNew_;
     }
 
-    public void setKwNew(TKwNew node)
-    {
-        if(this._kwNew_ != null)
-        {
+    public void setKwNew(TKwNew node) {
+        if (this._kwNew_ != null) {
             this._kwNew_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -125,22 +110,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._kwNew_ = node;
     }
 
-    public TUidentifier getConceptName()
-    {
+    public TUidentifier getConceptName() {
         return this._conceptName_;
     }
 
-    public void setConceptName(TUidentifier node)
-    {
-        if(this._conceptName_ != null)
-        {
+    public void setConceptName(TUidentifier node) {
+        if (this._conceptName_ != null) {
             this._conceptName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -150,22 +130,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._conceptName_ = node;
     }
 
-    public TColonColon getColonColon()
-    {
+    public TColonColon getColonColon() {
         return this._colonColon_;
     }
 
-    public void setColonColon(TColonColon node)
-    {
-        if(this._colonColon_ != null)
-        {
+    public void setColonColon(TColonColon node) {
+        if (this._colonColon_ != null) {
             this._colonColon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -175,22 +150,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._colonColon_ = node;
     }
 
-    public TLidentifier getConstructorName()
-    {
+    public TLidentifier getConstructorName() {
         return this._constructorName_;
     }
 
-    public void setConstructorName(TLidentifier node)
-    {
-        if(this._constructorName_ != null)
-        {
+    public void setConstructorName(TLidentifier node) {
+        if (this._constructorName_ != null) {
             this._constructorName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -200,22 +170,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._constructorName_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -225,22 +190,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._lPar_ = node;
     }
 
-    public PArgumentList getArgumentList()
-    {
+    public PArgumentList getArgumentList() {
         return this._argumentList_;
     }
 
-    public void setArgumentList(PArgumentList node)
-    {
-        if(this._argumentList_ != null)
-        {
+    public void setArgumentList(PArgumentList node) {
+        if (this._argumentList_ != null) {
             this._argumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -250,22 +210,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._argumentList_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -275,22 +230,17 @@ public final class AFullQualifiedNewInstance extends PNewInstance
         this._rPar_ = node;
     }
 
-    public PPreciseFmlParametersClause getPreciseFmlParametersClause()
-    {
+    public PPreciseFmlParametersClause getPreciseFmlParametersClause() {
         return this._preciseFmlParametersClause_;
     }
 
-    public void setPreciseFmlParametersClause(PPreciseFmlParametersClause node)
-    {
-        if(this._preciseFmlParametersClause_ != null)
-        {
+    public void setPreciseFmlParametersClause(PPreciseFmlParametersClause node) {
+        if (this._preciseFmlParametersClause_ != null) {
             this._preciseFmlParametersClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -301,74 +251,63 @@ public final class AFullQualifiedNewInstance extends PNewInstance
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._newContainmentClause_)
-            + toString(this._kwNew_)
-            + toString(this._conceptName_)
-            + toString(this._colonColon_)
-            + toString(this._constructorName_)
-            + toString(this._lPar_)
-            + toString(this._argumentList_)
-            + toString(this._rPar_)
-            + toString(this._preciseFmlParametersClause_);
+                + toString(this._newContainmentClause_)
+                + toString(this._kwNew_)
+                + toString(this._conceptName_)
+                + toString(this._colonColon_)
+                + toString(this._constructorName_)
+                + toString(this._lPar_)
+                + toString(this._argumentList_)
+                + toString(this._rPar_)
+                + toString(this._preciseFmlParametersClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._newContainmentClause_ == child)
-        {
+        if (this._newContainmentClause_ == child) {
             this._newContainmentClause_ = null;
             return;
         }
 
-        if(this._kwNew_ == child)
-        {
+        if (this._kwNew_ == child) {
             this._kwNew_ = null;
             return;
         }
 
-        if(this._conceptName_ == child)
-        {
+        if (this._conceptName_ == child) {
             this._conceptName_ = null;
             return;
         }
 
-        if(this._colonColon_ == child)
-        {
+        if (this._colonColon_ == child) {
             this._colonColon_ = null;
             return;
         }
 
-        if(this._constructorName_ == child)
-        {
+        if (this._constructorName_ == child) {
             this._constructorName_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._argumentList_ == child)
-        {
+        if (this._argumentList_ == child) {
             this._argumentList_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._preciseFmlParametersClause_ == child)
-        {
+        if (this._preciseFmlParametersClause_ == child) {
             this._preciseFmlParametersClause_ = null;
             return;
         }
@@ -377,59 +316,49 @@ public final class AFullQualifiedNewInstance extends PNewInstance
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._newContainmentClause_ == oldChild)
-        {
+        if (this._newContainmentClause_ == oldChild) {
             setNewContainmentClause((PNewContainmentClause) newChild);
             return;
         }
 
-        if(this._kwNew_ == oldChild)
-        {
+        if (this._kwNew_ == oldChild) {
             setKwNew((TKwNew) newChild);
             return;
         }
 
-        if(this._conceptName_ == oldChild)
-        {
+        if (this._conceptName_ == oldChild) {
             setConceptName((TUidentifier) newChild);
             return;
         }
 
-        if(this._colonColon_ == oldChild)
-        {
+        if (this._colonColon_ == oldChild) {
             setColonColon((TColonColon) newChild);
             return;
         }
 
-        if(this._constructorName_ == oldChild)
-        {
+        if (this._constructorName_ == oldChild) {
             setConstructorName((TLidentifier) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._argumentList_ == oldChild)
-        {
+        if (this._argumentList_ == oldChild) {
             setArgumentList((PArgumentList) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._preciseFmlParametersClause_ == oldChild)
-        {
+        if (this._preciseFmlParametersClause_ == oldChild) {
             setPreciseFmlParametersClause((PPreciseFmlParametersClause) newChild);
             return;
         }

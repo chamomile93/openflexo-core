@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADoubleDotPath extends PPath
-{
+public final class ADoubleDotPath extends PPath {
     private TDotDot _dotDot_;
 
-    public ADoubleDotPath()
-    {
+    public ADoubleDotPath() {
         // Constructor
     }
 
     public ADoubleDotPath(
-        @SuppressWarnings("hiding") TDotDot _dotDot_)
-    {
+            @SuppressWarnings("hiding") TDotDot _dotDot_) {
         // Constructor
         setDotDot(_dotDot_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADoubleDotPath(
-            cloneNode(this._dotDot_));
+                cloneNode(this._dotDot_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADoubleDotPath(this);
     }
 
-    public TDotDot getDotDot()
-    {
+    public TDotDot getDotDot() {
         return this._dotDot_;
     }
 
-    public void setDotDot(TDotDot node)
-    {
-        if(this._dotDot_ != null)
-        {
+    public void setDotDot(TDotDot node) {
+        if (this._dotDot_ != null) {
             this._dotDot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ADoubleDotPath extends PPath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._dotDot_);
+                + toString(this._dotDot_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._dotDot_ == child)
-        {
+        if (this._dotDot_ == child) {
             this._dotDot_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ADoubleDotPath extends PPath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._dotDot_ == oldChild)
-        {
+        if (this._dotDot_ == oldChild) {
             setDotDot((TDotDot) newChild);
             return;
         }

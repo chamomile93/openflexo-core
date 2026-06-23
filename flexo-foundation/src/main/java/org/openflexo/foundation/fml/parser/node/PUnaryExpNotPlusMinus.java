@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PUnaryExpNotPlusMinus extends Node
-{
+public abstract class PUnaryExpNotPlusMinus extends Node {
     // Empty body
 }

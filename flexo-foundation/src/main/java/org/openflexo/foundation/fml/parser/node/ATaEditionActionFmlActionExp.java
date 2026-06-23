@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ATaEditionActionFmlActionExp extends PFmlActionExp
-{
+public final class ATaEditionActionFmlActionExp extends PFmlActionExp {
     private TCidentifier _taId_;
     private TColonColon _colonColon_;
     private TUidentifier _editionAction_;
@@ -14,19 +13,17 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
     private PInClause _inClause_;
     private PFromClause _fromClause_;
 
-    public ATaEditionActionFmlActionExp()
-    {
+    public ATaEditionActionFmlActionExp() {
         // Constructor
     }
 
     public ATaEditionActionFmlActionExp(
-        @SuppressWarnings("hiding") TCidentifier _taId_,
-        @SuppressWarnings("hiding") TColonColon _colonColon_,
-        @SuppressWarnings("hiding") TUidentifier _editionAction_,
-        @SuppressWarnings("hiding") PFmlParameters _fmlParameters_,
-        @SuppressWarnings("hiding") PInClause _inClause_,
-        @SuppressWarnings("hiding") PFromClause _fromClause_)
-    {
+            @SuppressWarnings("hiding") TCidentifier _taId_,
+            @SuppressWarnings("hiding") TColonColon _colonColon_,
+            @SuppressWarnings("hiding") TUidentifier _editionAction_,
+            @SuppressWarnings("hiding") PFmlParameters _fmlParameters_,
+            @SuppressWarnings("hiding") PInClause _inClause_,
+            @SuppressWarnings("hiding") PFromClause _fromClause_) {
         // Constructor
         setTaId(_taId_);
 
@@ -43,39 +40,32 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ATaEditionActionFmlActionExp(
-            cloneNode(this._taId_),
-            cloneNode(this._colonColon_),
-            cloneNode(this._editionAction_),
-            cloneNode(this._fmlParameters_),
-            cloneNode(this._inClause_),
-            cloneNode(this._fromClause_));
+                cloneNode(this._taId_),
+                cloneNode(this._colonColon_),
+                cloneNode(this._editionAction_),
+                cloneNode(this._fmlParameters_),
+                cloneNode(this._inClause_),
+                cloneNode(this._fromClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseATaEditionActionFmlActionExp(this);
     }
 
-    public TCidentifier getTaId()
-    {
+    public TCidentifier getTaId() {
         return this._taId_;
     }
 
-    public void setTaId(TCidentifier node)
-    {
-        if(this._taId_ != null)
-        {
+    public void setTaId(TCidentifier node) {
+        if (this._taId_ != null) {
             this._taId_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
         this._taId_ = node;
     }
 
-    public TColonColon getColonColon()
-    {
+    public TColonColon getColonColon() {
         return this._colonColon_;
     }
 
-    public void setColonColon(TColonColon node)
-    {
-        if(this._colonColon_ != null)
-        {
+    public void setColonColon(TColonColon node) {
+        if (this._colonColon_ != null) {
             this._colonColon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
         this._colonColon_ = node;
     }
 
-    public TUidentifier getEditionAction()
-    {
+    public TUidentifier getEditionAction() {
         return this._editionAction_;
     }
 
-    public void setEditionAction(TUidentifier node)
-    {
-        if(this._editionAction_ != null)
-        {
+    public void setEditionAction(TUidentifier node) {
+        if (this._editionAction_ != null) {
             this._editionAction_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
         this._editionAction_ = node;
     }
 
-    public PFmlParameters getFmlParameters()
-    {
+    public PFmlParameters getFmlParameters() {
         return this._fmlParameters_;
     }
 
-    public void setFmlParameters(PFmlParameters node)
-    {
-        if(this._fmlParameters_ != null)
-        {
+    public void setFmlParameters(PFmlParameters node) {
+        if (this._fmlParameters_ != null) {
             this._fmlParameters_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
         this._fmlParameters_ = node;
     }
 
-    public PInClause getInClause()
-    {
+    public PInClause getInClause() {
         return this._inClause_;
     }
 
-    public void setInClause(PInClause node)
-    {
-        if(this._inClause_ != null)
-        {
+    public void setInClause(PInClause node) {
+        if (this._inClause_ != null) {
             this._inClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
         this._inClause_ = node;
     }
 
-    public PFromClause getFromClause()
-    {
+    public PFromClause getFromClause() {
         return this._fromClause_;
     }
 
-    public void setFromClause(PFromClause node)
-    {
-        if(this._fromClause_ != null)
-        {
+    public void setFromClause(PFromClause node) {
+        if (this._fromClause_ != null) {
             this._fromClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._taId_)
-            + toString(this._colonColon_)
-            + toString(this._editionAction_)
-            + toString(this._fmlParameters_)
-            + toString(this._inClause_)
-            + toString(this._fromClause_);
+                + toString(this._taId_)
+                + toString(this._colonColon_)
+                + toString(this._editionAction_)
+                + toString(this._fmlParameters_)
+                + toString(this._inClause_)
+                + toString(this._fromClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._taId_ == child)
-        {
+        if (this._taId_ == child) {
             this._taId_ = null;
             return;
         }
 
-        if(this._colonColon_ == child)
-        {
+        if (this._colonColon_ == child) {
             this._colonColon_ = null;
             return;
         }
 
-        if(this._editionAction_ == child)
-        {
+        if (this._editionAction_ == child) {
             this._editionAction_ = null;
             return;
         }
 
-        if(this._fmlParameters_ == child)
-        {
+        if (this._fmlParameters_ == child) {
             this._fmlParameters_ = null;
             return;
         }
 
-        if(this._inClause_ == child)
-        {
+        if (this._inClause_ == child) {
             this._inClause_ = null;
             return;
         }
 
-        if(this._fromClause_ == child)
-        {
+        if (this._fromClause_ == child) {
             this._fromClause_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class ATaEditionActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._taId_ == oldChild)
-        {
+        if (this._taId_ == oldChild) {
             setTaId((TCidentifier) newChild);
             return;
         }
 
-        if(this._colonColon_ == oldChild)
-        {
+        if (this._colonColon_ == oldChild) {
             setColonColon((TColonColon) newChild);
             return;
         }
 
-        if(this._editionAction_ == oldChild)
-        {
+        if (this._editionAction_ == oldChild) {
             setEditionAction((TUidentifier) newChild);
             return;
         }
 
-        if(this._fmlParameters_ == oldChild)
-        {
+        if (this._fmlParameters_ == oldChild) {
             setFmlParameters((PFmlParameters) newChild);
             return;
         }
 
-        if(this._inClause_ == oldChild)
-        {
+        if (this._inClause_ == oldChild) {
             setInClause((PInClause) newChild);
             return;
         }
 
-        if(this._fromClause_ == oldChild)
-        {
+        if (this._fromClause_ == oldChild) {
             setFromClause((PFromClause) newChild);
             return;
         }

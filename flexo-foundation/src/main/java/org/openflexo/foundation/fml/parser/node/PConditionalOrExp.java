@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PConditionalOrExp extends Node
-{
+public abstract class PConditionalOrExp extends Node {
     // Empty body
 }

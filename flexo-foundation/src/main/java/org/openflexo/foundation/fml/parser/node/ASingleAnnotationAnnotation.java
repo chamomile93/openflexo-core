@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASingleAnnotationAnnotation extends PAnnotation
-{
+public final class ASingleAnnotationAnnotation extends PAnnotation {
     private TAt _at_;
     private PAnnotationTag _tag_;
     private TLPar _lPar_;
     private PConditionalExp _conditionalExp_;
     private TRPar _rPar_;
 
-    public ASingleAnnotationAnnotation()
-    {
+    public ASingleAnnotationAnnotation() {
         // Constructor
     }
 
     public ASingleAnnotationAnnotation(
-        @SuppressWarnings("hiding") TAt _at_,
-        @SuppressWarnings("hiding") PAnnotationTag _tag_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PConditionalExp _conditionalExp_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TAt _at_,
+            @SuppressWarnings("hiding") PAnnotationTag _tag_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PConditionalExp _conditionalExp_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setAt(_at_);
 
@@ -39,38 +36,31 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASingleAnnotationAnnotation(
-            cloneNode(this._at_),
-            cloneNode(this._tag_),
-            cloneNode(this._lPar_),
-            cloneNode(this._conditionalExp_),
-            cloneNode(this._rPar_));
+                cloneNode(this._at_),
+                cloneNode(this._tag_),
+                cloneNode(this._lPar_),
+                cloneNode(this._conditionalExp_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASingleAnnotationAnnotation(this);
     }
 
-    public TAt getAt()
-    {
+    public TAt getAt() {
         return this._at_;
     }
 
-    public void setAt(TAt node)
-    {
-        if(this._at_ != null)
-        {
+    public void setAt(TAt node) {
+        if (this._at_ != null) {
             this._at_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
         this._at_ = node;
     }
 
-    public PAnnotationTag getTag()
-    {
+    public PAnnotationTag getTag() {
         return this._tag_;
     }
 
-    public void setTag(PAnnotationTag node)
-    {
-        if(this._tag_ != null)
-        {
+    public void setTag(PAnnotationTag node) {
+        if (this._tag_ != null) {
             this._tag_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
         this._tag_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
         this._lPar_ = node;
     }
 
-    public PConditionalExp getConditionalExp()
-    {
+    public PConditionalExp getConditionalExp() {
         return this._conditionalExp_;
     }
 
-    public void setConditionalExp(PConditionalExp node)
-    {
-        if(this._conditionalExp_ != null)
-        {
+    public void setConditionalExp(PConditionalExp node) {
+        if (this._conditionalExp_ != null) {
             this._conditionalExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
         this._conditionalExp_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._at_)
-            + toString(this._tag_)
-            + toString(this._lPar_)
-            + toString(this._conditionalExp_)
-            + toString(this._rPar_);
+                + toString(this._at_)
+                + toString(this._tag_)
+                + toString(this._lPar_)
+                + toString(this._conditionalExp_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._at_ == child)
-        {
+        if (this._at_ == child) {
             this._at_ = null;
             return;
         }
 
-        if(this._tag_ == child)
-        {
+        if (this._tag_ == child) {
             this._tag_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._conditionalExp_ == child)
-        {
+        if (this._conditionalExp_ == child) {
             this._conditionalExp_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class ASingleAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._at_ == oldChild)
-        {
+        if (this._at_ == oldChild) {
             setAt((TAt) newChild);
             return;
         }
 
-        if(this._tag_ == oldChild)
-        {
+        if (this._tag_ == oldChild) {
             setTag((PAnnotationTag) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._conditionalExp_ == oldChild)
-        {
+        if (this._conditionalExp_ == oldChild) {
             setConditionalExp((PConditionalExp) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

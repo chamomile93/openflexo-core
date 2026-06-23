@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrimaryNoIdPrimary extends PPrimary
-{
+public final class APrimaryNoIdPrimary extends PPrimary {
     private PPrimaryNoId _primaryNoId_;
 
-    public APrimaryNoIdPrimary()
-    {
+    public APrimaryNoIdPrimary() {
         // Constructor
     }
 
     public APrimaryNoIdPrimary(
-        @SuppressWarnings("hiding") PPrimaryNoId _primaryNoId_)
-    {
+            @SuppressWarnings("hiding") PPrimaryNoId _primaryNoId_) {
         // Constructor
         setPrimaryNoId(_primaryNoId_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrimaryNoIdPrimary(
-            cloneNode(this._primaryNoId_));
+                cloneNode(this._primaryNoId_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrimaryNoIdPrimary(this);
     }
 
-    public PPrimaryNoId getPrimaryNoId()
-    {
+    public PPrimaryNoId getPrimaryNoId() {
         return this._primaryNoId_;
     }
 
-    public void setPrimaryNoId(PPrimaryNoId node)
-    {
-        if(this._primaryNoId_ != null)
-        {
+    public void setPrimaryNoId(PPrimaryNoId node) {
+        if (this._primaryNoId_ != null) {
             this._primaryNoId_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APrimaryNoIdPrimary extends PPrimary
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._primaryNoId_);
+                + toString(this._primaryNoId_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._primaryNoId_ == child)
-        {
+        if (this._primaryNoId_ == child) {
             this._primaryNoId_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APrimaryNoIdPrimary extends PPrimary
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._primaryNoId_ == oldChild)
-        {
+        if (this._primaryNoId_ == oldChild) {
             setPrimaryNoId((PPrimaryNoId) newChild);
             return;
         }

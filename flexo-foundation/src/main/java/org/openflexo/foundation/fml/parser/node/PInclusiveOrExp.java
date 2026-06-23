@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PInclusiveOrExp extends Node
-{
+public abstract class PInclusiveOrExp extends Node {
     // Empty body
 }

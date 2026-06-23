@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PReferenceByUri extends Node
-{
+public abstract class PReferenceByUri extends Node {
     // Empty body
 }

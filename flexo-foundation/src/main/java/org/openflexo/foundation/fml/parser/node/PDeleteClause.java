@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PDeleteClause extends Node
-{
+public abstract class PDeleteClause extends Node {
     // Empty body
 }

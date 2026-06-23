@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACompositeTidentAnnotationTag extends PAnnotationTag
-{
+public final class ACompositeTidentAnnotationTag extends PAnnotationTag {
     private PCompositeTident _compositeTident_;
 
-    public ACompositeTidentAnnotationTag()
-    {
+    public ACompositeTidentAnnotationTag() {
         // Constructor
     }
 
     public ACompositeTidentAnnotationTag(
-        @SuppressWarnings("hiding") PCompositeTident _compositeTident_)
-    {
+            @SuppressWarnings("hiding") PCompositeTident _compositeTident_) {
         // Constructor
         setCompositeTident(_compositeTident_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACompositeTidentAnnotationTag(
-            cloneNode(this._compositeTident_));
+                cloneNode(this._compositeTident_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACompositeTidentAnnotationTag(this);
     }
 
-    public PCompositeTident getCompositeTident()
-    {
+    public PCompositeTident getCompositeTident() {
         return this._compositeTident_;
     }
 
-    public void setCompositeTident(PCompositeTident node)
-    {
-        if(this._compositeTident_ != null)
-        {
+    public void setCompositeTident(PCompositeTident node) {
+        if (this._compositeTident_ != null) {
             this._compositeTident_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ACompositeTidentAnnotationTag extends PAnnotationTag
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._compositeTident_);
+                + toString(this._compositeTident_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._compositeTident_ == child)
-        {
+        if (this._compositeTident_ == child) {
             this._compositeTident_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ACompositeTidentAnnotationTag extends PAnnotationTag
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._compositeTident_ == oldChild)
-        {
+        if (this._compositeTident_ == oldChild) {
             setCompositeTident((PCompositeTident) newChild);
             return;
         }

@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TLBrc extends Token
-{
-    public TLBrc()
-    {
+public final class TLBrc extends Token {
+    public TLBrc() {
         super.setText("{");
     }
 
-    public TLBrc(int line, int pos)
-    {
+    public TLBrc(int line, int pos) {
         super.setText("{");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TLBrc(getLine(), getPos());
+    public Object clone() {
+        return new TLBrc(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTLBrc(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TLBrc text.");
     }
 }

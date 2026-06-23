@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APathPath extends PPath
-{
+public final class APathPath extends PPath {
     private PSimplePath _simplePath_;
     private TSlash _slash_;
     private PPath _path_;
 
-    public APathPath()
-    {
+    public APathPath() {
         // Constructor
     }
 
     public APathPath(
-        @SuppressWarnings("hiding") PSimplePath _simplePath_,
-        @SuppressWarnings("hiding") TSlash _slash_,
-        @SuppressWarnings("hiding") PPath _path_)
-    {
+            @SuppressWarnings("hiding") PSimplePath _simplePath_,
+            @SuppressWarnings("hiding") TSlash _slash_,
+            @SuppressWarnings("hiding") PPath _path_) {
         // Constructor
         setSimplePath(_simplePath_);
 
@@ -31,36 +28,29 @@ public final class APathPath extends PPath
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APathPath(
-            cloneNode(this._simplePath_),
-            cloneNode(this._slash_),
-            cloneNode(this._path_));
+                cloneNode(this._simplePath_),
+                cloneNode(this._slash_),
+                cloneNode(this._path_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPathPath(this);
     }
 
-    public PSimplePath getSimplePath()
-    {
+    public PSimplePath getSimplePath() {
         return this._simplePath_;
     }
 
-    public void setSimplePath(PSimplePath node)
-    {
-        if(this._simplePath_ != null)
-        {
+    public void setSimplePath(PSimplePath node) {
+        if (this._simplePath_ != null) {
             this._simplePath_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class APathPath extends PPath
         this._simplePath_ = node;
     }
 
-    public TSlash getSlash()
-    {
+    public TSlash getSlash() {
         return this._slash_;
     }
 
-    public void setSlash(TSlash node)
-    {
-        if(this._slash_ != null)
-        {
+    public void setSlash(TSlash node) {
+        if (this._slash_ != null) {
             this._slash_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class APathPath extends PPath
         this._slash_ = node;
     }
 
-    public PPath getPath()
-    {
+    public PPath getPath() {
         return this._path_;
     }
 
-    public void setPath(PPath node)
-    {
-        if(this._path_ != null)
-        {
+    public void setPath(PPath node) {
+        if (this._path_ != null) {
             this._path_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class APathPath extends PPath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._simplePath_)
-            + toString(this._slash_)
-            + toString(this._path_);
+                + toString(this._simplePath_)
+                + toString(this._slash_)
+                + toString(this._path_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._simplePath_ == child)
-        {
+        if (this._simplePath_ == child) {
             this._simplePath_ = null;
             return;
         }
 
-        if(this._slash_ == child)
-        {
+        if (this._slash_ == child) {
             this._slash_ = null;
             return;
         }
 
-        if(this._path_ == child)
-        {
+        if (this._path_ == child) {
             this._path_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class APathPath extends PPath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._simplePath_ == oldChild)
-        {
+        if (this._simplePath_ == oldChild) {
             setSimplePath((PSimplePath) newChild);
             return;
         }
 
-        if(this._slash_ == oldChild)
-        {
+        if (this._slash_ == oldChild) {
             setSlash((TSlash) newChild);
             return;
         }
 
-        if(this._path_ == oldChild)
-        {
+        if (this._path_ == oldChild) {
             setPath((PPath) newChild);
             return;
         }

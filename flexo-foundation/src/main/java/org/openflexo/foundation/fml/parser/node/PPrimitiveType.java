@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PPrimitiveType extends Node
-{
+public abstract class PPrimitiveType extends Node {
     // Empty body
 }

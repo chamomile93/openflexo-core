@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PCardinality extends Node
-{
+public abstract class PCardinality extends Node {
     // Empty body
 }

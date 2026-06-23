@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFloatPrimitiveType extends PPrimitiveType
-{
+public final class AFloatPrimitiveType extends PPrimitiveType {
     private TTyFloat _tyFloat_;
 
-    public AFloatPrimitiveType()
-    {
+    public AFloatPrimitiveType() {
         // Constructor
     }
 
     public AFloatPrimitiveType(
-        @SuppressWarnings("hiding") TTyFloat _tyFloat_)
-    {
+            @SuppressWarnings("hiding") TTyFloat _tyFloat_) {
         // Constructor
         setTyFloat(_tyFloat_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFloatPrimitiveType(
-            cloneNode(this._tyFloat_));
+                cloneNode(this._tyFloat_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFloatPrimitiveType(this);
     }
 
-    public TTyFloat getTyFloat()
-    {
+    public TTyFloat getTyFloat() {
         return this._tyFloat_;
     }
 
-    public void setTyFloat(TTyFloat node)
-    {
-        if(this._tyFloat_ != null)
-        {
+    public void setTyFloat(TTyFloat node) {
+        if (this._tyFloat_ != null) {
             this._tyFloat_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AFloatPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tyFloat_);
+                + toString(this._tyFloat_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tyFloat_ == child)
-        {
+        if (this._tyFloat_ == child) {
             this._tyFloat_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AFloatPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tyFloat_ == oldChild)
-        {
+        if (this._tyFloat_ == oldChild) {
             setTyFloat((TTyFloat) newChild);
             return;
         }

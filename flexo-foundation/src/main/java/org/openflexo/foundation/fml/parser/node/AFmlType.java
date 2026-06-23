@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFmlType extends PType
-{
+public final class AFmlType extends PType {
     private PTechnologySpecificType _technologySpecificType_;
     private PAtVersion _atVersion_;
 
-    public AFmlType()
-    {
+    public AFmlType() {
         // Constructor
     }
 
     public AFmlType(
-        @SuppressWarnings("hiding") PTechnologySpecificType _technologySpecificType_,
-        @SuppressWarnings("hiding") PAtVersion _atVersion_)
-    {
+            @SuppressWarnings("hiding") PTechnologySpecificType _technologySpecificType_,
+            @SuppressWarnings("hiding") PAtVersion _atVersion_) {
         // Constructor
         setTechnologySpecificType(_technologySpecificType_);
 
@@ -27,35 +24,28 @@ public final class AFmlType extends PType
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlType(
-            cloneNode(this._technologySpecificType_),
-            cloneNode(this._atVersion_));
+                cloneNode(this._technologySpecificType_),
+                cloneNode(this._atVersion_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlType(this);
     }
 
-    public PTechnologySpecificType getTechnologySpecificType()
-    {
+    public PTechnologySpecificType getTechnologySpecificType() {
         return this._technologySpecificType_;
     }
 
-    public void setTechnologySpecificType(PTechnologySpecificType node)
-    {
-        if(this._technologySpecificType_ != null)
-        {
+    public void setTechnologySpecificType(PTechnologySpecificType node) {
+        if (this._technologySpecificType_ != null) {
             this._technologySpecificType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AFmlType extends PType
         this._technologySpecificType_ = node;
     }
 
-    public PAtVersion getAtVersion()
-    {
+    public PAtVersion getAtVersion() {
         return this._atVersion_;
     }
 
-    public void setAtVersion(PAtVersion node)
-    {
-        if(this._atVersion_ != null)
-        {
+    public void setAtVersion(PAtVersion node) {
+        if (this._atVersion_ != null) {
             this._atVersion_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AFmlType extends PType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._technologySpecificType_)
-            + toString(this._atVersion_);
+                + toString(this._technologySpecificType_)
+                + toString(this._atVersion_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._technologySpecificType_ == child)
-        {
+        if (this._technologySpecificType_ == child) {
             this._technologySpecificType_ = null;
             return;
         }
 
-        if(this._atVersion_ == child)
-        {
+        if (this._atVersion_ == child) {
             this._atVersion_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AFmlType extends PType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._technologySpecificType_ == oldChild)
-        {
+        if (this._technologySpecificType_ == oldChild) {
             setTechnologySpecificType((PTechnologySpecificType) newChild);
             return;
         }
 
-        if(this._atVersion_ == oldChild)
-        {
+        if (this._atVersion_ == oldChild) {
             setAtVersion((PAtVersion) newChild);
             return;
         }

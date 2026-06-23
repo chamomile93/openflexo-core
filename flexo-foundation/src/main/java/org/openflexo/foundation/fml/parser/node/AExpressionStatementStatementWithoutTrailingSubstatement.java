@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AExpressionStatementStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement
-{
+public final class AExpressionStatementStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement {
     private PStatementExpression _statementExpression_;
     private TSemi _semi_;
 
-    public AExpressionStatementStatementWithoutTrailingSubstatement()
-    {
+    public AExpressionStatementStatementWithoutTrailingSubstatement() {
         // Constructor
     }
 
     public AExpressionStatementStatementWithoutTrailingSubstatement(
-        @SuppressWarnings("hiding") PStatementExpression _statementExpression_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") PStatementExpression _statementExpression_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setStatementExpression(_statementExpression_);
 
@@ -27,35 +24,28 @@ public final class AExpressionStatementStatementWithoutTrailingSubstatement exte
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AExpressionStatementStatementWithoutTrailingSubstatement(
-            cloneNode(this._statementExpression_),
-            cloneNode(this._semi_));
+                cloneNode(this._statementExpression_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAExpressionStatementStatementWithoutTrailingSubstatement(this);
     }
 
-    public PStatementExpression getStatementExpression()
-    {
+    public PStatementExpression getStatementExpression() {
         return this._statementExpression_;
     }
 
-    public void setStatementExpression(PStatementExpression node)
-    {
-        if(this._statementExpression_ != null)
-        {
+    public void setStatementExpression(PStatementExpression node) {
+        if (this._statementExpression_ != null) {
             this._statementExpression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AExpressionStatementStatementWithoutTrailingSubstatement exte
         this._statementExpression_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AExpressionStatementStatementWithoutTrailingSubstatement exte
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._statementExpression_)
-            + toString(this._semi_);
+                + toString(this._statementExpression_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._statementExpression_ == child)
-        {
+        if (this._statementExpression_ == child) {
             this._statementExpression_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AExpressionStatementStatementWithoutTrailingSubstatement exte
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._statementExpression_ == oldChild)
-        {
+        if (this._statementExpression_ == oldChild) {
             setStatementExpression((PStatementExpression) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

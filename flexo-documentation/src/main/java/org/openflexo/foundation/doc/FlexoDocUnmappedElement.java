@@ -25,24 +25,21 @@ import org.openflexo.pamela.annotations.ModelEntity;
 
 /**
  * Generic abstract concept representing an unmapped element in a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoDocUnmappedElement<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocElement<D, TA> {
 
-	public static abstract class FlexoDocUnmappedElementImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocumentElementImpl<D, TA> implements FlexoDocUnmappedElement<D, TA> {
+    public static abstract class FlexoDocUnmappedElementImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocumentElementImpl<D, TA> implements FlexoDocUnmappedElement<D, TA> {
 
-		@Override
-		public String toString() {
-			return "UnmappedElement(" + getIdentifier() + ")";
-		}
-	}
+        @Override
+        public String toString() {
+            return "UnmappedElement(" + getIdentifier() + ")";
+        }
+    }
 
 }

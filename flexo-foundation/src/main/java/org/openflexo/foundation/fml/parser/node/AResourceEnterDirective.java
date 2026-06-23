@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AResourceEnterDirective extends PEnterDirective
-{
+public final class AResourceEnterDirective extends PEnterDirective {
     private TEnter _enter_;
     private TMinusR _minusR_;
     private PReferenceByUri _referenceByUri_;
 
-    public AResourceEnterDirective()
-    {
+    public AResourceEnterDirective() {
         // Constructor
     }
 
     public AResourceEnterDirective(
-        @SuppressWarnings("hiding") TEnter _enter_,
-        @SuppressWarnings("hiding") TMinusR _minusR_,
-        @SuppressWarnings("hiding") PReferenceByUri _referenceByUri_)
-    {
+            @SuppressWarnings("hiding") TEnter _enter_,
+            @SuppressWarnings("hiding") TMinusR _minusR_,
+            @SuppressWarnings("hiding") PReferenceByUri _referenceByUri_) {
         // Constructor
         setEnter(_enter_);
 
@@ -31,36 +28,29 @@ public final class AResourceEnterDirective extends PEnterDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AResourceEnterDirective(
-            cloneNode(this._enter_),
-            cloneNode(this._minusR_),
-            cloneNode(this._referenceByUri_));
+                cloneNode(this._enter_),
+                cloneNode(this._minusR_),
+                cloneNode(this._referenceByUri_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAResourceEnterDirective(this);
     }
 
-    public TEnter getEnter()
-    {
+    public TEnter getEnter() {
         return this._enter_;
     }
 
-    public void setEnter(TEnter node)
-    {
-        if(this._enter_ != null)
-        {
+    public void setEnter(TEnter node) {
+        if (this._enter_ != null) {
             this._enter_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AResourceEnterDirective extends PEnterDirective
         this._enter_ = node;
     }
 
-    public TMinusR getMinusR()
-    {
+    public TMinusR getMinusR() {
         return this._minusR_;
     }
 
-    public void setMinusR(TMinusR node)
-    {
-        if(this._minusR_ != null)
-        {
+    public void setMinusR(TMinusR node) {
+        if (this._minusR_ != null) {
             this._minusR_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AResourceEnterDirective extends PEnterDirective
         this._minusR_ = node;
     }
 
-    public PReferenceByUri getReferenceByUri()
-    {
+    public PReferenceByUri getReferenceByUri() {
         return this._referenceByUri_;
     }
 
-    public void setReferenceByUri(PReferenceByUri node)
-    {
-        if(this._referenceByUri_ != null)
-        {
+    public void setReferenceByUri(PReferenceByUri node) {
+        if (this._referenceByUri_ != null) {
             this._referenceByUri_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AResourceEnterDirective extends PEnterDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._enter_)
-            + toString(this._minusR_)
-            + toString(this._referenceByUri_);
+                + toString(this._enter_)
+                + toString(this._minusR_)
+                + toString(this._referenceByUri_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._enter_ == child)
-        {
+        if (this._enter_ == child) {
             this._enter_ = null;
             return;
         }
 
-        if(this._minusR_ == child)
-        {
+        if (this._minusR_ == child) {
             this._minusR_ = null;
             return;
         }
 
-        if(this._referenceByUri_ == child)
-        {
+        if (this._referenceByUri_ == child) {
             this._referenceByUri_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AResourceEnterDirective extends PEnterDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._enter_ == oldChild)
-        {
+        if (this._enter_ == oldChild) {
             setEnter((TEnter) newChild);
             return;
         }
 
-        if(this._minusR_ == oldChild)
-        {
+        if (this._minusR_ == oldChild) {
             setMinusR((TMinusR) newChild);
             return;
         }
 
-        if(this._referenceByUri_ == oldChild)
-        {
+        if (this._referenceByUri_ == oldChild) {
             setReferenceByUri((PReferenceByUri) newChild);
             return;
         }

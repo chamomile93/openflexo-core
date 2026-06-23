@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASimpleEqualityExp extends PEqualityExp
-{
+public final class ASimpleEqualityExp extends PEqualityExp {
     private PRelationalExp _relationalExp_;
 
-    public ASimpleEqualityExp()
-    {
+    public ASimpleEqualityExp() {
         // Constructor
     }
 
     public ASimpleEqualityExp(
-        @SuppressWarnings("hiding") PRelationalExp _relationalExp_)
-    {
+            @SuppressWarnings("hiding") PRelationalExp _relationalExp_) {
         // Constructor
         setRelationalExp(_relationalExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASimpleEqualityExp(
-            cloneNode(this._relationalExp_));
+                cloneNode(this._relationalExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASimpleEqualityExp(this);
     }
 
-    public PRelationalExp getRelationalExp()
-    {
+    public PRelationalExp getRelationalExp() {
         return this._relationalExp_;
     }
 
-    public void setRelationalExp(PRelationalExp node)
-    {
-        if(this._relationalExp_ != null)
-        {
+    public void setRelationalExp(PRelationalExp node) {
+        if (this._relationalExp_ != null) {
             this._relationalExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASimpleEqualityExp extends PEqualityExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._relationalExp_);
+                + toString(this._relationalExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._relationalExp_ == child)
-        {
+        if (this._relationalExp_ == child) {
             this._relationalExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASimpleEqualityExp extends PEqualityExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._relationalExp_ == oldChild)
-        {
+        if (this._relationalExp_ == oldChild) {
             setRelationalExp((PRelationalExp) newChild);
             return;
         }

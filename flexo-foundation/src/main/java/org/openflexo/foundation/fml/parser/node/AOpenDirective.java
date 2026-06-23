@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOpenDirective extends PDirective
-{
+public final class AOpenDirective extends PDirective {
     private PCommandAssign _commandAssign_;
     private POpenDirective _openDirective_;
 
-    public AOpenDirective()
-    {
+    public AOpenDirective() {
         // Constructor
     }
 
     public AOpenDirective(
-        @SuppressWarnings("hiding") PCommandAssign _commandAssign_,
-        @SuppressWarnings("hiding") POpenDirective _openDirective_)
-    {
+            @SuppressWarnings("hiding") PCommandAssign _commandAssign_,
+            @SuppressWarnings("hiding") POpenDirective _openDirective_) {
         // Constructor
         setCommandAssign(_commandAssign_);
 
@@ -27,35 +24,28 @@ public final class AOpenDirective extends PDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOpenDirective(
-            cloneNode(this._commandAssign_),
-            cloneNode(this._openDirective_));
+                cloneNode(this._commandAssign_),
+                cloneNode(this._openDirective_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOpenDirective(this);
     }
 
-    public PCommandAssign getCommandAssign()
-    {
+    public PCommandAssign getCommandAssign() {
         return this._commandAssign_;
     }
 
-    public void setCommandAssign(PCommandAssign node)
-    {
-        if(this._commandAssign_ != null)
-        {
+    public void setCommandAssign(PCommandAssign node) {
+        if (this._commandAssign_ != null) {
             this._commandAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AOpenDirective extends PDirective
         this._commandAssign_ = node;
     }
 
-    public POpenDirective getOpenDirective()
-    {
+    public POpenDirective getOpenDirective() {
         return this._openDirective_;
     }
 
-    public void setOpenDirective(POpenDirective node)
-    {
-        if(this._openDirective_ != null)
-        {
+    public void setOpenDirective(POpenDirective node) {
+        if (this._openDirective_ != null) {
             this._openDirective_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AOpenDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._commandAssign_)
-            + toString(this._openDirective_);
+                + toString(this._commandAssign_)
+                + toString(this._openDirective_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._commandAssign_ == child)
-        {
+        if (this._commandAssign_ == child) {
             this._commandAssign_ = null;
             return;
         }
 
-        if(this._openDirective_ == child)
-        {
+        if (this._openDirective_ == child) {
             this._openDirective_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AOpenDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._commandAssign_ == oldChild)
-        {
+        if (this._commandAssign_ == oldChild) {
             setCommandAssign((PCommandAssign) newChild);
             return;
         }
 
-        if(this._openDirective_ == oldChild)
-        {
+        if (this._openDirective_ == oldChild) {
             setOpenDirective((POpenDirective) newChild);
             return;
         }

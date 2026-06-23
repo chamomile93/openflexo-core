@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TDotDot extends Token
-{
-    public TDotDot()
-    {
+public final class TDotDot extends Token {
+    public TDotDot() {
         super.setText("..");
     }
 
-    public TDotDot(int line, int pos)
-    {
+    public TDotDot(int line, int pos) {
         super.setText("..");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TDotDot(getLine(), getPos());
+    public Object clone() {
+        return new TDotDot(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTDotDot(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TDotDot text.");
     }
 }

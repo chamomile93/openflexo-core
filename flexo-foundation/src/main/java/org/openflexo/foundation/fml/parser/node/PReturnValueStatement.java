@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PReturnValueStatement extends Node
-{
+public abstract class PReturnValueStatement extends Node {
     // Empty body
 }

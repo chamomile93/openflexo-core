@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PAssertDecl extends Node
-{
+public abstract class PAssertDecl extends Node {
     // Empty body
 }

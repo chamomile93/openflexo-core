@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AResourceLoadDirective extends PLoadDirective
-{
+public final class AResourceLoadDirective extends PLoadDirective {
     private TLoad _load_;
     private TMinusR _minusR_;
     private PReferenceByUri _referenceByUri_;
 
-    public AResourceLoadDirective()
-    {
+    public AResourceLoadDirective() {
         // Constructor
     }
 
     public AResourceLoadDirective(
-        @SuppressWarnings("hiding") TLoad _load_,
-        @SuppressWarnings("hiding") TMinusR _minusR_,
-        @SuppressWarnings("hiding") PReferenceByUri _referenceByUri_)
-    {
+            @SuppressWarnings("hiding") TLoad _load_,
+            @SuppressWarnings("hiding") TMinusR _minusR_,
+            @SuppressWarnings("hiding") PReferenceByUri _referenceByUri_) {
         // Constructor
         setLoad(_load_);
 
@@ -31,36 +28,29 @@ public final class AResourceLoadDirective extends PLoadDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AResourceLoadDirective(
-            cloneNode(this._load_),
-            cloneNode(this._minusR_),
-            cloneNode(this._referenceByUri_));
+                cloneNode(this._load_),
+                cloneNode(this._minusR_),
+                cloneNode(this._referenceByUri_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAResourceLoadDirective(this);
     }
 
-    public TLoad getLoad()
-    {
+    public TLoad getLoad() {
         return this._load_;
     }
 
-    public void setLoad(TLoad node)
-    {
-        if(this._load_ != null)
-        {
+    public void setLoad(TLoad node) {
+        if (this._load_ != null) {
             this._load_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AResourceLoadDirective extends PLoadDirective
         this._load_ = node;
     }
 
-    public TMinusR getMinusR()
-    {
+    public TMinusR getMinusR() {
         return this._minusR_;
     }
 
-    public void setMinusR(TMinusR node)
-    {
-        if(this._minusR_ != null)
-        {
+    public void setMinusR(TMinusR node) {
+        if (this._minusR_ != null) {
             this._minusR_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AResourceLoadDirective extends PLoadDirective
         this._minusR_ = node;
     }
 
-    public PReferenceByUri getReferenceByUri()
-    {
+    public PReferenceByUri getReferenceByUri() {
         return this._referenceByUri_;
     }
 
-    public void setReferenceByUri(PReferenceByUri node)
-    {
-        if(this._referenceByUri_ != null)
-        {
+    public void setReferenceByUri(PReferenceByUri node) {
+        if (this._referenceByUri_ != null) {
             this._referenceByUri_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AResourceLoadDirective extends PLoadDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._load_)
-            + toString(this._minusR_)
-            + toString(this._referenceByUri_);
+                + toString(this._load_)
+                + toString(this._minusR_)
+                + toString(this._referenceByUri_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._load_ == child)
-        {
+        if (this._load_ == child) {
             this._load_ = null;
             return;
         }
 
-        if(this._minusR_ == child)
-        {
+        if (this._minusR_ == child) {
             this._minusR_ = null;
             return;
         }
 
-        if(this._referenceByUri_ == child)
-        {
+        if (this._referenceByUri_ == child) {
             this._referenceByUri_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AResourceLoadDirective extends PLoadDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._load_ == oldChild)
-        {
+        if (this._load_ == oldChild) {
             setLoad((TLoad) newChild);
             return;
         }
 
-        if(this._minusR_ == oldChild)
-        {
+        if (this._minusR_ == oldChild) {
             setMinusR((TMinusR) newChild);
             return;
         }
 
-        if(this._referenceByUri_ == oldChild)
-        {
+        if (this._referenceByUri_ == oldChild) {
             setReferenceByUri((PReferenceByUri) newChild);
             return;
         }

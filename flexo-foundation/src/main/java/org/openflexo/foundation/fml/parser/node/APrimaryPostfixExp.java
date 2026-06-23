@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrimaryPostfixExp extends PPostfixExp
-{
+public final class APrimaryPostfixExp extends PPostfixExp {
     private PPrimary _primary_;
 
-    public APrimaryPostfixExp()
-    {
+    public APrimaryPostfixExp() {
         // Constructor
     }
 
     public APrimaryPostfixExp(
-        @SuppressWarnings("hiding") PPrimary _primary_)
-    {
+            @SuppressWarnings("hiding") PPrimary _primary_) {
         // Constructor
         setPrimary(_primary_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrimaryPostfixExp(
-            cloneNode(this._primary_));
+                cloneNode(this._primary_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrimaryPostfixExp(this);
     }
 
-    public PPrimary getPrimary()
-    {
+    public PPrimary getPrimary() {
         return this._primary_;
     }
 
-    public void setPrimary(PPrimary node)
-    {
-        if(this._primary_ != null)
-        {
+    public void setPrimary(PPrimary node) {
+        if (this._primary_ != null) {
             this._primary_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APrimaryPostfixExp extends PPostfixExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._primary_);
+                + toString(this._primary_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._primary_ == child)
-        {
+        if (this._primary_ == child) {
             this._primary_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APrimaryPostfixExp extends PPostfixExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._primary_ == oldChild)
-        {
+        if (this._primary_ == oldChild) {
             setPrimary((PPrimary) newChild);
             return;
         }

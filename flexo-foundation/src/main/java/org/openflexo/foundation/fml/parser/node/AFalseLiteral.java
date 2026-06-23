@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFalseLiteral extends PLiteral
-{
+public final class AFalseLiteral extends PLiteral {
     private TLitFalse _litFalse_;
 
-    public AFalseLiteral()
-    {
+    public AFalseLiteral() {
         // Constructor
     }
 
     public AFalseLiteral(
-        @SuppressWarnings("hiding") TLitFalse _litFalse_)
-    {
+            @SuppressWarnings("hiding") TLitFalse _litFalse_) {
         // Constructor
         setLitFalse(_litFalse_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFalseLiteral(
-            cloneNode(this._litFalse_));
+                cloneNode(this._litFalse_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFalseLiteral(this);
     }
 
-    public TLitFalse getLitFalse()
-    {
+    public TLitFalse getLitFalse() {
         return this._litFalse_;
     }
 
-    public void setLitFalse(TLitFalse node)
-    {
-        if(this._litFalse_ != null)
-        {
+    public void setLitFalse(TLitFalse node) {
+        if (this._litFalse_ != null) {
             this._litFalse_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AFalseLiteral extends PLiteral
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._litFalse_);
+                + toString(this._litFalse_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._litFalse_ == child)
-        {
+        if (this._litFalse_ == child) {
             this._litFalse_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AFalseLiteral extends PLiteral
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._litFalse_ == oldChild)
-        {
+        if (this._litFalse_ == oldChild) {
             setLitFalse((TLitFalse) newChild);
             return;
         }

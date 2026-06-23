@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADeleteClause extends PDeleteClause
-{
+public final class ADeleteClause extends PDeleteClause {
     private TKwDelete _kwDelete_;
     private TColonColon _colonColon_;
     private TLidentifier _destructorName_;
@@ -14,19 +13,17 @@ public final class ADeleteClause extends PDeleteClause
     private PArgumentList _argumentList_;
     private TRPar _rPar_;
 
-    public ADeleteClause()
-    {
+    public ADeleteClause() {
         // Constructor
     }
 
     public ADeleteClause(
-        @SuppressWarnings("hiding") TKwDelete _kwDelete_,
-        @SuppressWarnings("hiding") TColonColon _colonColon_,
-        @SuppressWarnings("hiding") TLidentifier _destructorName_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PArgumentList _argumentList_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TKwDelete _kwDelete_,
+            @SuppressWarnings("hiding") TColonColon _colonColon_,
+            @SuppressWarnings("hiding") TLidentifier _destructorName_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PArgumentList _argumentList_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setKwDelete(_kwDelete_);
 
@@ -43,39 +40,32 @@ public final class ADeleteClause extends PDeleteClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADeleteClause(
-            cloneNode(this._kwDelete_),
-            cloneNode(this._colonColon_),
-            cloneNode(this._destructorName_),
-            cloneNode(this._lPar_),
-            cloneNode(this._argumentList_),
-            cloneNode(this._rPar_));
+                cloneNode(this._kwDelete_),
+                cloneNode(this._colonColon_),
+                cloneNode(this._destructorName_),
+                cloneNode(this._lPar_),
+                cloneNode(this._argumentList_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADeleteClause(this);
     }
 
-    public TKwDelete getKwDelete()
-    {
+    public TKwDelete getKwDelete() {
         return this._kwDelete_;
     }
 
-    public void setKwDelete(TKwDelete node)
-    {
-        if(this._kwDelete_ != null)
-        {
+    public void setKwDelete(TKwDelete node) {
+        if (this._kwDelete_ != null) {
             this._kwDelete_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class ADeleteClause extends PDeleteClause
         this._kwDelete_ = node;
     }
 
-    public TColonColon getColonColon()
-    {
+    public TColonColon getColonColon() {
         return this._colonColon_;
     }
 
-    public void setColonColon(TColonColon node)
-    {
-        if(this._colonColon_ != null)
-        {
+    public void setColonColon(TColonColon node) {
+        if (this._colonColon_ != null) {
             this._colonColon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class ADeleteClause extends PDeleteClause
         this._colonColon_ = node;
     }
 
-    public TLidentifier getDestructorName()
-    {
+    public TLidentifier getDestructorName() {
         return this._destructorName_;
     }
 
-    public void setDestructorName(TLidentifier node)
-    {
-        if(this._destructorName_ != null)
-        {
+    public void setDestructorName(TLidentifier node) {
+        if (this._destructorName_ != null) {
             this._destructorName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class ADeleteClause extends PDeleteClause
         this._destructorName_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class ADeleteClause extends PDeleteClause
         this._lPar_ = node;
     }
 
-    public PArgumentList getArgumentList()
-    {
+    public PArgumentList getArgumentList() {
         return this._argumentList_;
     }
 
-    public void setArgumentList(PArgumentList node)
-    {
-        if(this._argumentList_ != null)
-        {
+    public void setArgumentList(PArgumentList node) {
+        if (this._argumentList_ != null) {
             this._argumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class ADeleteClause extends PDeleteClause
         this._argumentList_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class ADeleteClause extends PDeleteClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwDelete_)
-            + toString(this._colonColon_)
-            + toString(this._destructorName_)
-            + toString(this._lPar_)
-            + toString(this._argumentList_)
-            + toString(this._rPar_);
+                + toString(this._kwDelete_)
+                + toString(this._colonColon_)
+                + toString(this._destructorName_)
+                + toString(this._lPar_)
+                + toString(this._argumentList_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwDelete_ == child)
-        {
+        if (this._kwDelete_ == child) {
             this._kwDelete_ = null;
             return;
         }
 
-        if(this._colonColon_ == child)
-        {
+        if (this._colonColon_ == child) {
             this._colonColon_ = null;
             return;
         }
 
-        if(this._destructorName_ == child)
-        {
+        if (this._destructorName_ == child) {
             this._destructorName_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._argumentList_ == child)
-        {
+        if (this._argumentList_ == child) {
             this._argumentList_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class ADeleteClause extends PDeleteClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwDelete_ == oldChild)
-        {
+        if (this._kwDelete_ == oldChild) {
             setKwDelete((TKwDelete) newChild);
             return;
         }
 
-        if(this._colonColon_ == oldChild)
-        {
+        if (this._colonColon_ == oldChild) {
             setColonColon((TColonColon) newChild);
             return;
         }
 
-        if(this._destructorName_ == oldChild)
-        {
+        if (this._destructorName_ == oldChild) {
             setDestructorName((TLidentifier) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._argumentList_ == oldChild)
-        {
+        if (this._argumentList_ == oldChild) {
             setArgumentList((PArgumentList) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

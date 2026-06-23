@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOneQualifiedArgumentList extends PQualifiedArgumentList
-{
+public final class AOneQualifiedArgumentList extends PQualifiedArgumentList {
     private PQualifiedArgument _qualifiedArgument_;
 
-    public AOneQualifiedArgumentList()
-    {
+    public AOneQualifiedArgumentList() {
         // Constructor
     }
 
     public AOneQualifiedArgumentList(
-        @SuppressWarnings("hiding") PQualifiedArgument _qualifiedArgument_)
-    {
+            @SuppressWarnings("hiding") PQualifiedArgument _qualifiedArgument_) {
         // Constructor
         setQualifiedArgument(_qualifiedArgument_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOneQualifiedArgumentList(
-            cloneNode(this._qualifiedArgument_));
+                cloneNode(this._qualifiedArgument_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOneQualifiedArgumentList(this);
     }
 
-    public PQualifiedArgument getQualifiedArgument()
-    {
+    public PQualifiedArgument getQualifiedArgument() {
         return this._qualifiedArgument_;
     }
 
-    public void setQualifiedArgument(PQualifiedArgument node)
-    {
-        if(this._qualifiedArgument_ != null)
-        {
+    public void setQualifiedArgument(PQualifiedArgument node) {
+        if (this._qualifiedArgument_ != null) {
             this._qualifiedArgument_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AOneQualifiedArgumentList extends PQualifiedArgumentList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._qualifiedArgument_);
+                + toString(this._qualifiedArgument_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._qualifiedArgument_ == child)
-        {
+        if (this._qualifiedArgument_ == child) {
             this._qualifiedArgument_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AOneQualifiedArgumentList extends PQualifiedArgumentList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._qualifiedArgument_ == oldChild)
-        {
+        if (this._qualifiedArgument_ == oldChild) {
             setQualifiedArgument((PQualifiedArgument) newChild);
             return;
         }

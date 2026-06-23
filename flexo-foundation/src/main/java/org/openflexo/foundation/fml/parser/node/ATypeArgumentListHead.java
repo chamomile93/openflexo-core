@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ATypeArgumentListHead extends PTypeArgumentListHead
-{
+public final class ATypeArgumentListHead extends PTypeArgumentListHead {
     private PTypeArgument _typeArgument_;
     private TComma _comma_;
 
-    public ATypeArgumentListHead()
-    {
+    public ATypeArgumentListHead() {
         // Constructor
     }
 
     public ATypeArgumentListHead(
-        @SuppressWarnings("hiding") PTypeArgument _typeArgument_,
-        @SuppressWarnings("hiding") TComma _comma_)
-    {
+            @SuppressWarnings("hiding") PTypeArgument _typeArgument_,
+            @SuppressWarnings("hiding") TComma _comma_) {
         // Constructor
         setTypeArgument(_typeArgument_);
 
@@ -27,35 +24,28 @@ public final class ATypeArgumentListHead extends PTypeArgumentListHead
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ATypeArgumentListHead(
-            cloneNode(this._typeArgument_),
-            cloneNode(this._comma_));
+                cloneNode(this._typeArgument_),
+                cloneNode(this._comma_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseATypeArgumentListHead(this);
     }
 
-    public PTypeArgument getTypeArgument()
-    {
+    public PTypeArgument getTypeArgument() {
         return this._typeArgument_;
     }
 
-    public void setTypeArgument(PTypeArgument node)
-    {
-        if(this._typeArgument_ != null)
-        {
+    public void setTypeArgument(PTypeArgument node) {
+        if (this._typeArgument_ != null) {
             this._typeArgument_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ATypeArgumentListHead extends PTypeArgumentListHead
         this._typeArgument_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ATypeArgumentListHead extends PTypeArgumentListHead
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._typeArgument_)
-            + toString(this._comma_);
+                + toString(this._typeArgument_)
+                + toString(this._comma_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._typeArgument_ == child)
-        {
+        if (this._typeArgument_ == child) {
             this._typeArgument_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ATypeArgumentListHead extends PTypeArgumentListHead
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._typeArgument_ == oldChild)
-        {
+        if (this._typeArgument_ == oldChild) {
             setTypeArgument((PTypeArgument) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }

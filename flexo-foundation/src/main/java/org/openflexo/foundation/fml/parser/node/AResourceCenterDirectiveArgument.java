@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AResourceCenterDirectiveArgument extends PDirectiveArgument
-{
+public final class AResourceCenterDirectiveArgument extends PDirectiveArgument {
     private TMinusRc _minusRc_;
     private PReferenceByUri _referenceByUri_;
 
-    public AResourceCenterDirectiveArgument()
-    {
+    public AResourceCenterDirectiveArgument() {
         // Constructor
     }
 
     public AResourceCenterDirectiveArgument(
-        @SuppressWarnings("hiding") TMinusRc _minusRc_,
-        @SuppressWarnings("hiding") PReferenceByUri _referenceByUri_)
-    {
+            @SuppressWarnings("hiding") TMinusRc _minusRc_,
+            @SuppressWarnings("hiding") PReferenceByUri _referenceByUri_) {
         // Constructor
         setMinusRc(_minusRc_);
 
@@ -27,35 +24,28 @@ public final class AResourceCenterDirectiveArgument extends PDirectiveArgument
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AResourceCenterDirectiveArgument(
-            cloneNode(this._minusRc_),
-            cloneNode(this._referenceByUri_));
+                cloneNode(this._minusRc_),
+                cloneNode(this._referenceByUri_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAResourceCenterDirectiveArgument(this);
     }
 
-    public TMinusRc getMinusRc()
-    {
+    public TMinusRc getMinusRc() {
         return this._minusRc_;
     }
 
-    public void setMinusRc(TMinusRc node)
-    {
-        if(this._minusRc_ != null)
-        {
+    public void setMinusRc(TMinusRc node) {
+        if (this._minusRc_ != null) {
             this._minusRc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AResourceCenterDirectiveArgument extends PDirectiveArgument
         this._minusRc_ = node;
     }
 
-    public PReferenceByUri getReferenceByUri()
-    {
+    public PReferenceByUri getReferenceByUri() {
         return this._referenceByUri_;
     }
 
-    public void setReferenceByUri(PReferenceByUri node)
-    {
-        if(this._referenceByUri_ != null)
-        {
+    public void setReferenceByUri(PReferenceByUri node) {
+        if (this._referenceByUri_ != null) {
             this._referenceByUri_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AResourceCenterDirectiveArgument extends PDirectiveArgument
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._minusRc_)
-            + toString(this._referenceByUri_);
+                + toString(this._minusRc_)
+                + toString(this._referenceByUri_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._minusRc_ == child)
-        {
+        if (this._minusRc_ == child) {
             this._minusRc_ = null;
             return;
         }
 
-        if(this._referenceByUri_ == child)
-        {
+        if (this._referenceByUri_ == child) {
             this._referenceByUri_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AResourceCenterDirectiveArgument extends PDirectiveArgument
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._minusRc_ == oldChild)
-        {
+        if (this._minusRc_ == oldChild) {
             setMinusRc((TMinusRc) newChild);
             return;
         }
 
-        if(this._referenceByUri_ == oldChild)
-        {
+        if (this._referenceByUri_ == oldChild) {
             setReferenceByUri((PReferenceByUri) newChild);
             return;
         }

@@ -2,15 +2,14 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
-{
+public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl {
     private final LinkedList<PAnnotation> _annotations_ = new LinkedList<PAnnotation>();
     private PVisibility _visibility_;
     private PType _type_;
@@ -19,20 +18,18 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
     private PExpression _expressionValue_;
     private TSemi _semi_;
 
-    public AExpressionPropertyInnerConceptDecl()
-    {
+    public AExpressionPropertyInnerConceptDecl() {
         // Constructor
     }
 
     public AExpressionPropertyInnerConceptDecl(
-        @SuppressWarnings("hiding") List<?> _annotations_,
-        @SuppressWarnings("hiding") PVisibility _visibility_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") TLidentifier _identifier_,
-        @SuppressWarnings("hiding") TKwValues _kwValues_,
-        @SuppressWarnings("hiding") PExpression _expressionValue_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") List<?> _annotations_,
+            @SuppressWarnings("hiding") PVisibility _visibility_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") TLidentifier _identifier_,
+            @SuppressWarnings("hiding") TKwValues _kwValues_,
+            @SuppressWarnings("hiding") PExpression _expressionValue_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setAnnotations(_annotations_);
 
@@ -51,42 +48,35 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AExpressionPropertyInnerConceptDecl(
-            cloneList(this._annotations_),
-            cloneNode(this._visibility_),
-            cloneNode(this._type_),
-            cloneNode(this._identifier_),
-            cloneNode(this._kwValues_),
-            cloneNode(this._expressionValue_),
-            cloneNode(this._semi_));
+                cloneList(this._annotations_),
+                cloneNode(this._visibility_),
+                cloneNode(this._type_),
+                cloneNode(this._identifier_),
+                cloneNode(this._kwValues_),
+                cloneNode(this._expressionValue_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAExpressionPropertyInnerConceptDecl(this);
     }
 
-    public LinkedList<PAnnotation> getAnnotations()
-    {
+    public LinkedList<PAnnotation> getAnnotations() {
         return this._annotations_;
     }
 
-    public void setAnnotations(List<?> list)
-    {
-        for(PAnnotation e : this._annotations_)
-        {
+    public void setAnnotations(List<?> list) {
+        for (PAnnotation e : this._annotations_) {
             e.parent(null);
         }
         this._annotations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -95,22 +85,17 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
         }
     }
 
-    public PVisibility getVisibility()
-    {
+    public PVisibility getVisibility() {
         return this._visibility_;
     }
 
-    public void setVisibility(PVisibility node)
-    {
-        if(this._visibility_ != null)
-        {
+    public void setVisibility(PVisibility node) {
+        if (this._visibility_ != null) {
             this._visibility_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -120,22 +105,17 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
         this._visibility_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -145,22 +125,17 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
         this._type_ = node;
     }
 
-    public TLidentifier getIdentifier()
-    {
+    public TLidentifier getIdentifier() {
         return this._identifier_;
     }
 
-    public void setIdentifier(TLidentifier node)
-    {
-        if(this._identifier_ != null)
-        {
+    public void setIdentifier(TLidentifier node) {
+        if (this._identifier_ != null) {
             this._identifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -170,22 +145,17 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
         this._identifier_ = node;
     }
 
-    public TKwValues getKwValues()
-    {
+    public TKwValues getKwValues() {
         return this._kwValues_;
     }
 
-    public void setKwValues(TKwValues node)
-    {
-        if(this._kwValues_ != null)
-        {
+    public void setKwValues(TKwValues node) {
+        if (this._kwValues_ != null) {
             this._kwValues_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -195,22 +165,17 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
         this._kwValues_ = node;
     }
 
-    public PExpression getExpressionValue()
-    {
+    public PExpression getExpressionValue() {
         return this._expressionValue_;
     }
 
-    public void setExpressionValue(PExpression node)
-    {
-        if(this._expressionValue_ != null)
-        {
+    public void setExpressionValue(PExpression node) {
+        if (this._expressionValue_ != null) {
             this._expressionValue_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -220,22 +185,17 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
         this._expressionValue_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -246,59 +206,50 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotations_)
-            + toString(this._visibility_)
-            + toString(this._type_)
-            + toString(this._identifier_)
-            + toString(this._kwValues_)
-            + toString(this._expressionValue_)
-            + toString(this._semi_);
+                + toString(this._annotations_)
+                + toString(this._visibility_)
+                + toString(this._type_)
+                + toString(this._identifier_)
+                + toString(this._kwValues_)
+                + toString(this._expressionValue_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotations_.remove(child))
-        {
+        if (this._annotations_.remove(child)) {
             return;
         }
 
-        if(this._visibility_ == child)
-        {
+        if (this._visibility_ == child) {
             this._visibility_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._identifier_ == child)
-        {
+        if (this._identifier_ == child) {
             this._identifier_ = null;
             return;
         }
 
-        if(this._kwValues_ == child)
-        {
+        if (this._kwValues_ == child) {
             this._kwValues_ = null;
             return;
         }
 
-        if(this._expressionValue_ == child)
-        {
+        if (this._expressionValue_ == child) {
             this._expressionValue_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -307,15 +258,11 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -328,38 +275,32 @@ public final class AExpressionPropertyInnerConceptDecl extends PInnerConceptDecl
             }
         }
 
-        if(this._visibility_ == oldChild)
-        {
+        if (this._visibility_ == oldChild) {
             setVisibility((PVisibility) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._identifier_ == oldChild)
-        {
+        if (this._identifier_ == oldChild) {
             setIdentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._kwValues_ == oldChild)
-        {
+        if (this._kwValues_ == oldChild) {
             setKwValues((TKwValues) newChild);
             return;
         }
 
-        if(this._expressionValue_ == oldChild)
-        {
+        if (this._expressionValue_ == oldChild) {
             setExpressionValue((PExpression) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

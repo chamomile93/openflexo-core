@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TGt extends Token
-{
-    public TGt()
-    {
+public final class TGt extends Token {
+    public TGt() {
         super.setText(">");
     }
 
-    public TGt(int line, int pos)
-    {
+    public TGt(int line, int pos) {
         super.setText(">");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TGt(getLine(), getPos());
+    public Object clone() {
+        return new TGt(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTGt(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TGt text.");
     }
 }

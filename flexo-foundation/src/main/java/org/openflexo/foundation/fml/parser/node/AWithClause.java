@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AWithClause extends PWithClause
-{
+public final class AWithClause extends PWithClause {
     private TKwWith _kwWith_;
     private TUidentifier _uidentifier_;
     private PFmlParameters _fmlParameters_;
 
-    public AWithClause()
-    {
+    public AWithClause() {
         // Constructor
     }
 
     public AWithClause(
-        @SuppressWarnings("hiding") TKwWith _kwWith_,
-        @SuppressWarnings("hiding") TUidentifier _uidentifier_,
-        @SuppressWarnings("hiding") PFmlParameters _fmlParameters_)
-    {
+            @SuppressWarnings("hiding") TKwWith _kwWith_,
+            @SuppressWarnings("hiding") TUidentifier _uidentifier_,
+            @SuppressWarnings("hiding") PFmlParameters _fmlParameters_) {
         // Constructor
         setKwWith(_kwWith_);
 
@@ -31,36 +28,29 @@ public final class AWithClause extends PWithClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AWithClause(
-            cloneNode(this._kwWith_),
-            cloneNode(this._uidentifier_),
-            cloneNode(this._fmlParameters_));
+                cloneNode(this._kwWith_),
+                cloneNode(this._uidentifier_),
+                cloneNode(this._fmlParameters_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAWithClause(this);
     }
 
-    public TKwWith getKwWith()
-    {
+    public TKwWith getKwWith() {
         return this._kwWith_;
     }
 
-    public void setKwWith(TKwWith node)
-    {
-        if(this._kwWith_ != null)
-        {
+    public void setKwWith(TKwWith node) {
+        if (this._kwWith_ != null) {
             this._kwWith_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AWithClause extends PWithClause
         this._kwWith_ = node;
     }
 
-    public TUidentifier getUidentifier()
-    {
+    public TUidentifier getUidentifier() {
         return this._uidentifier_;
     }
 
-    public void setUidentifier(TUidentifier node)
-    {
-        if(this._uidentifier_ != null)
-        {
+    public void setUidentifier(TUidentifier node) {
+        if (this._uidentifier_ != null) {
             this._uidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AWithClause extends PWithClause
         this._uidentifier_ = node;
     }
 
-    public PFmlParameters getFmlParameters()
-    {
+    public PFmlParameters getFmlParameters() {
         return this._fmlParameters_;
     }
 
-    public void setFmlParameters(PFmlParameters node)
-    {
-        if(this._fmlParameters_ != null)
-        {
+    public void setFmlParameters(PFmlParameters node) {
+        if (this._fmlParameters_ != null) {
             this._fmlParameters_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AWithClause extends PWithClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwWith_)
-            + toString(this._uidentifier_)
-            + toString(this._fmlParameters_);
+                + toString(this._kwWith_)
+                + toString(this._uidentifier_)
+                + toString(this._fmlParameters_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwWith_ == child)
-        {
+        if (this._kwWith_ == child) {
             this._kwWith_ = null;
             return;
         }
 
-        if(this._uidentifier_ == child)
-        {
+        if (this._uidentifier_ == child) {
             this._uidentifier_ = null;
             return;
         }
 
-        if(this._fmlParameters_ == child)
-        {
+        if (this._fmlParameters_ == child) {
             this._fmlParameters_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AWithClause extends PWithClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwWith_ == oldChild)
-        {
+        if (this._kwWith_ == oldChild) {
             setKwWith((TKwWith) newChild);
             return;
         }
 
-        if(this._uidentifier_ == oldChild)
-        {
+        if (this._uidentifier_ == oldChild) {
             setUidentifier((TUidentifier) newChild);
             return;
         }
 
-        if(this._fmlParameters_ == oldChild)
-        {
+        if (this._fmlParameters_ == oldChild) {
             setFmlParameters((PFmlParameters) newChild);
             return;
         }

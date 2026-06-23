@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADotSimplePathPrefix extends PSimplePathPrefix
-{
+public final class ADotSimplePathPrefix extends PSimplePathPrefix {
     private PSimplePathTerminal _simplePathTerminal_;
     private TDot _dot_;
 
-    public ADotSimplePathPrefix()
-    {
+    public ADotSimplePathPrefix() {
         // Constructor
     }
 
     public ADotSimplePathPrefix(
-        @SuppressWarnings("hiding") PSimplePathTerminal _simplePathTerminal_,
-        @SuppressWarnings("hiding") TDot _dot_)
-    {
+            @SuppressWarnings("hiding") PSimplePathTerminal _simplePathTerminal_,
+            @SuppressWarnings("hiding") TDot _dot_) {
         // Constructor
         setSimplePathTerminal(_simplePathTerminal_);
 
@@ -27,35 +24,28 @@ public final class ADotSimplePathPrefix extends PSimplePathPrefix
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADotSimplePathPrefix(
-            cloneNode(this._simplePathTerminal_),
-            cloneNode(this._dot_));
+                cloneNode(this._simplePathTerminal_),
+                cloneNode(this._dot_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADotSimplePathPrefix(this);
     }
 
-    public PSimplePathTerminal getSimplePathTerminal()
-    {
+    public PSimplePathTerminal getSimplePathTerminal() {
         return this._simplePathTerminal_;
     }
 
-    public void setSimplePathTerminal(PSimplePathTerminal node)
-    {
-        if(this._simplePathTerminal_ != null)
-        {
+    public void setSimplePathTerminal(PSimplePathTerminal node) {
+        if (this._simplePathTerminal_ != null) {
             this._simplePathTerminal_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ADotSimplePathPrefix extends PSimplePathPrefix
         this._simplePathTerminal_ = node;
     }
 
-    public TDot getDot()
-    {
+    public TDot getDot() {
         return this._dot_;
     }
 
-    public void setDot(TDot node)
-    {
-        if(this._dot_ != null)
-        {
+    public void setDot(TDot node) {
+        if (this._dot_ != null) {
             this._dot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ADotSimplePathPrefix extends PSimplePathPrefix
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._simplePathTerminal_)
-            + toString(this._dot_);
+                + toString(this._simplePathTerminal_)
+                + toString(this._dot_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._simplePathTerminal_ == child)
-        {
+        if (this._simplePathTerminal_ == child) {
             this._simplePathTerminal_ = null;
             return;
         }
 
-        if(this._dot_ == child)
-        {
+        if (this._dot_ == child) {
             this._dot_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ADotSimplePathPrefix extends PSimplePathPrefix
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._simplePathTerminal_ == oldChild)
-        {
+        if (this._simplePathTerminal_ == oldChild) {
             setSimplePathTerminal((PSimplePathTerminal) newChild);
             return;
         }
 
-        if(this._dot_ == oldChild)
-        {
+        if (this._dot_ == oldChild) {
             setDot((TDot) newChild);
             return;
         }

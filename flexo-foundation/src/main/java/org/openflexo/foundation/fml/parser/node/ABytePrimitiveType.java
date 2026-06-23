@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABytePrimitiveType extends PPrimitiveType
-{
+public final class ABytePrimitiveType extends PPrimitiveType {
     private TTyByte _tyByte_;
 
-    public ABytePrimitiveType()
-    {
+    public ABytePrimitiveType() {
         // Constructor
     }
 
     public ABytePrimitiveType(
-        @SuppressWarnings("hiding") TTyByte _tyByte_)
-    {
+            @SuppressWarnings("hiding") TTyByte _tyByte_) {
         // Constructor
         setTyByte(_tyByte_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABytePrimitiveType(
-            cloneNode(this._tyByte_));
+                cloneNode(this._tyByte_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABytePrimitiveType(this);
     }
 
-    public TTyByte getTyByte()
-    {
+    public TTyByte getTyByte() {
         return this._tyByte_;
     }
 
-    public void setTyByte(TTyByte node)
-    {
-        if(this._tyByte_ != null)
-        {
+    public void setTyByte(TTyByte node) {
+        if (this._tyByte_ != null) {
             this._tyByte_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ABytePrimitiveType extends PPrimitiveType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tyByte_);
+                + toString(this._tyByte_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tyByte_ == child)
-        {
+        if (this._tyByte_ == child) {
             this._tyByte_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ABytePrimitiveType extends PPrimitiveType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tyByte_ == oldChild)
-        {
+        if (this._tyByte_ == oldChild) {
             setTyByte((TTyByte) newChild);
             return;
         }

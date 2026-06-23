@@ -20,8 +20,6 @@
 
 package org.openflexo.foundation.fml.rt.rm;
 
-import java.util.logging.Logger;
-
 import org.openflexo.foundation.fml.rt.AbstractVirtualModelInstanceModelFactory;
 import org.openflexo.foundation.fml.rt.VirtualModelInstance;
 import org.openflexo.foundation.resource.TechnologySpecificPamelaResourceFactory;
@@ -29,24 +27,26 @@ import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 import org.openflexo.toolbox.FlexoVersion;
 
+import java.util.logging.Logger;
+
 /**
  * Generic implementation of PamelaResourceFactory for {@link AbstractVirtualModelInstanceResource}
- * 
+ *
  * @author sylvain
  *
  */
 public abstract class AbstractVirtualModelInstanceResourceFactory<VMI extends VirtualModelInstance<VMI, TA>, TA extends TechnologyAdapter<TA>, VMR extends AbstractVirtualModelInstanceResource<VMI, TA>>
-		extends TechnologySpecificPamelaResourceFactory<VMR, VMI, TA, AbstractVirtualModelInstanceModelFactory<?>> {
+        extends TechnologySpecificPamelaResourceFactory<VMR, VMI, TA, AbstractVirtualModelInstanceModelFactory<?>> {
 
-	public static final FlexoVersion INITIAL_REVISION = new FlexoVersion("0.1");
+    public static final FlexoVersion INITIAL_REVISION = new FlexoVersion("0.1");
 
-	private static final Logger logger = Logger.getLogger(AbstractVirtualModelInstanceResourceFactory.class.getPackage().getName());
+    private static final Logger logger = Logger.getLogger(AbstractVirtualModelInstanceResourceFactory.class.getPackage().getName());
 
-	public AbstractVirtualModelInstanceResourceFactory(Class<VMR> resourceClass) throws ModelDefinitionException {
-		super(resourceClass);
-	}
+    public AbstractVirtualModelInstanceResourceFactory(Class<VMR> resourceClass) throws ModelDefinitionException {
+        super(resourceClass);
+    }
 
-	@Override
-	public abstract VMI makeEmptyResourceData(VMR resource);
+    @Override
+    public abstract VMI makeEmptyResourceData(VMR resource);
 
 }

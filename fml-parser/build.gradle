@@ -1,12 +1,12 @@
 dependencies {
-  // openflexo dep
-  implementation flexoP2PP();
-  implementation project(':flexo-foundation')
-  // external dep
+    // openflexo dep
+    implementation flexoP2PP();
+    implementation project(':flexo-foundation')
+    // external dep
 
-  // testing dep
- // testImplementation project(':flexo-foundation-test')
-  testImplementation project(':flexo-test-resources')
+    // testing dep
+    // testImplementation project(':flexo-foundation-test')
+    testImplementation project(':flexo-test-resources')
 }
 
 apply plugin: 'sablecc'
@@ -30,7 +30,7 @@ def generateGrammarSourceTask = tasks.named("generateGrammarSource")
 // TODO does it imply that runnning the task "processResources" from gradle will requires the task "generateGrammarSource" ? a regex of it didn't produce results
 // We explicity declare a dependence between those two tasks
 tasks.named("processResources") {
-   dependsOn(generateGrammarSourceTask)
+    dependsOn(generateGrammarSourceTask)
 }
 
 tasks.register("printSourceSets") {

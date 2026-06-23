@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AActivateTaDirective extends PDirective
-{
+public final class AActivateTaDirective extends PDirective {
     private TActivate _activate_;
     private PIdentifier _technologyAdapter_;
 
-    public AActivateTaDirective()
-    {
+    public AActivateTaDirective() {
         // Constructor
     }
 
     public AActivateTaDirective(
-        @SuppressWarnings("hiding") TActivate _activate_,
-        @SuppressWarnings("hiding") PIdentifier _technologyAdapter_)
-    {
+            @SuppressWarnings("hiding") TActivate _activate_,
+            @SuppressWarnings("hiding") PIdentifier _technologyAdapter_) {
         // Constructor
         setActivate(_activate_);
 
@@ -27,35 +24,28 @@ public final class AActivateTaDirective extends PDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AActivateTaDirective(
-            cloneNode(this._activate_),
-            cloneNode(this._technologyAdapter_));
+                cloneNode(this._activate_),
+                cloneNode(this._technologyAdapter_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAActivateTaDirective(this);
     }
 
-    public TActivate getActivate()
-    {
+    public TActivate getActivate() {
         return this._activate_;
     }
 
-    public void setActivate(TActivate node)
-    {
-        if(this._activate_ != null)
-        {
+    public void setActivate(TActivate node) {
+        if (this._activate_ != null) {
             this._activate_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AActivateTaDirective extends PDirective
         this._activate_ = node;
     }
 
-    public PIdentifier getTechnologyAdapter()
-    {
+    public PIdentifier getTechnologyAdapter() {
         return this._technologyAdapter_;
     }
 
-    public void setTechnologyAdapter(PIdentifier node)
-    {
-        if(this._technologyAdapter_ != null)
-        {
+    public void setTechnologyAdapter(PIdentifier node) {
+        if (this._technologyAdapter_ != null) {
             this._technologyAdapter_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AActivateTaDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._activate_)
-            + toString(this._technologyAdapter_);
+                + toString(this._activate_)
+                + toString(this._technologyAdapter_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._activate_ == child)
-        {
+        if (this._activate_ == child) {
             this._activate_ = null;
             return;
         }
 
-        if(this._technologyAdapter_ == child)
-        {
+        if (this._technologyAdapter_ == child) {
             this._technologyAdapter_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AActivateTaDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._activate_ == oldChild)
-        {
+        if (this._activate_ == oldChild) {
             setActivate((TActivate) newChild);
             return;
         }
 
-        if(this._technologyAdapter_ == oldChild)
-        {
+        if (this._technologyAdapter_ == oldChild) {
             setTechnologyAdapter((PIdentifier) newChild);
             return;
         }

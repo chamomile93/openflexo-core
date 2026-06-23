@@ -1,48 +1,42 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Cartoeditor, a component of the software infrastructure 
+ * <p>
+ * This file is part of Cartoeditor, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.parser;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import java.io.IOException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,77 +57,81 @@ import org.openflexo.rm.ResourceLocator;
 import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
 
+import java.io.IOException;
+
+import static org.junit.Assert.*;
+
 /**
  * Test assignations parsing
- * 
+ *
  * @author sylvain
  *
  */
 @RunWith(OrderedRunner.class)
 public class TestGetSetProperty extends FMLParserTestCase {
 
-	static FlexoEditor editor;
+    static FlexoEditor editor;
 
-	static FMLCompilationUnit compilationUnit;
-	static FMLCompilationUnitNode rootNode;
+    static FMLCompilationUnit compilationUnit;
+    static FMLCompilationUnitNode rootNode;
 
-	@Test
-	@TestOrder(1)
-	public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
-		instanciateTestServiceManager();
+    @Test
+    @TestOrder(1)
+    public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
+        instanciateTestServiceManager();
 
-		editor = new DefaultFlexoEditor(null, serviceManager);
-		assertNotNull(editor);
+        editor = new DefaultFlexoEditor(null, serviceManager);
+        assertNotNull(editor);
 
-	}
+    }
 
-	@Test
-	@TestOrder(2)
-	public void loadCompilationUnit() throws ParseException, ModelDefinitionException, IOException {
-		log("Initial version");
+    @Test
+    @TestOrder(2)
+    public void loadCompilationUnit() throws ParseException, ModelDefinitionException, IOException {
+        log("Initial version");
 
-		final Resource fmlFile = ResourceLocator.locateResource("FMLExamples/TestGetSetProperty.fml");
+        final Resource fmlFile = ResourceLocator.locateResource("FMLExamples/TestGetSetProperty.fml");
 
-		// System.out.println(FileUtils.fileContents(((FileResourceImpl) fmlFile).getFile()));
+        // System.out.println(FileUtils.fileContents(((FileResourceImpl) fmlFile).getFile()));
 
-		compilationUnit = testFMLCompilationUnit(fmlFile);
-		assertNotNull(rootNode = (FMLCompilationUnitNode) compilationUnit.getPrettyPrintDelegate());
-	}
+        compilationUnit = testFMLCompilationUnit(fmlFile);
+        assertNotNull(rootNode = (FMLCompilationUnitNode) compilationUnit.getPrettyPrintDelegate());
+    }
 
-	@SuppressWarnings("rawtypes")
-	@Test
-	@TestOrder(3)
-	public void testParsing() throws ParseException, ModelDefinitionException, IOException {
-		log("testParsing()");
+    @SuppressWarnings("rawtypes")
+    @Test
+    @TestOrder(3)
+    public void testParsing() throws ParseException, ModelDefinitionException, IOException {
+        log("testParsing()");
 
-		PrimitiveRole myValueProperty = (PrimitiveRole) compilationUnit.getVirtualModel().getDeclaredProperty("myValue");
-		assertNotNull(myValueProperty);
+        PrimitiveRole myValueProperty = (PrimitiveRole) compilationUnit.getVirtualModel().getDeclaredProperty("myValue");
+        assertNotNull(myValueProperty);
 
-		GetSetProperty<?> getSetProperty = (GetSetProperty<?>) compilationUnit.getVirtualModel().getDeclaredProperty("getSetProperty");
-		assertNotNull(getSetProperty);
+        GetSetProperty<?> getSetProperty = (GetSetProperty<?>) compilationUnit.getVirtualModel().getDeclaredProperty("getSetProperty");
+        assertNotNull(getSetProperty);
 
-		System.out.println("PP:" + getSetProperty.getFMLPrettyPrint());
-		System.out.println("Norm:" + getSetProperty.getNormalizedFML());
+        System.out.println("PP:" + getSetProperty.getFMLPrettyPrint());
+        System.out.println("Norm:" + getSetProperty.getNormalizedFML());
 
-		GetSetPropertyNode getSetPropertyNode = (GetSetPropertyNode) getSetProperty.getPrettyPrintDelegate();
-		assertSame(getSetPropertyNode, rootNode.getObjectNode(getSetProperty));
-		debug(getSetPropertyNode, 0);
+        GetSetPropertyNode getSetPropertyNode = (GetSetPropertyNode) getSetProperty.getPrettyPrintDelegate();
+        assertSame(getSetPropertyNode, rootNode.getObjectNode(getSetProperty));
+        debug(getSetPropertyNode, 0);
 
-		ReturnStatementNode getControlGraphNode = (ReturnStatementNode) (P2PPNode) rootNode
-				.getObjectNode(getSetProperty.getGetControlGraph());
-		SequenceNode setControlGraphNode = (SequenceNode) (P2PPNode) rootNode.getObjectNode(getSetProperty.getSetControlGraph());
+        ReturnStatementNode getControlGraphNode = (ReturnStatementNode) (P2PPNode) rootNode
+                .getObjectNode(getSetProperty.getGetControlGraph());
+        SequenceNode setControlGraphNode = (SequenceNode) (P2PPNode) rootNode.getObjectNode(getSetProperty.getSetControlGraph());
 
-		assertEquals("(9:1)-(17:3)", getSetPropertyNode.getLastParsedFragment().toString());
-		assertEquals("(9:0)-(9:1)", getSetPropertyNode.getPrelude().toString());
-		assertEquals("(17:3)-(18:0)", getSetPropertyNode.getPostlude().toString());
+        assertEquals("(9:1)-(17:3)", getSetPropertyNode.getLastParsedFragment().toString());
+        assertEquals("(9:0)-(9:1)", getSetPropertyNode.getPrelude().toString());
+        assertEquals("(17:3)-(18:0)", getSetPropertyNode.getPostlude().toString());
 
-		assertEquals("(11:2)-(11:17)", getControlGraphNode.getLastParsedFragment().toString());
-		assertEquals(null, getControlGraphNode.getPrelude());
-		assertEquals(null, getControlGraphNode.getPostlude());
+        assertEquals("(11:2)-(11:17)", getControlGraphNode.getLastParsedFragment().toString());
+        assertEquals(null, getControlGraphNode.getPrelude());
+        assertEquals(null, getControlGraphNode.getPostlude());
 
-		assertEquals("(14:2)-(15:18)", setControlGraphNode.getLastParsedFragment().toString());
-		assertEquals(null, setControlGraphNode.getPrelude());
-		assertEquals(null, setControlGraphNode.getPostlude());
-	}
+        assertEquals("(14:2)-(15:18)", setControlGraphNode.getLastParsedFragment().toString());
+        assertEquals(null, setControlGraphNode.getPrelude());
+        assertEquals(null, setControlGraphNode.getPostlude());
+    }
 
 }

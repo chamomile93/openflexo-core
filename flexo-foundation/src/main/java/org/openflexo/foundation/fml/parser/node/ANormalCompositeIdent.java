@@ -2,27 +2,24 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class ANormalCompositeIdent extends PCompositeIdent
-{
+public final class ANormalCompositeIdent extends PCompositeIdent {
     private final LinkedList<PIdentifierPrefix> _prefixes_ = new LinkedList<PIdentifierPrefix>();
     private TLidentifier _identifier_;
 
-    public ANormalCompositeIdent()
-    {
+    public ANormalCompositeIdent() {
         // Constructor
     }
 
     public ANormalCompositeIdent(
-        @SuppressWarnings("hiding") List<?> _prefixes_,
-        @SuppressWarnings("hiding") TLidentifier _identifier_)
-    {
+            @SuppressWarnings("hiding") List<?> _prefixes_,
+            @SuppressWarnings("hiding") TLidentifier _identifier_) {
         // Constructor
         setPrefixes(_prefixes_);
 
@@ -31,37 +28,30 @@ public final class ANormalCompositeIdent extends PCompositeIdent
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANormalCompositeIdent(
-            cloneList(this._prefixes_),
-            cloneNode(this._identifier_));
+                cloneList(this._prefixes_),
+                cloneNode(this._identifier_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANormalCompositeIdent(this);
     }
 
-    public LinkedList<PIdentifierPrefix> getPrefixes()
-    {
+    public LinkedList<PIdentifierPrefix> getPrefixes() {
         return this._prefixes_;
     }
 
-    public void setPrefixes(List<?> list)
-    {
-        for(PIdentifierPrefix e : this._prefixes_)
-        {
+    public void setPrefixes(List<?> list) {
+        for (PIdentifierPrefix e : this._prefixes_) {
             e.parent(null);
         }
         this._prefixes_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PIdentifierPrefix e = (PIdentifierPrefix) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -70,22 +60,17 @@ public final class ANormalCompositeIdent extends PCompositeIdent
         }
     }
 
-    public TLidentifier getIdentifier()
-    {
+    public TLidentifier getIdentifier() {
         return this._identifier_;
     }
 
-    public void setIdentifier(TLidentifier node)
-    {
-        if(this._identifier_ != null)
-        {
+    public void setIdentifier(TLidentifier node) {
+        if (this._identifier_ != null) {
             this._identifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -96,24 +81,20 @@ public final class ANormalCompositeIdent extends PCompositeIdent
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._prefixes_)
-            + toString(this._identifier_);
+                + toString(this._prefixes_)
+                + toString(this._identifier_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._prefixes_.remove(child))
-        {
+        if (this._prefixes_.remove(child)) {
             return;
         }
 
-        if(this._identifier_ == child)
-        {
+        if (this._identifier_ == child) {
             this._identifier_ = null;
             return;
         }
@@ -122,15 +103,11 @@ public final class ANormalCompositeIdent extends PCompositeIdent
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PIdentifierPrefix> i = this._prefixes_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PIdentifierPrefix> i = this._prefixes_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PIdentifierPrefix) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -143,8 +120,7 @@ public final class ANormalCompositeIdent extends PCompositeIdent
             }
         }
 
-        if(this._identifier_ == oldChild)
-        {
+        if (this._identifier_ == oldChild) {
             setIdentifier((TLidentifier) newChild);
             return;
         }

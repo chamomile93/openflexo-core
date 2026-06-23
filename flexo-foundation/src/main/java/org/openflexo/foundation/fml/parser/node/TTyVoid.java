@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TTyVoid extends Token
-{
-    public TTyVoid()
-    {
+public final class TTyVoid extends Token {
+    public TTyVoid() {
         super.setText("void");
     }
 
-    public TTyVoid(int line, int pos)
-    {
+    public TTyVoid(int line, int pos) {
         super.setText("void");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TTyVoid(getLine(), getPos());
+    public Object clone() {
+        return new TTyVoid(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTTyVoid(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TTyVoid text.");
     }
 }

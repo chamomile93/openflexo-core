@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABarInclusiveOrExp extends PInclusiveOrExp
-{
+public final class ABarInclusiveOrExp extends PInclusiveOrExp {
     private PInclusiveOrExp _inclusiveOrExp_;
     private TBar _bar_;
     private PExclusiveOrExp _exclusiveOrExp_;
 
-    public ABarInclusiveOrExp()
-    {
+    public ABarInclusiveOrExp() {
         // Constructor
     }
 
     public ABarInclusiveOrExp(
-        @SuppressWarnings("hiding") PInclusiveOrExp _inclusiveOrExp_,
-        @SuppressWarnings("hiding") TBar _bar_,
-        @SuppressWarnings("hiding") PExclusiveOrExp _exclusiveOrExp_)
-    {
+            @SuppressWarnings("hiding") PInclusiveOrExp _inclusiveOrExp_,
+            @SuppressWarnings("hiding") TBar _bar_,
+            @SuppressWarnings("hiding") PExclusiveOrExp _exclusiveOrExp_) {
         // Constructor
         setInclusiveOrExp(_inclusiveOrExp_);
 
@@ -31,36 +28,29 @@ public final class ABarInclusiveOrExp extends PInclusiveOrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABarInclusiveOrExp(
-            cloneNode(this._inclusiveOrExp_),
-            cloneNode(this._bar_),
-            cloneNode(this._exclusiveOrExp_));
+                cloneNode(this._inclusiveOrExp_),
+                cloneNode(this._bar_),
+                cloneNode(this._exclusiveOrExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABarInclusiveOrExp(this);
     }
 
-    public PInclusiveOrExp getInclusiveOrExp()
-    {
+    public PInclusiveOrExp getInclusiveOrExp() {
         return this._inclusiveOrExp_;
     }
 
-    public void setInclusiveOrExp(PInclusiveOrExp node)
-    {
-        if(this._inclusiveOrExp_ != null)
-        {
+    public void setInclusiveOrExp(PInclusiveOrExp node) {
+        if (this._inclusiveOrExp_ != null) {
             this._inclusiveOrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ABarInclusiveOrExp extends PInclusiveOrExp
         this._inclusiveOrExp_ = node;
     }
 
-    public TBar getBar()
-    {
+    public TBar getBar() {
         return this._bar_;
     }
 
-    public void setBar(TBar node)
-    {
-        if(this._bar_ != null)
-        {
+    public void setBar(TBar node) {
+        if (this._bar_ != null) {
             this._bar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ABarInclusiveOrExp extends PInclusiveOrExp
         this._bar_ = node;
     }
 
-    public PExclusiveOrExp getExclusiveOrExp()
-    {
+    public PExclusiveOrExp getExclusiveOrExp() {
         return this._exclusiveOrExp_;
     }
 
-    public void setExclusiveOrExp(PExclusiveOrExp node)
-    {
-        if(this._exclusiveOrExp_ != null)
-        {
+    public void setExclusiveOrExp(PExclusiveOrExp node) {
+        if (this._exclusiveOrExp_ != null) {
             this._exclusiveOrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ABarInclusiveOrExp extends PInclusiveOrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._inclusiveOrExp_)
-            + toString(this._bar_)
-            + toString(this._exclusiveOrExp_);
+                + toString(this._inclusiveOrExp_)
+                + toString(this._bar_)
+                + toString(this._exclusiveOrExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._inclusiveOrExp_ == child)
-        {
+        if (this._inclusiveOrExp_ == child) {
             this._inclusiveOrExp_ = null;
             return;
         }
 
-        if(this._bar_ == child)
-        {
+        if (this._bar_ == child) {
             this._bar_ = null;
             return;
         }
 
-        if(this._exclusiveOrExp_ == child)
-        {
+        if (this._exclusiveOrExp_ == child) {
             this._exclusiveOrExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ABarInclusiveOrExp extends PInclusiveOrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._inclusiveOrExp_ == oldChild)
-        {
+        if (this._inclusiveOrExp_ == oldChild) {
             setInclusiveOrExp((PInclusiveOrExp) newChild);
             return;
         }
 
-        if(this._bar_ == oldChild)
-        {
+        if (this._bar_ == oldChild) {
             setBar((TBar) newChild);
             return;
         }
 
-        if(this._exclusiveOrExp_ == oldChild)
-        {
+        if (this._exclusiveOrExp_ == oldChild) {
             setExclusiveOrExp((PExclusiveOrExp) newChild);
             return;
         }

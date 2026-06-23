@@ -18,13 +18,6 @@
 
 package org.openflexo.foundation.fml.cli;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
 import org.jboss.jreadline.complete.CompleteOperation;
 import org.jboss.jreadline.complete.Completion;
 import org.jboss.jreadline.console.Console;
@@ -38,88 +31,88 @@ import org.openflexo.foundation.fml.cli.command.AbstractCommand;
 import org.openflexo.foundation.fml.cli.command.FMLCommandExecutionException;
 import org.openflexo.foundation.fml.expr.FMLExpressionEvaluator;
 
+import java.io.*;
+import java.util.List;
+
 /**
  * FML command-line interpreter<br>
- * 
+ * <p>
  * An interpreter must be instantiated using a {@link FlexoServiceManager}
- * 
+ *
  */
 public class CommandInterpreter extends AbstractCommandInterpreter {
 
-	private Console console;
-	private ConsoleCommand consoleCommand;
+    private Console console;
+    private ConsoleCommand consoleCommand;
 
-	private DataInputStream inStream;
+    private DataInputStream inStream;
+    private boolean isStopping = false;
 
-	/**
-	 * Create a new command interpreter attached to the passed in streams.
-	 * 
-	 * @throws IOException
-	 */
-	public CommandInterpreter(FlexoServiceManager serviceManager, InputStream in, OutputStream out, OutputStream err, File workingDirectory)
-			throws IOException {
+    /**
+     * Create a new command interpreter attached to the passed in streams.
+     *
+     * @throws IOException
+     */
+    public CommandInterpreter(FlexoServiceManager serviceManager, InputStream in, OutputStream out, OutputStream err, File workingDirectory)
+            throws IOException {
 
-		super(serviceManager, out, err, workingDirectory);
-		console = new Console();
+        super(serviceManager, out, err, workingDirectory);
+        console = new Console();
 
-		if (in instanceof DataInputStream) {
-			inStream = (DataInputStream) in;
-		}
-		else {
-			inStream = new DataInputStream(in);
-		}
+        if (in instanceof DataInputStream) {
+            inStream = (DataInputStream) in;
+        } else {
+            inStream = new DataInputStream(in);
+        }
 
-		consoleCommand = new ConsoleCommand(console) {
+        consoleCommand = new ConsoleCommand(console) {
 
-			@Override
-			protected void afterAttach() throws IOException {
-				if (!hasRedirectOut()) {
-					console.pushToStdOut(ANSI.getAlternateBufferScreen());
-				}
+            @Override
+            protected void afterAttach() throws IOException {
+                if (!hasRedirectOut()) {
+                    console.pushToStdOut(ANSI.getAlternateBufferScreen());
+                }
 
-				readFromFile();
+                readFromFile();
 
-				// detach after init if hasRedirectOut()
-				if (hasRedirectOut()) {
-					detach();
-				}
-			}
+                // detach after init if hasRedirectOut()
+                if (hasRedirectOut()) {
+                    detach();
+                }
+            }
 
-			@Override
-			protected void afterDetach() throws IOException {
-				if (!hasRedirectOut())
-					console.pushToStdOut(ANSI.getMainBufferScreen());
-			}
+            @Override
+            protected void afterDetach() throws IOException {
+                if (!hasRedirectOut())
+                    console.pushToStdOut(ANSI.getMainBufferScreen());
+            }
 
-			private void readFromFile() throws IOException {
-				if (getConsoleOutput().getStdOut() != null && getConsoleOutput().getStdOut().length() > 0) {
-					console.pushToStdOut("FROM STDOUT: " + getConsoleOutput().getStdOut());
-				}
-				else
-					console.pushToStdOut("here should we present some text... press 'q' to quit");
-			}
+            private void readFromFile() throws IOException {
+                if (getConsoleOutput().getStdOut() != null && getConsoleOutput().getStdOut().length() > 0) {
+                    console.pushToStdOut("FROM STDOUT: " + getConsoleOutput().getStdOut());
+                } else
+                    console.pushToStdOut("here should we present some text... press 'q' to quit");
+            }
 
-			@Override
-			public void processOperation(Operation operation) throws IOException {
-				if (operation.getInput()[0] == 'q') {
-					detach();
-				}
-				else if (operation.getInput()[0] == 'a') {
-					readFromFile();
-				}
-				else {
+            @Override
+            public void processOperation(Operation operation) throws IOException {
+                if (operation.getInput()[0] == 'q') {
+                    detach();
+                } else if (operation.getInput()[0] == 'a') {
+                    readFromFile();
+                } else {
 
-				}
-			}
-		};
+                }
+            }
+        };
 
-		Completion completer = new Completion() {
-			@Override
-			public void complete(CompleteOperation co) {
+        Completion completer = new Completion() {
+            @Override
+            public void complete(CompleteOperation co) {
 
-				List<String> commands = getAvailableCompletion(co.getBuffer());
+                List<String> commands = getAvailableCompletion(co.getBuffer());
 
-				// very simple completor
+                // very simple completor
 				/*List<String> commands = new ArrayList<String>();
 				if (co.getBuffer().equals("fo") || co.getBuffer().equals("foo")) {
 					commands.add("foo");
@@ -164,58 +157,63 @@ public class CommandInterpreter extends AbstractCommandInterpreter {
 				if (co.getBuffer().equals("testing")) {
 					commands.add("testing YAY");
 				}*/
-				co.setCompletionCandidates(commands);
-			}
-		};
+                co.setCompletionCandidates(commands);
+            }
+        };
 
-		console.addCompletion(completer);
+        console.addCompletion(completer);
 
-	}
+    }
 
-	public DataInputStream getInStream() {
-		return inStream;
-	}
+    public DataInputStream getInStream() {
+        return inStream;
+    }
 
-	/**
-	 * Starts the interactive session. When running the user should see the "Ready." prompt. The session ends when the user types the
-	 * <code>byte</code> command.
-	 * 
-	 * @throws IOException
-	 */
-	@Override
-	public void start() throws IOException {
-		// LexicalTokenizer lt = new LexicalTokenizer(data);
-		// Program pgm = new Program();
-		// DataInputStream dis = inStream;
-		// String lineData;
+	/*private void printPrompt() {
+		outStream.print(workingDirectory.getName() + " > ");
+	}*/
 
-		super.start();
+    /**
+     * Starts the interactive session. When running the user should see the "Ready." prompt. The session ends when the user types the
+     * <code>byte</code> command.
+     *
+     * @throws IOException
+     */
+    @Override
+    public void start() throws IOException {
+        // LexicalTokenizer lt = new LexicalTokenizer(data);
+        // Program pgm = new Program();
+        // DataInputStream dis = inStream;
+        // String lineData;
 
-		ConsoleOutput line;
-		// console.pushToStdOut(ANSI.GREEN_TEXT());
-		while (!isStopping && (line = console.read(getPrompt() + " > ")) != null) {
-			// exampleConsole.pushToStdOut("======>" + line.getBuffer() + "\n");
+        super.start();
 
-			// exit on eof of the input stream
-			if (line.getBuffer() == null)
-				return;
+        ConsoleOutput line;
+        // console.pushToStdOut(ANSI.GREEN_TEXT());
+        while (!isStopping && (line = console.read(getPrompt() + " > ")) != null) {
+            // exampleConsole.pushToStdOut("======>" + line.getBuffer() + "\n");
 
-			// ignore blank lines.
-			if (line.getBuffer().length() == 0) {
-				// printPrompt();
-				continue;
-			}
+            // exit on eof of the input stream
+            if (line.getBuffer() == null)
+                return;
 
-			try {
-				/*AbstractCommand<?> command =*/ executeCommand(line.getBuffer());
-				if (isStopping) {
-					break;
-				}
-			} catch (ParseException e) {
-				getErrStream().println(e.getMessage());
-			} catch (FMLCommandExecutionException e) {
-				getErrStream().println(e.getMessage());
-			}
+            // ignore blank lines.
+            if (line.getBuffer().length() == 0) {
+                // printPrompt();
+                continue;
+            }
+
+            try {
+                /*AbstractCommand<?> command =*/
+                executeCommand(line.getBuffer());
+                if (isStopping) {
+                    break;
+                }
+            } catch (ParseException e) {
+                getErrStream().println(e.getMessage());
+            } catch (FMLCommandExecutionException e) {
+                getErrStream().println(e.getMessage());
+            }
 
 			/*if (line.getBuffer().equalsIgnoreCase("quit") || line.getBuffer().equalsIgnoreCase("exit")
 					|| line.getBuffer().equalsIgnoreCase("reset")) {
@@ -224,7 +222,7 @@ public class CommandInterpreter extends AbstractCommandInterpreter {
 			if (line.getBuffer().equalsIgnoreCase("password")) {
 				line = exampleConsole.read("password: ", Character.valueOf((char) 0));
 				exampleConsole.pushToStdOut("password typed:" + line + "\n");
-			
+
 			}
 			// test stdErr
 			if (line.getBuffer().startsWith("blah")) {
@@ -236,44 +234,44 @@ public class CommandInterpreter extends AbstractCommandInterpreter {
 				// exampleConsole.attachProcess(test);
 				test.attach(line);
 			 */
-		}
+        }
 		/*if (line != null && line.getBuffer().equals("reset")) {
 			exampleConsole.stop();
 			exampleConsole = new Console();
-		
+
 			while ((line = exampleConsole.read("> ")) != null) {
 				exampleConsole.pushToStdOut("======>\"" + line + "\"\n");
 				if (line.getBuffer().equalsIgnoreCase("quit") || line.getBuffer().equalsIgnoreCase("exit")
 						|| line.getBuffer().equalsIgnoreCase("reset")) {
 					break;
 				}
-		
+
 			}
 		}*/
 
 		/*while (true) {
 			// Statement s = null;
 			try {
-		
+
 				BufferedReader in = new BufferedReader(new InputStreamReader(dis));
 				lineData = in.readLine();
-		
+
 				// lineData = dis.readLine();
 			} catch (IOException ioe) {
 				outStream.println("Caught an IO exception reading the input stream!");
 				return;
 			}
-		
+
 			// exit on eof of the input stream
 			if (lineData == null)
 				return;
-		
+
 			// ignore blank lines.
 			if (lineData.length() == 0) {
 				printPrompt();
 				continue;
 			}
-		
+
 			try {
 				AbstractCommand command = CommandParser.parse(lineData, this);
 				// System.out.println("Typed: " + lineData + " command=" + command);
@@ -288,46 +286,40 @@ public class CommandInterpreter extends AbstractCommandInterpreter {
 			} catch (ParseException e) {
 				System.err.println(e.getMessage());
 			}
-		
+
 			printPrompt();
-		
+
 		}*/
-	}
+    }
 
-	/*private void printPrompt() {
-		outStream.print(workingDirectory.getName() + " > ");
-	}*/
+    @Override
+    public void stop() {
+        System.out.println("Exiting command interpreter");
+        isStopping = true;
+        try {
+            console.stop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	private boolean isStopping = false;
+    public Console getConsole() {
+        return console;
+    }
 
-	@Override
-	public void stop() {
-		System.out.println("Exiting command interpreter");
-		isStopping = true;
-		try {
-			console.stop();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public ConsoleCommand getConsoleCommand() {
+        return consoleCommand;
+    }
 
-	public Console getConsole() {
-		return console;
-	}
+    @Override
+    public void displayHistory() {
+        for (AbstractCommand<?> command : getHistory()) {
+            getOutStream().println(command.toString());
+        }
+    }
 
-	public ConsoleCommand getConsoleCommand() {
-		return consoleCommand;
-	}
-
-	@Override
-	public void displayHistory() {
-		for (AbstractCommand<?> command : getHistory()) {
-			getOutStream().println(command.toString());
-		}
-	}
-
-	@Override
-	public ExpressionEvaluator getEvaluator() {
-		return new FMLExpressionEvaluator(this);
-	}
+    @Override
+    public ExpressionEvaluator getEvaluator() {
+        return new FMLExpressionEvaluator(this);
+    }
 }

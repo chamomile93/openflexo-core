@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APercentMultExp extends PMultExp
-{
+public final class APercentMultExp extends PMultExp {
     private PMultExp _multExp_;
     private TPercent _percent_;
     private PUnaryExp _unaryExp_;
 
-    public APercentMultExp()
-    {
+    public APercentMultExp() {
         // Constructor
     }
 
     public APercentMultExp(
-        @SuppressWarnings("hiding") PMultExp _multExp_,
-        @SuppressWarnings("hiding") TPercent _percent_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") PMultExp _multExp_,
+            @SuppressWarnings("hiding") TPercent _percent_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setMultExp(_multExp_);
 
@@ -31,36 +28,29 @@ public final class APercentMultExp extends PMultExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APercentMultExp(
-            cloneNode(this._multExp_),
-            cloneNode(this._percent_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._multExp_),
+                cloneNode(this._percent_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPercentMultExp(this);
     }
 
-    public PMultExp getMultExp()
-    {
+    public PMultExp getMultExp() {
         return this._multExp_;
     }
 
-    public void setMultExp(PMultExp node)
-    {
-        if(this._multExp_ != null)
-        {
+    public void setMultExp(PMultExp node) {
+        if (this._multExp_ != null) {
             this._multExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class APercentMultExp extends PMultExp
         this._multExp_ = node;
     }
 
-    public TPercent getPercent()
-    {
+    public TPercent getPercent() {
         return this._percent_;
     }
 
-    public void setPercent(TPercent node)
-    {
-        if(this._percent_ != null)
-        {
+    public void setPercent(TPercent node) {
+        if (this._percent_ != null) {
             this._percent_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class APercentMultExp extends PMultExp
         this._percent_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class APercentMultExp extends PMultExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._multExp_)
-            + toString(this._percent_)
-            + toString(this._unaryExp_);
+                + toString(this._multExp_)
+                + toString(this._percent_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._multExp_ == child)
-        {
+        if (this._multExp_ == child) {
             this._multExp_ = null;
             return;
         }
 
-        if(this._percent_ == child)
-        {
+        if (this._percent_ == child) {
             this._percent_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class APercentMultExp extends PMultExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._multExp_ == oldChild)
-        {
+        if (this._multExp_ == oldChild) {
             setMultExp((PMultExp) newChild);
             return;
         }
 
-        if(this._percent_ == oldChild)
-        {
+        if (this._percent_ == oldChild) {
             setPercent((TPercent) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

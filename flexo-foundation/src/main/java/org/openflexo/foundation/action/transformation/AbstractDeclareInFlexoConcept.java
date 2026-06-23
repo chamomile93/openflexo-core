@@ -1,57 +1,47 @@
 /**
- * 
+ *
  * Copyright (c) 2014-2015, Openflexo
- * 
- * This file is part of Flexodiagram, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexodiagram, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.action.transformation;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-import java.util.logging.Logger;
-
 import org.openflexo.foundation.FlexoEditor;
 import org.openflexo.foundation.FlexoException;
 import org.openflexo.foundation.action.FlexoActionFactory;
-import org.openflexo.foundation.fml.FMLCompilationUnit;
-import org.openflexo.foundation.fml.FMLModelFactory;
-import org.openflexo.foundation.fml.FlexoConcept;
-import org.openflexo.foundation.fml.FlexoRole;
-import org.openflexo.foundation.fml.VirtualModel;
+import org.openflexo.foundation.fml.*;
 import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.fml.rt.AbstractFMLRTModelSlot;
 import org.openflexo.foundation.resource.FlexoResource;
@@ -60,6 +50,12 @@ import org.openflexo.foundation.technologyadapter.FlexoMetaModel;
 import org.openflexo.foundation.technologyadapter.ModelSlot;
 import org.openflexo.foundation.technologyadapter.TechnologyObject;
 import org.openflexo.foundation.technologyadapter.TypeAwareModelSlot;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Logger;
 
 /**
  * This abstract class is a base action that allows to create or transform a {@link FlexoConcept} from a {@link TechnologyObject}<br>
@@ -70,11 +66,11 @@ import org.openflexo.foundation.technologyadapter.TypeAwareModelSlot;
  * <li>a {@link FlexoRoleSettingStrategy} which allows to set an existing {@link FlexoRole} in existing {@link FlexoConcept}</li>
  * </ul>
  * Some strategies should be implemented for each of that choices, defined as primary choices<br>
- * 
+ *
  * Note that to be valid, this class must be externally set with {@link CompilationUnitResource}
- * 
+ *
  * @author Sylvain, Vincent
- * 
+ *
  * @param <A>
  *            type of action
  * @param <T1>
@@ -83,373 +79,365 @@ import org.openflexo.foundation.technologyadapter.TypeAwareModelSlot;
  *            type of glocal selection (technology object beeing used in operation)
  */
 public abstract class AbstractDeclareInFlexoConcept<A extends AbstractDeclareInFlexoConcept<A, T1, T2>, T1 extends TechnologyObject<?>, T2 extends TechnologyObject<?>>
-		extends TransformationAction<A, T1, T2> {
+        extends TransformationAction<A, T1, T2> {
 
-	@SuppressWarnings("unused")
-	private static final Logger logger = Logger.getLogger(AbstractDeclareInFlexoConcept.class.getPackage().getName());
+    @SuppressWarnings("unused")
+    private static final Logger logger = Logger.getLogger(AbstractDeclareInFlexoConcept.class.getPackage().getName());
+    private final List<FlexoConceptCreationStrategy<A>> availableFlexoConceptCreationStrategies = new ArrayList<>();
+    private final List<FlexoRoleCreationStrategy<A, ? extends FlexoRole<T1>, T1, T2>> availableFlexoRoleCreationStrategies = new ArrayList<>();
+    private final List<FlexoRoleSettingStrategy<A, ? extends FlexoRole<T1>, T1, T2>> availableFlexoRoleSettingStrategies = new ArrayList<>();
+    private CompilationUnitResource getCompilationUnitResource;
+    /**
+     * Stores the model slot used as source of information (data) in pattern proposal
+     */
+    private ModelSlot<?, ?> informationSourceModelSlot;
+    /**
+     * Reference the {@link FlexoConcept} on which we want to apply transformation
+     */
+    private FlexoConcept flexoConcept;
+    private FlexoConceptCreationStrategy<A> flexoConceptCreationStrategy;
+    private FlexoRoleCreationStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleCreationStrategy;
+    private FlexoRoleSettingStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleSettingStrategy;
+    private DeclareInFlexoConceptChoices primaryChoice = DeclareInFlexoConceptChoices.CREATES_FLEXO_CONCEPT;
+    private List<AbstractFMLRTModelSlot<?, ?, ?>> virtualModelModelSlots;
+    private List<TypeAwareModelSlot<?, ?, ?>> typeAwareModelSlots;
 
-	private CompilationUnitResource getCompilationUnitResource;
+    /**
+     * Constructor for this class
+     *
+     * @param actionType
+     * @param focusedObject
+     * @param globalSelection
+     * @param editor
+     */
+    protected AbstractDeclareInFlexoConcept(FlexoActionFactory<A, T1, T2> actionType, T1 focusedObject, Vector<T2> globalSelection,
+                                            FlexoEditor editor) {
+        super(actionType, focusedObject, globalSelection, editor);
+        // Get the set of model slots that are available from the current virtual model
+        List<ModelSlot<?, ?>> availableModelSlots = getAvailableModelSlots();
+        if (availableModelSlots != null && availableModelSlots.size() > 0) {
+            informationSourceModelSlot = availableModelSlots.get(0);
+        }
+    }
 
-	/**
-	 * Stores the model slot used as source of information (data) in pattern proposal
-	 */
-	private ModelSlot<?, ?> informationSourceModelSlot;
+    /**
+     * Returns the strategy to be choosen as concept creation strategy
+     */
+    public FlexoConceptCreationStrategy<A> getFlexoConceptCreationStrategy() {
+        if (flexoConceptCreationStrategy == null && getAvailableFlexoConceptCreationStrategies().size() > 0) {
+            return getAvailableFlexoConceptCreationStrategies().get(0);
+        }
+        return flexoConceptCreationStrategy;
+    }
 
-	/**
-	 * Reference the {@link FlexoConcept} on which we want to apply transformation
-	 */
-	private FlexoConcept flexoConcept;
+    /**
+     * Sets the strategy to be choosen as concept creation strategy
+     */
+    public void setFlexoConceptCreationStrategy(FlexoConceptCreationStrategy<A> flexoConceptCreationStrategy) {
+        if (flexoConceptCreationStrategy != this.flexoConceptCreationStrategy) {
+            FlexoConceptCreationStrategy<A> oldValue = this.flexoConceptCreationStrategy;
+            this.flexoConceptCreationStrategy = flexoConceptCreationStrategy;
+            getPropertyChangeSupport().firePropertyChange("flexoConceptCreationStrategy", oldValue, flexoConceptCreationStrategy);
+        }
+    }
 
-	private FlexoConceptCreationStrategy<A> flexoConceptCreationStrategy;
-	private FlexoRoleCreationStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleCreationStrategy;
-	private FlexoRoleSettingStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleSettingStrategy;
+    /**
+     * Return the list of all available {@link FlexoConceptCreationStrategy}
+     *
+     * @return
+     */
+    public List<FlexoConceptCreationStrategy<A>> getAvailableFlexoConceptCreationStrategies() {
+        return availableFlexoConceptCreationStrategies;
+    }
 
-	/**
-	 * Constructor for this class
-	 * 
-	 * @param actionType
-	 * @param focusedObject
-	 * @param globalSelection
-	 * @param editor
-	 */
-	protected AbstractDeclareInFlexoConcept(FlexoActionFactory<A, T1, T2> actionType, T1 focusedObject, Vector<T2> globalSelection,
-			FlexoEditor editor) {
-		super(actionType, focusedObject, globalSelection, editor);
-		// Get the set of model slots that are available from the current virtual model
-		List<ModelSlot<?, ?>> availableModelSlots = getAvailableModelSlots();
-		if (availableModelSlots != null && availableModelSlots.size() > 0) {
-			informationSourceModelSlot = availableModelSlots.get(0);
-		}
-	}
+    /**
+     * Returns the strategy to be choosen as {@link FlexoRole} creation strategy
+     */
+    public FlexoRoleCreationStrategy<A, ? extends FlexoRole<T1>, T1, T2> getFlexoRoleCreationStrategy() {
+        if (flexoRoleCreationStrategy == null && getAvailableFlexoRoleCreationStrategies().size() > 0) {
+            return getAvailableFlexoRoleCreationStrategies().get(0);
+        }
+        return flexoRoleCreationStrategy;
+    }
 
-	/**
-	 * Returns the strategy to be choosen as concept creation strategy
-	 */
-	public FlexoConceptCreationStrategy<A> getFlexoConceptCreationStrategy() {
-		if (flexoConceptCreationStrategy == null && getAvailableFlexoConceptCreationStrategies().size() > 0) {
-			return getAvailableFlexoConceptCreationStrategies().get(0);
-		}
-		return flexoConceptCreationStrategy;
-	}
+    /**
+     * Sets the strategy to be choosen as {@link FlexoRole} creation strategy
+     */
+    public void setFlexoRoleCreationStrategy(FlexoRoleCreationStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleCreationStrategy) {
+        if ((flexoRoleCreationStrategy == null && this.flexoRoleCreationStrategy != null)
+                || (flexoRoleCreationStrategy != null && !flexoRoleCreationStrategy.equals(this.flexoRoleCreationStrategy))) {
+            FlexoRoleCreationStrategy<A, FlexoRole<T1>, T1, T2> oldValue = this.flexoRoleCreationStrategy;
+            this.flexoRoleCreationStrategy = flexoRoleCreationStrategy;
+            getPropertyChangeSupport().firePropertyChange("flexoRoleCreationStrategy", oldValue, flexoRoleCreationStrategy);
+        }
+    }
 
-	/**
-	 * Sets the strategy to be choosen as concept creation strategy
-	 */
-	public void setFlexoConceptCreationStrategy(FlexoConceptCreationStrategy<A> flexoConceptCreationStrategy) {
-		if (flexoConceptCreationStrategy != this.flexoConceptCreationStrategy) {
-			FlexoConceptCreationStrategy<A> oldValue = this.flexoConceptCreationStrategy;
-			this.flexoConceptCreationStrategy = flexoConceptCreationStrategy;
-			getPropertyChangeSupport().firePropertyChange("flexoConceptCreationStrategy", oldValue, flexoConceptCreationStrategy);
-		}
-	}
+    /**
+     * Return the list of all available {@link FlexoRoleCreationStrategy}
+     *
+     * @return
+     */
+    public List<FlexoRoleCreationStrategy<A, ? extends FlexoRole<T1>, T1, T2>> getAvailableFlexoRoleCreationStrategies() {
+        return availableFlexoRoleCreationStrategies;
+    }
 
-	private final List<FlexoConceptCreationStrategy<A>> availableFlexoConceptCreationStrategies = new ArrayList<>();
-	private final List<FlexoRoleCreationStrategy<A, ? extends FlexoRole<T1>, T1, T2>> availableFlexoRoleCreationStrategies = new ArrayList<>();
-	private final List<FlexoRoleSettingStrategy<A, ? extends FlexoRole<T1>, T1, T2>> availableFlexoRoleSettingStrategies = new ArrayList<>();
+    /**
+     * Returns the strategy to be choosen as {@link FlexoRole} setting strategy
+     */
+    public FlexoRoleSettingStrategy<A, ? extends FlexoRole<T1>, T1, T2> getFlexoRoleSettingStrategy() {
+        if (flexoRoleSettingStrategy == null && getAvailableFlexoRoleSettingStrategies().size() > 0) {
+            return getAvailableFlexoRoleSettingStrategies().get(0);
+        }
+        return flexoRoleSettingStrategy;
+    }
 
-	/**
-	 * Return the list of all available {@link FlexoConceptCreationStrategy}
-	 * 
-	 * @return
-	 */
-	public List<FlexoConceptCreationStrategy<A>> getAvailableFlexoConceptCreationStrategies() {
-		return availableFlexoConceptCreationStrategies;
-	}
+    /**
+     * Sets the strategy to be choosen as {@link FlexoRole} setting strategy
+     */
+    public void setFlexoRoleSettingStrategy(FlexoRoleSettingStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleSettingStrategy) {
+        if ((flexoRoleSettingStrategy == null && this.flexoRoleSettingStrategy != null)
+                || (flexoRoleSettingStrategy != null && !flexoRoleSettingStrategy.equals(this.flexoRoleSettingStrategy))) {
+            FlexoRoleSettingStrategy<A, FlexoRole<T1>, T1, T2> oldValue = this.flexoRoleSettingStrategy;
+            this.flexoRoleSettingStrategy = flexoRoleSettingStrategy;
+            getPropertyChangeSupport().firePropertyChange("flexoRoleSettingStrategy", oldValue, flexoRoleSettingStrategy);
+        }
+    }
 
-	/**
-	 * Returns the strategy to be choosen as {@link FlexoRole} creation strategy
-	 */
-	public FlexoRoleCreationStrategy<A, ? extends FlexoRole<T1>, T1, T2> getFlexoRoleCreationStrategy() {
-		if (flexoRoleCreationStrategy == null && getAvailableFlexoRoleCreationStrategies().size() > 0) {
-			return getAvailableFlexoRoleCreationStrategies().get(0);
-		}
-		return flexoRoleCreationStrategy;
-	}
+    /**
+     * Return the list of all available {@link FlexoRoleSettingStrategy}
+     *
+     * @return
+     */
+    public List<FlexoRoleSettingStrategy<A, ? extends FlexoRole<T1>, T1, T2>> getAvailableFlexoRoleSettingStrategies() {
+        return availableFlexoRoleSettingStrategies;
+    }
 
-	/**
-	 * Sets the strategy to be choosen as {@link FlexoRole} creation strategy
-	 */
-	public void setFlexoRoleCreationStrategy(FlexoRoleCreationStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleCreationStrategy) {
-		if ((flexoRoleCreationStrategy == null && this.flexoRoleCreationStrategy != null)
-				|| (flexoRoleCreationStrategy != null && !flexoRoleCreationStrategy.equals(this.flexoRoleCreationStrategy))) {
-			FlexoRoleCreationStrategy<A, FlexoRole<T1>, T1, T2> oldValue = this.flexoRoleCreationStrategy;
-			this.flexoRoleCreationStrategy = flexoRoleCreationStrategy;
-			getPropertyChangeSupport().firePropertyChange("flexoRoleCreationStrategy", oldValue, flexoRoleCreationStrategy);
-		}
-	}
+    /**
+     * Return the VirtualModel on which we are working<br>
+     * This {@link VirtualModel} must be set with external API.
+     */
+    public VirtualModel getVirtualModel() {
+        if (getCompilationUnitResource() != null) {
+            try {
+                return getCompilationUnitResource().getResourceData().getVirtualModel();
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ResourceLoadingCancelledException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (FlexoException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Return the list of all available {@link FlexoRoleCreationStrategy}
-	 * 
-	 * @return
-	 */
-	public List<FlexoRoleCreationStrategy<A, ? extends FlexoRole<T1>, T1, T2>> getAvailableFlexoRoleCreationStrategies() {
-		return availableFlexoRoleCreationStrategies;
-	}
+    /**
+     * Return the CompilationUnitResource on which we are working<br>
+     * This {@link CompilationUnitResource} must be set with external API.
+     */
+    public CompilationUnitResource getCompilationUnitResource() {
+        return getCompilationUnitResource;
+    }
 
-	/**
-	 * Returns the strategy to be choosen as {@link FlexoRole} setting strategy
-	 */
-	public FlexoRoleSettingStrategy<A, ? extends FlexoRole<T1>, T1, T2> getFlexoRoleSettingStrategy() {
-		if (flexoRoleSettingStrategy == null && getAvailableFlexoRoleSettingStrategies().size() > 0) {
-			return getAvailableFlexoRoleSettingStrategies().get(0);
-		}
-		return flexoRoleSettingStrategy;
-	}
+    /**
+     * Sets the CompilationUnitResource on which we are working<br>
+     * This {@link CompilationUnitResource} must be set with external API.
+     */
+    public void setCompilationUnitResource(CompilationUnitResource compilationUnitResource) {
+        if (this.getCompilationUnitResource != compilationUnitResource) {
+            FlexoResource<FMLCompilationUnit> oldValue = this.getCompilationUnitResource;
+            this.getCompilationUnitResource = compilationUnitResource;
+            getPropertyChangeSupport().firePropertyChange("compilationUnitResource", oldValue, compilationUnitResource);
+        }
+    }
 
-	/**
-	 * Sets the strategy to be choosen as {@link FlexoRole} setting strategy
-	 */
-	public void setFlexoRoleSettingStrategy(FlexoRoleSettingStrategy<A, FlexoRole<T1>, T1, T2> flexoRoleSettingStrategy) {
-		if ((flexoRoleSettingStrategy == null && this.flexoRoleSettingStrategy != null)
-				|| (flexoRoleSettingStrategy != null && !flexoRoleSettingStrategy.equals(this.flexoRoleSettingStrategy))) {
-			FlexoRoleSettingStrategy<A, FlexoRole<T1>, T1, T2> oldValue = this.flexoRoleSettingStrategy;
-			this.flexoRoleSettingStrategy = flexoRoleSettingStrategy;
-			getPropertyChangeSupport().firePropertyChange("flexoRoleSettingStrategy", oldValue, flexoRoleSettingStrategy);
-		}
-	}
+    public DeclareInFlexoConceptChoices getPrimaryChoice() {
+        return primaryChoice;
+    }
 
-	/**
-	 * Return the list of all available {@link FlexoRoleSettingStrategy}
-	 * 
-	 * @return
-	 */
-	public List<FlexoRoleSettingStrategy<A, ? extends FlexoRole<T1>, T1, T2>> getAvailableFlexoRoleSettingStrategies() {
-		return availableFlexoRoleSettingStrategies;
-	}
+    public void setPrimaryChoice(DeclareInFlexoConceptChoices primaryChoice) {
+        if (this.primaryChoice != primaryChoice) {
+            DeclareInFlexoConceptChoices oldValue = this.primaryChoice;
+            this.primaryChoice = primaryChoice;
+            getPropertyChangeSupport().firePropertyChange("primaryChoice", oldValue, primaryChoice);
+        }
+    }
 
-	/**
-	 * Return the VirtualModel on which we are working<br>
-	 * This {@link VirtualModel} must be set with external API.
-	 */
-	public VirtualModel getVirtualModel() {
-		if (getCompilationUnitResource() != null) {
-			try {
-				return getCompilationUnitResource().getResourceData().getVirtualModel();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ResourceLoadingCancelledException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (FlexoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+    @Override
+    public TransformationStrategy<A> getTransformationStrategy() {
+        switch (getPrimaryChoice()) {
+            case CREATES_FLEXO_CONCEPT:
+                return getFlexoConceptCreationStrategy();
+            case CREATE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT:
+                return getFlexoRoleCreationStrategy();
+            case REPLACE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT:
+                return getFlexoRoleSettingStrategy();
+            default:
+                return null;
+        }
+    }
 
-	/**
-	 * Return the CompilationUnitResource on which we are working<br>
-	 * This {@link CompilationUnitResource} must be set with external API.
-	 */
-	public CompilationUnitResource getCompilationUnitResource() {
-		return getCompilationUnitResource;
-	}
+    @Override
+    public boolean isValid() {
+        if (getFocusedObject() == null) {
+            return false;
+        }
+        if (getCompilationUnitResource() == null) {
+            return false;
+        }
+        if (!super.isValid()) {
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 * Sets the CompilationUnitResource on which we are working<br>
-	 * This {@link CompilationUnitResource} must be set with external API.
-	 */
-	public void setCompilationUnitResource(CompilationUnitResource compilationUnitResource) {
-		if (this.getCompilationUnitResource != compilationUnitResource) {
-			FlexoResource<FMLCompilationUnit> oldValue = this.getCompilationUnitResource;
-			this.getCompilationUnitResource = compilationUnitResource;
-			getPropertyChangeSupport().firePropertyChange("compilationUnitResource", oldValue, compilationUnitResource);
-		}
-	}
+    public FlexoConcept getFlexoConcept() {
+        return flexoConcept;
+    }
 
-	public static enum DeclareInFlexoConceptChoices {
-		CREATES_FLEXO_CONCEPT, CREATE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT, REPLACE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT
-	}
+    public void setFlexoConcept(FlexoConcept flexoConcept) {
+        if ((flexoConcept == null && this.flexoConcept != null) || (flexoConcept != null && !flexoConcept.equals(this.flexoConcept))) {
+            FlexoConcept oldValue = this.flexoConcept;
+            this.flexoConcept = flexoConcept;
+            getPropertyChangeSupport().firePropertyChange("flexoConcept", oldValue, flexoConcept);
+        }
+    }
 
-	private DeclareInFlexoConceptChoices primaryChoice = DeclareInFlexoConceptChoices.CREATES_FLEXO_CONCEPT;
+    /**
+     * Return the model slot used as source of information (data) in pattern proposal
+     *
+     * @return
+     */
+    public ModelSlot<?, ?> getInformationSourceModelSlot() {
+        return informationSourceModelSlot;
+    }
 
-	public DeclareInFlexoConceptChoices getPrimaryChoice() {
-		return primaryChoice;
-	}
+    /**
+     * Sets the model slot used as source of information (data) in pattern proposal
+     *
+     * @return
+     */
+    public void setInformationSourceModelSlot(ModelSlot<?, ?> modelSlot) {
+        this.informationSourceModelSlot = modelSlot;
+    }
 
-	public void setPrimaryChoice(DeclareInFlexoConceptChoices primaryChoice) {
-		if (this.primaryChoice != primaryChoice) {
-			DeclareInFlexoConceptChoices oldValue = this.primaryChoice;
-			this.primaryChoice = primaryChoice;
-			getPropertyChangeSupport().firePropertyChange("primaryChoice", oldValue, primaryChoice);
-		}
-	}
+    /**
+     * Return the list of all model slots declared in virtual model where this action is defined
+     *
+     * @return
+     */
+    public List<ModelSlot<?, ?>> getAvailableModelSlots() {
+        if (getVirtualModel() != null) {
+            return getVirtualModel().getModelSlots();
+        }
+        return null;
+    }
 
-	@Override
-	public TransformationStrategy<A> getTransformationStrategy() {
-		switch (getPrimaryChoice()) {
-			case CREATES_FLEXO_CONCEPT:
-				return getFlexoConceptCreationStrategy();
-			case CREATE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT:
-				return getFlexoRoleCreationStrategy();
-			case REPLACE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT:
-				return getFlexoRoleSettingStrategy();
-			default:
-				return null;
-		}
-	}
+    /**
+     * Return a virtual model adressed by a model slot
+     *
+     * @return
+     */
+    public VirtualModel getAdressedVirtualModel() {
+        if (isVirtualModelModelSlot()) {
+            AbstractFMLRTModelSlot<?, ?, ?> virtualModelModelSlot = (AbstractFMLRTModelSlot<?, ?, ?>) getInformationSourceModelSlot();
+            return virtualModelModelSlot.getAccessedVirtualModel();
+        }
+        return null;
+    }
 
-	@Override
-	public boolean isValid() {
-		if (getFocusedObject() == null) {
-			return false;
-		}
-		if (getCompilationUnitResource() == null) {
-			return false;
-		}
-		if (!super.isValid()) {
-			return false;
-		}
-		return true;
-	}
+    /**
+     * Return a virtual model adressed by a model slot
+     *
+     * @return
+     */
+    public FlexoMetaModel<?> getAdressedFlexoMetaModel() {
+        if (isTypeAwareModelSlot()) {
+            TypeAwareModelSlot<?, ?, ?> typeAwareModelSlot = (TypeAwareModelSlot<?, ?, ?>) getInformationSourceModelSlot();
+            if (typeAwareModelSlot != null && typeAwareModelSlot.getMetaModelResource() != null) {
+                return typeAwareModelSlot.getMetaModelResource().getMetaModelData();
+            }
+        }
+        return null;
+    }
 
-	public FlexoConcept getFlexoConcept() {
-		return flexoConcept;
-	}
+    public List<AbstractFMLRTModelSlot<?, ?, ?>> getVirtualModelModelSlots() {
+        if (virtualModelModelSlots == null) {
+            virtualModelModelSlots = new ArrayList<>();
+        }
+        if (!virtualModelModelSlots.isEmpty()) {
+            virtualModelModelSlots.clear();
+        }
+        if (getVirtualModel() != null) {
+            for (ModelSlot<?, ?> modelSlot : getVirtualModel().getModelSlots()) {
+                if (modelSlot instanceof AbstractFMLRTModelSlot) {
+                    virtualModelModelSlots.add((AbstractFMLRTModelSlot<?, ?, ?>) modelSlot);
+                }
+            }
+        }
+        return virtualModelModelSlots;
+    }
 
-	public void setFlexoConcept(FlexoConcept flexoConcept) {
-		if ((flexoConcept == null && this.flexoConcept != null) || (flexoConcept != null && !flexoConcept.equals(this.flexoConcept))) {
-			FlexoConcept oldValue = this.flexoConcept;
-			this.flexoConcept = flexoConcept;
-			getPropertyChangeSupport().firePropertyChange("flexoConcept", oldValue, flexoConcept);
-		}
-	}
+    public List<TypeAwareModelSlot<?, ?, ?>> getTypeAwareModelSlots() {
+        if (typeAwareModelSlots == null) {
+            typeAwareModelSlots = new ArrayList<>();
+        }
+        if (!typeAwareModelSlots.isEmpty()) {
+            typeAwareModelSlots.clear();
+        }
+        if (getVirtualModel() != null) {
+            for (ModelSlot<?, ?> modelSlot : getVirtualModel().getModelSlots()) {
+                if (modelSlot instanceof TypeAwareModelSlot) {
+                    typeAwareModelSlots.add((TypeAwareModelSlot<?, ?, ?>) modelSlot);
+                }
+            }
+        }
+        return typeAwareModelSlots;
+    }
 
-	/**
-	 * Return the model slot used as source of information (data) in pattern proposal
-	 * 
-	 * @return
-	 */
-	public ModelSlot<?, ?> getInformationSourceModelSlot() {
-		return informationSourceModelSlot;
-	}
+    /**
+     * Return flag indicating if currently selected {@link ModelSlot} is a {@link TypeAwareModelSlot}
+     *
+     * @return
+     */
+    public boolean isTypeAwareModelSlot() {
+        if (getInformationSourceModelSlot() instanceof TypeAwareModelSlot) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Sets the model slot used as source of information (data) in pattern proposal
-	 * 
-	 * @return
-	 */
-	public void setInformationSourceModelSlot(ModelSlot<?, ?> modelSlot) {
-		this.informationSourceModelSlot = modelSlot;
-	}
+    /**
+     * Return flag indicating if currently selected {@link ModelSlot} is a {@link AbstractFMLRTModelSlot}
+     *
+     * @return
+     */
+    public boolean isVirtualModelModelSlot() {
+        if (getInformationSourceModelSlot() instanceof AbstractFMLRTModelSlot) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Return the list of all model slots declared in virtual model where this action is defined
-	 * 
-	 * @return
-	 */
-	public List<ModelSlot<?, ?>> getAvailableModelSlots() {
-		if (getVirtualModel() != null) {
-			return getVirtualModel().getModelSlots();
-		}
-		return null;
-	}
+    /**
+     * Return the FMLModelFactory to used in action context
+     *
+     * @return
+     */
+    public FMLModelFactory getFactory() {
+        if (getFlexoConcept() != null) {
+            return getFlexoConcept().getFMLModelFactory();
+        } else if (getCompilationUnitResource() != null) {
+            return getCompilationUnitResource().getFactory();
+        }
+        return null;
+    }
 
-	/**
-	 * Return a virtual model adressed by a model slot
-	 * 
-	 * @return
-	 */
-	public VirtualModel getAdressedVirtualModel() {
-		if (isVirtualModelModelSlot()) {
-			AbstractFMLRTModelSlot<?, ?, ?> virtualModelModelSlot = (AbstractFMLRTModelSlot<?, ?, ?>) getInformationSourceModelSlot();
-			return virtualModelModelSlot.getAccessedVirtualModel();
-		}
-		return null;
-	}
-
-	/**
-	 * Return a virtual model adressed by a model slot
-	 * 
-	 * @return
-	 */
-	public FlexoMetaModel<?> getAdressedFlexoMetaModel() {
-		if (isTypeAwareModelSlot()) {
-			TypeAwareModelSlot<?, ?, ?> typeAwareModelSlot = (TypeAwareModelSlot<?, ?, ?>) getInformationSourceModelSlot();
-			if (typeAwareModelSlot != null && typeAwareModelSlot.getMetaModelResource() != null) {
-				return typeAwareModelSlot.getMetaModelResource().getMetaModelData();
-			}
-		}
-		return null;
-	}
-
-	private List<AbstractFMLRTModelSlot<?, ?, ?>> virtualModelModelSlots;
-	private List<TypeAwareModelSlot<?, ?, ?>> typeAwareModelSlots;
-
-	public List<AbstractFMLRTModelSlot<?, ?, ?>> getVirtualModelModelSlots() {
-		if (virtualModelModelSlots == null) {
-			virtualModelModelSlots = new ArrayList<>();
-		}
-		if (!virtualModelModelSlots.isEmpty()) {
-			virtualModelModelSlots.clear();
-		}
-		if (getVirtualModel() != null) {
-			for (ModelSlot<?, ?> modelSlot : getVirtualModel().getModelSlots()) {
-				if (modelSlot instanceof AbstractFMLRTModelSlot) {
-					virtualModelModelSlots.add((AbstractFMLRTModelSlot<?, ?, ?>) modelSlot);
-				}
-			}
-		}
-		return virtualModelModelSlots;
-	}
-
-	public List<TypeAwareModelSlot<?, ?, ?>> getTypeAwareModelSlots() {
-		if (typeAwareModelSlots == null) {
-			typeAwareModelSlots = new ArrayList<>();
-		}
-		if (!typeAwareModelSlots.isEmpty()) {
-			typeAwareModelSlots.clear();
-		}
-		if (getVirtualModel() != null) {
-			for (ModelSlot<?, ?> modelSlot : getVirtualModel().getModelSlots()) {
-				if (modelSlot instanceof TypeAwareModelSlot) {
-					typeAwareModelSlots.add((TypeAwareModelSlot<?, ?, ?>) modelSlot);
-				}
-			}
-		}
-		return typeAwareModelSlots;
-	}
-
-	/**
-	 * Return flag indicating if currently selected {@link ModelSlot} is a {@link TypeAwareModelSlot}
-	 * 
-	 * @return
-	 */
-	public boolean isTypeAwareModelSlot() {
-		if (getInformationSourceModelSlot() instanceof TypeAwareModelSlot) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Return flag indicating if currently selected {@link ModelSlot} is a {@link AbstractFMLRTModelSlot}
-	 * 
-	 * @return
-	 */
-	public boolean isVirtualModelModelSlot() {
-		if (getInformationSourceModelSlot() instanceof AbstractFMLRTModelSlot) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Return the FMLModelFactory to used in action context
-	 * 
-	 * @return
-	 */
-	public FMLModelFactory getFactory() {
-		if (getFlexoConcept() != null) {
-			return getFlexoConcept().getFMLModelFactory();
-		}
-		else if (getCompilationUnitResource() != null) {
-			return getCompilationUnitResource().getFactory();
-		}
-		return null;
-	}
+    public static enum DeclareInFlexoConceptChoices {
+        CREATES_FLEXO_CONCEPT, CREATE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT, REPLACE_ELEMENT_IN_EXISTING_FLEXO_CONCEPT
+    }
 
 }

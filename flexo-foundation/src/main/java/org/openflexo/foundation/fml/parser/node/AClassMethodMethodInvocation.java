@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AClassMethodMethodInvocation extends PMethodInvocation
-{
+public final class AClassMethodMethodInvocation extends PMethodInvocation {
     private PType _type_;
     private TDot _dot_;
     private TLidentifier _lidentifier_;
@@ -14,19 +13,17 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
     private PArgumentList _argumentList_;
     private TRPar _rPar_;
 
-    public AClassMethodMethodInvocation()
-    {
+    public AClassMethodMethodInvocation() {
         // Constructor
     }
 
     public AClassMethodMethodInvocation(
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") TDot _dot_,
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PArgumentList _argumentList_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") TDot _dot_,
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PArgumentList _argumentList_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setType(_type_);
 
@@ -43,39 +40,32 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AClassMethodMethodInvocation(
-            cloneNode(this._type_),
-            cloneNode(this._dot_),
-            cloneNode(this._lidentifier_),
-            cloneNode(this._lPar_),
-            cloneNode(this._argumentList_),
-            cloneNode(this._rPar_));
+                cloneNode(this._type_),
+                cloneNode(this._dot_),
+                cloneNode(this._lidentifier_),
+                cloneNode(this._lPar_),
+                cloneNode(this._argumentList_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAClassMethodMethodInvocation(this);
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
         this._type_ = node;
     }
 
-    public TDot getDot()
-    {
+    public TDot getDot() {
         return this._dot_;
     }
 
-    public void setDot(TDot node)
-    {
-        if(this._dot_ != null)
-        {
+    public void setDot(TDot node) {
+        if (this._dot_ != null) {
             this._dot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
         this._dot_ = node;
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
         this._lidentifier_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
         this._lPar_ = node;
     }
 
-    public PArgumentList getArgumentList()
-    {
+    public PArgumentList getArgumentList() {
         return this._argumentList_;
     }
 
-    public void setArgumentList(PArgumentList node)
-    {
-        if(this._argumentList_ != null)
-        {
+    public void setArgumentList(PArgumentList node) {
+        if (this._argumentList_ != null) {
             this._argumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
         this._argumentList_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._type_)
-            + toString(this._dot_)
-            + toString(this._lidentifier_)
-            + toString(this._lPar_)
-            + toString(this._argumentList_)
-            + toString(this._rPar_);
+                + toString(this._type_)
+                + toString(this._dot_)
+                + toString(this._lidentifier_)
+                + toString(this._lPar_)
+                + toString(this._argumentList_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._dot_ == child)
-        {
+        if (this._dot_ == child) {
             this._dot_ = null;
             return;
         }
 
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._argumentList_ == child)
-        {
+        if (this._argumentList_ == child) {
             this._argumentList_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class AClassMethodMethodInvocation extends PMethodInvocation
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._dot_ == oldChild)
-        {
+        if (this._dot_ == oldChild) {
             setDot((TDot) newChild);
             return;
         }
 
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._argumentList_ == oldChild)
-        {
+        if (this._argumentList_ == oldChild) {
             setArgumentList((PArgumentList) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

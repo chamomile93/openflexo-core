@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PEnumValue extends Node
-{
+public abstract class PEnumValue extends Node {
     // Empty body
 }

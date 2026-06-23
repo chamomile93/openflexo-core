@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOneArgumentList extends PArgumentList
-{
+public final class AOneArgumentList extends PArgumentList {
     private PExpression _expression_;
 
-    public AOneArgumentList()
-    {
+    public AOneArgumentList() {
         // Constructor
     }
 
     public AOneArgumentList(
-        @SuppressWarnings("hiding") PExpression _expression_)
-    {
+            @SuppressWarnings("hiding") PExpression _expression_) {
         // Constructor
         setExpression(_expression_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOneArgumentList(
-            cloneNode(this._expression_));
+                cloneNode(this._expression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOneArgumentList(this);
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AOneArgumentList extends PArgumentList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._expression_);
+                + toString(this._expression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AOneArgumentList extends PArgumentList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }

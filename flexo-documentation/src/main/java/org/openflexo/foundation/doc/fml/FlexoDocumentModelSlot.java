@@ -20,77 +20,72 @@
 
 package org.openflexo.foundation.doc.fml;
 
-import java.util.logging.Logger;
-
 import org.openflexo.foundation.doc.FlexoDocument;
 import org.openflexo.foundation.doc.rm.FlexoDocumentResource;
 import org.openflexo.foundation.resource.FlexoResource;
 import org.openflexo.foundation.technologyadapter.FreeModelSlot;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ImplementationClass;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
+import org.openflexo.pamela.annotations.*;
+
+import java.util.logging.Logger;
 
 /**
  * Implementation of the ModelSlot class for the DOCX technology adapter<br>
  * We expect here to connect an .docx document<br>
- * 
+ * <p>
  * We might here supply a template document, which might be used as a "metamodel" to help manage connected document
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(FlexoDocumentModelSlot.FlexoDocumentModelSlotImpl.class)
 public interface FlexoDocumentModelSlot<D extends FlexoDocument<D, TA>, R extends FlexoDocumentResource<D, TA, ?>, TA extends TechnologyAdapter<TA>>
-		extends FreeModelSlot<D, R> {
+        extends FreeModelSlot<D, R> {
 
-	@PropertyIdentifier(type = String.class)
-	public static final String TEMPLATE_DOCUMENT_URI_KEY = "templateDocumentURI";
-	@PropertyIdentifier(type = FlexoResource.class)
-	public static final String TEMPLATE_RESOURCE_KEY = "templateResource";
+    @PropertyIdentifier(type = String.class)
+    public static final String TEMPLATE_DOCUMENT_URI_KEY = "templateDocumentURI";
+    @PropertyIdentifier(type = FlexoResource.class)
+    public static final String TEMPLATE_RESOURCE_KEY = "templateResource";
 
-	@Getter(value = TEMPLATE_DOCUMENT_URI_KEY)
-	@XMLAttribute
-	public String getTemplateDocumentURI();
+    @Getter(value = TEMPLATE_DOCUMENT_URI_KEY)
+    @XMLAttribute
+    public String getTemplateDocumentURI();
 
-	@Setter(TEMPLATE_DOCUMENT_URI_KEY)
-	public void setTemplateDocumentURI(String templateDocumentURI);
+    @Setter(TEMPLATE_DOCUMENT_URI_KEY)
+    public void setTemplateDocumentURI(String templateDocumentURI);
 
-	public FlexoDocumentResource<D, ?, ?> getTemplateResource();
+    public FlexoDocumentResource<D, ?, ?> getTemplateResource();
 
-	public static abstract class FlexoDocumentModelSlotImpl<D extends FlexoDocument<D, TA>, R extends FlexoDocumentResource<D, TA, ?>, TA extends TechnologyAdapter<TA>>
-			extends FreeModelSlotImpl<D, R> implements FlexoDocumentModelSlot<D, R, TA> {
+    public static abstract class FlexoDocumentModelSlotImpl<D extends FlexoDocument<D, TA>, R extends FlexoDocumentResource<D, TA, ?>, TA extends TechnologyAdapter<TA>>
+            extends FreeModelSlotImpl<D, R> implements FlexoDocumentModelSlot<D, R, TA> {
 
-		private static final Logger logger = Logger.getLogger(FlexoDocumentModelSlot.class.getPackage().getName());
+        private static final Logger logger = Logger.getLogger(FlexoDocumentModelSlot.class.getPackage().getName());
 
-		protected String templateDocumentURI;
+        protected String templateDocumentURI;
 
-		@Override
-		public String getTemplateDocumentURI() {
-			if (getTemplateResource() != null) {
-				return getTemplateResource().getURI();
-			}
-			return templateDocumentURI;
-		}
+        @Override
+        public String getTemplateDocumentURI() {
+            if (getTemplateResource() != null) {
+                return getTemplateResource().getURI();
+            }
+            return templateDocumentURI;
+        }
 
-		@Override
-		public void setTemplateDocumentURI(String templateDocumentURI) {
-			if ((templateDocumentURI == null && this.templateDocumentURI != null)
-					|| (templateDocumentURI != null && !templateDocumentURI.equals(this.templateDocumentURI))) {
-				String oldValue = this.templateDocumentURI;
-				this.templateDocumentURI = templateDocumentURI;
-				getPropertyChangeSupport().firePropertyChange("templateDocumentURI", oldValue, templateDocumentURI);
-			}
-		}
+        @Override
+        public void setTemplateDocumentURI(String templateDocumentURI) {
+            if ((templateDocumentURI == null && this.templateDocumentURI != null)
+                    || (templateDocumentURI != null && !templateDocumentURI.equals(this.templateDocumentURI))) {
+                String oldValue = this.templateDocumentURI;
+                this.templateDocumentURI = templateDocumentURI;
+                getPropertyChangeSupport().firePropertyChange("templateDocumentURI", oldValue, templateDocumentURI);
+            }
+        }
 
-		@Override
-		protected String getFMLRepresentationForConformToStatement() {
-			return "conformTo " + getTemplateDocumentURI() + " ";
-		}
+        @Override
+        protected String getFMLRepresentationForConformToStatement() {
+            return "conformTo " + getTemplateDocumentURI() + " ";
+        }
 
-	}
+    }
 }

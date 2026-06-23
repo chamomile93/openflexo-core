@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AReturnEmptyStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement
-{
+public final class AReturnEmptyStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement {
     private TKwReturn _kwReturn_;
     private TSemi _semi_;
 
-    public AReturnEmptyStatementWithoutTrailingSubstatement()
-    {
+    public AReturnEmptyStatementWithoutTrailingSubstatement() {
         // Constructor
     }
 
     public AReturnEmptyStatementWithoutTrailingSubstatement(
-        @SuppressWarnings("hiding") TKwReturn _kwReturn_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwReturn _kwReturn_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwReturn(_kwReturn_);
 
@@ -27,35 +24,28 @@ public final class AReturnEmptyStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AReturnEmptyStatementWithoutTrailingSubstatement(
-            cloneNode(this._kwReturn_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwReturn_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAReturnEmptyStatementWithoutTrailingSubstatement(this);
     }
 
-    public TKwReturn getKwReturn()
-    {
+    public TKwReturn getKwReturn() {
         return this._kwReturn_;
     }
 
-    public void setKwReturn(TKwReturn node)
-    {
-        if(this._kwReturn_ != null)
-        {
+    public void setKwReturn(TKwReturn node) {
+        if (this._kwReturn_ != null) {
             this._kwReturn_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AReturnEmptyStatementWithoutTrailingSubstatement extends PSta
         this._kwReturn_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AReturnEmptyStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwReturn_)
-            + toString(this._semi_);
+                + toString(this._kwReturn_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwReturn_ == child)
-        {
+        if (this._kwReturn_ == child) {
             this._kwReturn_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AReturnEmptyStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwReturn_ == oldChild)
-        {
+        if (this._kwReturn_ == oldChild) {
             setKwReturn((TKwReturn) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

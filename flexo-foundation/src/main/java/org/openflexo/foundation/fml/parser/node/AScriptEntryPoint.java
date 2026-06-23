@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AScriptEntryPoint extends PEntryPoint
-{
+public final class AScriptEntryPoint extends PEntryPoint {
     private TStartScript _startScript_;
     private PScript _script_;
 
-    public AScriptEntryPoint()
-    {
+    public AScriptEntryPoint() {
         // Constructor
     }
 
     public AScriptEntryPoint(
-        @SuppressWarnings("hiding") TStartScript _startScript_,
-        @SuppressWarnings("hiding") PScript _script_)
-    {
+            @SuppressWarnings("hiding") TStartScript _startScript_,
+            @SuppressWarnings("hiding") PScript _script_) {
         // Constructor
         setStartScript(_startScript_);
 
@@ -27,35 +24,28 @@ public final class AScriptEntryPoint extends PEntryPoint
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AScriptEntryPoint(
-            cloneNode(this._startScript_),
-            cloneNode(this._script_));
+                cloneNode(this._startScript_),
+                cloneNode(this._script_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAScriptEntryPoint(this);
     }
 
-    public TStartScript getStartScript()
-    {
+    public TStartScript getStartScript() {
         return this._startScript_;
     }
 
-    public void setStartScript(TStartScript node)
-    {
-        if(this._startScript_ != null)
-        {
+    public void setStartScript(TStartScript node) {
+        if (this._startScript_ != null) {
             this._startScript_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AScriptEntryPoint extends PEntryPoint
         this._startScript_ = node;
     }
 
-    public PScript getScript()
-    {
+    public PScript getScript() {
         return this._script_;
     }
 
-    public void setScript(PScript node)
-    {
-        if(this._script_ != null)
-        {
+    public void setScript(PScript node) {
+        if (this._script_ != null) {
             this._script_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AScriptEntryPoint extends PEntryPoint
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._startScript_)
-            + toString(this._script_);
+                + toString(this._startScript_)
+                + toString(this._script_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._startScript_ == child)
-        {
+        if (this._startScript_ == child) {
             this._startScript_ = null;
             return;
         }
 
-        if(this._script_ == child)
-        {
+        if (this._script_ == child) {
             this._script_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AScriptEntryPoint extends PEntryPoint
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._startScript_ == oldChild)
-        {
+        if (this._startScript_ == oldChild) {
             setStartScript((TStartScript) newChild);
             return;
         }
 
-        if(this._script_ == oldChild)
-        {
+        if (this._script_ == oldChild) {
             setScript((PScript) newChild);
             return;
         }

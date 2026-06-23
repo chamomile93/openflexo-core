@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APercentAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class APercentAssignAssignmentOperator extends PAssignmentOperator {
     private TPercentAssign _percentAssign_;
 
-    public APercentAssignAssignmentOperator()
-    {
+    public APercentAssignAssignmentOperator() {
         // Constructor
     }
 
     public APercentAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TPercentAssign _percentAssign_)
-    {
+            @SuppressWarnings("hiding") TPercentAssign _percentAssign_) {
         // Constructor
         setPercentAssign(_percentAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APercentAssignAssignmentOperator(
-            cloneNode(this._percentAssign_));
+                cloneNode(this._percentAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPercentAssignAssignmentOperator(this);
     }
 
-    public TPercentAssign getPercentAssign()
-    {
+    public TPercentAssign getPercentAssign() {
         return this._percentAssign_;
     }
 
-    public void setPercentAssign(TPercentAssign node)
-    {
-        if(this._percentAssign_ != null)
-        {
+    public void setPercentAssign(TPercentAssign node) {
+        if (this._percentAssign_ != null) {
             this._percentAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APercentAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._percentAssign_);
+                + toString(this._percentAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._percentAssign_ == child)
-        {
+        if (this._percentAssign_ == child) {
             this._percentAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APercentAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._percentAssign_ == oldChild)
-        {
+        if (this._percentAssign_ == oldChild) {
             setPercentAssign((TPercentAssign) newChild);
             return;
         }

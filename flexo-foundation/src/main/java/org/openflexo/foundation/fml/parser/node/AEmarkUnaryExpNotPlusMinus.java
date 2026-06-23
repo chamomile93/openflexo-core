@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AEmarkUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
-{
+public final class AEmarkUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus {
     private TEmark _emark_;
     private PUnaryExp _unaryExp_;
 
-    public AEmarkUnaryExpNotPlusMinus()
-    {
+    public AEmarkUnaryExpNotPlusMinus() {
         // Constructor
     }
 
     public AEmarkUnaryExpNotPlusMinus(
-        @SuppressWarnings("hiding") TEmark _emark_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") TEmark _emark_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setEmark(_emark_);
 
@@ -27,35 +24,28 @@ public final class AEmarkUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEmarkUnaryExpNotPlusMinus(
-            cloneNode(this._emark_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._emark_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEmarkUnaryExpNotPlusMinus(this);
     }
 
-    public TEmark getEmark()
-    {
+    public TEmark getEmark() {
         return this._emark_;
     }
 
-    public void setEmark(TEmark node)
-    {
-        if(this._emark_ != null)
-        {
+    public void setEmark(TEmark node) {
+        if (this._emark_ != null) {
             this._emark_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AEmarkUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
         this._emark_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AEmarkUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._emark_)
-            + toString(this._unaryExp_);
+                + toString(this._emark_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._emark_ == child)
-        {
+        if (this._emark_ == child) {
             this._emark_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AEmarkUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._emark_ == oldChild)
-        {
+        if (this._emark_ == oldChild) {
             setEmark((TEmark) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

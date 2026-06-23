@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AEnumValue extends PEnumValue
-{
+public final class AEnumValue extends PEnumValue {
     private TCidentifier _cidentifier_;
 
-    public AEnumValue()
-    {
+    public AEnumValue() {
         // Constructor
     }
 
     public AEnumValue(
-        @SuppressWarnings("hiding") TCidentifier _cidentifier_)
-    {
+            @SuppressWarnings("hiding") TCidentifier _cidentifier_) {
         // Constructor
         setCidentifier(_cidentifier_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEnumValue(
-            cloneNode(this._cidentifier_));
+                cloneNode(this._cidentifier_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEnumValue(this);
     }
 
-    public TCidentifier getCidentifier()
-    {
+    public TCidentifier getCidentifier() {
         return this._cidentifier_;
     }
 
-    public void setCidentifier(TCidentifier node)
-    {
-        if(this._cidentifier_ != null)
-        {
+    public void setCidentifier(TCidentifier node) {
+        if (this._cidentifier_ != null) {
             this._cidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AEnumValue extends PEnumValue
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._cidentifier_);
+                + toString(this._cidentifier_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._cidentifier_ == child)
-        {
+        if (this._cidentifier_ == child) {
             this._cidentifier_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AEnumValue extends PEnumValue
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._cidentifier_ == oldChild)
-        {
+        if (this._cidentifier_ == oldChild) {
             setCidentifier((TCidentifier) newChild);
             return;
         }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APlainSimplePath extends PSimplePath
-{
+public final class APlainSimplePath extends PSimplePath {
     private PSimplePathTerminal _simplePathTerminal_;
 
-    public APlainSimplePath()
-    {
+    public APlainSimplePath() {
         // Constructor
     }
 
     public APlainSimplePath(
-        @SuppressWarnings("hiding") PSimplePathTerminal _simplePathTerminal_)
-    {
+            @SuppressWarnings("hiding") PSimplePathTerminal _simplePathTerminal_) {
         // Constructor
         setSimplePathTerminal(_simplePathTerminal_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APlainSimplePath(
-            cloneNode(this._simplePathTerminal_));
+                cloneNode(this._simplePathTerminal_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPlainSimplePath(this);
     }
 
-    public PSimplePathTerminal getSimplePathTerminal()
-    {
+    public PSimplePathTerminal getSimplePathTerminal() {
         return this._simplePathTerminal_;
     }
 
-    public void setSimplePathTerminal(PSimplePathTerminal node)
-    {
-        if(this._simplePathTerminal_ != null)
-        {
+    public void setSimplePathTerminal(PSimplePathTerminal node) {
+        if (this._simplePathTerminal_ != null) {
             this._simplePathTerminal_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APlainSimplePath extends PSimplePath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._simplePathTerminal_);
+                + toString(this._simplePathTerminal_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._simplePathTerminal_ == child)
-        {
+        if (this._simplePathTerminal_ == child) {
             this._simplePathTerminal_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APlainSimplePath extends PSimplePath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._simplePathTerminal_ == oldChild)
-        {
+        if (this._simplePathTerminal_ == oldChild) {
             setSimplePathTerminal((PSimplePathTerminal) newChild);
             return;
         }

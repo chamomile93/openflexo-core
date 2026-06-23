@@ -1,8 +1,5 @@
 package org.openflexo.foundation.fml.parser;
 
-import java.lang.reflect.Type;
-import java.util.logging.Logger;
-
 import org.openflexo.connie.Bindable;
 import org.openflexo.connie.DataBinding;
 import org.openflexo.connie.DataBinding.BindingDefinitionType;
@@ -13,128 +10,125 @@ import org.openflexo.foundation.fml.FMLModelFactory;
 import org.openflexo.foundation.fml.parser.fmlnodes.expr.ConcatenationExpressionNode;
 import org.openflexo.foundation.fml.parser.fmlnodes.expr.DataBindingNode;
 import org.openflexo.foundation.fml.parser.fmlnodes.expr.URIStringConstantNode;
-import org.openflexo.foundation.fml.parser.node.ACidentifierUriExpressionPrimary;
-import org.openflexo.foundation.fml.parser.node.AConcatenationUriExpression;
-import org.openflexo.foundation.fml.parser.node.ALidentifierUriExpressionPrimary;
-import org.openflexo.foundation.fml.parser.node.ALitteralUriExpressionPrimary;
-import org.openflexo.foundation.fml.parser.node.AUidentifierUriExpressionPrimary;
-import org.openflexo.foundation.fml.parser.node.PUriExpression;
+import org.openflexo.foundation.fml.parser.node.*;
+
+import java.lang.reflect.Type;
+import java.util.logging.Logger;
 
 /**
  * A factory based on {@link FMLSemanticsAnalyzer}, used to instantiate a {@link DataBinding} from AST in the context of imports (only
  * concatenation operator is supported, but upper case identifiers are allowed)
- * 
- * @see PUriExpression
- * 
+ *
  * @author sylvain
+ * @see PUriExpression
  *
  */
 public class URIExpressionFactory extends AbstractExpressionFactory {
 
-	@SuppressWarnings("unused")
-	private static final Logger logger = Logger.getLogger(URIExpressionFactory.class.getPackage().getName());
+    @SuppressWarnings("unused")
+    private static final Logger logger = Logger.getLogger(URIExpressionFactory.class.getPackage().getName());
 
-	public static DataBinding<String> makeDataBinding(PUriExpression node, Bindable bindable, BindingDefinitionType bindingDefinitionType,
-			Type expectedType, FMLCompilationUnit compilationUnit) {
-		return _makeDataBinding(node, bindable, bindingDefinitionType, expectedType, compilationUnit.getTypingSpace(),
-				compilationUnit.getFMLModelFactory(), null, null);
-	}
+    private URIExpressionFactory(PUriExpression rootNode, Bindable aBindable, FMLCompilationUnitSemanticsAnalyzer mainAnalyzer,
+                                 DataBindingNode dataBindingNode) {
+        super(rootNode, aBindable, mainAnalyzer, dataBindingNode);
+    }
 
-	public static DataBinding<String> makeDataBinding(PUriExpression node, Bindable bindable, BindingDefinitionType bindingDefinitionType,
-			Type expectedType, FMLCompilationUnitSemanticsAnalyzer mainAnalyzer, ObjectNode<?, ?, ?> parentNode) {
-		return _makeDataBinding(node, bindable, bindingDefinitionType, expectedType, mainAnalyzer.getTypingSpace(),
-				mainAnalyzer.getModelFactory(), mainAnalyzer, parentNode);
-	}
+    public static DataBinding<String> makeDataBinding(PUriExpression node, Bindable bindable, BindingDefinitionType bindingDefinitionType,
+                                                      Type expectedType, FMLCompilationUnit compilationUnit) {
+        return _makeDataBinding(node, bindable, bindingDefinitionType, expectedType, compilationUnit.getTypingSpace(),
+                compilationUnit.getFMLModelFactory(), null, null);
+    }
 
-	private static Expression _makeExpression(PUriExpression node, Bindable bindable, FMLCompilationUnitSemanticsAnalyzer mainAnalyzer,
-			DataBindingNode dataBindingNode) {
+    public static DataBinding<String> makeDataBinding(PUriExpression node, Bindable bindable, BindingDefinitionType bindingDefinitionType,
+                                                      Type expectedType, FMLCompilationUnitSemanticsAnalyzer mainAnalyzer, ObjectNode<?, ?, ?> parentNode) {
+        return _makeDataBinding(node, bindable, bindingDefinitionType, expectedType, mainAnalyzer.getTypingSpace(),
+                mainAnalyzer.getModelFactory(), mainAnalyzer, parentNode);
+    }
 
-		URIExpressionFactory factory = new URIExpressionFactory(node, bindable, mainAnalyzer, dataBindingNode);
-		factory.push(dataBindingNode);
+    private static Expression _makeExpression(PUriExpression node, Bindable bindable, FMLCompilationUnitSemanticsAnalyzer mainAnalyzer,
+                                              DataBindingNode dataBindingNode) {
 
-		node.apply(factory);
-		factory.pop();
+        URIExpressionFactory factory = new URIExpressionFactory(node, bindable, mainAnalyzer, dataBindingNode);
+        factory.push(dataBindingNode);
 
-		return factory.getExpression();
-	}
+        node.apply(factory);
+        factory.pop();
 
-	@SuppressWarnings({ "unchecked" })
-	private static DataBinding<String> _makeDataBinding(PUriExpression node, Bindable bindable, BindingDefinitionType bindingDefinitionType,
-			Type expectedType, AbstractFMLTypingSpace typingSpace, FMLModelFactory modelFactory,
-			FMLCompilationUnitSemanticsAnalyzer mainAnalyzer, ObjectNode<?, ?, ?> parentNode) {
+        return factory.getExpression();
+    }
 
-		DataBindingNode dataBindingNode = mainAnalyzer.retrieveFMLNode(node,
-				n -> new DataBindingNode(n, bindable, bindingDefinitionType, expectedType, mainAnalyzer));
+    @SuppressWarnings({"unchecked"})
+    private static DataBinding<String> _makeDataBinding(PUriExpression node, Bindable bindable, BindingDefinitionType bindingDefinitionType,
+                                                        Type expectedType, AbstractFMLTypingSpace typingSpace, FMLModelFactory modelFactory,
+                                                        FMLCompilationUnitSemanticsAnalyzer mainAnalyzer, ObjectNode<?, ?, ?> parentNode) {
 
-		if (parentNode != null) {
-			parentNode.addToChildren(dataBindingNode);
-		}
+        DataBindingNode dataBindingNode = mainAnalyzer.retrieveFMLNode(node,
+                n -> new DataBindingNode(n, bindable, bindingDefinitionType, expectedType, mainAnalyzer));
 
-		_makeExpression(node, bindable, mainAnalyzer, dataBindingNode);
+        if (parentNode != null) {
+            parentNode.addToChildren(dataBindingNode);
+        }
 
-		return (DataBinding<String>) dataBindingNode.getModelObject();
-	}
+        _makeExpression(node, bindable, mainAnalyzer, dataBindingNode);
 
-	private URIExpressionFactory(PUriExpression rootNode, Bindable aBindable, FMLCompilationUnitSemanticsAnalyzer mainAnalyzer,
-			DataBindingNode dataBindingNode) {
-		super(rootNode, aBindable, mainAnalyzer, dataBindingNode);
-	}
+        return (DataBinding<String>) dataBindingNode.getModelObject();
+    }
 
-	@Override
-	public void inAConcatenationUriExpression(AConcatenationUriExpression node) {
-		super.inAConcatenationUriExpression(node);
-		push(retrieveFMLNode(node, n -> new ConcatenationExpressionNode(n, this)));
-	}
+    @Override
+    public void inAConcatenationUriExpression(AConcatenationUriExpression node) {
+        super.inAConcatenationUriExpression(node);
+        push(retrieveFMLNode(node, n -> new ConcatenationExpressionNode(n, this)));
+    }
 
-	@Override
-	public void outAConcatenationUriExpression(AConcatenationUriExpression node) {
-		super.outAConcatenationUriExpression(node);
-		pop();
-	}
+    @Override
+    public void outAConcatenationUriExpression(AConcatenationUriExpression node) {
+        super.outAConcatenationUriExpression(node);
+        pop();
+    }
 
-	@Override
-	public void inALitteralUriExpressionPrimary(ALitteralUriExpressionPrimary node) {
-		super.inALitteralUriExpressionPrimary(node);
-		push(retrieveFMLNode(node, n -> new URIStringConstantNode(n, this)));
-	}
+    @Override
+    public void inALitteralUriExpressionPrimary(ALitteralUriExpressionPrimary node) {
+        super.inALitteralUriExpressionPrimary(node);
+        push(retrieveFMLNode(node, n -> new URIStringConstantNode(n, this)));
+    }
 
-	@Override
-	public void outALitteralUriExpressionPrimary(ALitteralUriExpressionPrimary node) {
-		super.outALitteralUriExpressionPrimary(node);
-		pop();
-	}
+    @Override
+    public void outALitteralUriExpressionPrimary(ALitteralUriExpressionPrimary node) {
+        super.outALitteralUriExpressionPrimary(node);
+        pop();
+    }
 
-	@Override
-	public void inAUidentifierUriExpressionPrimary(AUidentifierUriExpressionPrimary node) {
-		super.inAUidentifierUriExpressionPrimary(node);
-		pushBindingPathNode(node);
-	}
+    @Override
+    public void inAUidentifierUriExpressionPrimary(AUidentifierUriExpressionPrimary node) {
+        super.inAUidentifierUriExpressionPrimary(node);
+        pushBindingPathNode(node);
+    }
 
-	@Override
-	public void outAUidentifierUriExpressionPrimary(AUidentifierUriExpressionPrimary node) {
-		super.outAUidentifierUriExpressionPrimary(node);
-		popBindingPathNode(node);
-	}
+    @Override
+    public void outAUidentifierUriExpressionPrimary(AUidentifierUriExpressionPrimary node) {
+        super.outAUidentifierUriExpressionPrimary(node);
+        popBindingPathNode(node);
+    }
 
-	@Override
-	public void inALidentifierUriExpressionPrimary(ALidentifierUriExpressionPrimary node) {
-		pushBindingPathNode(node);
-	}
+    @Override
+    public void inALidentifierUriExpressionPrimary(ALidentifierUriExpressionPrimary node) {
+        pushBindingPathNode(node);
+    }
 
-	@Override
-	public void outALidentifierUriExpressionPrimary(ALidentifierUriExpressionPrimary node) {
-		super.outALidentifierUriExpressionPrimary(node);
-		popBindingPathNode(node);
-	}
+    @Override
+    public void outALidentifierUriExpressionPrimary(ALidentifierUriExpressionPrimary node) {
+        super.outALidentifierUriExpressionPrimary(node);
+        popBindingPathNode(node);
+    }
 
-	@Override
-	public void inACidentifierUriExpressionPrimary(ACidentifierUriExpressionPrimary node) {
-		pushBindingPathNode(node);
-	}
+    @Override
+    public void inACidentifierUriExpressionPrimary(ACidentifierUriExpressionPrimary node) {
+        pushBindingPathNode(node);
+    }
 
-	@Override
-	public void outACidentifierUriExpressionPrimary(ACidentifierUriExpressionPrimary node) {
-		popBindingPathNode(node);
-	}
+    @Override
+    public void outACidentifierUriExpressionPrimary(ACidentifierUriExpressionPrimary node) {
+        popBindingPathNode(node);
+    }
 
 }

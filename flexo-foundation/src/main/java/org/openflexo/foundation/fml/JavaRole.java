@@ -1,69 +1,58 @@
 /**
- * 
+ *
  * Copyright (c) 2014-2015, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml;
 
+import org.openflexo.foundation.FlexoObject;
+import org.openflexo.foundation.fml.annotations.FML;
+import org.openflexo.foundation.fml.rt.*;
+import org.openflexo.foundation.fml.validation.TypeMustBeResolved;
+import org.openflexo.logging.FlexoLogger;
+import org.openflexo.pamela.annotations.*;
+
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
-import org.openflexo.foundation.FlexoObject;
-import org.openflexo.foundation.fml.annotations.FML;
-import org.openflexo.foundation.fml.rt.AbstractVirtualModelInstanceModelFactory;
-import org.openflexo.foundation.fml.rt.ActorReference;
-import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
-import org.openflexo.foundation.fml.rt.JavaActorReference;
-import org.openflexo.foundation.fml.rt.ModelObjectActorReference;
-import org.openflexo.foundation.fml.validation.TypeMustBeResolved;
-import org.openflexo.logging.FlexoLogger;
-import org.openflexo.pamela.annotations.DefineValidationRule;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ImplementationClass;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.Updater;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
-
 /**
  * A java property which type is any type of Java language
- * 
+ *
  * Take care that this property is transient: value cannot be serialized at run-time
- * 
+ *
  * @author sylvain
  *
  * @param <T>
@@ -75,64 +64,63 @@ import org.openflexo.pamela.annotations.XMLElement;
 @FML("JavaRole")
 public interface JavaRole<T> extends BasicProperty<T> {
 
-	@Override
-	@Getter(value = TYPE_KEY, isStringConvertable = true)
-	@XMLAttribute
-	public Type getType();
+    @Override
+    @Getter(value = TYPE_KEY, isStringConvertable = true)
+    @XMLAttribute
+    public Type getType();
 
-	@Override
-	@Setter(TYPE_KEY)
-	public void setType(Type type);
+    @Override
+    @Setter(TYPE_KEY)
+    public void setType(Type type);
 
-	/**
-	 * We define an updater for TYPE property because we need to translate supplied Type to valid TypingSpace
-	 * 
-	 * @param type
-	 */
-	@Override
-	@Updater(TYPE_KEY)
-	public void updateType(Type type);
+    /**
+     * We define an updater for TYPE property because we need to translate supplied Type to valid TypingSpace
+     *
+     * @param type
+     */
+    @Override
+    @Updater(TYPE_KEY)
+    public void updateType(Type type);
 
-	public static abstract class JavaRoleImpl<T> extends BasicPropertyImpl<T> implements JavaRole<T> {
+    public static abstract class JavaRoleImpl<T> extends BasicPropertyImpl<T> implements JavaRole<T> {
 
-		protected static final Logger logger = FlexoLogger.getLogger(JavaRole.class.getPackage().getName());
+        protected static final Logger logger = FlexoLogger.getLogger(JavaRole.class.getPackage().getName());
 
-		private Type type;
+        private Type type;
 
-		@Override
-		public Type getType() {
-			return type;
-		}
+        @Override
+        public Type getType() {
+            return type;
+        }
 
-		@Override
-		public void setType(Type type) {
-			if (requireChange(getType(), type)) {
-				Type oldValue = this.type;
-				this.type = type;
-				notifyChange(TYPE_KEY, oldValue, type);
-				notifyResultingTypeChanged();
-			}
-		}
+        @Override
+        public void setType(Type type) {
+            if (requireChange(getType(), type)) {
+                Type oldValue = this.type;
+                this.type = type;
+                notifyChange(TYPE_KEY, oldValue, type);
+                notifyResultingTypeChanged();
+            }
+        }
 
-		@Override
-		public ActorReference<T> makeActorReference(T object, FlexoConceptInstance fci) {
+        @Override
+        public ActorReference<T> makeActorReference(T object, FlexoConceptInstance fci) {
 
-			AbstractVirtualModelInstanceModelFactory<?> factory = fci.getFactory();
+            AbstractVirtualModelInstanceModelFactory<?> factory = fci.getFactory();
 
-			if (object instanceof FlexoObject) {
-				ModelObjectActorReference returned = factory.newInstance(ModelObjectActorReference.class);
-				returned.setFlexoRole(this);
-				returned.setFlexoConceptInstance(fci);
-				returned.setModellingElement(object);
-				return returned;
-			}
-			else {
-				JavaActorReference<T> returned = factory.newInstance(JavaActorReference.class);
-				returned.setFlexoRole(this);
-				returned.setModellingElement(object);
-				return returned;
-			}
-		}
+            if (object instanceof FlexoObject) {
+                ModelObjectActorReference returned = factory.newInstance(ModelObjectActorReference.class);
+                returned.setFlexoRole(this);
+                returned.setFlexoConceptInstance(fci);
+                returned.setModellingElement(object);
+                return returned;
+            } else {
+                JavaActorReference<T> returned = factory.newInstance(JavaActorReference.class);
+                returned.setFlexoRole(this);
+                returned.setModellingElement(object);
+                return returned;
+            }
+        }
 
 		/*@Override
 		public void handleRequiredImports(FMLCompilationUnit compilationUnit) {
@@ -174,19 +162,19 @@ public interface JavaRole<T> extends BasicProperty<T> {
 		
 		}*/
 
-	}
+    }
 
-	@DefineValidationRule
-	public static class JavaRoleTypeMustBeResolved extends TypeMustBeResolved<JavaRole> {
-		public JavaRoleTypeMustBeResolved() {
-			super("assigned_type_must_be_resolved", JavaRole.class);
-		}
+    @DefineValidationRule
+    public static class JavaRoleTypeMustBeResolved extends TypeMustBeResolved<JavaRole> {
+        public JavaRoleTypeMustBeResolved() {
+            super("assigned_type_must_be_resolved", JavaRole.class);
+        }
 
-		@Override
-		public Type getType(JavaRole role) {
-			return role.getType();
-		}
+        @Override
+        public Type getType(JavaRole role) {
+            return role.getType();
+        }
 
-	}
+    }
 
 }

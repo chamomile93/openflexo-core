@@ -17,13 +17,6 @@
  */
 package org.openflexo.foundation.fml.cli;
 
-import java.io.File;
-import java.io.IOException;
-//import dlib.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-
 import org.jboss.jreadline.console.settings.Settings;
 import org.openflexo.foundation.DefaultFlexoServiceManager;
 import org.openflexo.foundation.FlexoServiceManager;
@@ -34,136 +27,129 @@ import org.openflexo.foundation.resource.FlexoResourceCenterService;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapterService;
 import org.openflexo.logging.FlexoLoggingManager;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
+//import dlib.*;
+
 /**
  * Launching in a terminal: cd /Users/sylvain/GIT-1.9.0/openflexo-core/fml-cli/bin/main
- * 
+ * <p>
  * java org.openflexo.foundation.fml.cli.LaunchHeadlessFMLCLI
- * 
+ * <p>
  * or
- * 
+ * <p>
  * java -cp "Java/*" org.openflexo.foundation.fml.cli.LaunchHeadlessFMLCLI from .app
- * 
- * 
+ *
  * @author sylvain
  *
  */
 public class LaunchHeadlessFMLCLI {
 
-	public static class Options {
+    public static FlexoServiceManager createServiceManager(Options options) {
+        FlexoServiceManager manager = new DefaultFlexoServiceManager(null, options.enableDirectoryWatching, options.devMode);
+        TechnologyAdapterService technologyAdapterService = manager.getTechnologyAdapterService();
+        technologyAdapterService.activateTechnologyAdapter(technologyAdapterService.getTechnologyAdapter(FMLTechnologyAdapter.class), true);
+        technologyAdapterService.activateTechnologyAdapter(technologyAdapterService.getTechnologyAdapter(FMLRTTechnologyAdapter.class),
+                true);
+        return manager;
+    }
 
-		public boolean verbose = false;
+    private static void usage() {
+        StringBuilder usage = new StringBuilder();
+        usage.append("Usage: fml-cli [options]\n");
+        usage.append("\n");
+        usage.append("- -h|--help: show this help.\n");
+        usage.append("- -v|--verbose: verbose mode.\n");
+        usage.append("- --rc path: resource center to register (may have several).\n");
+        usage.append("\n");
+        usage.append("\n");
 
-		public boolean enableDirectoryWatching = true;
+        System.out.println(usage);
+        System.exit(0);
+    }
 
-		public boolean devMode = false;
+    private static Options parseOptions(String[] args) {
+        Options options = new Options();
 
-		public final List<String> rcPaths = new ArrayList<>();
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            switch (arg) {
+                case "--help":
+                    usage();
+                    break;
+                case "--verbose":
+                    options.verbose = true;
+                    break;
+                case "--rc":
+                    if (i + 1 < args.length) {
+                        options.rcPaths.add(args[++i]);
+                    } else {
+                        System.err.println("Option " + arg + " needs an argument.");
+                        System.exit(1);
+                    }
+                    break;
+                default: {
+                    if (arg.length() >= 2 && arg.charAt(0) == '-' && arg.charAt(1) != '-') {
+                        for (int j = 1; j < arg.length(); j++) {
+                            switch (arg.charAt(j)) {
+                                case 'h':
+                                    usage();
+                                    break;
+                                case 'v':
+                                    options.verbose = true;
+                                    break;
+                                default:
+                                    System.err.println("Unknown short option '" + arg.charAt(j) + "'");
+                                    System.exit(1);
 
-	}
+                            }
+                        }
+                    } else {
+                        System.err.println("Unknown long option '" + arg + "'");
+                        System.exit(1);
+                    }
+                }
 
-	public static FlexoServiceManager createServiceManager(Options options) {
-		FlexoServiceManager manager = new DefaultFlexoServiceManager(null, options.enableDirectoryWatching, options.devMode);
-		TechnologyAdapterService technologyAdapterService = manager.getTechnologyAdapterService();
-		technologyAdapterService.activateTechnologyAdapter(technologyAdapterService.getTechnologyAdapter(FMLTechnologyAdapter.class), true);
-		technologyAdapterService.activateTechnologyAdapter(technologyAdapterService.getTechnologyAdapter(FMLRTTechnologyAdapter.class),
-				true);
-		return manager;
-	}
+            }
+        }
 
-	private static void usage() {
-		StringBuilder usage = new StringBuilder();
-		usage.append("Usage: fml-cli [options]\n");
-		usage.append("\n");
-		usage.append("- -h|--help: show this help.\n");
-		usage.append("- -v|--verbose: verbose mode.\n");
-		usage.append("- --rc path: resource center to register (may have several).\n");
-		usage.append("\n");
-		usage.append("\n");
+        return options;
+    }
 
-		System.out.println(usage);
-		System.exit(0);
-	}
+    public static void main(String[] args) throws IOException {
+        Options options = parseOptions(args);
 
-	private static Options parseOptions(String[] args) {
-		Options options = new Options();
+        FlexoLoggingManager.initialize(-1, true, null, options.verbose ? Level.INFO : Level.WARNING, null);
 
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			switch (arg) {
-				case "--help":
-					usage();
-					break;
-				case "--verbose":
-					options.verbose = true;
-					break;
-				case "--rc":
-					if (i + 1 < args.length) {
-						options.rcPaths.add(args[++i]);
-					}
-					else {
-						System.err.println("Option " + arg + " needs an argument.");
-						System.exit(1);
-					}
-					break;
-				default: {
-					if (arg.length() >= 2 && arg.charAt(0) == '-' && arg.charAt(1) != '-') {
-						for (int j = 1; j < arg.length(); j++) {
-							switch (arg.charAt(j)) {
-								case 'h':
-									usage();
-									break;
-								case 'v':
-									options.verbose = true;
-									break;
-								default:
-									System.err.println("Unknown short option '" + arg.charAt(j) + "'");
-									System.exit(1);
+        FlexoServiceManager serviceManager = createServiceManager(options);
+        // manager.registerService(new HttpService(options.serverOptions));
 
-							}
-						}
-					}
-					else {
-						System.err.println("Unknown long option '" + arg + "'");
-						System.exit(1);
-					}
-				}
+        for (String path : options.rcPaths) {
+            FlexoResourceCenterService centerService = serviceManager.getResourceCenterService();
+            DirectoryResourceCenter center = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(new File(path), centerService);
+            centerService.addToResourceCenters(center);
+        }
 
-			}
-		}
+        // Settings.getInstance().setAnsiConsole(false);
+        Settings.getInstance().setReadInputrc(false);
+        // Settings.getInstance().setHistoryDisabled(true);
+        // Settings.getInstance().setHistoryPersistent(false);
 
-		return options;
-	}
+        // System.out.println("IS=" + Settings.getInstance().getInputStream());
+        // Settings.getInstance().setInputStream(System.in);
 
-	public static void main(String[] args) throws IOException {
-		Options options = parseOptions(args);
+        CommandInterpreter ci = new CommandInterpreter(serviceManager, System.in, System.out, System.err,
+                new File(System.getProperty("user.dir")));
 
-		FlexoLoggingManager.initialize(-1, true, null, options.verbose ? Level.INFO : Level.WARNING, null);
+        // try {
+        ci.start();
 
-		FlexoServiceManager serviceManager = createServiceManager(options);
-		// manager.registerService(new HttpService(options.serverOptions));
-
-		for (String path : options.rcPaths) {
-			FlexoResourceCenterService centerService = serviceManager.getResourceCenterService();
-			DirectoryResourceCenter center = DirectoryResourceCenter.instanciateNewDirectoryResourceCenter(new File(path), centerService);
-			centerService.addToResourceCenters(center);
-		}
-
-		// Settings.getInstance().setAnsiConsole(false);
-		Settings.getInstance().setReadInputrc(false);
-		// Settings.getInstance().setHistoryDisabled(true);
-		// Settings.getInstance().setHistoryPersistent(false);
-
-		// System.out.println("IS=" + Settings.getInstance().getInputStream());
-		// Settings.getInstance().setInputStream(System.in);
-
-		CommandInterpreter ci = new CommandInterpreter(serviceManager, System.in, System.out, System.err,
-				new File(System.getProperty("user.dir")));
-
-		// try {
-		ci.start();
-
-		System.out.println("Exiting application...");
-		System.exit(0);
+        System.out.println("Exiting application...");
+        System.exit(0);
 
 		/*} catch (Exception e) {
 			System.out.println("Caught an Exception :");
@@ -175,6 +161,15 @@ public class LaunchHeadlessFMLCLI {
 			}
 		}*/
 
-	}
+    }
+
+    public static class Options {
+
+        public final List<String> rcPaths = new ArrayList<>();
+        public boolean verbose = false;
+        public boolean enableDirectoryWatching = true;
+        public boolean devMode = false;
+
+    }
 
 }

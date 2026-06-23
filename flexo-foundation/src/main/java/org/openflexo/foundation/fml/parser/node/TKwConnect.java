@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwConnect extends Token
-{
-    public TKwConnect()
-    {
+public final class TKwConnect extends Token {
+    public TKwConnect() {
         super.setText("connect");
     }
 
-    public TKwConnect(int line, int pos)
-    {
+    public TKwConnect(int line, int pos) {
         super.setText("connect");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwConnect(getLine(), getPos());
+    public Object clone() {
+        return new TKwConnect(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwConnect(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwConnect text.");
     }
 }

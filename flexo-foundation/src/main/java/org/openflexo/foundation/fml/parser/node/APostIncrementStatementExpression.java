@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APostIncrementStatementExpression extends PStatementExpression
-{
+public final class APostIncrementStatementExpression extends PStatementExpression {
     private PPostIncrExp _postIncrExp_;
 
-    public APostIncrementStatementExpression()
-    {
+    public APostIncrementStatementExpression() {
         // Constructor
     }
 
     public APostIncrementStatementExpression(
-        @SuppressWarnings("hiding") PPostIncrExp _postIncrExp_)
-    {
+            @SuppressWarnings("hiding") PPostIncrExp _postIncrExp_) {
         // Constructor
         setPostIncrExp(_postIncrExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APostIncrementStatementExpression(
-            cloneNode(this._postIncrExp_));
+                cloneNode(this._postIncrExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPostIncrementStatementExpression(this);
     }
 
-    public PPostIncrExp getPostIncrExp()
-    {
+    public PPostIncrExp getPostIncrExp() {
         return this._postIncrExp_;
     }
 
-    public void setPostIncrExp(PPostIncrExp node)
-    {
-        if(this._postIncrExp_ != null)
-        {
+    public void setPostIncrExp(PPostIncrExp node) {
+        if (this._postIncrExp_ != null) {
             this._postIncrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APostIncrementStatementExpression extends PStatementExpressio
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._postIncrExp_);
+                + toString(this._postIncrExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._postIncrExp_ == child)
-        {
+        if (this._postIncrExp_ == child) {
             this._postIncrExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APostIncrementStatementExpression extends PStatementExpressio
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._postIncrExp_ == oldChild)
-        {
+        if (this._postIncrExp_ == oldChild) {
             setPostIncrExp((PPostIncrExp) newChild);
             return;
         }

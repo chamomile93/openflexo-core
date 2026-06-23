@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AInstanceQualifiedArgument extends PQualifiedArgument
-{
+public final class AInstanceQualifiedArgument extends PQualifiedArgument {
     private TLidentifier _argName_;
     private TAssign _assign_;
     private PQualifiedInstance _qualifiedInstance_;
 
-    public AInstanceQualifiedArgument()
-    {
+    public AInstanceQualifiedArgument() {
         // Constructor
     }
 
     public AInstanceQualifiedArgument(
-        @SuppressWarnings("hiding") TLidentifier _argName_,
-        @SuppressWarnings("hiding") TAssign _assign_,
-        @SuppressWarnings("hiding") PQualifiedInstance _qualifiedInstance_)
-    {
+            @SuppressWarnings("hiding") TLidentifier _argName_,
+            @SuppressWarnings("hiding") TAssign _assign_,
+            @SuppressWarnings("hiding") PQualifiedInstance _qualifiedInstance_) {
         // Constructor
         setArgName(_argName_);
 
@@ -31,36 +28,29 @@ public final class AInstanceQualifiedArgument extends PQualifiedArgument
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AInstanceQualifiedArgument(
-            cloneNode(this._argName_),
-            cloneNode(this._assign_),
-            cloneNode(this._qualifiedInstance_));
+                cloneNode(this._argName_),
+                cloneNode(this._assign_),
+                cloneNode(this._qualifiedInstance_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAInstanceQualifiedArgument(this);
     }
 
-    public TLidentifier getArgName()
-    {
+    public TLidentifier getArgName() {
         return this._argName_;
     }
 
-    public void setArgName(TLidentifier node)
-    {
-        if(this._argName_ != null)
-        {
+    public void setArgName(TLidentifier node) {
+        if (this._argName_ != null) {
             this._argName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AInstanceQualifiedArgument extends PQualifiedArgument
         this._argName_ = node;
     }
 
-    public TAssign getAssign()
-    {
+    public TAssign getAssign() {
         return this._assign_;
     }
 
-    public void setAssign(TAssign node)
-    {
-        if(this._assign_ != null)
-        {
+    public void setAssign(TAssign node) {
+        if (this._assign_ != null) {
             this._assign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AInstanceQualifiedArgument extends PQualifiedArgument
         this._assign_ = node;
     }
 
-    public PQualifiedInstance getQualifiedInstance()
-    {
+    public PQualifiedInstance getQualifiedInstance() {
         return this._qualifiedInstance_;
     }
 
-    public void setQualifiedInstance(PQualifiedInstance node)
-    {
-        if(this._qualifiedInstance_ != null)
-        {
+    public void setQualifiedInstance(PQualifiedInstance node) {
+        if (this._qualifiedInstance_ != null) {
             this._qualifiedInstance_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AInstanceQualifiedArgument extends PQualifiedArgument
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._argName_)
-            + toString(this._assign_)
-            + toString(this._qualifiedInstance_);
+                + toString(this._argName_)
+                + toString(this._assign_)
+                + toString(this._qualifiedInstance_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._argName_ == child)
-        {
+        if (this._argName_ == child) {
             this._argName_ = null;
             return;
         }
 
-        if(this._assign_ == child)
-        {
+        if (this._assign_ == child) {
             this._assign_ = null;
             return;
         }
 
-        if(this._qualifiedInstance_ == child)
-        {
+        if (this._qualifiedInstance_ == child) {
             this._qualifiedInstance_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AInstanceQualifiedArgument extends PQualifiedArgument
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._argName_ == oldChild)
-        {
+        if (this._argName_ == oldChild) {
             setArgName((TLidentifier) newChild);
             return;
         }
 
-        if(this._assign_ == oldChild)
-        {
+        if (this._assign_ == oldChild) {
             setAssign((TAssign) newChild);
             return;
         }
 
-        if(this._qualifiedInstance_ == oldChild)
-        {
+        if (this._qualifiedInstance_ == oldChild) {
             setQualifiedInstance((PQualifiedInstance) newChild);
             return;
         }

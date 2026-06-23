@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AEmptyStatementStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement
-{
+public final class AEmptyStatementStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement {
     private TSemi _semi_;
 
-    public AEmptyStatementStatementWithoutTrailingSubstatement()
-    {
+    public AEmptyStatementStatementWithoutTrailingSubstatement() {
         // Constructor
     }
 
     public AEmptyStatementStatementWithoutTrailingSubstatement(
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setSemi(_semi_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEmptyStatementStatementWithoutTrailingSubstatement(
-            cloneNode(this._semi_));
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEmptyStatementStatementWithoutTrailingSubstatement(this);
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AEmptyStatementStatementWithoutTrailingSubstatement extends P
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._semi_);
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AEmptyStatementStatementWithoutTrailingSubstatement extends P
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

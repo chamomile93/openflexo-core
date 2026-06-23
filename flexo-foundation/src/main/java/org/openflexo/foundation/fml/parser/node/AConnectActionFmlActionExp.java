@@ -5,24 +5,21 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AConnectActionFmlActionExp extends PFmlActionExp
-{
+public final class AConnectActionFmlActionExp extends PFmlActionExp {
     private TKwConnect _kwConnect_;
     private PLeftHandSide _connect_;
     private TKwUsing _kwUsing_;
     private PExpression _using_;
 
-    public AConnectActionFmlActionExp()
-    {
+    public AConnectActionFmlActionExp() {
         // Constructor
     }
 
     public AConnectActionFmlActionExp(
-        @SuppressWarnings("hiding") TKwConnect _kwConnect_,
-        @SuppressWarnings("hiding") PLeftHandSide _connect_,
-        @SuppressWarnings("hiding") TKwUsing _kwUsing_,
-        @SuppressWarnings("hiding") PExpression _using_)
-    {
+            @SuppressWarnings("hiding") TKwConnect _kwConnect_,
+            @SuppressWarnings("hiding") PLeftHandSide _connect_,
+            @SuppressWarnings("hiding") TKwUsing _kwUsing_,
+            @SuppressWarnings("hiding") PExpression _using_) {
         // Constructor
         setKwConnect(_kwConnect_);
 
@@ -35,37 +32,30 @@ public final class AConnectActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AConnectActionFmlActionExp(
-            cloneNode(this._kwConnect_),
-            cloneNode(this._connect_),
-            cloneNode(this._kwUsing_),
-            cloneNode(this._using_));
+                cloneNode(this._kwConnect_),
+                cloneNode(this._connect_),
+                cloneNode(this._kwUsing_),
+                cloneNode(this._using_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAConnectActionFmlActionExp(this);
     }
 
-    public TKwConnect getKwConnect()
-    {
+    public TKwConnect getKwConnect() {
         return this._kwConnect_;
     }
 
-    public void setKwConnect(TKwConnect node)
-    {
-        if(this._kwConnect_ != null)
-        {
+    public void setKwConnect(TKwConnect node) {
+        if (this._kwConnect_ != null) {
             this._kwConnect_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -75,22 +65,17 @@ public final class AConnectActionFmlActionExp extends PFmlActionExp
         this._kwConnect_ = node;
     }
 
-    public PLeftHandSide getConnect()
-    {
+    public PLeftHandSide getConnect() {
         return this._connect_;
     }
 
-    public void setConnect(PLeftHandSide node)
-    {
-        if(this._connect_ != null)
-        {
+    public void setConnect(PLeftHandSide node) {
+        if (this._connect_ != null) {
             this._connect_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -100,22 +85,17 @@ public final class AConnectActionFmlActionExp extends PFmlActionExp
         this._connect_ = node;
     }
 
-    public TKwUsing getKwUsing()
-    {
+    public TKwUsing getKwUsing() {
         return this._kwUsing_;
     }
 
-    public void setKwUsing(TKwUsing node)
-    {
-        if(this._kwUsing_ != null)
-        {
+    public void setKwUsing(TKwUsing node) {
+        if (this._kwUsing_ != null) {
             this._kwUsing_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -125,22 +105,17 @@ public final class AConnectActionFmlActionExp extends PFmlActionExp
         this._kwUsing_ = node;
     }
 
-    public PExpression getUsing()
-    {
+    public PExpression getUsing() {
         return this._using_;
     }
 
-    public void setUsing(PExpression node)
-    {
-        if(this._using_ != null)
-        {
+    public void setUsing(PExpression node) {
+        if (this._using_ != null) {
             this._using_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -151,39 +126,33 @@ public final class AConnectActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwConnect_)
-            + toString(this._connect_)
-            + toString(this._kwUsing_)
-            + toString(this._using_);
+                + toString(this._kwConnect_)
+                + toString(this._connect_)
+                + toString(this._kwUsing_)
+                + toString(this._using_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwConnect_ == child)
-        {
+        if (this._kwConnect_ == child) {
             this._kwConnect_ = null;
             return;
         }
 
-        if(this._connect_ == child)
-        {
+        if (this._connect_ == child) {
             this._connect_ = null;
             return;
         }
 
-        if(this._kwUsing_ == child)
-        {
+        if (this._kwUsing_ == child) {
             this._kwUsing_ = null;
             return;
         }
 
-        if(this._using_ == child)
-        {
+        if (this._using_ == child) {
             this._using_ = null;
             return;
         }
@@ -192,29 +161,24 @@ public final class AConnectActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwConnect_ == oldChild)
-        {
+        if (this._kwConnect_ == oldChild) {
             setKwConnect((TKwConnect) newChild);
             return;
         }
 
-        if(this._connect_ == oldChild)
-        {
+        if (this._connect_ == oldChild) {
             setConnect((PLeftHandSide) newChild);
             return;
         }
 
-        if(this._kwUsing_ == oldChild)
-        {
+        if (this._kwUsing_ == oldChild) {
             setKwUsing((TKwUsing) newChild);
             return;
         }
 
-        if(this._using_ == oldChild)
-        {
+        if (this._using_ == oldChild) {
             setUsing((PExpression) newChild);
             return;
         }

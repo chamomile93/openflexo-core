@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACharacterLiteral extends PLiteral
-{
+public final class ACharacterLiteral extends PLiteral {
     private TLitCharacter _litCharacter_;
 
-    public ACharacterLiteral()
-    {
+    public ACharacterLiteral() {
         // Constructor
     }
 
     public ACharacterLiteral(
-        @SuppressWarnings("hiding") TLitCharacter _litCharacter_)
-    {
+            @SuppressWarnings("hiding") TLitCharacter _litCharacter_) {
         // Constructor
         setLitCharacter(_litCharacter_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACharacterLiteral(
-            cloneNode(this._litCharacter_));
+                cloneNode(this._litCharacter_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACharacterLiteral(this);
     }
 
-    public TLitCharacter getLitCharacter()
-    {
+    public TLitCharacter getLitCharacter() {
         return this._litCharacter_;
     }
 
-    public void setLitCharacter(TLitCharacter node)
-    {
-        if(this._litCharacter_ != null)
-        {
+    public void setLitCharacter(TLitCharacter node) {
+        if (this._litCharacter_ != null) {
             this._litCharacter_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ACharacterLiteral extends PLiteral
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._litCharacter_);
+                + toString(this._litCharacter_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._litCharacter_ == child)
-        {
+        if (this._litCharacter_ == child) {
             this._litCharacter_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ACharacterLiteral extends PLiteral
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._litCharacter_ == oldChild)
-        {
+        if (this._litCharacter_ == oldChild) {
             setLitCharacter((TLitCharacter) newChild);
             return;
         }

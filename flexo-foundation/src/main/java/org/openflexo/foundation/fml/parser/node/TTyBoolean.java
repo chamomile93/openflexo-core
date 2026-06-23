@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TTyBoolean extends Token
-{
-    public TTyBoolean()
-    {
+public final class TTyBoolean extends Token {
+    public TTyBoolean() {
         super.setText("boolean");
     }
 
-    public TTyBoolean(int line, int pos)
-    {
+    public TTyBoolean(int line, int pos) {
         super.setText("boolean");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TTyBoolean(getLine(), getPos());
+    public Object clone() {
+        return new TTyBoolean(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTTyBoolean(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TTyBoolean text.");
     }
 }

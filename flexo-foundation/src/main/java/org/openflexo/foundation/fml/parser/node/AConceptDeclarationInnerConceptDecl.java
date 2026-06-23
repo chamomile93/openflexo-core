@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AConceptDeclarationInnerConceptDecl extends PInnerConceptDecl
-{
+public final class AConceptDeclarationInnerConceptDecl extends PInnerConceptDecl {
     private PConceptDecl _conceptDecl_;
 
-    public AConceptDeclarationInnerConceptDecl()
-    {
+    public AConceptDeclarationInnerConceptDecl() {
         // Constructor
     }
 
     public AConceptDeclarationInnerConceptDecl(
-        @SuppressWarnings("hiding") PConceptDecl _conceptDecl_)
-    {
+            @SuppressWarnings("hiding") PConceptDecl _conceptDecl_) {
         // Constructor
         setConceptDecl(_conceptDecl_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AConceptDeclarationInnerConceptDecl(
-            cloneNode(this._conceptDecl_));
+                cloneNode(this._conceptDecl_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAConceptDeclarationInnerConceptDecl(this);
     }
 
-    public PConceptDecl getConceptDecl()
-    {
+    public PConceptDecl getConceptDecl() {
         return this._conceptDecl_;
     }
 
-    public void setConceptDecl(PConceptDecl node)
-    {
-        if(this._conceptDecl_ != null)
-        {
+    public void setConceptDecl(PConceptDecl node) {
+        if (this._conceptDecl_ != null) {
             this._conceptDecl_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AConceptDeclarationInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._conceptDecl_);
+                + toString(this._conceptDecl_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._conceptDecl_ == child)
-        {
+        if (this._conceptDecl_ == child) {
             this._conceptDecl_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AConceptDeclarationInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._conceptDecl_ == oldChild)
-        {
+        if (this._conceptDecl_ == oldChild) {
             setConceptDecl((PConceptDecl) newChild);
             return;
         }

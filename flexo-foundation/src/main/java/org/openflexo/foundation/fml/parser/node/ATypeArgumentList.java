@@ -2,27 +2,24 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class ATypeArgumentList extends PTypeArgumentList
-{
+public final class ATypeArgumentList extends PTypeArgumentList {
     private final LinkedList<PTypeArgumentListHead> _typeArgumentListHead_ = new LinkedList<PTypeArgumentListHead>();
     private PTypeArgument _typeArgument_;
 
-    public ATypeArgumentList()
-    {
+    public ATypeArgumentList() {
         // Constructor
     }
 
     public ATypeArgumentList(
-        @SuppressWarnings("hiding") List<?> _typeArgumentListHead_,
-        @SuppressWarnings("hiding") PTypeArgument _typeArgument_)
-    {
+            @SuppressWarnings("hiding") List<?> _typeArgumentListHead_,
+            @SuppressWarnings("hiding") PTypeArgument _typeArgument_) {
         // Constructor
         setTypeArgumentListHead(_typeArgumentListHead_);
 
@@ -31,37 +28,30 @@ public final class ATypeArgumentList extends PTypeArgumentList
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ATypeArgumentList(
-            cloneList(this._typeArgumentListHead_),
-            cloneNode(this._typeArgument_));
+                cloneList(this._typeArgumentListHead_),
+                cloneNode(this._typeArgument_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseATypeArgumentList(this);
     }
 
-    public LinkedList<PTypeArgumentListHead> getTypeArgumentListHead()
-    {
+    public LinkedList<PTypeArgumentListHead> getTypeArgumentListHead() {
         return this._typeArgumentListHead_;
     }
 
-    public void setTypeArgumentListHead(List<?> list)
-    {
-        for(PTypeArgumentListHead e : this._typeArgumentListHead_)
-        {
+    public void setTypeArgumentListHead(List<?> list) {
+        for (PTypeArgumentListHead e : this._typeArgumentListHead_) {
             e.parent(null);
         }
         this._typeArgumentListHead_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PTypeArgumentListHead e = (PTypeArgumentListHead) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -70,22 +60,17 @@ public final class ATypeArgumentList extends PTypeArgumentList
         }
     }
 
-    public PTypeArgument getTypeArgument()
-    {
+    public PTypeArgument getTypeArgument() {
         return this._typeArgument_;
     }
 
-    public void setTypeArgument(PTypeArgument node)
-    {
-        if(this._typeArgument_ != null)
-        {
+    public void setTypeArgument(PTypeArgument node) {
+        if (this._typeArgument_ != null) {
             this._typeArgument_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -96,24 +81,20 @@ public final class ATypeArgumentList extends PTypeArgumentList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._typeArgumentListHead_)
-            + toString(this._typeArgument_);
+                + toString(this._typeArgumentListHead_)
+                + toString(this._typeArgument_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._typeArgumentListHead_.remove(child))
-        {
+        if (this._typeArgumentListHead_.remove(child)) {
             return;
         }
 
-        if(this._typeArgument_ == child)
-        {
+        if (this._typeArgument_ == child) {
             this._typeArgument_ = null;
             return;
         }
@@ -122,15 +103,11 @@ public final class ATypeArgumentList extends PTypeArgumentList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PTypeArgumentListHead> i = this._typeArgumentListHead_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PTypeArgumentListHead> i = this._typeArgumentListHead_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PTypeArgumentListHead) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -143,8 +120,7 @@ public final class ATypeArgumentList extends PTypeArgumentList
             }
         }
 
-        if(this._typeArgument_ == oldChild)
-        {
+        if (this._typeArgument_ == oldChild) {
             setTypeArgument((PTypeArgument) newChild);
             return;
         }

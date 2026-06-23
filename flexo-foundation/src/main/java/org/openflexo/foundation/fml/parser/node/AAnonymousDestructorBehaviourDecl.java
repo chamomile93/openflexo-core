@@ -2,15 +2,14 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
-{
+public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl {
     private final LinkedList<PAnnotation> _annotations_ = new LinkedList<PAnnotation>();
     private PVisibility _visibility_;
     private TKwDelete _kwDelete_;
@@ -19,20 +18,18 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
     private TRPar _rPar_;
     private PFlexoBehaviourBody _flexoBehaviourBody_;
 
-    public AAnonymousDestructorBehaviourDecl()
-    {
+    public AAnonymousDestructorBehaviourDecl() {
         // Constructor
     }
 
     public AAnonymousDestructorBehaviourDecl(
-        @SuppressWarnings("hiding") List<?> _annotations_,
-        @SuppressWarnings("hiding") PVisibility _visibility_,
-        @SuppressWarnings("hiding") TKwDelete _kwDelete_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PFormalArgumentsList _formalArgumentsList_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PFlexoBehaviourBody _flexoBehaviourBody_)
-    {
+            @SuppressWarnings("hiding") List<?> _annotations_,
+            @SuppressWarnings("hiding") PVisibility _visibility_,
+            @SuppressWarnings("hiding") TKwDelete _kwDelete_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PFormalArgumentsList _formalArgumentsList_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PFlexoBehaviourBody _flexoBehaviourBody_) {
         // Constructor
         setAnnotations(_annotations_);
 
@@ -51,42 +48,35 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAnonymousDestructorBehaviourDecl(
-            cloneList(this._annotations_),
-            cloneNode(this._visibility_),
-            cloneNode(this._kwDelete_),
-            cloneNode(this._lPar_),
-            cloneNode(this._formalArgumentsList_),
-            cloneNode(this._rPar_),
-            cloneNode(this._flexoBehaviourBody_));
+                cloneList(this._annotations_),
+                cloneNode(this._visibility_),
+                cloneNode(this._kwDelete_),
+                cloneNode(this._lPar_),
+                cloneNode(this._formalArgumentsList_),
+                cloneNode(this._rPar_),
+                cloneNode(this._flexoBehaviourBody_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAnonymousDestructorBehaviourDecl(this);
     }
 
-    public LinkedList<PAnnotation> getAnnotations()
-    {
+    public LinkedList<PAnnotation> getAnnotations() {
         return this._annotations_;
     }
 
-    public void setAnnotations(List<?> list)
-    {
-        for(PAnnotation e : this._annotations_)
-        {
+    public void setAnnotations(List<?> list) {
+        for (PAnnotation e : this._annotations_) {
             e.parent(null);
         }
         this._annotations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -95,22 +85,17 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
         }
     }
 
-    public PVisibility getVisibility()
-    {
+    public PVisibility getVisibility() {
         return this._visibility_;
     }
 
-    public void setVisibility(PVisibility node)
-    {
-        if(this._visibility_ != null)
-        {
+    public void setVisibility(PVisibility node) {
+        if (this._visibility_ != null) {
             this._visibility_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -120,22 +105,17 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
         this._visibility_ = node;
     }
 
-    public TKwDelete getKwDelete()
-    {
+    public TKwDelete getKwDelete() {
         return this._kwDelete_;
     }
 
-    public void setKwDelete(TKwDelete node)
-    {
-        if(this._kwDelete_ != null)
-        {
+    public void setKwDelete(TKwDelete node) {
+        if (this._kwDelete_ != null) {
             this._kwDelete_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -145,22 +125,17 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
         this._kwDelete_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -170,22 +145,17 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
         this._lPar_ = node;
     }
 
-    public PFormalArgumentsList getFormalArgumentsList()
-    {
+    public PFormalArgumentsList getFormalArgumentsList() {
         return this._formalArgumentsList_;
     }
 
-    public void setFormalArgumentsList(PFormalArgumentsList node)
-    {
-        if(this._formalArgumentsList_ != null)
-        {
+    public void setFormalArgumentsList(PFormalArgumentsList node) {
+        if (this._formalArgumentsList_ != null) {
             this._formalArgumentsList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -195,22 +165,17 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
         this._formalArgumentsList_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -220,22 +185,17 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
         this._rPar_ = node;
     }
 
-    public PFlexoBehaviourBody getFlexoBehaviourBody()
-    {
+    public PFlexoBehaviourBody getFlexoBehaviourBody() {
         return this._flexoBehaviourBody_;
     }
 
-    public void setFlexoBehaviourBody(PFlexoBehaviourBody node)
-    {
-        if(this._flexoBehaviourBody_ != null)
-        {
+    public void setFlexoBehaviourBody(PFlexoBehaviourBody node) {
+        if (this._flexoBehaviourBody_ != null) {
             this._flexoBehaviourBody_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -246,59 +206,50 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotations_)
-            + toString(this._visibility_)
-            + toString(this._kwDelete_)
-            + toString(this._lPar_)
-            + toString(this._formalArgumentsList_)
-            + toString(this._rPar_)
-            + toString(this._flexoBehaviourBody_);
+                + toString(this._annotations_)
+                + toString(this._visibility_)
+                + toString(this._kwDelete_)
+                + toString(this._lPar_)
+                + toString(this._formalArgumentsList_)
+                + toString(this._rPar_)
+                + toString(this._flexoBehaviourBody_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotations_.remove(child))
-        {
+        if (this._annotations_.remove(child)) {
             return;
         }
 
-        if(this._visibility_ == child)
-        {
+        if (this._visibility_ == child) {
             this._visibility_ = null;
             return;
         }
 
-        if(this._kwDelete_ == child)
-        {
+        if (this._kwDelete_ == child) {
             this._kwDelete_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._formalArgumentsList_ == child)
-        {
+        if (this._formalArgumentsList_ == child) {
             this._formalArgumentsList_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._flexoBehaviourBody_ == child)
-        {
+        if (this._flexoBehaviourBody_ == child) {
             this._flexoBehaviourBody_ = null;
             return;
         }
@@ -307,15 +258,11 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -328,38 +275,32 @@ public final class AAnonymousDestructorBehaviourDecl extends PBehaviourDecl
             }
         }
 
-        if(this._visibility_ == oldChild)
-        {
+        if (this._visibility_ == oldChild) {
             setVisibility((PVisibility) newChild);
             return;
         }
 
-        if(this._kwDelete_ == oldChild)
-        {
+        if (this._kwDelete_ == oldChild) {
             setKwDelete((TKwDelete) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._formalArgumentsList_ == oldChild)
-        {
+        if (this._formalArgumentsList_ == oldChild) {
             setFormalArgumentsList((PFormalArgumentsList) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._flexoBehaviourBody_ == oldChild)
-        {
+        if (this._flexoBehaviourBody_ == oldChild) {
             setFlexoBehaviourBody((PFlexoBehaviourBody) newChild);
             return;
         }

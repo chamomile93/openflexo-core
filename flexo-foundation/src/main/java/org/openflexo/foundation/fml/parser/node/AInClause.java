@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AInClause extends PInClause
-{
+public final class AInClause extends PInClause {
     private TKwIn _kwIn_;
     private PExpression _expression_;
 
-    public AInClause()
-    {
+    public AInClause() {
         // Constructor
     }
 
     public AInClause(
-        @SuppressWarnings("hiding") TKwIn _kwIn_,
-        @SuppressWarnings("hiding") PExpression _expression_)
-    {
+            @SuppressWarnings("hiding") TKwIn _kwIn_,
+            @SuppressWarnings("hiding") PExpression _expression_) {
         // Constructor
         setKwIn(_kwIn_);
 
@@ -27,35 +24,28 @@ public final class AInClause extends PInClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AInClause(
-            cloneNode(this._kwIn_),
-            cloneNode(this._expression_));
+                cloneNode(this._kwIn_),
+                cloneNode(this._expression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAInClause(this);
     }
 
-    public TKwIn getKwIn()
-    {
+    public TKwIn getKwIn() {
         return this._kwIn_;
     }
 
-    public void setKwIn(TKwIn node)
-    {
-        if(this._kwIn_ != null)
-        {
+    public void setKwIn(TKwIn node) {
+        if (this._kwIn_ != null) {
             this._kwIn_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AInClause extends PInClause
         this._kwIn_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AInClause extends PInClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwIn_)
-            + toString(this._expression_);
+                + toString(this._kwIn_)
+                + toString(this._expression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwIn_ == child)
-        {
+        if (this._kwIn_ == child) {
             this._kwIn_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AInClause extends PInClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwIn_ == oldChild)
-        {
+        if (this._kwIn_ == oldChild) {
             setKwIn((TKwIn) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }

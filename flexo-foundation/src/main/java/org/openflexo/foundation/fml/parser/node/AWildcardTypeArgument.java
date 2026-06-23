@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AWildcardTypeArgument extends PTypeArgument
-{
+public final class AWildcardTypeArgument extends PTypeArgument {
     private TQmark _qmark_;
     private PWildcardBounds _wildcardBounds_;
 
-    public AWildcardTypeArgument()
-    {
+    public AWildcardTypeArgument() {
         // Constructor
     }
 
     public AWildcardTypeArgument(
-        @SuppressWarnings("hiding") TQmark _qmark_,
-        @SuppressWarnings("hiding") PWildcardBounds _wildcardBounds_)
-    {
+            @SuppressWarnings("hiding") TQmark _qmark_,
+            @SuppressWarnings("hiding") PWildcardBounds _wildcardBounds_) {
         // Constructor
         setQmark(_qmark_);
 
@@ -27,35 +24,28 @@ public final class AWildcardTypeArgument extends PTypeArgument
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AWildcardTypeArgument(
-            cloneNode(this._qmark_),
-            cloneNode(this._wildcardBounds_));
+                cloneNode(this._qmark_),
+                cloneNode(this._wildcardBounds_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAWildcardTypeArgument(this);
     }
 
-    public TQmark getQmark()
-    {
+    public TQmark getQmark() {
         return this._qmark_;
     }
 
-    public void setQmark(TQmark node)
-    {
-        if(this._qmark_ != null)
-        {
+    public void setQmark(TQmark node) {
+        if (this._qmark_ != null) {
             this._qmark_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AWildcardTypeArgument extends PTypeArgument
         this._qmark_ = node;
     }
 
-    public PWildcardBounds getWildcardBounds()
-    {
+    public PWildcardBounds getWildcardBounds() {
         return this._wildcardBounds_;
     }
 
-    public void setWildcardBounds(PWildcardBounds node)
-    {
-        if(this._wildcardBounds_ != null)
-        {
+    public void setWildcardBounds(PWildcardBounds node) {
+        if (this._wildcardBounds_ != null) {
             this._wildcardBounds_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AWildcardTypeArgument extends PTypeArgument
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._qmark_)
-            + toString(this._wildcardBounds_);
+                + toString(this._qmark_)
+                + toString(this._wildcardBounds_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._qmark_ == child)
-        {
+        if (this._qmark_ == child) {
             this._qmark_ = null;
             return;
         }
 
-        if(this._wildcardBounds_ == child)
-        {
+        if (this._wildcardBounds_ == child) {
             this._wildcardBounds_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AWildcardTypeArgument extends PTypeArgument
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._qmark_ == oldChild)
-        {
+        if (this._qmark_ == oldChild) {
             setQmark((TQmark) newChild);
             return;
         }
 
-        if(this._wildcardBounds_ == oldChild)
-        {
+        if (this._wildcardBounds_ == oldChild) {
             setWildcardBounds((PWildcardBounds) newChild);
             return;
         }

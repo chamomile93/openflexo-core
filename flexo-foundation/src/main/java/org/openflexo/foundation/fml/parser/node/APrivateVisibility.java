@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrivateVisibility extends PVisibility
-{
+public final class APrivateVisibility extends PVisibility {
     private TKwPrivate _kwPrivate_;
 
-    public APrivateVisibility()
-    {
+    public APrivateVisibility() {
         // Constructor
     }
 
     public APrivateVisibility(
-        @SuppressWarnings("hiding") TKwPrivate _kwPrivate_)
-    {
+            @SuppressWarnings("hiding") TKwPrivate _kwPrivate_) {
         // Constructor
         setKwPrivate(_kwPrivate_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrivateVisibility(
-            cloneNode(this._kwPrivate_));
+                cloneNode(this._kwPrivate_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrivateVisibility(this);
     }
 
-    public TKwPrivate getKwPrivate()
-    {
+    public TKwPrivate getKwPrivate() {
         return this._kwPrivate_;
     }
 
-    public void setKwPrivate(TKwPrivate node)
-    {
-        if(this._kwPrivate_ != null)
-        {
+    public void setKwPrivate(TKwPrivate node) {
+        if (this._kwPrivate_ != null) {
             this._kwPrivate_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APrivateVisibility extends PVisibility
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwPrivate_);
+                + toString(this._kwPrivate_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwPrivate_ == child)
-        {
+        if (this._kwPrivate_ == child) {
             this._kwPrivate_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APrivateVisibility extends PVisibility
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwPrivate_ == oldChild)
-        {
+        if (this._kwPrivate_ == oldChild) {
             setKwPrivate((TKwPrivate) newChild);
             return;
         }

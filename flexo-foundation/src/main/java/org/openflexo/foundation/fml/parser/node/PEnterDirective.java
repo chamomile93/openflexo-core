@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PEnterDirective extends Node
-{
+public abstract class PEnterDirective extends Node {
     // Empty body
 }

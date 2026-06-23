@@ -2,15 +2,15 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AIterationAssertDeclaration extends PIterationAssertDeclaration
-{
+public final class AIterationAssertDeclaration extends PIterationAssertDeclaration {
+    private final LinkedList<PSimpleAssertDeclaration> _innerAssertDeclarations_ = new LinkedList<PSimpleAssertDeclaration>();
     private TKwAssert _kwAssert_;
     private TLPar _lPar_;
     private PType _type_;
@@ -19,26 +19,23 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
     private PExpression _expression_;
     private TRPar _rPar_;
     private TLBrc _lBrc_;
-    private final LinkedList<PSimpleAssertDeclaration> _innerAssertDeclarations_ = new LinkedList<PSimpleAssertDeclaration>();
     private TRBrc _rBrc_;
 
-    public AIterationAssertDeclaration()
-    {
+    public AIterationAssertDeclaration() {
         // Constructor
     }
 
     public AIterationAssertDeclaration(
-        @SuppressWarnings("hiding") TKwAssert _kwAssert_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") TLBrc _lBrc_,
-        @SuppressWarnings("hiding") List<?> _innerAssertDeclarations_,
-        @SuppressWarnings("hiding") TRBrc _rBrc_)
-    {
+            @SuppressWarnings("hiding") TKwAssert _kwAssert_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_,
+            @SuppressWarnings("hiding") TColon _colon_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") TLBrc _lBrc_,
+            @SuppressWarnings("hiding") List<?> _innerAssertDeclarations_,
+            @SuppressWarnings("hiding") TRBrc _rBrc_) {
         // Constructor
         setKwAssert(_kwAssert_);
 
@@ -63,43 +60,36 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AIterationAssertDeclaration(
-            cloneNode(this._kwAssert_),
-            cloneNode(this._lPar_),
-            cloneNode(this._type_),
-            cloneNode(this._lidentifier_),
-            cloneNode(this._colon_),
-            cloneNode(this._expression_),
-            cloneNode(this._rPar_),
-            cloneNode(this._lBrc_),
-            cloneList(this._innerAssertDeclarations_),
-            cloneNode(this._rBrc_));
+                cloneNode(this._kwAssert_),
+                cloneNode(this._lPar_),
+                cloneNode(this._type_),
+                cloneNode(this._lidentifier_),
+                cloneNode(this._colon_),
+                cloneNode(this._expression_),
+                cloneNode(this._rPar_),
+                cloneNode(this._lBrc_),
+                cloneList(this._innerAssertDeclarations_),
+                cloneNode(this._rBrc_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAIterationAssertDeclaration(this);
     }
 
-    public TKwAssert getKwAssert()
-    {
+    public TKwAssert getKwAssert() {
         return this._kwAssert_;
     }
 
-    public void setKwAssert(TKwAssert node)
-    {
-        if(this._kwAssert_ != null)
-        {
+    public void setKwAssert(TKwAssert node) {
+        if (this._kwAssert_ != null) {
             this._kwAssert_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -109,22 +99,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._kwAssert_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -134,22 +119,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._lPar_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -159,22 +139,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._type_ = node;
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -184,22 +159,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._lidentifier_ = node;
     }
 
-    public TColon getColon()
-    {
+    public TColon getColon() {
         return this._colon_;
     }
 
-    public void setColon(TColon node)
-    {
-        if(this._colon_ != null)
-        {
+    public void setColon(TColon node) {
+        if (this._colon_ != null) {
             this._colon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -209,22 +179,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._colon_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -234,22 +199,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._expression_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -259,22 +219,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._rPar_ = node;
     }
 
-    public TLBrc getLBrc()
-    {
+    public TLBrc getLBrc() {
         return this._lBrc_;
     }
 
-    public void setLBrc(TLBrc node)
-    {
-        if(this._lBrc_ != null)
-        {
+    public void setLBrc(TLBrc node) {
+        if (this._lBrc_ != null) {
             this._lBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -284,24 +239,19 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         this._lBrc_ = node;
     }
 
-    public LinkedList<PSimpleAssertDeclaration> getInnerAssertDeclarations()
-    {
+    public LinkedList<PSimpleAssertDeclaration> getInnerAssertDeclarations() {
         return this._innerAssertDeclarations_;
     }
 
-    public void setInnerAssertDeclarations(List<?> list)
-    {
-        for(PSimpleAssertDeclaration e : this._innerAssertDeclarations_)
-        {
+    public void setInnerAssertDeclarations(List<?> list) {
+        for (PSimpleAssertDeclaration e : this._innerAssertDeclarations_) {
             e.parent(null);
         }
         this._innerAssertDeclarations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PSimpleAssertDeclaration e = (PSimpleAssertDeclaration) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -310,22 +260,17 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
         }
     }
 
-    public TRBrc getRBrc()
-    {
+    public TRBrc getRBrc() {
         return this._rBrc_;
     }
 
-    public void setRBrc(TRBrc node)
-    {
-        if(this._rBrc_ != null)
-        {
+    public void setRBrc(TRBrc node) {
+        if (this._rBrc_ != null) {
             this._rBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -336,80 +281,68 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwAssert_)
-            + toString(this._lPar_)
-            + toString(this._type_)
-            + toString(this._lidentifier_)
-            + toString(this._colon_)
-            + toString(this._expression_)
-            + toString(this._rPar_)
-            + toString(this._lBrc_)
-            + toString(this._innerAssertDeclarations_)
-            + toString(this._rBrc_);
+                + toString(this._kwAssert_)
+                + toString(this._lPar_)
+                + toString(this._type_)
+                + toString(this._lidentifier_)
+                + toString(this._colon_)
+                + toString(this._expression_)
+                + toString(this._rPar_)
+                + toString(this._lBrc_)
+                + toString(this._innerAssertDeclarations_)
+                + toString(this._rBrc_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwAssert_ == child)
-        {
+        if (this._kwAssert_ == child) {
             this._kwAssert_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
 
-        if(this._colon_ == child)
-        {
+        if (this._colon_ == child) {
             this._colon_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._lBrc_ == child)
-        {
+        if (this._lBrc_ == child) {
             this._lBrc_ = null;
             return;
         }
 
-        if(this._innerAssertDeclarations_.remove(child))
-        {
+        if (this._innerAssertDeclarations_.remove(child)) {
             return;
         }
 
-        if(this._rBrc_ == child)
-        {
+        if (this._rBrc_ == child) {
             this._rBrc_ = null;
             return;
         }
@@ -418,63 +351,51 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwAssert_ == oldChild)
-        {
+        if (this._kwAssert_ == oldChild) {
             setKwAssert((TKwAssert) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._colon_ == oldChild)
-        {
+        if (this._colon_ == oldChild) {
             setColon((TColon) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._lBrc_ == oldChild)
-        {
+        if (this._lBrc_ == oldChild) {
             setLBrc((TLBrc) newChild);
             return;
         }
 
-        for(ListIterator<PSimpleAssertDeclaration> i = this._innerAssertDeclarations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PSimpleAssertDeclaration> i = this._innerAssertDeclarations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PSimpleAssertDeclaration) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -487,8 +408,7 @@ public final class AIterationAssertDeclaration extends PIterationAssertDeclarati
             }
         }
 
-        if(this._rBrc_ == oldChild)
-        {
+        if (this._rBrc_ == oldChild) {
             setRBrc((TRBrc) newChild);
             return;
         }

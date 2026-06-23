@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACommandEntryPoint extends PEntryPoint
-{
+public final class ACommandEntryPoint extends PEntryPoint {
     private TStartCommand _startCommand_;
     private PCommand _command_;
 
-    public ACommandEntryPoint()
-    {
+    public ACommandEntryPoint() {
         // Constructor
     }
 
     public ACommandEntryPoint(
-        @SuppressWarnings("hiding") TStartCommand _startCommand_,
-        @SuppressWarnings("hiding") PCommand _command_)
-    {
+            @SuppressWarnings("hiding") TStartCommand _startCommand_,
+            @SuppressWarnings("hiding") PCommand _command_) {
         // Constructor
         setStartCommand(_startCommand_);
 
@@ -27,35 +24,28 @@ public final class ACommandEntryPoint extends PEntryPoint
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACommandEntryPoint(
-            cloneNode(this._startCommand_),
-            cloneNode(this._command_));
+                cloneNode(this._startCommand_),
+                cloneNode(this._command_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACommandEntryPoint(this);
     }
 
-    public TStartCommand getStartCommand()
-    {
+    public TStartCommand getStartCommand() {
         return this._startCommand_;
     }
 
-    public void setStartCommand(TStartCommand node)
-    {
-        if(this._startCommand_ != null)
-        {
+    public void setStartCommand(TStartCommand node) {
+        if (this._startCommand_ != null) {
             this._startCommand_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ACommandEntryPoint extends PEntryPoint
         this._startCommand_ = node;
     }
 
-    public PCommand getCommand()
-    {
+    public PCommand getCommand() {
         return this._command_;
     }
 
-    public void setCommand(PCommand node)
-    {
-        if(this._command_ != null)
-        {
+    public void setCommand(PCommand node) {
+        if (this._command_ != null) {
             this._command_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ACommandEntryPoint extends PEntryPoint
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._startCommand_)
-            + toString(this._command_);
+                + toString(this._startCommand_)
+                + toString(this._command_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._startCommand_ == child)
-        {
+        if (this._startCommand_ == child) {
             this._startCommand_ = null;
             return;
         }
 
-        if(this._command_ == child)
-        {
+        if (this._command_ == child) {
             this._command_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ACommandEntryPoint extends PEntryPoint
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._startCommand_ == oldChild)
-        {
+        if (this._startCommand_ == oldChild) {
             setStartCommand((TStartCommand) newChild);
             return;
         }
 
-        if(this._command_ == oldChild)
-        {
+        if (this._command_ == oldChild) {
             setCommand((PCommand) newChild);
             return;
         }

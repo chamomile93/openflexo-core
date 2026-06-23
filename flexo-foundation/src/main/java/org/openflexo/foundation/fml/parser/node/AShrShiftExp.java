@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AShrShiftExp extends PShiftExp
-{
+public final class AShrShiftExp extends PShiftExp {
     private PShiftExp _shiftExp_;
     private TShr _shr_;
     private PAddExp _addExp_;
 
-    public AShrShiftExp()
-    {
+    public AShrShiftExp() {
         // Constructor
     }
 
     public AShrShiftExp(
-        @SuppressWarnings("hiding") PShiftExp _shiftExp_,
-        @SuppressWarnings("hiding") TShr _shr_,
-        @SuppressWarnings("hiding") PAddExp _addExp_)
-    {
+            @SuppressWarnings("hiding") PShiftExp _shiftExp_,
+            @SuppressWarnings("hiding") TShr _shr_,
+            @SuppressWarnings("hiding") PAddExp _addExp_) {
         // Constructor
         setShiftExp(_shiftExp_);
 
@@ -31,36 +28,29 @@ public final class AShrShiftExp extends PShiftExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AShrShiftExp(
-            cloneNode(this._shiftExp_),
-            cloneNode(this._shr_),
-            cloneNode(this._addExp_));
+                cloneNode(this._shiftExp_),
+                cloneNode(this._shr_),
+                cloneNode(this._addExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAShrShiftExp(this);
     }
 
-    public PShiftExp getShiftExp()
-    {
+    public PShiftExp getShiftExp() {
         return this._shiftExp_;
     }
 
-    public void setShiftExp(PShiftExp node)
-    {
-        if(this._shiftExp_ != null)
-        {
+    public void setShiftExp(PShiftExp node) {
+        if (this._shiftExp_ != null) {
             this._shiftExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AShrShiftExp extends PShiftExp
         this._shiftExp_ = node;
     }
 
-    public TShr getShr()
-    {
+    public TShr getShr() {
         return this._shr_;
     }
 
-    public void setShr(TShr node)
-    {
-        if(this._shr_ != null)
-        {
+    public void setShr(TShr node) {
+        if (this._shr_ != null) {
             this._shr_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AShrShiftExp extends PShiftExp
         this._shr_ = node;
     }
 
-    public PAddExp getAddExp()
-    {
+    public PAddExp getAddExp() {
         return this._addExp_;
     }
 
-    public void setAddExp(PAddExp node)
-    {
-        if(this._addExp_ != null)
-        {
+    public void setAddExp(PAddExp node) {
+        if (this._addExp_ != null) {
             this._addExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AShrShiftExp extends PShiftExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._shiftExp_)
-            + toString(this._shr_)
-            + toString(this._addExp_);
+                + toString(this._shiftExp_)
+                + toString(this._shr_)
+                + toString(this._addExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._shiftExp_ == child)
-        {
+        if (this._shiftExp_ == child) {
             this._shiftExp_ = null;
             return;
         }
 
-        if(this._shr_ == child)
-        {
+        if (this._shr_ == child) {
             this._shr_ = null;
             return;
         }
 
-        if(this._addExp_ == child)
-        {
+        if (this._addExp_ == child) {
             this._addExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AShrShiftExp extends PShiftExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._shiftExp_ == oldChild)
-        {
+        if (this._shiftExp_ == oldChild) {
             setShiftExp((PShiftExp) newChild);
             return;
         }
 
-        if(this._shr_ == oldChild)
-        {
+        if (this._shr_ == oldChild) {
             setShr((TShr) newChild);
             return;
         }
 
-        if(this._addExp_ == oldChild)
-        {
+        if (this._addExp_ == oldChild) {
             setAddExp((PAddExp) newChild);
             return;
         }

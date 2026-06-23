@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PCompositeTidentSuffix extends Node
-{
+public abstract class PCompositeTidentSuffix extends Node {
     // Empty body
 }

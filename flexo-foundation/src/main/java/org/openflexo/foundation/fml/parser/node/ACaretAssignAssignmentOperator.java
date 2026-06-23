@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACaretAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class ACaretAssignAssignmentOperator extends PAssignmentOperator {
     private TCaretAssign _caretAssign_;
 
-    public ACaretAssignAssignmentOperator()
-    {
+    public ACaretAssignAssignmentOperator() {
         // Constructor
     }
 
     public ACaretAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TCaretAssign _caretAssign_)
-    {
+            @SuppressWarnings("hiding") TCaretAssign _caretAssign_) {
         // Constructor
         setCaretAssign(_caretAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACaretAssignAssignmentOperator(
-            cloneNode(this._caretAssign_));
+                cloneNode(this._caretAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACaretAssignAssignmentOperator(this);
     }
 
-    public TCaretAssign getCaretAssign()
-    {
+    public TCaretAssign getCaretAssign() {
         return this._caretAssign_;
     }
 
-    public void setCaretAssign(TCaretAssign node)
-    {
-        if(this._caretAssign_ != null)
-        {
+    public void setCaretAssign(TCaretAssign node) {
+        if (this._caretAssign_ != null) {
             this._caretAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ACaretAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._caretAssign_);
+                + toString(this._caretAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._caretAssign_ == child)
-        {
+        if (this._caretAssign_ == child) {
             this._caretAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ACaretAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._caretAssign_ == oldChild)
-        {
+        if (this._caretAssign_ == oldChild) {
             setCaretAssign((TCaretAssign) newChild);
             return;
         }

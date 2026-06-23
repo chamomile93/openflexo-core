@@ -35,52 +35,51 @@
 
 package org.openflexo.foundation.fml.rt.reflect;
 
-import java.util.logging.Logger;
-
 import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
 import org.openflexo.logging.FlexoLogger;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 
+import java.util.logging.Logger;
+
 /**
  * A {@link FlexoConceptInstance} reflecting a given object (the support object) as a {@link FlexoConceptInstance}
- * 
- * @param <S>
- *            type of support object
+ *
+ * @param <S> type of support object
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(ReflectedFlexoConceptInstance.ReflectedFlexoConceptInstanceImpl.class)
 public interface ReflectedFlexoConceptInstance<S> extends FlexoConceptInstance {
 
-	/**
-	 * Return {@link Row} support object
-	 * 
-	 * @return
-	 */
-	public S getSupportObject();
+    /**
+     * Return {@link Row} support object
+     *
+     * @return
+     */
+    public S getSupportObject();
 
-	/**
-	 * Sets {@link Row} support object
-	 * 
-	 * @return
-	 */
-	public void setSupportObject(S supportObject);
+    /**
+     * Sets {@link Row} support object
+     *
+     * @return
+     */
+    public void setSupportObject(S supportObject);
 
-	/**
-	 * Default implementation for {@link ReflectedFlexoConceptInstance}
-	 * 
-	 * @author sylvain
-	 *
-	 */
-	abstract class ReflectedFlexoConceptInstanceImpl<S> extends FlexoConceptInstanceImpl implements ReflectedFlexoConceptInstance<S> {
+    /**
+     * Default implementation for {@link ReflectedFlexoConceptInstance}
+     *
+     * @author sylvain
+     *
+     */
+    abstract class ReflectedFlexoConceptInstanceImpl<S> extends FlexoConceptInstanceImpl implements ReflectedFlexoConceptInstance<S> {
 
-		@SuppressWarnings("unused")
-		private static final Logger logger = FlexoLogger.getLogger(ReflectedFlexoConceptInstance.class.getPackage().toString());
+        @SuppressWarnings("unused")
+        private static final Logger logger = FlexoLogger.getLogger(ReflectedFlexoConceptInstance.class.getPackage().toString());
 
-		@Override
-		public ReflectedVirtualModelInstance<?, ?, ?, ?> getVirtualModelInstance() {
-			return (ReflectedVirtualModelInstance<?, ?, ?, ?>) super.getVirtualModelInstance();
-		}
+        @Override
+        public ReflectedVirtualModelInstance<?, ?, ?, ?> getVirtualModelInstance() {
+            return (ReflectedVirtualModelInstance<?, ?, ?, ?>) super.getVirtualModelInstance();
+        }
 
-	}
+    }
 }

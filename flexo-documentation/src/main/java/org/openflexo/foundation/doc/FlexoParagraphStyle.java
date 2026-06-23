@@ -20,218 +20,211 @@
 
 package org.openflexo.foundation.doc;
 
-import java.util.List;
-
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.pamela.annotations.Adder;
-import org.openflexo.pamela.annotations.Embedded;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Remover;
-import org.openflexo.pamela.annotations.Setter;
+import org.openflexo.pamela.annotations.*;
 import org.openflexo.pamela.annotations.Getter.Cardinality;
+
+import java.util.List;
 
 /**
  * Generic abstract concept representing style information of a paragraph
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoParagraphStyle<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocStyle<D, TA> {
 
-	public enum ParagraphAlignment {
-		Right, Left, Center, Justify
-	}
+    @PropertyIdentifier(type = ParagraphAlignment.class)
+    public static final String PARAGRAPH_ALIGNMENT_KEY = "paragraphAlignment";
+    @PropertyIdentifier(type = ParagraphTab.class, cardinality = Cardinality.LIST)
+    public static final String PARAGRAPH_TABS_KEY = "paragraphTabs";
+    @PropertyIdentifier(type = ParagraphSpacing.class)
+    public static final String PARAGRAPH_SPACING_KEY = "paragraphSpacing";
+    @PropertyIdentifier(type = ParagraphIndent.class)
+    public static final String PARAGRAPH_INDENT_KEY = "paragraphIndent";
+    @PropertyIdentifier(type = ParagraphNumbering.class)
+    public static final String PARAGRAPH_NUMBERING_KEY = "paragraphNumbering";
 
-	@ModelEntity
-	public static interface ParagraphTab {
-		@PropertyIdentifier(type = Float.class)
-		public static final String POS_KEY = "pos";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String ALIGN_KEY = "align";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String LEADER_KEY = "leader";
+    @Getter(PARAGRAPH_ALIGNMENT_KEY)
+    public ParagraphAlignment getParagraphAlignment();
 
-		@Getter(POS_KEY)
-		public Float getPos();
+    @Setter(PARAGRAPH_ALIGNMENT_KEY)
+    public void setParagraphAlignment(ParagraphAlignment align);
 
-		@Setter(POS_KEY)
-		public void setPos(Float pos);
+    @Getter(value = PARAGRAPH_TABS_KEY, cardinality = Cardinality.LIST)
+    @Embedded
+    public List<ParagraphTab> getParagraphTabs();
 
-		@Getter(ALIGN_KEY)
-		public Integer getAlign();
+    @Setter(PARAGRAPH_TABS_KEY)
+    public void setParagraphTabs(List<ParagraphTab> someTabs);
 
-		@Setter(ALIGN_KEY)
-		public void setAlign(Integer align);
+    @Adder(PARAGRAPH_TABS_KEY)
+    public void addToParagraphTabs(ParagraphTab aTab);
 
-		@Getter(LEADER_KEY)
-		public Integer getLeader();
+    @Remover(PARAGRAPH_TABS_KEY)
+    public void removeFromParagraphTabs(ParagraphTab aTab);
 
-		@Setter(LEADER_KEY)
-		public void setLeader(Integer leader);
-	}
+    @Getter(PARAGRAPH_SPACING_KEY)
+    public ParagraphSpacing getParagraphSpacing();
 
-	@ModelEntity
-	public static interface ParagraphSpacing {
-		@PropertyIdentifier(type = LineSpacingRule.class)
-		public static final String LINE_SPACING_RULE_KEY = "lineSpacingRule";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String LINE_KEY = "line";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String BEFORE_KEY = "before";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String AFTER_KEY = "after";
+    @Setter(PARAGRAPH_SPACING_KEY)
+    public void setParagraphSpacing(ParagraphSpacing spacing);
 
-		public enum LineSpacingRule {
-			AUTO, EXACT, AT_LEAST
-		};
+    @Getter(PARAGRAPH_INDENT_KEY)
+    public ParagraphIndent getParagraphIndent();
 
-		@Getter(LINE_SPACING_RULE_KEY)
-		public LineSpacingRule getLineSpacingRule();
+    @Setter(PARAGRAPH_INDENT_KEY)
+    public void setParagraphIndent(ParagraphIndent indent);
 
-		@Setter(LINE_SPACING_RULE_KEY)
-		public void setLineSpacingRule(LineSpacingRule lineSpacingRule);
+    @Getter(PARAGRAPH_NUMBERING_KEY)
+    public ParagraphNumbering getParagraphNumbering();
 
-		@Getter(LINE_KEY)
-		public Integer getLine();
+    @Setter(PARAGRAPH_NUMBERING_KEY)
+    public void setParagraphNumbering(ParagraphNumbering numbering);
 
-		@Setter(LINE_KEY)
-		public void setLine(Integer line);
+    @Override
+    public String getStringRepresentation();
 
-		@Getter(BEFORE_KEY)
-		public Integer getBefore();
+    public enum ParagraphAlignment {
+        Right, Left, Center, Justify
+    }
 
-		@Setter(BEFORE_KEY)
-		public void setBefore(Integer before);
+    @ModelEntity
+    public static interface ParagraphTab {
+        @PropertyIdentifier(type = Float.class)
+        public static final String POS_KEY = "pos";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String ALIGN_KEY = "align";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String LEADER_KEY = "leader";
 
-		@Getter(AFTER_KEY)
-		public Integer getAfter();
+        @Getter(POS_KEY)
+        public Float getPos();
 
-		@Setter(AFTER_KEY)
-		public void setAfter(Integer after);
+        @Setter(POS_KEY)
+        public void setPos(Float pos);
 
-	}
+        @Getter(ALIGN_KEY)
+        public Integer getAlign();
 
-	@ModelEntity
-	public static interface ParagraphIndent {
-		@PropertyIdentifier(type = Integer.class)
-		public static final String LEFT_KEY = "left";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String RIGHT_KEY = "right";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String FIRST_KEY = "first";
+        @Setter(ALIGN_KEY)
+        public void setAlign(Integer align);
 
-		@Getter(LEFT_KEY)
-		public Integer getLeft();
+        @Getter(LEADER_KEY)
+        public Integer getLeader();
 
-		@Setter(LEFT_KEY)
-		public void setLeft(Integer left);
+        @Setter(LEADER_KEY)
+        public void setLeader(Integer leader);
+    }
 
-		@Getter(RIGHT_KEY)
-		public Integer getRight();
+    @ModelEntity
+    public static interface ParagraphSpacing {
+        @PropertyIdentifier(type = LineSpacingRule.class)
+        public static final String LINE_SPACING_RULE_KEY = "lineSpacingRule";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String LINE_KEY = "line";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String BEFORE_KEY = "before";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String AFTER_KEY = "after";
 
-		@Setter(RIGHT_KEY)
-		public void setRight(Integer right);
+        @Getter(LINE_SPACING_RULE_KEY)
+        public LineSpacingRule getLineSpacingRule();
 
-		@Getter(FIRST_KEY)
-		public Integer getFirst();
+        ;
 
-		@Setter(FIRST_KEY)
-		public void setFirst(Integer first);
+        @Setter(LINE_SPACING_RULE_KEY)
+        public void setLineSpacingRule(LineSpacingRule lineSpacingRule);
 
-	}
+        @Getter(LINE_KEY)
+        public Integer getLine();
 
-	@ModelEntity
-	public static interface ParagraphNumbering {
-		@PropertyIdentifier(type = Integer.class)
-		public static final String NUM_ID_KEY = "numId";
-		@PropertyIdentifier(type = Integer.class)
-		public static final String ILVL_KEY = "ilvl";
+        @Setter(LINE_KEY)
+        public void setLine(Integer line);
 
-		@Getter(NUM_ID_KEY)
-		public Integer getNumId();
+        @Getter(BEFORE_KEY)
+        public Integer getBefore();
 
-		@Setter(NUM_ID_KEY)
-		public void setNumId(Integer left);
+        @Setter(BEFORE_KEY)
+        public void setBefore(Integer before);
 
-		@Getter(ILVL_KEY)
-		public Integer getIlvl();
+        @Getter(AFTER_KEY)
+        public Integer getAfter();
 
-		@Setter(ILVL_KEY)
-		public void setIlvl(Integer right);
+        @Setter(AFTER_KEY)
+        public void setAfter(Integer after);
 
-	}
+        public enum LineSpacingRule {
+            AUTO, EXACT, AT_LEAST
+        }
 
-	@PropertyIdentifier(type = ParagraphAlignment.class)
-	public static final String PARAGRAPH_ALIGNMENT_KEY = "paragraphAlignment";
-	@PropertyIdentifier(type = ParagraphTab.class, cardinality = Cardinality.LIST)
-	public static final String PARAGRAPH_TABS_KEY = "paragraphTabs";
-	@PropertyIdentifier(type = ParagraphSpacing.class)
-	public static final String PARAGRAPH_SPACING_KEY = "paragraphSpacing";
-	@PropertyIdentifier(type = ParagraphIndent.class)
-	public static final String PARAGRAPH_INDENT_KEY = "paragraphIndent";
-	@PropertyIdentifier(type = ParagraphNumbering.class)
-	public static final String PARAGRAPH_NUMBERING_KEY = "paragraphNumbering";
+    }
 
-	@Getter(PARAGRAPH_ALIGNMENT_KEY)
-	public ParagraphAlignment getParagraphAlignment();
+    @ModelEntity
+    public static interface ParagraphIndent {
+        @PropertyIdentifier(type = Integer.class)
+        public static final String LEFT_KEY = "left";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String RIGHT_KEY = "right";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String FIRST_KEY = "first";
 
-	@Setter(PARAGRAPH_ALIGNMENT_KEY)
-	public void setParagraphAlignment(ParagraphAlignment align);
+        @Getter(LEFT_KEY)
+        public Integer getLeft();
 
-	@Getter(value = PARAGRAPH_TABS_KEY, cardinality = Cardinality.LIST)
-	@Embedded
-	public List<ParagraphTab> getParagraphTabs();
+        @Setter(LEFT_KEY)
+        public void setLeft(Integer left);
 
-	@Setter(PARAGRAPH_TABS_KEY)
-	public void setParagraphTabs(List<ParagraphTab> someTabs);
+        @Getter(RIGHT_KEY)
+        public Integer getRight();
 
-	@Adder(PARAGRAPH_TABS_KEY)
-	public void addToParagraphTabs(ParagraphTab aTab);
+        @Setter(RIGHT_KEY)
+        public void setRight(Integer right);
 
-	@Remover(PARAGRAPH_TABS_KEY)
-	public void removeFromParagraphTabs(ParagraphTab aTab);
+        @Getter(FIRST_KEY)
+        public Integer getFirst();
 
-	@Getter(PARAGRAPH_SPACING_KEY)
-	public ParagraphSpacing getParagraphSpacing();
+        @Setter(FIRST_KEY)
+        public void setFirst(Integer first);
 
-	@Setter(PARAGRAPH_SPACING_KEY)
-	public void setParagraphSpacing(ParagraphSpacing spacing);
+    }
 
-	@Getter(PARAGRAPH_INDENT_KEY)
-	public ParagraphIndent getParagraphIndent();
+    @ModelEntity
+    public static interface ParagraphNumbering {
+        @PropertyIdentifier(type = Integer.class)
+        public static final String NUM_ID_KEY = "numId";
+        @PropertyIdentifier(type = Integer.class)
+        public static final String ILVL_KEY = "ilvl";
 
-	@Setter(PARAGRAPH_INDENT_KEY)
-	public void setParagraphIndent(ParagraphIndent indent);
+        @Getter(NUM_ID_KEY)
+        public Integer getNumId();
 
-	@Getter(PARAGRAPH_NUMBERING_KEY)
-	public ParagraphNumbering getParagraphNumbering();
+        @Setter(NUM_ID_KEY)
+        public void setNumId(Integer left);
 
-	@Setter(PARAGRAPH_NUMBERING_KEY)
-	public void setParagraphNumbering(ParagraphNumbering numbering);
+        @Getter(ILVL_KEY)
+        public Integer getIlvl();
 
-	@Override
-	public String getStringRepresentation();
+        @Setter(ILVL_KEY)
+        public void setIlvl(Integer right);
 
-	public static abstract class FlexoParagraphStyleImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocStyleImpl<D, TA> implements FlexoParagraphStyle<D, TA> {
+    }
 
-		@Override
-		public String getStringRepresentation() {
-			StringBuffer sb = new StringBuffer();
-			sb.append(getParagraphAlignment() != null ? getParagraphAlignment().name() + "," : "");
-			if (sb.length() > 0) {
-				sb.deleteCharAt(sb.length() - 1);
-			}
-			return sb.toString();
-		}
+    public static abstract class FlexoParagraphStyleImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocStyleImpl<D, TA> implements FlexoParagraphStyle<D, TA> {
 
-	}
+        @Override
+        public String getStringRepresentation() {
+            StringBuffer sb = new StringBuffer();
+            sb.append(getParagraphAlignment() != null ? getParagraphAlignment().name() + "," : "");
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            return sb.toString();
+        }
+
+    }
 
 }

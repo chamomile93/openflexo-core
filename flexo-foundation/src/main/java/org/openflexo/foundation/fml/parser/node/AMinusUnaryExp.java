@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AMinusUnaryExp extends PUnaryExp
-{
+public final class AMinusUnaryExp extends PUnaryExp {
     private TMinus _minus_;
     private PUnaryExp _unaryExp_;
 
-    public AMinusUnaryExp()
-    {
+    public AMinusUnaryExp() {
         // Constructor
     }
 
     public AMinusUnaryExp(
-        @SuppressWarnings("hiding") TMinus _minus_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") TMinus _minus_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setMinus(_minus_);
 
@@ -27,35 +24,28 @@ public final class AMinusUnaryExp extends PUnaryExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AMinusUnaryExp(
-            cloneNode(this._minus_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._minus_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAMinusUnaryExp(this);
     }
 
-    public TMinus getMinus()
-    {
+    public TMinus getMinus() {
         return this._minus_;
     }
 
-    public void setMinus(TMinus node)
-    {
-        if(this._minus_ != null)
-        {
+    public void setMinus(TMinus node) {
+        if (this._minus_ != null) {
             this._minus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AMinusUnaryExp extends PUnaryExp
         this._minus_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AMinusUnaryExp extends PUnaryExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._minus_)
-            + toString(this._unaryExp_);
+                + toString(this._minus_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._minus_ == child)
-        {
+        if (this._minus_ == child) {
             this._minus_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AMinusUnaryExp extends PUnaryExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._minus_ == oldChild)
-        {
+        if (this._minus_ == oldChild) {
             setMinus((TMinus) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

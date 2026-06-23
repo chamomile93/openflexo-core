@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADirectoryPathDirectiveArgument extends PDirectiveArgument
-{
+public final class ADirectoryPathDirectiveArgument extends PDirectiveArgument {
     private TMinusD _minusD_;
     private PPath _path_;
 
-    public ADirectoryPathDirectiveArgument()
-    {
+    public ADirectoryPathDirectiveArgument() {
         // Constructor
     }
 
     public ADirectoryPathDirectiveArgument(
-        @SuppressWarnings("hiding") TMinusD _minusD_,
-        @SuppressWarnings("hiding") PPath _path_)
-    {
+            @SuppressWarnings("hiding") TMinusD _minusD_,
+            @SuppressWarnings("hiding") PPath _path_) {
         // Constructor
         setMinusD(_minusD_);
 
@@ -27,35 +24,28 @@ public final class ADirectoryPathDirectiveArgument extends PDirectiveArgument
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADirectoryPathDirectiveArgument(
-            cloneNode(this._minusD_),
-            cloneNode(this._path_));
+                cloneNode(this._minusD_),
+                cloneNode(this._path_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADirectoryPathDirectiveArgument(this);
     }
 
-    public TMinusD getMinusD()
-    {
+    public TMinusD getMinusD() {
         return this._minusD_;
     }
 
-    public void setMinusD(TMinusD node)
-    {
-        if(this._minusD_ != null)
-        {
+    public void setMinusD(TMinusD node) {
+        if (this._minusD_ != null) {
             this._minusD_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ADirectoryPathDirectiveArgument extends PDirectiveArgument
         this._minusD_ = node;
     }
 
-    public PPath getPath()
-    {
+    public PPath getPath() {
         return this._path_;
     }
 
-    public void setPath(PPath node)
-    {
-        if(this._path_ != null)
-        {
+    public void setPath(PPath node) {
+        if (this._path_ != null) {
             this._path_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ADirectoryPathDirectiveArgument extends PDirectiveArgument
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._minusD_)
-            + toString(this._path_);
+                + toString(this._minusD_)
+                + toString(this._path_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._minusD_ == child)
-        {
+        if (this._minusD_ == child) {
             this._minusD_ = null;
             return;
         }
 
-        if(this._path_ == child)
-        {
+        if (this._path_ == child) {
             this._path_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ADirectoryPathDirectiveArgument extends PDirectiveArgument
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._minusD_ == oldChild)
-        {
+        if (this._minusD_ == oldChild) {
             setMinusD((TMinusD) newChild);
             return;
         }
 
-        if(this._path_ == oldChild)
-        {
+        if (this._path_ == oldChild) {
             setPath((PPath) newChild);
             return;
         }

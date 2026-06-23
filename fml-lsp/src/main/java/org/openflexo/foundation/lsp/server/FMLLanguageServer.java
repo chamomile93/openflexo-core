@@ -1,23 +1,15 @@
 package org.openflexo.foundation.lsp.server;
 
-import java.util.concurrent.CompletableFuture;
+import org.eclipse.lsp4j.*;
+import org.eclipse.lsp4j.services.*;
 
-import org.eclipse.lsp4j.CompletionOptions;
-import org.eclipse.lsp4j.InitializeParams;
-import org.eclipse.lsp4j.InitializeResult;
-import org.eclipse.lsp4j.ServerCapabilities;
-import org.eclipse.lsp4j.TextDocumentSyncKind;
-import org.eclipse.lsp4j.services.LanguageClient;
-import org.eclipse.lsp4j.services.LanguageClientAware;
-import org.eclipse.lsp4j.services.LanguageServer;
-import org.eclipse.lsp4j.services.TextDocumentService;
-import org.eclipse.lsp4j.services.WorkspaceService;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Main entry point for the FML Language Server implementation.
  * Acts as a coordinator between the language client and the underlying
  * text document and workspace services.
- * 
+ * <p>
  * This class declares the server capabilities and delegates most
  * of the language logic to {@link FMLTextDocumentService} and {@link FMLWorkspaceService}.
  */
@@ -36,6 +28,7 @@ public class FMLLanguageServer implements LanguageServer, LanguageClientAware {
 
     /**
      * Establishes the connection with the LSP client.
+     *
      * @param client the connected client (editor or IDE)
      */
     @Override
@@ -46,6 +39,7 @@ public class FMLLanguageServer implements LanguageServer, LanguageClientAware {
 
     /**
      * Initializes the server with supported capabilities (completion, hover, rename, etc.).
+     *
      * @param params initialization parameters received from the client
      * @return the server capabilities
      */
@@ -54,11 +48,11 @@ public class FMLLanguageServer implements LanguageServer, LanguageClientAware {
         ServerCapabilities capabilities = new ServerCapabilities();
 
         capabilities.setTextDocumentSync(TextDocumentSyncKind.Full); // Full document synchronization
-        
+
         capabilities.setCompletionProvider(new CompletionOptions()); // Completion support
-        
+
         capabilities.setHoverProvider(true);                         // Hover support
-        
+
         capabilities.setRenameProvider(true);                        // Rename support
 
         return CompletableFuture.completedFuture(new InitializeResult(capabilities));

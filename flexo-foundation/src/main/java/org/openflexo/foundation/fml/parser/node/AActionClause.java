@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AActionClause extends PActionClause
-{
+public final class AActionClause extends PActionClause {
     private TKwAction _kwAction_;
     private TColonColon _colonColon_;
     private TLidentifier _actionName_;
@@ -14,19 +13,17 @@ public final class AActionClause extends PActionClause
     private PArgumentList _argumentList_;
     private TRPar _rPar_;
 
-    public AActionClause()
-    {
+    public AActionClause() {
         // Constructor
     }
 
     public AActionClause(
-        @SuppressWarnings("hiding") TKwAction _kwAction_,
-        @SuppressWarnings("hiding") TColonColon _colonColon_,
-        @SuppressWarnings("hiding") TLidentifier _actionName_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PArgumentList _argumentList_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TKwAction _kwAction_,
+            @SuppressWarnings("hiding") TColonColon _colonColon_,
+            @SuppressWarnings("hiding") TLidentifier _actionName_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PArgumentList _argumentList_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setKwAction(_kwAction_);
 
@@ -43,39 +40,32 @@ public final class AActionClause extends PActionClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AActionClause(
-            cloneNode(this._kwAction_),
-            cloneNode(this._colonColon_),
-            cloneNode(this._actionName_),
-            cloneNode(this._lPar_),
-            cloneNode(this._argumentList_),
-            cloneNode(this._rPar_));
+                cloneNode(this._kwAction_),
+                cloneNode(this._colonColon_),
+                cloneNode(this._actionName_),
+                cloneNode(this._lPar_),
+                cloneNode(this._argumentList_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAActionClause(this);
     }
 
-    public TKwAction getKwAction()
-    {
+    public TKwAction getKwAction() {
         return this._kwAction_;
     }
 
-    public void setKwAction(TKwAction node)
-    {
-        if(this._kwAction_ != null)
-        {
+    public void setKwAction(TKwAction node) {
+        if (this._kwAction_ != null) {
             this._kwAction_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class AActionClause extends PActionClause
         this._kwAction_ = node;
     }
 
-    public TColonColon getColonColon()
-    {
+    public TColonColon getColonColon() {
         return this._colonColon_;
     }
 
-    public void setColonColon(TColonColon node)
-    {
-        if(this._colonColon_ != null)
-        {
+    public void setColonColon(TColonColon node) {
+        if (this._colonColon_ != null) {
             this._colonColon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class AActionClause extends PActionClause
         this._colonColon_ = node;
     }
 
-    public TLidentifier getActionName()
-    {
+    public TLidentifier getActionName() {
         return this._actionName_;
     }
 
-    public void setActionName(TLidentifier node)
-    {
-        if(this._actionName_ != null)
-        {
+    public void setActionName(TLidentifier node) {
+        if (this._actionName_ != null) {
             this._actionName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class AActionClause extends PActionClause
         this._actionName_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class AActionClause extends PActionClause
         this._lPar_ = node;
     }
 
-    public PArgumentList getArgumentList()
-    {
+    public PArgumentList getArgumentList() {
         return this._argumentList_;
     }
 
-    public void setArgumentList(PArgumentList node)
-    {
-        if(this._argumentList_ != null)
-        {
+    public void setArgumentList(PArgumentList node) {
+        if (this._argumentList_ != null) {
             this._argumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class AActionClause extends PActionClause
         this._argumentList_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class AActionClause extends PActionClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwAction_)
-            + toString(this._colonColon_)
-            + toString(this._actionName_)
-            + toString(this._lPar_)
-            + toString(this._argumentList_)
-            + toString(this._rPar_);
+                + toString(this._kwAction_)
+                + toString(this._colonColon_)
+                + toString(this._actionName_)
+                + toString(this._lPar_)
+                + toString(this._argumentList_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwAction_ == child)
-        {
+        if (this._kwAction_ == child) {
             this._kwAction_ = null;
             return;
         }
 
-        if(this._colonColon_ == child)
-        {
+        if (this._colonColon_ == child) {
             this._colonColon_ = null;
             return;
         }
 
-        if(this._actionName_ == child)
-        {
+        if (this._actionName_ == child) {
             this._actionName_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._argumentList_ == child)
-        {
+        if (this._argumentList_ == child) {
             this._argumentList_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class AActionClause extends PActionClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwAction_ == oldChild)
-        {
+        if (this._kwAction_ == oldChild) {
             setKwAction((TKwAction) newChild);
             return;
         }
 
-        if(this._colonColon_ == oldChild)
-        {
+        if (this._colonColon_ == oldChild) {
             setColonColon((TColonColon) newChild);
             return;
         }
 
-        if(this._actionName_ == oldChild)
-        {
+        if (this._actionName_ == oldChild) {
             setActionName((TLidentifier) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._argumentList_ == oldChild)
-        {
+        if (this._argumentList_ == oldChild) {
             setArgumentList((PArgumentList) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

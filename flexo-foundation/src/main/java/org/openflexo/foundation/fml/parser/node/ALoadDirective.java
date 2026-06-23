@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ALoadDirective extends PDirective
-{
+public final class ALoadDirective extends PDirective {
     private PCommandAssign _commandAssign_;
     private PLoadDirective _loadDirective_;
 
-    public ALoadDirective()
-    {
+    public ALoadDirective() {
         // Constructor
     }
 
     public ALoadDirective(
-        @SuppressWarnings("hiding") PCommandAssign _commandAssign_,
-        @SuppressWarnings("hiding") PLoadDirective _loadDirective_)
-    {
+            @SuppressWarnings("hiding") PCommandAssign _commandAssign_,
+            @SuppressWarnings("hiding") PLoadDirective _loadDirective_) {
         // Constructor
         setCommandAssign(_commandAssign_);
 
@@ -27,35 +24,28 @@ public final class ALoadDirective extends PDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ALoadDirective(
-            cloneNode(this._commandAssign_),
-            cloneNode(this._loadDirective_));
+                cloneNode(this._commandAssign_),
+                cloneNode(this._loadDirective_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseALoadDirective(this);
     }
 
-    public PCommandAssign getCommandAssign()
-    {
+    public PCommandAssign getCommandAssign() {
         return this._commandAssign_;
     }
 
-    public void setCommandAssign(PCommandAssign node)
-    {
-        if(this._commandAssign_ != null)
-        {
+    public void setCommandAssign(PCommandAssign node) {
+        if (this._commandAssign_ != null) {
             this._commandAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ALoadDirective extends PDirective
         this._commandAssign_ = node;
     }
 
-    public PLoadDirective getLoadDirective()
-    {
+    public PLoadDirective getLoadDirective() {
         return this._loadDirective_;
     }
 
-    public void setLoadDirective(PLoadDirective node)
-    {
-        if(this._loadDirective_ != null)
-        {
+    public void setLoadDirective(PLoadDirective node) {
+        if (this._loadDirective_ != null) {
             this._loadDirective_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ALoadDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._commandAssign_)
-            + toString(this._loadDirective_);
+                + toString(this._commandAssign_)
+                + toString(this._loadDirective_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._commandAssign_ == child)
-        {
+        if (this._commandAssign_ == child) {
             this._commandAssign_ = null;
             return;
         }
 
-        if(this._loadDirective_ == child)
-        {
+        if (this._loadDirective_ == child) {
             this._loadDirective_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ALoadDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._commandAssign_ == oldChild)
-        {
+        if (this._commandAssign_ == oldChild) {
             setCommandAssign((PCommandAssign) newChild);
             return;
         }
 
-        if(this._loadDirective_ == oldChild)
-        {
+        if (this._loadDirective_ == oldChild) {
             setLoadDirective((PLoadDirective) newChild);
             return;
         }

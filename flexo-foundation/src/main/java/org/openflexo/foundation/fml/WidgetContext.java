@@ -35,59 +35,59 @@
 
 package org.openflexo.foundation.fml;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 import org.openflexo.connie.DataBinding;
 import org.openflexo.foundation.fml.FlexoBehaviourParameter.WidgetType;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 /**
  * Widget Context for an object allowing to construct a widget to edit its value.
- * 
+ * <p>
  * This is the required API to be able to programmatically build a GINA fib widget
- *
+ * <p>
  * Created by charlie on 13/03/2017.
  */
 public interface WidgetContext extends FlexoConceptObject {
 
-	default WidgetType getWidget() {
-		return null;
-	}
+    default WidgetType getWidget() {
+        return null;
+    }
 
-	default DataBinding<?> getContainer() {
-		return null;
-	}
+    default DataBinding<?> getContainer() {
+        return null;
+    }
 
-	default Type getType() {
-		return null;
-	}
+    default Type getType() {
+        return null;
+    }
 
-	/**
-	 * Return a String encoding a {@link DataBinding} which should get access to represented data from the context beeing represented by
-	 * this
-	 * 
-	 * @return
-	 */
-	String getWidgetDataAccess();
+    /**
+     * Return a String encoding a {@link DataBinding} which should get access to represented data from the context beeing represented by
+     * this
+     *
+     * @return
+     */
+    String getWidgetDataAccess();
 
-	/**
-	 * Return a String encoding a {@link DataBinding} which should get access to represented data definition (which is this object)
-	 * 
-	 * @return
-	 */
-	String getWidgetDefinitionAccess();
+    /**
+     * Return a String encoding a {@link DataBinding} which should get access to represented data definition (which is this object)
+     *
+     * @return
+     */
+    String getWidgetDefinitionAccess();
 
-	/**
-	 * Return a String encoding a {@link DataBinding} which should get access to instance of FlexoConcept
-	 * 
-	 * @return
-	 */
-	String getFlexoConceptInstanceAccess();
+    /**
+     * Return a String encoding a {@link DataBinding} which should get access to instance of FlexoConcept
+     *
+     * @return
+     */
+    String getFlexoConceptInstanceAccess();
 
-	/**
-	 * Depending of type of data to represent, return a list of objects which may be used to represented data
-	 * 
-	 * @return
-	 */
-	public List<?> getListOfObjects();
+    /**
+     * Depending of type of data to represent, return a list of objects which may be used to represented data
+     *
+     * @return
+     */
+    public List<?> getListOfObjects();
 }

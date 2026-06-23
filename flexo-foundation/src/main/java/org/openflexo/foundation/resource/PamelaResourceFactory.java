@@ -20,44 +20,39 @@
 
 package org.openflexo.foundation.resource;
 
-import java.util.logging.Logger;
-
 import org.openflexo.foundation.PamelaResourceModelFactory;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapterResource;
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 import org.openflexo.pamela.factory.PamelaModelFactory;
 
+import java.util.logging.Logger;
+
 /**
  * Abstract implementation a factory that manages the creation of a given type of {@link FlexoResource} in PAMELA context
- * 
- * @author sylvain
  *
- * @param <R>
- *            type of FlexoResource being handled by this factory, implementing both {@link TechnologyAdapterResource} and
- *            {@link PamelaResource}
- * @param <RD>
- *            type of {@link ResourceData} managed by resources (contents of resources)
- * @param <TA>
- *            type of {@link TechnologyAdapter}
- * @param <F>
- *            type of {@link PamelaResourceModelFactory} managing contents of resources
+ * @param <R>  type of FlexoResource being handled by this factory, implementing both {@link TechnologyAdapterResource} and
+ *             {@link PamelaResource}
+ * @param <RD> type of {@link ResourceData} managed by resources (contents of resources)
+ * @param <TA> type of {@link TechnologyAdapter}
+ * @param <F>  type of {@link PamelaResourceModelFactory} managing contents of resources
+ * @author sylvain
  */
 public abstract class PamelaResourceFactory<R extends FlexoResource<RD>, RD extends ResourceData<RD>, F extends PamelaModelFactory & PamelaResourceModelFactory>
-		extends FlexoResourceFactory<R, RD> {
+        extends FlexoResourceFactory<R, RD> {
 
-	@SuppressWarnings("unused")
-	private static final Logger logger = Logger.getLogger(PamelaResourceFactory.class.getPackage().getName());
+    @SuppressWarnings("unused")
+    private static final Logger logger = Logger.getLogger(PamelaResourceFactory.class.getPackage().getName());
 
-	/**
-	 * Generic constructor
-	 * 
-	 * @param resourceClass
-	 * @throws ModelDefinitionException
-	 */
-	protected PamelaResourceFactory(Class<R> resourceClass) throws ModelDefinitionException {
-		super(resourceClass);
-	}
+    /**
+     * Generic constructor
+     *
+     * @param resourceClass
+     * @throws ModelDefinitionException
+     */
+    protected PamelaResourceFactory(Class<R> resourceClass) throws ModelDefinitionException {
+        super(resourceClass);
+    }
 
 	/*@Override
 	protected <I> R initResourceForRetrieving(I serializationArtefact, FlexoResourceCenter<I> resourceCenter)

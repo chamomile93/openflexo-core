@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AReferenceType extends PReferenceType
-{
+public final class AReferenceType extends PReferenceType {
     private PCompositeTident _identifier_;
     private PTypeArguments _args_;
 
-    public AReferenceType()
-    {
+    public AReferenceType() {
         // Constructor
     }
 
     public AReferenceType(
-        @SuppressWarnings("hiding") PCompositeTident _identifier_,
-        @SuppressWarnings("hiding") PTypeArguments _args_)
-    {
+            @SuppressWarnings("hiding") PCompositeTident _identifier_,
+            @SuppressWarnings("hiding") PTypeArguments _args_) {
         // Constructor
         setIdentifier(_identifier_);
 
@@ -27,35 +24,28 @@ public final class AReferenceType extends PReferenceType
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AReferenceType(
-            cloneNode(this._identifier_),
-            cloneNode(this._args_));
+                cloneNode(this._identifier_),
+                cloneNode(this._args_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAReferenceType(this);
     }
 
-    public PCompositeTident getIdentifier()
-    {
+    public PCompositeTident getIdentifier() {
         return this._identifier_;
     }
 
-    public void setIdentifier(PCompositeTident node)
-    {
-        if(this._identifier_ != null)
-        {
+    public void setIdentifier(PCompositeTident node) {
+        if (this._identifier_ != null) {
             this._identifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AReferenceType extends PReferenceType
         this._identifier_ = node;
     }
 
-    public PTypeArguments getArgs()
-    {
+    public PTypeArguments getArgs() {
         return this._args_;
     }
 
-    public void setArgs(PTypeArguments node)
-    {
-        if(this._args_ != null)
-        {
+    public void setArgs(PTypeArguments node) {
+        if (this._args_ != null) {
             this._args_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AReferenceType extends PReferenceType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._identifier_)
-            + toString(this._args_);
+                + toString(this._identifier_)
+                + toString(this._args_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._identifier_ == child)
-        {
+        if (this._identifier_ == child) {
             this._identifier_ = null;
             return;
         }
 
-        if(this._args_ == child)
-        {
+        if (this._args_ == child) {
             this._args_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AReferenceType extends PReferenceType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._identifier_ == oldChild)
-        {
+        if (this._identifier_ == oldChild) {
             setIdentifier((PCompositeTident) newChild);
             return;
         }
 
-        if(this._args_ == oldChild)
-        {
+        if (this._args_ == oldChild) {
             setArgs((PTypeArguments) newChild);
             return;
         }

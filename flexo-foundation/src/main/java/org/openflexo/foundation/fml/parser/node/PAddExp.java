@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PAddExp extends Node
-{
+public abstract class PAddExp extends Node {
     // Empty body
 }

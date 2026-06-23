@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class THelp extends Token
-{
-    public THelp()
-    {
+public final class THelp extends Token {
+    public THelp() {
         super.setText("help");
     }
 
-    public THelp(int line, int pos)
-    {
+    public THelp(int line, int pos) {
         super.setText("help");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new THelp(getLine(), getPos());
+    public Object clone() {
+        return new THelp(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTHelp(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change THelp text.");
     }
 }

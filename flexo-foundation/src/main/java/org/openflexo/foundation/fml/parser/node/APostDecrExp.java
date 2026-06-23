@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APostDecrExp extends PPostDecrExp
-{
+public final class APostDecrExp extends PPostDecrExp {
     private PPostfixExp _postfixExp_;
     private TMinusMinus _minusMinus_;
 
-    public APostDecrExp()
-    {
+    public APostDecrExp() {
         // Constructor
     }
 
     public APostDecrExp(
-        @SuppressWarnings("hiding") PPostfixExp _postfixExp_,
-        @SuppressWarnings("hiding") TMinusMinus _minusMinus_)
-    {
+            @SuppressWarnings("hiding") PPostfixExp _postfixExp_,
+            @SuppressWarnings("hiding") TMinusMinus _minusMinus_) {
         // Constructor
         setPostfixExp(_postfixExp_);
 
@@ -27,35 +24,28 @@ public final class APostDecrExp extends PPostDecrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APostDecrExp(
-            cloneNode(this._postfixExp_),
-            cloneNode(this._minusMinus_));
+                cloneNode(this._postfixExp_),
+                cloneNode(this._minusMinus_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPostDecrExp(this);
     }
 
-    public PPostfixExp getPostfixExp()
-    {
+    public PPostfixExp getPostfixExp() {
         return this._postfixExp_;
     }
 
-    public void setPostfixExp(PPostfixExp node)
-    {
-        if(this._postfixExp_ != null)
-        {
+    public void setPostfixExp(PPostfixExp node) {
+        if (this._postfixExp_ != null) {
             this._postfixExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APostDecrExp extends PPostDecrExp
         this._postfixExp_ = node;
     }
 
-    public TMinusMinus getMinusMinus()
-    {
+    public TMinusMinus getMinusMinus() {
         return this._minusMinus_;
     }
 
-    public void setMinusMinus(TMinusMinus node)
-    {
-        if(this._minusMinus_ != null)
-        {
+    public void setMinusMinus(TMinusMinus node) {
+        if (this._minusMinus_ != null) {
             this._minusMinus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APostDecrExp extends PPostDecrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._postfixExp_)
-            + toString(this._minusMinus_);
+                + toString(this._postfixExp_)
+                + toString(this._minusMinus_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._postfixExp_ == child)
-        {
+        if (this._postfixExp_ == child) {
             this._postfixExp_ = null;
             return;
         }
 
-        if(this._minusMinus_ == child)
-        {
+        if (this._minusMinus_ == child) {
             this._minusMinus_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APostDecrExp extends PPostDecrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._postfixExp_ == oldChild)
-        {
+        if (this._postfixExp_ == oldChild) {
             setPostfixExp((PPostfixExp) newChild);
             return;
         }
 
-        if(this._minusMinus_ == oldChild)
-        {
+        if (this._minusMinus_ == oldChild) {
             setMinusMinus((TMinusMinus) newChild);
             return;
         }

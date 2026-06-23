@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PSimpleAssertDeclaration extends Node
-{
+public abstract class PSimpleAssertDeclaration extends Node {
     // Empty body
 }

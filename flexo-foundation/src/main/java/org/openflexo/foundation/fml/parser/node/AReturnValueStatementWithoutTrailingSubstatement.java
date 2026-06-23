@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AReturnValueStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement
-{
+public final class AReturnValueStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement {
     private PReturnValueStatement _returnValueStatement_;
 
-    public AReturnValueStatementWithoutTrailingSubstatement()
-    {
+    public AReturnValueStatementWithoutTrailingSubstatement() {
         // Constructor
     }
 
     public AReturnValueStatementWithoutTrailingSubstatement(
-        @SuppressWarnings("hiding") PReturnValueStatement _returnValueStatement_)
-    {
+            @SuppressWarnings("hiding") PReturnValueStatement _returnValueStatement_) {
         // Constructor
         setReturnValueStatement(_returnValueStatement_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AReturnValueStatementWithoutTrailingSubstatement(
-            cloneNode(this._returnValueStatement_));
+                cloneNode(this._returnValueStatement_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAReturnValueStatementWithoutTrailingSubstatement(this);
     }
 
-    public PReturnValueStatement getReturnValueStatement()
-    {
+    public PReturnValueStatement getReturnValueStatement() {
         return this._returnValueStatement_;
     }
 
-    public void setReturnValueStatement(PReturnValueStatement node)
-    {
-        if(this._returnValueStatement_ != null)
-        {
+    public void setReturnValueStatement(PReturnValueStatement node) {
+        if (this._returnValueStatement_ != null) {
             this._returnValueStatement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AReturnValueStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._returnValueStatement_);
+                + toString(this._returnValueStatement_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._returnValueStatement_ == child)
-        {
+        if (this._returnValueStatement_ == child) {
             this._returnValueStatement_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AReturnValueStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._returnValueStatement_ == oldChild)
-        {
+        if (this._returnValueStatement_ == oldChild) {
             setReturnValueStatement((PReturnValueStatement) newChild);
             return;
         }

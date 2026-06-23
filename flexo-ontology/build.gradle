@@ -1,10 +1,10 @@
 dependencies {
-  // openflexo dep
-  implementation project(':flexo-foundation')
-  api ginaApi()
+    // openflexo dep
+    implementation project(':flexo-foundation')
+    api ginaApi()
 
-  // external dep
+    // external dep
 
-  // testing dep
-  //testCompile testUtils()
+    // testing dep
+    //testCompile testUtils()
 }

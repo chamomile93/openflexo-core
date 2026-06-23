@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABasicVersion extends PVersion
-{
+public final class ABasicVersion extends PVersion {
     private TLitInteger _litInteger_;
 
-    public ABasicVersion()
-    {
+    public ABasicVersion() {
         // Constructor
     }
 
     public ABasicVersion(
-        @SuppressWarnings("hiding") TLitInteger _litInteger_)
-    {
+            @SuppressWarnings("hiding") TLitInteger _litInteger_) {
         // Constructor
         setLitInteger(_litInteger_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABasicVersion(
-            cloneNode(this._litInteger_));
+                cloneNode(this._litInteger_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABasicVersion(this);
     }
 
-    public TLitInteger getLitInteger()
-    {
+    public TLitInteger getLitInteger() {
         return this._litInteger_;
     }
 
-    public void setLitInteger(TLitInteger node)
-    {
-        if(this._litInteger_ != null)
-        {
+    public void setLitInteger(TLitInteger node) {
+        if (this._litInteger_ != null) {
             this._litInteger_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ABasicVersion extends PVersion
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._litInteger_);
+                + toString(this._litInteger_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._litInteger_ == child)
-        {
+        if (this._litInteger_ == child) {
             this._litInteger_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ABasicVersion extends PVersion
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._litInteger_ == oldChild)
-        {
+        if (this._litInteger_ == oldChild) {
             setLitInteger((TLitInteger) newChild);
             return;
         }

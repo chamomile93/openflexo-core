@@ -1,49 +1,42 @@
 /**
- * 
+ *
  * Copyright (c) 2014-2015, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,134 +52,139 @@ import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
 import org.openflexo.toolbox.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
+
 /**
  * This unit test is intented to test VirtualModel creation facilities
- * 
+ *
  * TODO: write test with FlexoAction primitives only
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 @RunWith(OrderedRunner.class)
 public class TestCreateVirtualModel extends OpenflexoTestCase {
 
-	public static final String VIEWPOINT_NAME = "TestViewPoint";
-	public static final String VIEWPOINT_URI = "http://openflexo.org/test/TestResourceCenter/TestViewPoint.fml";
-	public static final String VIRTUAL_MODEL_NAME = "TestVirtualModel";
+    public static final String VIEWPOINT_NAME = "TestViewPoint";
+    public static final String VIEWPOINT_URI = "http://openflexo.org/test/TestResourceCenter/TestViewPoint.fml";
+    public static final String VIRTUAL_MODEL_NAME = "TestVirtualModel";
 
-	static VirtualModel newViewPoint;
-	static CompilationUnitResource newVirtualModelResource;
+    static VirtualModel newViewPoint;
+    static CompilationUnitResource newVirtualModelResource;
 
-	private static DirectoryResourceCenter resourceCenter;
+    private static DirectoryResourceCenter resourceCenter;
 
-	/**
-	 * Test the VP creation
-	 * 
-	 * @throws ModelDefinitionException
-	 * @throws SaveResourceException
-	 * @throws IOException
-	 */
-	@Test
-	@TestOrder(1)
-	public void testCreateViewPoint() throws SaveResourceException, ModelDefinitionException, IOException {
-		instanciateTestServiceManager();
-		resourceCenter = makeNewDirectoryResourceCenter();
-		assertNotNull(resourceCenter);
-		System.out.println("ResourceCenter= " + resourceCenter);
+    /**
+     * Test the VP creation
+     *
+     * @throws ModelDefinitionException
+     * @throws SaveResourceException
+     * @throws IOException
+     */
+    @Test
+    @TestOrder(1)
+    public void testCreateViewPoint() throws SaveResourceException, ModelDefinitionException, IOException {
+        instanciateTestServiceManager();
+        resourceCenter = makeNewDirectoryResourceCenter();
+        assertNotNull(resourceCenter);
+        System.out.println("ResourceCenter= " + resourceCenter);
 
-		FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
-				.getTechnologyAdapter(FMLTechnologyAdapter.class);
-		CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
+        FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
+                .getTechnologyAdapter(FMLTechnologyAdapter.class);
+        CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
 
-		newVirtualModelResource = factory.makeTopLevelCompilationUnitResource(VIEWPOINT_NAME, VIEWPOINT_URI,
-				fmlTechnologyAdapter.getGlobalRepository(resourceCenter).getRootFolder(), true);
-		newViewPoint = newVirtualModelResource.getLoadedResourceData().getVirtualModel();
+        newVirtualModelResource = factory.makeTopLevelCompilationUnitResource(VIEWPOINT_NAME, VIEWPOINT_URI,
+                fmlTechnologyAdapter.getGlobalRepository(resourceCenter).getRootFolder(), true);
+        newViewPoint = newVirtualModelResource.getLoadedResourceData().getVirtualModel();
 
-		// assertTrue(newVirtualModelResource.getDirectory().exists());
-		// assertTrue(newVirtualModelResource.getFile().exists());
-		assertTrue(newVirtualModelResource.getDirectory() != null);
-		assertTrue(newVirtualModelResource.getIODelegate().exists());
+        // assertTrue(newVirtualModelResource.getDirectory().exists());
+        // assertTrue(newVirtualModelResource.getFile().exists());
+        assertTrue(newVirtualModelResource.getDirectory() != null);
+        assertTrue(newVirtualModelResource.getIODelegate().exists());
 
-		assertEquals(newViewPoint, newViewPoint.getDeclaringCompilationUnit().getVirtualModel());
-		assertEquals(null, newViewPoint.getContainerVirtualModel());
-		assertEquals(newViewPoint, newViewPoint.getFlexoConcept());
-		assertEquals(newViewPoint, newViewPoint.getResourceData().getVirtualModel());
+        assertEquals(newViewPoint, newViewPoint.getDeclaringCompilationUnit().getVirtualModel());
+        assertEquals(null, newViewPoint.getContainerVirtualModel());
+        assertEquals(newViewPoint, newViewPoint.getFlexoConcept());
+        assertEquals(newViewPoint, newViewPoint.getResourceData().getVirtualModel());
 
-	}
+    }
 
-	/**
-	 * Test the VirtualModel creation
-	 * 
-	 * @throws ModelDefinitionException
-	 */
-	@Test
-	@TestOrder(2)
-	public void testCreateVirtualModel() throws SaveResourceException, ModelDefinitionException {
+    /**
+     * Test the VirtualModel creation
+     *
+     * @throws ModelDefinitionException
+     */
+    @Test
+    @TestOrder(2)
+    public void testCreateVirtualModel() throws SaveResourceException, ModelDefinitionException {
 
-		FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
-				.getTechnologyAdapter(FMLTechnologyAdapter.class);
-		CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
-		CompilationUnitResource newVMResource = factory.makeContainedCompilationUnitResource(VIRTUAL_MODEL_NAME, newViewPoint.getResource(),
-				true);
-		VirtualModel newVirtualModel = newVMResource.getLoadedResourceData().getVirtualModel();
+        FMLTechnologyAdapter fmlTechnologyAdapter = serviceManager.getTechnologyAdapterService()
+                .getTechnologyAdapter(FMLTechnologyAdapter.class);
+        CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
+        CompilationUnitResource newVMResource = factory.makeContainedCompilationUnitResource(VIRTUAL_MODEL_NAME, newViewPoint.getResource(),
+                true);
+        VirtualModel newVirtualModel = newVMResource.getLoadedResourceData().getVirtualModel();
 
-		// VirtualModel newVirtualModel =
-		// VirtualModelImpl.newVirtualModel(VIRTUAL_MODEL_NAME, newViewPoint);
-		assertTrue(ResourceLocator.retrieveResourceAsFile(newVirtualModel.getResource().getDirectory()).exists());
-		assertTrue(newVirtualModel.getResource().getIODelegate().exists());
+        // VirtualModel newVirtualModel =
+        // VirtualModelImpl.newVirtualModel(VIRTUAL_MODEL_NAME, newViewPoint);
+        assertTrue(ResourceLocator.retrieveResourceAsFile(newVirtualModel.getResource().getDirectory()).exists());
+        assertTrue(newVirtualModel.getResource().getIODelegate().exists());
 
-		assertEquals(newViewPoint, newVirtualModel.getContainerVirtualModel());
-		assertEquals(newVirtualModel, newVirtualModel.getFlexoConcept());
-		assertEquals(newVirtualModel, newVirtualModel.getResourceData().getVirtualModel());
+        assertEquals(newViewPoint, newVirtualModel.getContainerVirtualModel());
+        assertEquals(newVirtualModel, newVirtualModel.getFlexoConcept());
+        assertEquals(newVirtualModel, newVirtualModel.getResourceData().getVirtualModel());
 
-	}
+    }
 
-	/**
-	 * Reload the ViewPoint<br>
-	 * We first re-init a full ServiceManager, and copy the just created ViewPoint<br>
-	 * The goal is to let the FileSystem monitoring system detects the new directory and instantiate ViewPoint
-	 * 
-	 * @throws IOException
-	 */
-	@Test
-	@TestOrder(3)
-	public void testReloadViewPoint() throws IOException {
+    /**
+     * Reload the ViewPoint<br>
+     * We first re-init a full ServiceManager, and copy the just created ViewPoint<br>
+     * The goal is to let the FileSystem monitoring system detects the new directory and instantiate ViewPoint
+     *
+     * @throws IOException
+     */
+    @Test
+    @TestOrder(3)
+    public void testReloadViewPoint() throws IOException {
 
-		log("testReloadViewPoint()");
+        log("testReloadViewPoint()");
 
-		instanciateTestServiceManager();
-		resourceCenter = makeNewDirectoryResourceCenter();
+        instanciateTestServiceManager();
+        resourceCenter = makeNewDirectoryResourceCenter();
 
-		File directory = ResourceLocator.retrieveResourceAsFile(newVirtualModelResource.getDirectory());
-		File newDirectory = new File(((FileSystemBasedResourceCenter) resourceCenter).getRootDirectory(), directory.getName());
-		newDirectory.mkdirs();
+        File directory = ResourceLocator.retrieveResourceAsFile(newVirtualModelResource.getDirectory());
+        File newDirectory = new File(((FileSystemBasedResourceCenter) resourceCenter).getRootDirectory(), directory.getName());
+        newDirectory.mkdirs();
 
-		try {
-			FileUtils.copyContentDirToDir(directory, newDirectory);
-			// We wait here for the thread monitoring ResourceCenters to detect
-			// new files
-			((FileSystemBasedResourceCenter) resourceCenter).performDirectoryWatchingNow();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        try {
+            FileUtils.copyContentDirToDir(directory, newDirectory);
+            // We wait here for the thread monitoring ResourceCenters to detect
+            // new files
+            ((FileSystemBasedResourceCenter) resourceCenter).performDirectoryWatchingNow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		CompilationUnitResource retrievedVPResource = serviceManager.getVirtualModelLibrary().getCompilationUnitResource(VIEWPOINT_URI);
-		assertNotNull(retrievedVPResource);
+        CompilationUnitResource retrievedVPResource = serviceManager.getVirtualModelLibrary().getCompilationUnitResource(VIEWPOINT_URI);
+        assertNotNull(retrievedVPResource);
 
-		VirtualModel reloadedViewPoint = retrievedVPResource.getCompilationUnit().getVirtualModel();
-		assertEquals(reloadedViewPoint, reloadedViewPoint.getDeclaringCompilationUnit().getVirtualModel());
-		assertEquals(null, reloadedViewPoint.getContainerVirtualModel());
-		assertEquals(reloadedViewPoint, reloadedViewPoint.getFlexoConcept());
-		assertEquals(reloadedViewPoint, reloadedViewPoint.getResourceData().getVirtualModel());
+        VirtualModel reloadedViewPoint = retrievedVPResource.getCompilationUnit().getVirtualModel();
+        assertEquals(reloadedViewPoint, reloadedViewPoint.getDeclaringCompilationUnit().getVirtualModel());
+        assertEquals(null, reloadedViewPoint.getContainerVirtualModel());
+        assertEquals(reloadedViewPoint, reloadedViewPoint.getFlexoConcept());
+        assertEquals(reloadedViewPoint, reloadedViewPoint.getResourceData().getVirtualModel());
 
-		VirtualModel reloadedVirtualModel = reloadedViewPoint.getVirtualModelNamed(VIRTUAL_MODEL_NAME);
-		assertNotNull(reloadedVirtualModel); // TODO idf why this fails now
+        VirtualModel reloadedVirtualModel = reloadedViewPoint.getVirtualModelNamed(VIRTUAL_MODEL_NAME);
+        assertNotNull(reloadedVirtualModel); // TODO idf why this fails now
 
-		assertEquals(reloadedViewPoint, reloadedVirtualModel.getContainerVirtualModel());
-		assertEquals(reloadedVirtualModel, reloadedVirtualModel.getDeclaringCompilationUnit().getVirtualModel());
-		assertEquals(reloadedVirtualModel, reloadedVirtualModel.getFlexoConcept());
-		assertEquals(reloadedVirtualModel, reloadedVirtualModel.getResourceData().getVirtualModel());
+        assertEquals(reloadedViewPoint, reloadedVirtualModel.getContainerVirtualModel());
+        assertEquals(reloadedVirtualModel, reloadedVirtualModel.getDeclaringCompilationUnit().getVirtualModel());
+        assertEquals(reloadedVirtualModel, reloadedVirtualModel.getFlexoConcept());
+        assertEquals(reloadedVirtualModel, reloadedVirtualModel.getResourceData().getVirtualModel());
 
-	}
+    }
 
 }

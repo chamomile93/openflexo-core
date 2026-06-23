@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AUnaryUnaryExp extends PUnaryExp
-{
+public final class AUnaryUnaryExp extends PUnaryExp {
     private PUnaryExpNotPlusMinus _unaryExpNotPlusMinus_;
 
-    public AUnaryUnaryExp()
-    {
+    public AUnaryUnaryExp() {
         // Constructor
     }
 
     public AUnaryUnaryExp(
-        @SuppressWarnings("hiding") PUnaryExpNotPlusMinus _unaryExpNotPlusMinus_)
-    {
+            @SuppressWarnings("hiding") PUnaryExpNotPlusMinus _unaryExpNotPlusMinus_) {
         // Constructor
         setUnaryExpNotPlusMinus(_unaryExpNotPlusMinus_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AUnaryUnaryExp(
-            cloneNode(this._unaryExpNotPlusMinus_));
+                cloneNode(this._unaryExpNotPlusMinus_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAUnaryUnaryExp(this);
     }
 
-    public PUnaryExpNotPlusMinus getUnaryExpNotPlusMinus()
-    {
+    public PUnaryExpNotPlusMinus getUnaryExpNotPlusMinus() {
         return this._unaryExpNotPlusMinus_;
     }
 
-    public void setUnaryExpNotPlusMinus(PUnaryExpNotPlusMinus node)
-    {
-        if(this._unaryExpNotPlusMinus_ != null)
-        {
+    public void setUnaryExpNotPlusMinus(PUnaryExpNotPlusMinus node) {
+        if (this._unaryExpNotPlusMinus_ != null) {
             this._unaryExpNotPlusMinus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AUnaryUnaryExp extends PUnaryExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._unaryExpNotPlusMinus_);
+                + toString(this._unaryExpNotPlusMinus_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._unaryExpNotPlusMinus_ == child)
-        {
+        if (this._unaryExpNotPlusMinus_ == child) {
             this._unaryExpNotPlusMinus_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AUnaryUnaryExp extends PUnaryExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._unaryExpNotPlusMinus_ == oldChild)
-        {
+        if (this._unaryExpNotPlusMinus_ == oldChild) {
             setUnaryExpNotPlusMinus((PUnaryExpNotPlusMinus) newChild);
             return;
         }

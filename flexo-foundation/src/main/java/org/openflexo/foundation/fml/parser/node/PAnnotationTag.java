@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PAnnotationTag extends Node
-{
+public abstract class PAnnotationTag extends Node {
     // Empty body
 }

@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AMinusAddExp extends PAddExp
-{
+public final class AMinusAddExp extends PAddExp {
     private PAddExp _addExp_;
     private TMinus _minus_;
     private PMultExp _multExp_;
 
-    public AMinusAddExp()
-    {
+    public AMinusAddExp() {
         // Constructor
     }
 
     public AMinusAddExp(
-        @SuppressWarnings("hiding") PAddExp _addExp_,
-        @SuppressWarnings("hiding") TMinus _minus_,
-        @SuppressWarnings("hiding") PMultExp _multExp_)
-    {
+            @SuppressWarnings("hiding") PAddExp _addExp_,
+            @SuppressWarnings("hiding") TMinus _minus_,
+            @SuppressWarnings("hiding") PMultExp _multExp_) {
         // Constructor
         setAddExp(_addExp_);
 
@@ -31,36 +28,29 @@ public final class AMinusAddExp extends PAddExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AMinusAddExp(
-            cloneNode(this._addExp_),
-            cloneNode(this._minus_),
-            cloneNode(this._multExp_));
+                cloneNode(this._addExp_),
+                cloneNode(this._minus_),
+                cloneNode(this._multExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAMinusAddExp(this);
     }
 
-    public PAddExp getAddExp()
-    {
+    public PAddExp getAddExp() {
         return this._addExp_;
     }
 
-    public void setAddExp(PAddExp node)
-    {
-        if(this._addExp_ != null)
-        {
+    public void setAddExp(PAddExp node) {
+        if (this._addExp_ != null) {
             this._addExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AMinusAddExp extends PAddExp
         this._addExp_ = node;
     }
 
-    public TMinus getMinus()
-    {
+    public TMinus getMinus() {
         return this._minus_;
     }
 
-    public void setMinus(TMinus node)
-    {
-        if(this._minus_ != null)
-        {
+    public void setMinus(TMinus node) {
+        if (this._minus_ != null) {
             this._minus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AMinusAddExp extends PAddExp
         this._minus_ = node;
     }
 
-    public PMultExp getMultExp()
-    {
+    public PMultExp getMultExp() {
         return this._multExp_;
     }
 
-    public void setMultExp(PMultExp node)
-    {
-        if(this._multExp_ != null)
-        {
+    public void setMultExp(PMultExp node) {
+        if (this._multExp_ != null) {
             this._multExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AMinusAddExp extends PAddExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._addExp_)
-            + toString(this._minus_)
-            + toString(this._multExp_);
+                + toString(this._addExp_)
+                + toString(this._minus_)
+                + toString(this._multExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._addExp_ == child)
-        {
+        if (this._addExp_ == child) {
             this._addExp_ = null;
             return;
         }
 
-        if(this._minus_ == child)
-        {
+        if (this._minus_ == child) {
             this._minus_ = null;
             return;
         }
 
-        if(this._multExp_ == child)
-        {
+        if (this._multExp_ == child) {
             this._multExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AMinusAddExp extends PAddExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._addExp_ == oldChild)
-        {
+        if (this._addExp_ == oldChild) {
             setAddExp((PAddExp) newChild);
             return;
         }
 
-        if(this._minus_ == oldChild)
-        {
+        if (this._minus_ == oldChild) {
             setMinus((TMinus) newChild);
             return;
         }
 
-        if(this._multExp_ == oldChild)
-        {
+        if (this._multExp_ == oldChild) {
             setMultExp((PMultExp) newChild);
             return;
         }

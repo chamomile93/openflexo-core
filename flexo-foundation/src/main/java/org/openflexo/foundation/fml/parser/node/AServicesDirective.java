@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AServicesDirective extends PDirective
-{
+public final class AServicesDirective extends PDirective {
     private TServices _services_;
 
-    public AServicesDirective()
-    {
+    public AServicesDirective() {
         // Constructor
     }
 
     public AServicesDirective(
-        @SuppressWarnings("hiding") TServices _services_)
-    {
+            @SuppressWarnings("hiding") TServices _services_) {
         // Constructor
         setServices(_services_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AServicesDirective(
-            cloneNode(this._services_));
+                cloneNode(this._services_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAServicesDirective(this);
     }
 
-    public TServices getServices()
-    {
+    public TServices getServices() {
         return this._services_;
     }
 
-    public void setServices(TServices node)
-    {
-        if(this._services_ != null)
-        {
+    public void setServices(TServices node) {
+        if (this._services_ != null) {
             this._services_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AServicesDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._services_);
+                + toString(this._services_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._services_ == child)
-        {
+        if (this._services_ == child) {
             this._services_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AServicesDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._services_ == oldChild)
-        {
+        if (this._services_ == oldChild) {
             setServices((TServices) newChild);
             return;
         }

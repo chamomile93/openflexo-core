@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TTyShort extends Token
-{
-    public TTyShort()
-    {
+public final class TTyShort extends Token {
+    public TTyShort() {
         super.setText("short");
     }
 
-    public TTyShort(int line, int pos)
-    {
+    public TTyShort(int line, int pos) {
         super.setText("short");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TTyShort(getLine(), getPos());
+    public Object clone() {
+        return new TTyShort(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTTyShort(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TTyShort text.");
     }
 }

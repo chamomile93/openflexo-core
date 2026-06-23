@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AManySuperTypeList extends PSuperTypeList
-{
+public final class AManySuperTypeList extends PSuperTypeList {
     private PSuperTypeList _superTypeList_;
     private TComma _comma_;
     private PCompositeTident _identifier_;
 
-    public AManySuperTypeList()
-    {
+    public AManySuperTypeList() {
         // Constructor
     }
 
     public AManySuperTypeList(
-        @SuppressWarnings("hiding") PSuperTypeList _superTypeList_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") PCompositeTident _identifier_)
-    {
+            @SuppressWarnings("hiding") PSuperTypeList _superTypeList_,
+            @SuppressWarnings("hiding") TComma _comma_,
+            @SuppressWarnings("hiding") PCompositeTident _identifier_) {
         // Constructor
         setSuperTypeList(_superTypeList_);
 
@@ -31,36 +28,29 @@ public final class AManySuperTypeList extends PSuperTypeList
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AManySuperTypeList(
-            cloneNode(this._superTypeList_),
-            cloneNode(this._comma_),
-            cloneNode(this._identifier_));
+                cloneNode(this._superTypeList_),
+                cloneNode(this._comma_),
+                cloneNode(this._identifier_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAManySuperTypeList(this);
     }
 
-    public PSuperTypeList getSuperTypeList()
-    {
+    public PSuperTypeList getSuperTypeList() {
         return this._superTypeList_;
     }
 
-    public void setSuperTypeList(PSuperTypeList node)
-    {
-        if(this._superTypeList_ != null)
-        {
+    public void setSuperTypeList(PSuperTypeList node) {
+        if (this._superTypeList_ != null) {
             this._superTypeList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AManySuperTypeList extends PSuperTypeList
         this._superTypeList_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AManySuperTypeList extends PSuperTypeList
         this._comma_ = node;
     }
 
-    public PCompositeTident getIdentifier()
-    {
+    public PCompositeTident getIdentifier() {
         return this._identifier_;
     }
 
-    public void setIdentifier(PCompositeTident node)
-    {
-        if(this._identifier_ != null)
-        {
+    public void setIdentifier(PCompositeTident node) {
+        if (this._identifier_ != null) {
             this._identifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AManySuperTypeList extends PSuperTypeList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._superTypeList_)
-            + toString(this._comma_)
-            + toString(this._identifier_);
+                + toString(this._superTypeList_)
+                + toString(this._comma_)
+                + toString(this._identifier_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._superTypeList_ == child)
-        {
+        if (this._superTypeList_ == child) {
             this._superTypeList_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
 
-        if(this._identifier_ == child)
-        {
+        if (this._identifier_ == child) {
             this._identifier_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AManySuperTypeList extends PSuperTypeList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._superTypeList_ == oldChild)
-        {
+        if (this._superTypeList_ == oldChild) {
             setSuperTypeList((PSuperTypeList) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }
 
-        if(this._identifier_ == oldChild)
-        {
+        if (this._identifier_ == oldChild) {
             setIdentifier((PCompositeTident) newChild);
             return;
         }

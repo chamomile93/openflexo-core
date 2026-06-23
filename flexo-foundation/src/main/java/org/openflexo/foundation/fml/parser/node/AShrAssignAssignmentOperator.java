@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AShrAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class AShrAssignAssignmentOperator extends PAssignmentOperator {
     private TShrAssign _shrAssign_;
 
-    public AShrAssignAssignmentOperator()
-    {
+    public AShrAssignAssignmentOperator() {
         // Constructor
     }
 
     public AShrAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TShrAssign _shrAssign_)
-    {
+            @SuppressWarnings("hiding") TShrAssign _shrAssign_) {
         // Constructor
         setShrAssign(_shrAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AShrAssignAssignmentOperator(
-            cloneNode(this._shrAssign_));
+                cloneNode(this._shrAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAShrAssignAssignmentOperator(this);
     }
 
-    public TShrAssign getShrAssign()
-    {
+    public TShrAssign getShrAssign() {
         return this._shrAssign_;
     }
 
-    public void setShrAssign(TShrAssign node)
-    {
-        if(this._shrAssign_ != null)
-        {
+    public void setShrAssign(TShrAssign node) {
+        if (this._shrAssign_ != null) {
             this._shrAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AShrAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._shrAssign_);
+                + toString(this._shrAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._shrAssign_ == child)
-        {
+        if (this._shrAssign_ == child) {
             this._shrAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AShrAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._shrAssign_ == oldChild)
-        {
+        if (this._shrAssign_ == oldChild) {
             setShrAssign((TShrAssign) newChild);
             return;
         }

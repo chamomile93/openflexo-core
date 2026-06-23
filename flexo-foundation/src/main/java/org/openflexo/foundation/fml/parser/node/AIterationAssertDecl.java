@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AIterationAssertDecl extends PAssertDecl
-{
+public final class AIterationAssertDecl extends PAssertDecl {
     private PIterationAssertDeclaration _iterationAssertDeclaration_;
 
-    public AIterationAssertDecl()
-    {
+    public AIterationAssertDecl() {
         // Constructor
     }
 
     public AIterationAssertDecl(
-        @SuppressWarnings("hiding") PIterationAssertDeclaration _iterationAssertDeclaration_)
-    {
+            @SuppressWarnings("hiding") PIterationAssertDeclaration _iterationAssertDeclaration_) {
         // Constructor
         setIterationAssertDeclaration(_iterationAssertDeclaration_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AIterationAssertDecl(
-            cloneNode(this._iterationAssertDeclaration_));
+                cloneNode(this._iterationAssertDeclaration_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAIterationAssertDecl(this);
     }
 
-    public PIterationAssertDeclaration getIterationAssertDeclaration()
-    {
+    public PIterationAssertDeclaration getIterationAssertDeclaration() {
         return this._iterationAssertDeclaration_;
     }
 
-    public void setIterationAssertDeclaration(PIterationAssertDeclaration node)
-    {
-        if(this._iterationAssertDeclaration_ != null)
-        {
+    public void setIterationAssertDeclaration(PIterationAssertDeclaration node) {
+        if (this._iterationAssertDeclaration_ != null) {
             this._iterationAssertDeclaration_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AIterationAssertDecl extends PAssertDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._iterationAssertDeclaration_);
+                + toString(this._iterationAssertDeclaration_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._iterationAssertDeclaration_ == child)
-        {
+        if (this._iterationAssertDeclaration_ == child) {
             this._iterationAssertDeclaration_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AIterationAssertDecl extends PAssertDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._iterationAssertDeclaration_ == oldChild)
-        {
+        if (this._iterationAssertDeclaration_ == oldChild) {
             setIterationAssertDeclaration((PIterationAssertDeclaration) newChild);
             return;
         }

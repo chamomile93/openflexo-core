@@ -5,29 +5,24 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TLidentifier extends Token
-{
-    public TLidentifier(String text)
-    {
+public final class TLidentifier extends Token {
+    public TLidentifier(String text) {
         setText(text);
     }
 
-    public TLidentifier(String text, int line, int pos)
-    {
+    public TLidentifier(String text, int line, int pos) {
         setText(text);
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TLidentifier(getText(), getLine(), getPos());
+    public Object clone() {
+        return new TLidentifier(getText(), getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTLidentifier(this);
     }
 }

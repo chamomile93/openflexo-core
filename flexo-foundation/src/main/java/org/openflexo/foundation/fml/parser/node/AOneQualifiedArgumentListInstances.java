@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOneQualifiedArgumentListInstances extends PQualifiedArgumentListInstances
-{
+public final class AOneQualifiedArgumentListInstances extends PQualifiedArgumentListInstances {
     private PQualifiedInstance _qualifiedInstance_;
 
-    public AOneQualifiedArgumentListInstances()
-    {
+    public AOneQualifiedArgumentListInstances() {
         // Constructor
     }
 
     public AOneQualifiedArgumentListInstances(
-        @SuppressWarnings("hiding") PQualifiedInstance _qualifiedInstance_)
-    {
+            @SuppressWarnings("hiding") PQualifiedInstance _qualifiedInstance_) {
         // Constructor
         setQualifiedInstance(_qualifiedInstance_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOneQualifiedArgumentListInstances(
-            cloneNode(this._qualifiedInstance_));
+                cloneNode(this._qualifiedInstance_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOneQualifiedArgumentListInstances(this);
     }
 
-    public PQualifiedInstance getQualifiedInstance()
-    {
+    public PQualifiedInstance getQualifiedInstance() {
         return this._qualifiedInstance_;
     }
 
-    public void setQualifiedInstance(PQualifiedInstance node)
-    {
-        if(this._qualifiedInstance_ != null)
-        {
+    public void setQualifiedInstance(PQualifiedInstance node) {
+        if (this._qualifiedInstance_ != null) {
             this._qualifiedInstance_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AOneQualifiedArgumentListInstances extends PQualifiedArgument
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._qualifiedInstance_);
+                + toString(this._qualifiedInstance_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._qualifiedInstance_ == child)
-        {
+        if (this._qualifiedInstance_ == child) {
             this._qualifiedInstance_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AOneQualifiedArgumentListInstances extends PQualifiedArgument
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._qualifiedInstance_ == oldChild)
-        {
+        if (this._qualifiedInstance_ == oldChild) {
             setQualifiedInstance((PQualifiedInstance) newChild);
             return;
         }

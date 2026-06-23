@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PResourcesDirective extends Node
-{
+public abstract class PResourcesDirective extends Node {
     // Empty body
 }

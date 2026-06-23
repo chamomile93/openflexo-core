@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AExtendsWildcardBounds extends PWildcardBounds
-{
+public final class AExtendsWildcardBounds extends PWildcardBounds {
     private TKwExtends _kwExtends_;
     private PReferenceType _referenceType_;
 
-    public AExtendsWildcardBounds()
-    {
+    public AExtendsWildcardBounds() {
         // Constructor
     }
 
     public AExtendsWildcardBounds(
-        @SuppressWarnings("hiding") TKwExtends _kwExtends_,
-        @SuppressWarnings("hiding") PReferenceType _referenceType_)
-    {
+            @SuppressWarnings("hiding") TKwExtends _kwExtends_,
+            @SuppressWarnings("hiding") PReferenceType _referenceType_) {
         // Constructor
         setKwExtends(_kwExtends_);
 
@@ -27,35 +24,28 @@ public final class AExtendsWildcardBounds extends PWildcardBounds
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AExtendsWildcardBounds(
-            cloneNode(this._kwExtends_),
-            cloneNode(this._referenceType_));
+                cloneNode(this._kwExtends_),
+                cloneNode(this._referenceType_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAExtendsWildcardBounds(this);
     }
 
-    public TKwExtends getKwExtends()
-    {
+    public TKwExtends getKwExtends() {
         return this._kwExtends_;
     }
 
-    public void setKwExtends(TKwExtends node)
-    {
-        if(this._kwExtends_ != null)
-        {
+    public void setKwExtends(TKwExtends node) {
+        if (this._kwExtends_ != null) {
             this._kwExtends_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AExtendsWildcardBounds extends PWildcardBounds
         this._kwExtends_ = node;
     }
 
-    public PReferenceType getReferenceType()
-    {
+    public PReferenceType getReferenceType() {
         return this._referenceType_;
     }
 
-    public void setReferenceType(PReferenceType node)
-    {
-        if(this._referenceType_ != null)
-        {
+    public void setReferenceType(PReferenceType node) {
+        if (this._referenceType_ != null) {
             this._referenceType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AExtendsWildcardBounds extends PWildcardBounds
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwExtends_)
-            + toString(this._referenceType_);
+                + toString(this._kwExtends_)
+                + toString(this._referenceType_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwExtends_ == child)
-        {
+        if (this._kwExtends_ == child) {
             this._kwExtends_ = null;
             return;
         }
 
-        if(this._referenceType_ == child)
-        {
+        if (this._referenceType_ == child) {
             this._referenceType_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AExtendsWildcardBounds extends PWildcardBounds
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwExtends_ == oldChild)
-        {
+        if (this._kwExtends_ == oldChild) {
             setKwExtends((TKwExtends) newChild);
             return;
         }
 
-        if(this._referenceType_ == oldChild)
-        {
+        if (this._referenceType_ == oldChild) {
             setReferenceType((PReferenceType) newChild);
             return;
         }

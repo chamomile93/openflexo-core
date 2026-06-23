@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AStarMultExp extends PMultExp
-{
+public final class AStarMultExp extends PMultExp {
     private PMultExp _multExp_;
     private TStar _star_;
     private PUnaryExp _unaryExp_;
 
-    public AStarMultExp()
-    {
+    public AStarMultExp() {
         // Constructor
     }
 
     public AStarMultExp(
-        @SuppressWarnings("hiding") PMultExp _multExp_,
-        @SuppressWarnings("hiding") TStar _star_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") PMultExp _multExp_,
+            @SuppressWarnings("hiding") TStar _star_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setMultExp(_multExp_);
 
@@ -31,36 +28,29 @@ public final class AStarMultExp extends PMultExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AStarMultExp(
-            cloneNode(this._multExp_),
-            cloneNode(this._star_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._multExp_),
+                cloneNode(this._star_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAStarMultExp(this);
     }
 
-    public PMultExp getMultExp()
-    {
+    public PMultExp getMultExp() {
         return this._multExp_;
     }
 
-    public void setMultExp(PMultExp node)
-    {
-        if(this._multExp_ != null)
-        {
+    public void setMultExp(PMultExp node) {
+        if (this._multExp_ != null) {
             this._multExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AStarMultExp extends PMultExp
         this._multExp_ = node;
     }
 
-    public TStar getStar()
-    {
+    public TStar getStar() {
         return this._star_;
     }
 
-    public void setStar(TStar node)
-    {
-        if(this._star_ != null)
-        {
+    public void setStar(TStar node) {
+        if (this._star_ != null) {
             this._star_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AStarMultExp extends PMultExp
         this._star_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AStarMultExp extends PMultExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._multExp_)
-            + toString(this._star_)
-            + toString(this._unaryExp_);
+                + toString(this._multExp_)
+                + toString(this._star_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._multExp_ == child)
-        {
+        if (this._multExp_ == child) {
             this._multExp_ = null;
             return;
         }
 
-        if(this._star_ == child)
-        {
+        if (this._star_ == child) {
             this._star_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AStarMultExp extends PMultExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._multExp_ == oldChild)
-        {
+        if (this._multExp_ == oldChild) {
             setMultExp((PMultExp) newChild);
             return;
         }
 
-        if(this._star_ == oldChild)
-        {
+        if (this._star_ == oldChild) {
             setStar((TStar) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

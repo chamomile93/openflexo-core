@@ -20,164 +20,151 @@
 
 package org.openflexo.foundation.doc;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.pamela.annotations.Adder;
-import org.openflexo.pamela.annotations.CloningStrategy;
-import org.openflexo.pamela.annotations.Embedded;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PastingPoint;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Remover;
-import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLElement;
+import org.openflexo.pamela.annotations.*;
 import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
 import org.openflexo.pamela.annotations.Getter.Cardinality;
 import org.openflexo.toolbox.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Generic abstract concept representing a paragraph of a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoDocParagraph<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocElement<D, TA> {
 
-	@PropertyIdentifier(type = FlexoDocRun.class, cardinality = Cardinality.LIST)
-	public static final String RUNS_KEY = "runs";
+    @PropertyIdentifier(type = FlexoDocRun.class, cardinality = Cardinality.LIST)
+    public static final String RUNS_KEY = "runs";
 
-	/**
-	 * Return the list of runs of this paragraph
-	 * 
-	 * @return
-	 */
-	@Getter(value = RUNS_KEY, cardinality = Cardinality.LIST, inverse = FlexoDocRun.PARAGRAPH_KEY)
-	@XMLElement(primary = true)
-	@CloningStrategy(StrategyType.CLONE)
-	@Embedded
-	public List<FlexoDocRun<D, TA>> getRuns();
+    /**
+     * Return the list of runs of this paragraph
+     *
+     * @return
+     */
+    @Getter(value = RUNS_KEY, cardinality = Cardinality.LIST, inverse = FlexoDocRun.PARAGRAPH_KEY)
+    @XMLElement(primary = true)
+    @CloningStrategy(StrategyType.CLONE)
+    @Embedded
+    public List<FlexoDocRun<D, TA>> getRuns();
 
-	@Setter(RUNS_KEY)
-	public void setRuns(List<FlexoDocRun<D, TA>> someRuns);
+    @Setter(RUNS_KEY)
+    public void setRuns(List<FlexoDocRun<D, TA>> someRuns);
 
-	/**
-	 * Add run to this {@link FlexoDocParagraph} (public API).<br>
-	 * Element will be added to underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
-	 */
-	@Adder(RUNS_KEY)
-	@PastingPoint
-	public void addToRuns(FlexoDocRun<D, TA> aRun);
+    /**
+     * Add run to this {@link FlexoDocParagraph} (public API).<br>
+     * Element will be added to underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
+     */
+    @Adder(RUNS_KEY)
+    @PastingPoint
+    public void addToRuns(FlexoDocRun<D, TA> aRun);
 
-	/**
-	 * Remove run from this {@link FlexoDocParagraph} (public API).<br>
-	 * Element will be removed from underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
-	 */
-	@Remover(RUNS_KEY)
-	public void removeFromRuns(FlexoDocRun<D, TA> aRun);
+    /**
+     * Remove run from this {@link FlexoDocParagraph} (public API).<br>
+     * Element will be removed from underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
+     */
+    @Remover(RUNS_KEY)
+    public void removeFromRuns(FlexoDocRun<D, TA> aRun);
 
-	/**
-	 * Insert run to this {@link FlexoDocParagraph} at supplied index (public API).<br>
-	 * Element will be inserted to underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
-	 */
-	public void insertRunAtIndex(FlexoDocRun<D, TA> anElement, int index);
+    /**
+     * Insert run to this {@link FlexoDocParagraph} at supplied index (public API).<br>
+     * Element will be inserted to underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
+     */
+    public void insertRunAtIndex(FlexoDocRun<D, TA> anElement, int index);
 
-	/**
-	 * Move run in this {@link FlexoDocParagraph} at supplied index (public API).<br>
-	 * Element will be moved inside underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
-	 */
-	public void moveRunToIndex(FlexoDocRun<D, TA> anElement, int index);
+    /**
+     * Move run in this {@link FlexoDocParagraph} at supplied index (public API).<br>
+     * Element will be moved inside underlying technology-specific model and {@link FlexoDocParagraph} will be updated accordingly
+     */
+    public void moveRunToIndex(FlexoDocRun<D, TA> anElement, int index);
 
-	/**
-	 * Return a string representation (plain text) of contents of the paragraph (styles associated to runs are not reflected)
-	 * 
-	 * @return
-	 */
-	public String getRawText();
+    /**
+     * Return a string representation (plain text) of contents of the paragraph (styles associated to runs are not reflected)
+     *
+     * @return
+     */
+    public String getRawText();
 
-	/**
-	 * Sets contents of the paragraph by erasing actual structure, and replacing it by a unique run reflecting supplied text
-	 * 
-	 * @return
-	 */
-	public void setRawText(String someText);
+    /**
+     * Sets contents of the paragraph by erasing actual structure, and replacing it by a unique run reflecting supplied text
+     *
+     * @return
+     */
+    public void setRawText(String someText);
 
-	public String getRawTextPreview();
+    public String getRawTextPreview();
 
-	public void fireTextChanged();
+    public void fireTextChanged();
 
-	/**
-	 * Return a new list containing {@link FlexoDrawingRun} for this paragraph
-	 * 
-	 * @return
-	 */
-	public List<FlexoDrawingRun<D, TA>> getDrawingRuns();
+    /**
+     * Return a new list containing {@link FlexoDrawingRun} for this paragraph
+     *
+     * @return
+     */
+    public List<FlexoDrawingRun<D, TA>> getDrawingRuns();
 
-	public static abstract class FlexoDocParagraphImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocumentElementImpl<D, TA> implements FlexoDocParagraph<D, TA> {
+    public static abstract class FlexoDocParagraphImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocumentElementImpl<D, TA> implements FlexoDocParagraph<D, TA> {
 
-		@Override
-		public String toString() {
-			return "Paragraph(" + getIdentifier() + ") " /* + getRawText() + " "*/
-					+ (getNamedStyle() != null ? "[" + getNamedStyle().getName() + "]" : "")
-					+ (getParagraphStyle() != null ? "[" + getParagraphStyle().getStringRepresentation() + "]" : "");
-		}
+        @Override
+        public String toString() {
+            return "Paragraph(" + getIdentifier() + ") " /* + getRawText() + " "*/
+                    + (getNamedStyle() != null ? "[" + getNamedStyle().getName() + "]" : "")
+                    + (getParagraphStyle() != null ? "[" + getParagraphStyle().getStringRepresentation() + "]" : "");
+        }
 
-		@Override
-		protected List<FlexoDocElement<D, TA>> computeChildrenElements() {
-			if (getFlexoDocument() == null) {
-				return null;
-			}
-			if (getNamedStyle() == null || !getNamedStyle().isLevelled()) {
-				return Collections.emptyList();
-			}
+        @Override
+        protected List<FlexoDocElement<D, TA>> computeChildrenElements() {
+            if (getFlexoDocument() == null) {
+                return null;
+            }
+            if (getNamedStyle() == null || !getNamedStyle().isLevelled()) {
+                return Collections.emptyList();
+            }
 
-			Integer parentLevel = getNamedStyle().getLevel();
-			Integer childLevel = null;
-			int start = getFlexoDocument().getElements().indexOf(this) + 1;
+            Integer parentLevel = getNamedStyle().getLevel();
+            Integer childLevel = null;
+            int start = getFlexoDocument().getElements().indexOf(this) + 1;
 
-			int i = start;
+            int i = start;
 
-			List<FlexoDocElement<D, TA>> returned = new ArrayList<>();
+            List<FlexoDocElement<D, TA>> returned = new ArrayList<>();
 
-			while (i < getFlexoDocument().getElements().size()) {
-				FlexoDocElement<D, TA> e = getFlexoDocument().getElements().get(i);
+            while (i < getFlexoDocument().getElements().size()) {
+                FlexoDocElement<D, TA> e = getFlexoDocument().getElements().get(i);
 
-				if (e instanceof FlexoDocParagraph) {
-					if (((FlexoDocParagraph<D, TA>) e).getNamedStyle() != null
-							&& ((FlexoDocParagraph<D, TA>) e).getNamedStyle().isLevelled()) {
-						if (((FlexoDocParagraph<D, TA>) e).getNamedStyle().getLevel() <= parentLevel) {
-							return returned;
-						}
-					}
-				}
+                if (e instanceof FlexoDocParagraph) {
+                    if (((FlexoDocParagraph<D, TA>) e).getNamedStyle() != null
+                            && ((FlexoDocParagraph<D, TA>) e).getNamedStyle().isLevelled()) {
+                        if (((FlexoDocParagraph<D, TA>) e).getNamedStyle().getLevel() <= parentLevel) {
+                            return returned;
+                        }
+                    }
+                }
 
-				if (childLevel == null) {
-					returned.add(e);
-					if (e instanceof FlexoDocParagraph) {
-						if (((FlexoDocParagraph<D, TA>) e).getNamedStyle() != null
-								&& ((FlexoDocParagraph<D, TA>) e).getNamedStyle().isLevelled()) {
-							childLevel = ((FlexoDocParagraph<D, TA>) e).getNamedStyle().getLevel();
-						}
-					}
-				}
-				else {
-					if (e instanceof FlexoDocParagraph) {
-						if (((FlexoDocParagraph<D, TA>) e).getNamedStyle() != null) {
-							if (((FlexoDocParagraph<D, TA>) e).getNamedStyle().getLevel().equals(childLevel)) {
-								returned.add(e);
-							}
-						}
-					}
-				}
+                if (childLevel == null) {
+                    returned.add(e);
+                    if (e instanceof FlexoDocParagraph) {
+                        if (((FlexoDocParagraph<D, TA>) e).getNamedStyle() != null
+                                && ((FlexoDocParagraph<D, TA>) e).getNamedStyle().isLevelled()) {
+                            childLevel = ((FlexoDocParagraph<D, TA>) e).getNamedStyle().getLevel();
+                        }
+                    }
+                } else {
+                    if (e instanceof FlexoDocParagraph) {
+                        if (((FlexoDocParagraph<D, TA>) e).getNamedStyle() != null) {
+                            if (((FlexoDocParagraph<D, TA>) e).getNamedStyle().getLevel().equals(childLevel)) {
+                                returned.add(e);
+                            }
+                        }
+                    }
+                }
 
 				/*if (childLevel == null) 
 				if (e instanceof FlexoDocParagraph) {
@@ -188,44 +175,42 @@ public interface FlexoDocParagraph<D extends FlexoDocument<D, TA>, TA extends Te
 					}
 				}
 				returned.add(e);*/
-				i++;
-			}
+                i++;
+            }
 
-			return returned;
+            return returned;
 
-		}
+        }
 
-		@Override
-		public String getRawTextPreview() {
-			// TODO: perf issue
-			String rawText = getRawText();
-			if (rawText.length() > 35) {
-				return rawText.substring(0, 35) + "...";
-			}
-			else if (StringUtils.isNotEmpty(rawText)) {
-				return rawText;
-			}
-			else {
-				return "<newline>";
-			}
-		}
+        @Override
+        public String getRawTextPreview() {
+            // TODO: perf issue
+            String rawText = getRawText();
+            if (rawText.length() > 35) {
+                return rawText.substring(0, 35) + "...";
+            } else if (StringUtils.isNotEmpty(rawText)) {
+                return rawText;
+            } else {
+                return "<newline>";
+            }
+        }
 
-		@Override
-		public void fireTextChanged() {
-			getPropertyChangeSupport().firePropertyChange("rawText", null, getRawText());
-			getPropertyChangeSupport().firePropertyChange("rawTextPreview", null, getRawTextPreview());
-		}
+        @Override
+        public void fireTextChanged() {
+            getPropertyChangeSupport().firePropertyChange("rawText", null, getRawText());
+            getPropertyChangeSupport().firePropertyChange("rawTextPreview", null, getRawTextPreview());
+        }
 
-		@Override
-		public List<FlexoDrawingRun<D, TA>> getDrawingRuns() {
-			List<FlexoDrawingRun<D, TA>> returned = new ArrayList<>();
-			for (FlexoDocRun<?, ?> run : getRuns()) {
-				if (run instanceof FlexoDrawingRun) {
-					returned.add((FlexoDrawingRun) run);
-				}
-			}
-			return returned;
-		}
-	}
+        @Override
+        public List<FlexoDrawingRun<D, TA>> getDrawingRuns() {
+            List<FlexoDrawingRun<D, TA>> returned = new ArrayList<>();
+            for (FlexoDocRun<?, ?> run : getRuns()) {
+                if (run instanceof FlexoDrawingRun) {
+                    returned.add((FlexoDrawingRun) run);
+                }
+            }
+            return returned;
+        }
+    }
 
 }

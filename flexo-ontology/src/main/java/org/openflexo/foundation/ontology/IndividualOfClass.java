@@ -1,47 +1,43 @@
 /**
- * 
+ *
  * Copyright (c) 2013-2014, Openflexo
  * Copyright (c) 2012-2012, AgileBirds
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.ontology;
-
-import java.beans.PropertyChangeSupport;
-import java.lang.reflect.Type;
-import java.util.logging.Logger;
 
 import org.openflexo.foundation.fml.TechnologyAdapterTypeFactory;
 import org.openflexo.foundation.fml.TechnologySpecificType;
@@ -51,9 +47,13 @@ import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.foundation.utils.FlexoObjectReference;
 import org.openflexo.foundation.utils.FlexoObjectReference.ReferenceOwner;
 
+import java.beans.PropertyChangeSupport;
+import java.lang.reflect.Type;
+import java.util.logging.Logger;
+
 /**
  * An abstract type defined as an {@link IFlexoOntologyIndividual} of a given {@link IFlexoOntologyClass}
- * 
+ *
  * @author sylvain
  *
  * @param <TA>
@@ -64,183 +64,178 @@ import org.openflexo.foundation.utils.FlexoObjectReference.ReferenceOwner;
  *            type of {@link IFlexoOntologyClass}
  */
 public abstract class IndividualOfClass<TA extends TechnologyAdapter<TA>, I extends IFlexoOntologyIndividual<TA>, C extends IFlexoOntologyClass<TA>>
-		implements TechnologySpecificType<TA> {
+        implements TechnologySpecificType<TA> {
 
-	private static final Logger logger = Logger.getLogger(IndividualOfClass.class.getPackage().getName());
+    private static final Logger logger = Logger.getLogger(IndividualOfClass.class.getPackage().getName());
+    private final C ontologyClass;
+    private final PropertyChangeSupport pcSupport;
+    private SpecificTypeInfo<TA> typeInfo;
+    public IndividualOfClass(C anOntologyClass) {
+        pcSupport = new PropertyChangeSupport(this);
+        this.ontologyClass = anOntologyClass;
+    }
 
-	public static <TA extends TechnologyAdapter<TA>, I extends IFlexoOntologyIndividual<TA>, C extends IFlexoOntologyClass<TA>> IndividualOfClass<TA, I, C> getIndividualOfClass(
-			C anOntologyClass) {
-		if (anOntologyClass == null) {
-			return null;
-		}
-		return (IndividualOfClass<TA, I, C>) ((FlexoOntologyTechnologyContextManager<TA>) anOntologyClass.getTechnologyAdapter()
-				.getTechnologyContextManager()).getIndividualOfClass(anOntologyClass);
-	}
+    public static <TA extends TechnologyAdapter<TA>, I extends IFlexoOntologyIndividual<TA>, C extends IFlexoOntologyClass<TA>> IndividualOfClass<TA, I, C> getIndividualOfClass(
+            C anOntologyClass) {
+        if (anOntologyClass == null) {
+            return null;
+        }
+        return (IndividualOfClass<TA, I, C>) ((FlexoOntologyTechnologyContextManager<TA>) anOntologyClass.getTechnologyAdapter()
+                .getTechnologyContextManager()).getIndividualOfClass(anOntologyClass);
+    }
 
-	/**
-	 * Factory for IndividualOfClass instances
-	 * 
-	 * @author sylvain
-	 * 
-	 */
-	public abstract static class IndividualOfClassTypeFactory<TA extends TechnologyAdapter<TA>, I extends IFlexoOntologyIndividual<TA>, C extends IFlexoOntologyClass<TA>, IC extends IndividualOfClass<TA, I, C>>
-			extends TechnologyAdapterTypeFactory<IC, TA> implements ReferenceOwner {
+    @Override
+    public PropertyChangeSupport getPropertyChangeSupport() {
+        return pcSupport;
+    }
 
-		public IndividualOfClassTypeFactory(TA technologyAdapter) {
-			super(technologyAdapter);
-		}
+    @Override
+    public String getDeletedProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		@Override
-		public abstract Class<IC> getCustomType();
+    public C getOntologyClass() {
+        if (ontologyClass != null) {
+            return ontologyClass;
+        }
+        return null;
+    }
 
-		public IC getIndividualOfClass(C anOntologyClass) {
-			if (anOntologyClass == null) {
-				return null;
-			}
-			return (IC) ((FlexoOntologyTechnologyContextManager<TA>) anOntologyClass.getTechnologyAdapter().getTechnologyContextManager())
-					.getIndividualOfClass(anOntologyClass);
-		}
+    @Override
+    public abstract Class<? extends I> getBaseClass();
 
-		@Override
-		public IC makeCustomType(String configuration) {
+    @Override
+    public boolean isTypeAssignableFrom(Type aType, boolean permissive) {
+        // System.out.println("isTypeAssignableFrom " + aType + " (i am a " + this + ")");
+        if (aType instanceof IndividualOfClass) {
+            return ontologyClass.isSuperConceptOf(((IndividualOfClass<TA, I, C>) aType).getOntologyClass());
+        }
+        return false;
+    }
 
-			FlexoObjectReference<C> reference = new FlexoObjectReference<>(configuration, this);
+    @Override
+    public boolean isOfType(Object object, boolean permissive) {
+        if (object instanceof IFlexoOntologyIndividual) {
+            return (((IFlexoOntologyIndividual) object).isIndividualOf(getOntologyClass()));
+        } else {
+            return false;
+        }
+    }
 
-			C ontologyClass = reference.getObject();
+    @Override
+    public String getSerializationRepresentation() {
+        return new FlexoObjectReference<>(ontologyClass).getStringRepresentation();
+    }
 
-			if (ontologyClass != null) {
-				return getIndividualOfClass(ontologyClass);
-			}
-			return null;
-		}
+    @Override
+    public TA getSpecificTechnologyAdapter() {
+        if (getOntologyClass() != null) {
+            return getOntologyClass().getTechnologyAdapter();
+        }
+        return null;
+    }
 
-		@Override
-		public void configureFactory(IC type) {
-		}
+    @Override
+    public boolean isResolved() {
+        return ontologyClass != null;
+    }
 
-		@Override
-		public void notifyObjectLoaded(FlexoObjectReference<?> reference) {
-		}
+    @Override
+    public void resolve() {
+    }
 
-		@Override
-		public void objectCantBeFound(FlexoObjectReference<?> reference) {
-		}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((ontologyClass == null) ? 0 : ontologyClass.hashCode());
+        return result;
+    }
 
-		@Override
-		public void objectDeleted(FlexoObjectReference<?> reference) {
-		}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        IndividualOfClass<TA, I, C> other = (IndividualOfClass<TA, I, C>) obj;
+        if (ontologyClass == null) {
+            if (other.ontologyClass != null)
+                return false;
+        } else if (!ontologyClass.equals(other.ontologyClass))
+            return false;
+        return true;
+    }
 
-		@Override
-		public void objectSerializationIdChanged(FlexoObjectReference<?> reference) {
-		}
+    @Override
+    public void registerSpecificTypeInfo(SpecificTypeInfo<TA> typeInfo) {
+        this.typeInfo = typeInfo;
+    }
 
-	}
+    public SpecificTypeInfo<TA> getSpecificTypeInfo() {
+        return typeInfo;
+    }
 
-	private final C ontologyClass;
-	private final PropertyChangeSupport pcSupport;
+    /**
+     * Factory for IndividualOfClass instances
+     *
+     * @author sylvain
+     *
+     */
+    public abstract static class IndividualOfClassTypeFactory<TA extends TechnologyAdapter<TA>, I extends IFlexoOntologyIndividual<TA>, C extends IFlexoOntologyClass<TA>, IC extends IndividualOfClass<TA, I, C>>
+            extends TechnologyAdapterTypeFactory<IC, TA> implements ReferenceOwner {
 
-	public IndividualOfClass(C anOntologyClass) {
-		pcSupport = new PropertyChangeSupport(this);
-		this.ontologyClass = anOntologyClass;
-	}
+        public IndividualOfClassTypeFactory(TA technologyAdapter) {
+            super(technologyAdapter);
+        }
 
-	@Override
-	public PropertyChangeSupport getPropertyChangeSupport() {
-		return pcSupport;
-	}
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        @Override
+        public abstract Class<IC> getCustomType();
 
-	@Override
-	public String getDeletedProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        public IC getIndividualOfClass(C anOntologyClass) {
+            if (anOntologyClass == null) {
+                return null;
+            }
+            return (IC) ((FlexoOntologyTechnologyContextManager<TA>) anOntologyClass.getTechnologyAdapter().getTechnologyContextManager())
+                    .getIndividualOfClass(anOntologyClass);
+        }
 
-	public C getOntologyClass() {
-		if (ontologyClass != null) {
-			return ontologyClass;
-		}
-		return null;
-	}
+        @Override
+        public IC makeCustomType(String configuration) {
 
-	@Override
-	public abstract Class<? extends I> getBaseClass();
+            FlexoObjectReference<C> reference = new FlexoObjectReference<>(configuration, this);
 
-	@Override
-	public boolean isTypeAssignableFrom(Type aType, boolean permissive) {
-		// System.out.println("isTypeAssignableFrom " + aType + " (i am a " + this + ")");
-		if (aType instanceof IndividualOfClass) {
-			return ontologyClass.isSuperConceptOf(((IndividualOfClass<TA, I, C>) aType).getOntologyClass());
-		}
-		return false;
-	}
+            C ontologyClass = reference.getObject();
 
-	@Override
-	public boolean isOfType(Object object, boolean permissive) {
-		if (object instanceof IFlexoOntologyIndividual) {
-			return (((IFlexoOntologyIndividual) object).isIndividualOf(getOntologyClass()));
-		}
-		else {
-			return false;
-		}
-	}
+            if (ontologyClass != null) {
+                return getIndividualOfClass(ontologyClass);
+            }
+            return null;
+        }
 
-	@Override
-	public String getSerializationRepresentation() {
-		return new FlexoObjectReference<>(ontologyClass).getStringRepresentation();
-	}
+        @Override
+        public void configureFactory(IC type) {
+        }
 
-	@Override
-	public TA getSpecificTechnologyAdapter() {
-		if (getOntologyClass() != null) {
-			return getOntologyClass().getTechnologyAdapter();
-		}
-		return null;
-	}
+        @Override
+        public void notifyObjectLoaded(FlexoObjectReference<?> reference) {
+        }
 
-	@Override
-	public boolean isResolved() {
-		return ontologyClass != null;
-	}
+        @Override
+        public void objectCantBeFound(FlexoObjectReference<?> reference) {
+        }
 
-	@Override
-	public void resolve() {
-	}
+        @Override
+        public void objectDeleted(FlexoObjectReference<?> reference) {
+        }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ontologyClass == null) ? 0 : ontologyClass.hashCode());
-		return result;
-	}
+        @Override
+        public void objectSerializationIdChanged(FlexoObjectReference<?> reference) {
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		IndividualOfClass<TA, I, C> other = (IndividualOfClass<TA, I, C>) obj;
-		if (ontologyClass == null) {
-			if (other.ontologyClass != null)
-				return false;
-		}
-		else if (!ontologyClass.equals(other.ontologyClass))
-			return false;
-		return true;
-	}
-
-	@Override
-	public void registerSpecificTypeInfo(SpecificTypeInfo<TA> typeInfo) {
-		this.typeInfo = typeInfo;
-	}
-
-	public SpecificTypeInfo<TA> getSpecificTypeInfo() {
-		return typeInfo;
-	}
-
-	private SpecificTypeInfo<TA> typeInfo;
+    }
 }

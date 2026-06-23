@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PPath extends Node
-{
+public abstract class PPath extends Node {
     // Empty body
 }

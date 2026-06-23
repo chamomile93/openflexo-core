@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ARootPathPath extends PPath
-{
+public final class ARootPathPath extends PPath {
     private TSlash _slash_;
     private PPath _path_;
 
-    public ARootPathPath()
-    {
+    public ARootPathPath() {
         // Constructor
     }
 
     public ARootPathPath(
-        @SuppressWarnings("hiding") TSlash _slash_,
-        @SuppressWarnings("hiding") PPath _path_)
-    {
+            @SuppressWarnings("hiding") TSlash _slash_,
+            @SuppressWarnings("hiding") PPath _path_) {
         // Constructor
         setSlash(_slash_);
 
@@ -27,35 +24,28 @@ public final class ARootPathPath extends PPath
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ARootPathPath(
-            cloneNode(this._slash_),
-            cloneNode(this._path_));
+                cloneNode(this._slash_),
+                cloneNode(this._path_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseARootPathPath(this);
     }
 
-    public TSlash getSlash()
-    {
+    public TSlash getSlash() {
         return this._slash_;
     }
 
-    public void setSlash(TSlash node)
-    {
-        if(this._slash_ != null)
-        {
+    public void setSlash(TSlash node) {
+        if (this._slash_ != null) {
             this._slash_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ARootPathPath extends PPath
         this._slash_ = node;
     }
 
-    public PPath getPath()
-    {
+    public PPath getPath() {
         return this._path_;
     }
 
-    public void setPath(PPath node)
-    {
-        if(this._path_ != null)
-        {
+    public void setPath(PPath node) {
+        if (this._path_ != null) {
             this._path_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ARootPathPath extends PPath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._slash_)
-            + toString(this._path_);
+                + toString(this._slash_)
+                + toString(this._path_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._slash_ == child)
-        {
+        if (this._slash_ == child) {
             this._slash_ = null;
             return;
         }
 
-        if(this._path_ == child)
-        {
+        if (this._path_ == child) {
             this._path_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ARootPathPath extends PPath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._slash_ == oldChild)
-        {
+        if (this._slash_ == oldChild) {
             setSlash((TSlash) newChild);
             return;
         }
 
-        if(this._path_ == oldChild)
-        {
+        if (this._path_ == oldChild) {
             setPath((PPath) newChild);
             return;
         }

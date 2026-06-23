@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACompilationUnitEntryPoint extends PEntryPoint
-{
+public final class ACompilationUnitEntryPoint extends PEntryPoint {
     private TStartCompilationUnit _startCompilationUnit_;
     private PFmlCompilationUnit _cu_;
 
-    public ACompilationUnitEntryPoint()
-    {
+    public ACompilationUnitEntryPoint() {
         // Constructor
     }
 
     public ACompilationUnitEntryPoint(
-        @SuppressWarnings("hiding") TStartCompilationUnit _startCompilationUnit_,
-        @SuppressWarnings("hiding") PFmlCompilationUnit _cu_)
-    {
+            @SuppressWarnings("hiding") TStartCompilationUnit _startCompilationUnit_,
+            @SuppressWarnings("hiding") PFmlCompilationUnit _cu_) {
         // Constructor
         setStartCompilationUnit(_startCompilationUnit_);
 
@@ -27,35 +24,28 @@ public final class ACompilationUnitEntryPoint extends PEntryPoint
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACompilationUnitEntryPoint(
-            cloneNode(this._startCompilationUnit_),
-            cloneNode(this._cu_));
+                cloneNode(this._startCompilationUnit_),
+                cloneNode(this._cu_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACompilationUnitEntryPoint(this);
     }
 
-    public TStartCompilationUnit getStartCompilationUnit()
-    {
+    public TStartCompilationUnit getStartCompilationUnit() {
         return this._startCompilationUnit_;
     }
 
-    public void setStartCompilationUnit(TStartCompilationUnit node)
-    {
-        if(this._startCompilationUnit_ != null)
-        {
+    public void setStartCompilationUnit(TStartCompilationUnit node) {
+        if (this._startCompilationUnit_ != null) {
             this._startCompilationUnit_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ACompilationUnitEntryPoint extends PEntryPoint
         this._startCompilationUnit_ = node;
     }
 
-    public PFmlCompilationUnit getCu()
-    {
+    public PFmlCompilationUnit getCu() {
         return this._cu_;
     }
 
-    public void setCu(PFmlCompilationUnit node)
-    {
-        if(this._cu_ != null)
-        {
+    public void setCu(PFmlCompilationUnit node) {
+        if (this._cu_ != null) {
             this._cu_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ACompilationUnitEntryPoint extends PEntryPoint
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._startCompilationUnit_)
-            + toString(this._cu_);
+                + toString(this._startCompilationUnit_)
+                + toString(this._cu_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._startCompilationUnit_ == child)
-        {
+        if (this._startCompilationUnit_ == child) {
             this._startCompilationUnit_ = null;
             return;
         }
 
-        if(this._cu_ == child)
-        {
+        if (this._cu_ == child) {
             this._cu_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ACompilationUnitEntryPoint extends PEntryPoint
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._startCompilationUnit_ == oldChild)
-        {
+        if (this._startCompilationUnit_ == oldChild) {
             setStartCompilationUnit((TStartCompilationUnit) newChild);
             return;
         }
 
-        if(this._cu_ == oldChild)
-        {
+        if (this._cu_ == oldChild) {
             setCu((PFmlCompilationUnit) newChild);
             return;
         }

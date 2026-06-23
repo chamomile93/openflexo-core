@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AInitializerFmlActionVariableDeclarator extends PVariableDeclarator
-{
+public final class AInitializerFmlActionVariableDeclarator extends PVariableDeclarator {
     private TLidentifier _lidentifier_;
     private TAssign _assign_;
     private PFmlActionExp _fmlActionExp_;
 
-    public AInitializerFmlActionVariableDeclarator()
-    {
+    public AInitializerFmlActionVariableDeclarator() {
         // Constructor
     }
 
     public AInitializerFmlActionVariableDeclarator(
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_,
-        @SuppressWarnings("hiding") TAssign _assign_,
-        @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_)
-    {
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_,
+            @SuppressWarnings("hiding") TAssign _assign_,
+            @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_) {
         // Constructor
         setLidentifier(_lidentifier_);
 
@@ -31,36 +28,29 @@ public final class AInitializerFmlActionVariableDeclarator extends PVariableDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AInitializerFmlActionVariableDeclarator(
-            cloneNode(this._lidentifier_),
-            cloneNode(this._assign_),
-            cloneNode(this._fmlActionExp_));
+                cloneNode(this._lidentifier_),
+                cloneNode(this._assign_),
+                cloneNode(this._fmlActionExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAInitializerFmlActionVariableDeclarator(this);
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AInitializerFmlActionVariableDeclarator extends PVariableDecl
         this._lidentifier_ = node;
     }
 
-    public TAssign getAssign()
-    {
+    public TAssign getAssign() {
         return this._assign_;
     }
 
-    public void setAssign(TAssign node)
-    {
-        if(this._assign_ != null)
-        {
+    public void setAssign(TAssign node) {
+        if (this._assign_ != null) {
             this._assign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AInitializerFmlActionVariableDeclarator extends PVariableDecl
         this._assign_ = node;
     }
 
-    public PFmlActionExp getFmlActionExp()
-    {
+    public PFmlActionExp getFmlActionExp() {
         return this._fmlActionExp_;
     }
 
-    public void setFmlActionExp(PFmlActionExp node)
-    {
-        if(this._fmlActionExp_ != null)
-        {
+    public void setFmlActionExp(PFmlActionExp node) {
+        if (this._fmlActionExp_ != null) {
             this._fmlActionExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AInitializerFmlActionVariableDeclarator extends PVariableDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lidentifier_)
-            + toString(this._assign_)
-            + toString(this._fmlActionExp_);
+                + toString(this._lidentifier_)
+                + toString(this._assign_)
+                + toString(this._fmlActionExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
 
-        if(this._assign_ == child)
-        {
+        if (this._assign_ == child) {
             this._assign_ = null;
             return;
         }
 
-        if(this._fmlActionExp_ == child)
-        {
+        if (this._fmlActionExp_ == child) {
             this._fmlActionExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AInitializerFmlActionVariableDeclarator extends PVariableDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._assign_ == oldChild)
-        {
+        if (this._assign_ == oldChild) {
             setAssign((TAssign) newChild);
             return;
         }
 
-        if(this._fmlActionExp_ == oldChild)
-        {
+        if (this._fmlActionExp_ == oldChild) {
             setFmlActionExp((PFmlActionExp) newChild);
             return;
         }

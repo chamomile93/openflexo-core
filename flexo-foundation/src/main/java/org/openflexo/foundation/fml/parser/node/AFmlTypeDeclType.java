@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFmlTypeDeclType extends PTypeDeclType
-{
+public final class AFmlTypeDeclType extends PTypeDeclType {
     private PTechnologySpecificType _technologySpecificType_;
 
-    public AFmlTypeDeclType()
-    {
+    public AFmlTypeDeclType() {
         // Constructor
     }
 
     public AFmlTypeDeclType(
-        @SuppressWarnings("hiding") PTechnologySpecificType _technologySpecificType_)
-    {
+            @SuppressWarnings("hiding") PTechnologySpecificType _technologySpecificType_) {
         // Constructor
         setTechnologySpecificType(_technologySpecificType_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlTypeDeclType(
-            cloneNode(this._technologySpecificType_));
+                cloneNode(this._technologySpecificType_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlTypeDeclType(this);
     }
 
-    public PTechnologySpecificType getTechnologySpecificType()
-    {
+    public PTechnologySpecificType getTechnologySpecificType() {
         return this._technologySpecificType_;
     }
 
-    public void setTechnologySpecificType(PTechnologySpecificType node)
-    {
-        if(this._technologySpecificType_ != null)
-        {
+    public void setTechnologySpecificType(PTechnologySpecificType node) {
+        if (this._technologySpecificType_ != null) {
             this._technologySpecificType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AFmlTypeDeclType extends PTypeDeclType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._technologySpecificType_);
+                + toString(this._technologySpecificType_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._technologySpecificType_ == child)
-        {
+        if (this._technologySpecificType_ == child) {
             this._technologySpecificType_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AFmlTypeDeclType extends PTypeDeclType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._technologySpecificType_ == oldChild)
-        {
+        if (this._technologySpecificType_ == oldChild) {
             setTechnologySpecificType((PTechnologySpecificType) newChild);
             return;
         }

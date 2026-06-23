@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AHelpDirective extends PDirective
-{
+public final class AHelpDirective extends PDirective {
     private THelp _help_;
 
-    public AHelpDirective()
-    {
+    public AHelpDirective() {
         // Constructor
     }
 
     public AHelpDirective(
-        @SuppressWarnings("hiding") THelp _help_)
-    {
+            @SuppressWarnings("hiding") THelp _help_) {
         // Constructor
         setHelp(_help_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AHelpDirective(
-            cloneNode(this._help_));
+                cloneNode(this._help_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAHelpDirective(this);
     }
 
-    public THelp getHelp()
-    {
+    public THelp getHelp() {
         return this._help_;
     }
 
-    public void setHelp(THelp node)
-    {
-        if(this._help_ != null)
-        {
+    public void setHelp(THelp node) {
+        if (this._help_ != null) {
             this._help_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AHelpDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._help_);
+                + toString(this._help_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._help_ == child)
-        {
+        if (this._help_ == child) {
             this._help_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AHelpDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._help_ == oldChild)
-        {
+        if (this._help_ == oldChild) {
             setHelp((THelp) newChild);
             return;
         }

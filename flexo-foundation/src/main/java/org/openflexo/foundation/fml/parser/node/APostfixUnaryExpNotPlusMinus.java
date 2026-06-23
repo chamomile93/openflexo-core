@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APostfixUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
-{
+public final class APostfixUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus {
     private PPostfixExp _postfixExp_;
 
-    public APostfixUnaryExpNotPlusMinus()
-    {
+    public APostfixUnaryExpNotPlusMinus() {
         // Constructor
     }
 
     public APostfixUnaryExpNotPlusMinus(
-        @SuppressWarnings("hiding") PPostfixExp _postfixExp_)
-    {
+            @SuppressWarnings("hiding") PPostfixExp _postfixExp_) {
         // Constructor
         setPostfixExp(_postfixExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APostfixUnaryExpNotPlusMinus(
-            cloneNode(this._postfixExp_));
+                cloneNode(this._postfixExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPostfixUnaryExpNotPlusMinus(this);
     }
 
-    public PPostfixExp getPostfixExp()
-    {
+    public PPostfixExp getPostfixExp() {
         return this._postfixExp_;
     }
 
-    public void setPostfixExp(PPostfixExp node)
-    {
-        if(this._postfixExp_ != null)
-        {
+    public void setPostfixExp(PPostfixExp node) {
+        if (this._postfixExp_ != null) {
             this._postfixExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APostfixUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._postfixExp_);
+                + toString(this._postfixExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._postfixExp_ == child)
-        {
+        if (this._postfixExp_ == child) {
             this._postfixExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APostfixUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._postfixExp_ == oldChild)
-        {
+        if (this._postfixExp_ == oldChild) {
             setPostfixExp((PPostfixExp) newChild);
             return;
         }

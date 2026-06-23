@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABindingEntryPoint extends PEntryPoint
-{
+public final class ABindingEntryPoint extends PEntryPoint {
     private TStartBinding _startBinding_;
     private PExpression _expr_;
 
-    public ABindingEntryPoint()
-    {
+    public ABindingEntryPoint() {
         // Constructor
     }
 
     public ABindingEntryPoint(
-        @SuppressWarnings("hiding") TStartBinding _startBinding_,
-        @SuppressWarnings("hiding") PExpression _expr_)
-    {
+            @SuppressWarnings("hiding") TStartBinding _startBinding_,
+            @SuppressWarnings("hiding") PExpression _expr_) {
         // Constructor
         setStartBinding(_startBinding_);
 
@@ -27,35 +24,28 @@ public final class ABindingEntryPoint extends PEntryPoint
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABindingEntryPoint(
-            cloneNode(this._startBinding_),
-            cloneNode(this._expr_));
+                cloneNode(this._startBinding_),
+                cloneNode(this._expr_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABindingEntryPoint(this);
     }
 
-    public TStartBinding getStartBinding()
-    {
+    public TStartBinding getStartBinding() {
         return this._startBinding_;
     }
 
-    public void setStartBinding(TStartBinding node)
-    {
-        if(this._startBinding_ != null)
-        {
+    public void setStartBinding(TStartBinding node) {
+        if (this._startBinding_ != null) {
             this._startBinding_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ABindingEntryPoint extends PEntryPoint
         this._startBinding_ = node;
     }
 
-    public PExpression getExpr()
-    {
+    public PExpression getExpr() {
         return this._expr_;
     }
 
-    public void setExpr(PExpression node)
-    {
-        if(this._expr_ != null)
-        {
+    public void setExpr(PExpression node) {
+        if (this._expr_ != null) {
             this._expr_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ABindingEntryPoint extends PEntryPoint
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._startBinding_)
-            + toString(this._expr_);
+                + toString(this._startBinding_)
+                + toString(this._expr_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._startBinding_ == child)
-        {
+        if (this._startBinding_ == child) {
             this._startBinding_ = null;
             return;
         }
 
-        if(this._expr_ == child)
-        {
+        if (this._expr_ == child) {
             this._expr_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ABindingEntryPoint extends PEntryPoint
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._startBinding_ == oldChild)
-        {
+        if (this._startBinding_ == oldChild) {
             setStartBinding((TStartBinding) newChild);
             return;
         }
 
-        if(this._expr_ == oldChild)
-        {
+        if (this._expr_ == oldChild) {
             setExpr((PExpression) newChild);
             return;
         }

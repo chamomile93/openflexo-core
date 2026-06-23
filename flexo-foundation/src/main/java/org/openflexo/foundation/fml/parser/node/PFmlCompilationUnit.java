@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PFmlCompilationUnit extends Node
-{
+public abstract class PFmlCompilationUnit extends Node {
     // Empty body
 }

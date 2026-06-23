@@ -1,45 +1,42 @@
 /**
- * 
+ *
  * Copyright (c) 2019, Openflexo
- * 
- * This file is part of FML-parser, a component of the software infrastructure 
+ * <p>
+ * This file is part of FML-parser, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.parser.fmlnodes;
-
-import java.lang.reflect.Type;
-import java.util.logging.Logger;
 
 import org.openflexo.connie.DataBinding;
 import org.openflexo.connie.DataBinding.BindingDefinitionType;
@@ -60,82 +57,83 @@ import org.openflexo.foundation.fml.rt.VirtualModelInstance;
 import org.openflexo.p2pp.PrettyPrintContext.Indentation;
 import org.openflexo.p2pp.RawSource.RawSourceFragment;
 
+import java.lang.reflect.Type;
+import java.util.logging.Logger;
+
 /**
  * <pre>
  *   | {listener} [annotations]:annotation* kw_listen [event_type]:reference_type kw_from [listened]:expression flexo_behaviour_body
  * </pre>
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 public class EventListenerNode extends FlexoBehaviourNode<AListenerBehaviourDecl, EventListener> {
 
-	@SuppressWarnings("unused")
-	private static final Logger logger = Logger.getLogger(EventListenerNode.class.getPackage().getName());
+    @SuppressWarnings("unused")
+    private static final Logger logger = Logger.getLogger(EventListenerNode.class.getPackage().getName());
 
-	public EventListenerNode(AListenerBehaviourDecl astNode, FMLCompilationUnitSemanticsAnalyzer analyzer) {
-		super(astNode, analyzer);
-	}
+    public EventListenerNode(AListenerBehaviourDecl astNode, FMLCompilationUnitSemanticsAnalyzer analyzer) {
+        super(astNode, analyzer);
+    }
 
-	public EventListenerNode(EventListener behaviour, FMLCompilationUnitSemanticsAnalyzer analyzer) {
-		super(behaviour, analyzer);
-	}
+    public EventListenerNode(EventListener behaviour, FMLCompilationUnitSemanticsAnalyzer analyzer) {
+        super(behaviour, analyzer);
+    }
 
-	@Override
-	public EventListener buildModelObjectFromAST(AListenerBehaviourDecl astNode) {
+    @Override
+    public EventListener buildModelObjectFromAST(AListenerBehaviourDecl astNode) {
 
-		EventListener returned = getFactory().newEventListener();
+        EventListener returned = getFactory().newEventListener();
 
-		Type type = TypeFactory.makeType(astNode.getEventType(), getSemanticsAnalyzer().getTypingSpace());
-		if (type instanceof FlexoConceptInstanceType) {
-			returned.setEventType((FlexoConceptInstanceType) type);
-		}
-		else {
-			throwIssue("Unexpected event type: " + astNode.getEventType());
-		}
+        Type type = TypeFactory.makeType(astNode.getEventType(), getSemanticsAnalyzer().getTypingSpace());
+        if (type instanceof FlexoConceptInstanceType) {
+            returned.setEventType((FlexoConceptInstanceType) type);
+        } else {
+            throwIssue("Unexpected event type: " + astNode.getEventType());
+        }
 
-		PExpression fromExpression = astNode.getListened();
-		DataBinding<VirtualModelInstance<?, ?>> listened = (DataBinding) ExpressionFactory.makeDataBinding(fromExpression, returned,
-				BindingDefinitionType.GET, VirtualModelInstance.class, getSemanticsAnalyzer(), this);
-		returned.setListenedVirtualModelInstance(listened);
+        PExpression fromExpression = astNode.getListened();
+        DataBinding<VirtualModelInstance<?, ?>> listened = (DataBinding) ExpressionFactory.makeDataBinding(fromExpression, returned,
+                BindingDefinitionType.GET, VirtualModelInstance.class, getSemanticsAnalyzer(), this);
+        returned.setListenedVirtualModelInstance(listened);
 
-		try {
-			returned.setName(type.getTypeName() + " from " + astNode.getListened());
-		} catch (InvalidNameException e) {
-			throwIssue("Cannot set EventListenr event type name: " + astNode.getEventType());
-		}
+        try {
+            returned.setName(type.getTypeName() + " from " + astNode.getListened());
+        } catch (InvalidNameException e) {
+            throwIssue("Cannot set EventListenr event type name: " + astNode.getEventType());
+        }
 
-		PFlexoBehaviourBody flexoBehaviourBody = getFlexoBehaviourBody(astNode);
-		if (flexoBehaviourBody instanceof ABlockFlexoBehaviourBody) {
-			ControlGraphNode<?, ?> cgNode = ControlGraphFactory.makeControlGraphNode(getFlexoBehaviourBody(astNode),
-					getSemanticsAnalyzer());
-			if (cgNode != null) {
-				returned.setControlGraph(cgNode.getModelObject());
-				addToChildren(cgNode);
-			}
-		}
-		else {
-			// AEmptyFlexoBehaviourBody : keep the ControlGraph null
-		}
+        PFlexoBehaviourBody flexoBehaviourBody = getFlexoBehaviourBody(astNode);
+        if (flexoBehaviourBody instanceof ABlockFlexoBehaviourBody) {
+            ControlGraphNode<?, ?> cgNode = ControlGraphFactory.makeControlGraphNode(getFlexoBehaviourBody(astNode),
+                    getSemanticsAnalyzer());
+            if (cgNode != null) {
+                returned.setControlGraph(cgNode.getModelObject());
+                addToChildren(cgNode);
+            }
+        } else {
+            // AEmptyFlexoBehaviourBody : keep the ControlGraph null
+        }
 
-		return returned;
-	}
+        return returned;
+    }
 
-	@Override
-	public PFlexoBehaviourBody getFlexoBehaviourBody(AListenerBehaviourDecl astNode) {
-		return astNode.getFlexoBehaviourBody();
-	}
+    @Override
+    public PFlexoBehaviourBody getFlexoBehaviourBody(AListenerBehaviourDecl astNode) {
+        return astNode.getFlexoBehaviourBody();
+    }
 
-	/**
-	 * <pre>
-	 | {listener} [annotations]:annotation* kw_listen [event_type]:reference_type kw_from [listened]:expression flexo_behaviour_body
-	 * </pre>
-	 */
-	@Override
-	public void preparePrettyPrint(boolean hasParsedVersion) {
-		super.preparePrettyPrint(hasParsedVersion);
+    /**
+     * <pre>
+     | {listener} [annotations]:annotation* kw_listen [event_type]:reference_type kw_from [listened]:expression flexo_behaviour_body
+     * </pre>
+     */
+    @Override
+    public void preparePrettyPrint(boolean hasParsedVersion) {
+        super.preparePrettyPrint(hasParsedVersion);
 
-		// @formatter:off	
+        // @formatter:off
 		//append(childrenContents("", () -> getModelObject().getMetaData(), LINE_SEPARATOR, Indentation.DoNotIndent,
 		//		FMLMetaData.class));
 		
@@ -154,38 +152,38 @@ public class EventListenerNode extends FlexoBehaviourNode<AListenerBehaviourDecl
 
 		// @formatter:on
 
-	}
+    }
 
-	private String getFromAsString() {
-		return getModelObject().getListenedVirtualModelInstance().toString();
-	}
+    private String getFromAsString() {
+        return getModelObject().getListenedVirtualModelInstance().toString();
+    }
 
-	private RawSourceFragment getListenFragment() {
-		if (getASTNode() != null) {
-			return getFragment(getASTNode().getKwListen());
-		}
-		return null;
-	}
+    private RawSourceFragment getListenFragment() {
+        if (getASTNode() != null) {
+            return getFragment(getASTNode().getKwListen());
+        }
+        return null;
+    }
 
-	private RawSourceFragment getEventTypeFragment() {
-		if (getASTNode() != null) {
-			return getFragment(getASTNode().getEventType());
-		}
-		return null;
-	}
+    private RawSourceFragment getEventTypeFragment() {
+        if (getASTNode() != null) {
+            return getFragment(getASTNode().getEventType());
+        }
+        return null;
+    }
 
-	private RawSourceFragment getFromFragment() {
-		if (getASTNode() != null) {
-			return getFragment(getASTNode().getKwFrom());
-		}
-		return null;
-	}
+    private RawSourceFragment getFromFragment() {
+        if (getASTNode() != null) {
+            return getFragment(getASTNode().getKwFrom());
+        }
+        return null;
+    }
 
-	private RawSourceFragment getFromExpressionFragment() {
-		if (getASTNode() != null) {
-			return getFragment(getASTNode().getListened());
-		}
-		return null;
-	}
+    private RawSourceFragment getFromExpressionFragment() {
+        if (getASTNode() != null) {
+            return getFragment(getASTNode().getListened());
+        }
+        return null;
+    }
 
 }

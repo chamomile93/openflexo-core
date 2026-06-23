@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TCd extends Token
-{
-    public TCd()
-    {
+public final class TCd extends Token {
+    public TCd() {
         super.setText("cd");
     }
 
-    public TCd(int line, int pos)
-    {
+    public TCd(int line, int pos) {
         super.setText("cd");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TCd(getLine(), getPos());
+    public Object clone() {
+        return new TCd(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTCd(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TCd text.");
     }
 }

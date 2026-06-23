@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AManyQualifiedArgumentList extends PQualifiedArgumentList
-{
+public final class AManyQualifiedArgumentList extends PQualifiedArgumentList {
     private PQualifiedArgumentList _qualifiedArgumentList_;
     private TComma _comma_;
     private PQualifiedArgument _qualifiedArgument_;
 
-    public AManyQualifiedArgumentList()
-    {
+    public AManyQualifiedArgumentList() {
         // Constructor
     }
 
     public AManyQualifiedArgumentList(
-        @SuppressWarnings("hiding") PQualifiedArgumentList _qualifiedArgumentList_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") PQualifiedArgument _qualifiedArgument_)
-    {
+            @SuppressWarnings("hiding") PQualifiedArgumentList _qualifiedArgumentList_,
+            @SuppressWarnings("hiding") TComma _comma_,
+            @SuppressWarnings("hiding") PQualifiedArgument _qualifiedArgument_) {
         // Constructor
         setQualifiedArgumentList(_qualifiedArgumentList_);
 
@@ -31,36 +28,29 @@ public final class AManyQualifiedArgumentList extends PQualifiedArgumentList
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AManyQualifiedArgumentList(
-            cloneNode(this._qualifiedArgumentList_),
-            cloneNode(this._comma_),
-            cloneNode(this._qualifiedArgument_));
+                cloneNode(this._qualifiedArgumentList_),
+                cloneNode(this._comma_),
+                cloneNode(this._qualifiedArgument_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAManyQualifiedArgumentList(this);
     }
 
-    public PQualifiedArgumentList getQualifiedArgumentList()
-    {
+    public PQualifiedArgumentList getQualifiedArgumentList() {
         return this._qualifiedArgumentList_;
     }
 
-    public void setQualifiedArgumentList(PQualifiedArgumentList node)
-    {
-        if(this._qualifiedArgumentList_ != null)
-        {
+    public void setQualifiedArgumentList(PQualifiedArgumentList node) {
+        if (this._qualifiedArgumentList_ != null) {
             this._qualifiedArgumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AManyQualifiedArgumentList extends PQualifiedArgumentList
         this._qualifiedArgumentList_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AManyQualifiedArgumentList extends PQualifiedArgumentList
         this._comma_ = node;
     }
 
-    public PQualifiedArgument getQualifiedArgument()
-    {
+    public PQualifiedArgument getQualifiedArgument() {
         return this._qualifiedArgument_;
     }
 
-    public void setQualifiedArgument(PQualifiedArgument node)
-    {
-        if(this._qualifiedArgument_ != null)
-        {
+    public void setQualifiedArgument(PQualifiedArgument node) {
+        if (this._qualifiedArgument_ != null) {
             this._qualifiedArgument_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AManyQualifiedArgumentList extends PQualifiedArgumentList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._qualifiedArgumentList_)
-            + toString(this._comma_)
-            + toString(this._qualifiedArgument_);
+                + toString(this._qualifiedArgumentList_)
+                + toString(this._comma_)
+                + toString(this._qualifiedArgument_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._qualifiedArgumentList_ == child)
-        {
+        if (this._qualifiedArgumentList_ == child) {
             this._qualifiedArgumentList_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
 
-        if(this._qualifiedArgument_ == child)
-        {
+        if (this._qualifiedArgument_ == child) {
             this._qualifiedArgument_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AManyQualifiedArgumentList extends PQualifiedArgumentList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._qualifiedArgumentList_ == oldChild)
-        {
+        if (this._qualifiedArgumentList_ == oldChild) {
             setQualifiedArgumentList((PQualifiedArgumentList) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }
 
-        if(this._qualifiedArgument_ == oldChild)
-        {
+        if (this._qualifiedArgument_ == oldChild) {
             setQualifiedArgument((PQualifiedArgument) newChild);
             return;
         }

@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PNewContainmentClause extends Node
-{
+public abstract class PNewContainmentClause extends Node {
     // Empty body
 }

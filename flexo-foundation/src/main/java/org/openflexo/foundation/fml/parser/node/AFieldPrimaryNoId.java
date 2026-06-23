@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFieldPrimaryNoId extends PPrimaryNoId
-{
+public final class AFieldPrimaryNoId extends PPrimaryNoId {
     private PFieldAccess _fieldAccess_;
 
-    public AFieldPrimaryNoId()
-    {
+    public AFieldPrimaryNoId() {
         // Constructor
     }
 
     public AFieldPrimaryNoId(
-        @SuppressWarnings("hiding") PFieldAccess _fieldAccess_)
-    {
+            @SuppressWarnings("hiding") PFieldAccess _fieldAccess_) {
         // Constructor
         setFieldAccess(_fieldAccess_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFieldPrimaryNoId(
-            cloneNode(this._fieldAccess_));
+                cloneNode(this._fieldAccess_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFieldPrimaryNoId(this);
     }
 
-    public PFieldAccess getFieldAccess()
-    {
+    public PFieldAccess getFieldAccess() {
         return this._fieldAccess_;
     }
 
-    public void setFieldAccess(PFieldAccess node)
-    {
-        if(this._fieldAccess_ != null)
-        {
+    public void setFieldAccess(PFieldAccess node) {
+        if (this._fieldAccess_ != null) {
             this._fieldAccess_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AFieldPrimaryNoId extends PPrimaryNoId
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._fieldAccess_);
+                + toString(this._fieldAccess_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._fieldAccess_ == child)
-        {
+        if (this._fieldAccess_ == child) {
             this._fieldAccess_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AFieldPrimaryNoId extends PPrimaryNoId
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._fieldAccess_ == oldChild)
-        {
+        if (this._fieldAccess_ == oldChild) {
             setFieldAccess((PFieldAccess) newChild);
             return;
         }

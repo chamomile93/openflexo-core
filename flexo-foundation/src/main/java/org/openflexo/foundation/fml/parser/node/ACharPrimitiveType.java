@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACharPrimitiveType extends PPrimitiveType
-{
+public final class ACharPrimitiveType extends PPrimitiveType {
     private TTyChar _tyChar_;
 
-    public ACharPrimitiveType()
-    {
+    public ACharPrimitiveType() {
         // Constructor
     }
 
     public ACharPrimitiveType(
-        @SuppressWarnings("hiding") TTyChar _tyChar_)
-    {
+            @SuppressWarnings("hiding") TTyChar _tyChar_) {
         // Constructor
         setTyChar(_tyChar_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACharPrimitiveType(
-            cloneNode(this._tyChar_));
+                cloneNode(this._tyChar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACharPrimitiveType(this);
     }
 
-    public TTyChar getTyChar()
-    {
+    public TTyChar getTyChar() {
         return this._tyChar_;
     }
 
-    public void setTyChar(TTyChar node)
-    {
-        if(this._tyChar_ != null)
-        {
+    public void setTyChar(TTyChar node) {
+        if (this._tyChar_ != null) {
             this._tyChar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ACharPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tyChar_);
+                + toString(this._tyChar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tyChar_ == child)
-        {
+        if (this._tyChar_ == child) {
             this._tyChar_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ACharPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tyChar_ == oldChild)
-        {
+        if (this._tyChar_ == oldChild) {
             setTyChar((TTyChar) newChild);
             return;
         }

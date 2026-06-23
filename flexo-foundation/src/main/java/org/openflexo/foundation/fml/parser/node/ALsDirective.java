@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ALsDirective extends PDirective
-{
+public final class ALsDirective extends PDirective {
     private TLs _ls_;
 
-    public ALsDirective()
-    {
+    public ALsDirective() {
         // Constructor
     }
 
     public ALsDirective(
-        @SuppressWarnings("hiding") TLs _ls_)
-    {
+            @SuppressWarnings("hiding") TLs _ls_) {
         // Constructor
         setLs(_ls_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ALsDirective(
-            cloneNode(this._ls_));
+                cloneNode(this._ls_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseALsDirective(this);
     }
 
-    public TLs getLs()
-    {
+    public TLs getLs() {
         return this._ls_;
     }
 
-    public void setLs(TLs node)
-    {
-        if(this._ls_ != null)
-        {
+    public void setLs(TLs node) {
+        if (this._ls_ != null) {
             this._ls_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ALsDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._ls_);
+                + toString(this._ls_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._ls_ == child)
-        {
+        if (this._ls_ == child) {
             this._ls_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ALsDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._ls_ == oldChild)
-        {
+        if (this._ls_ == oldChild) {
             setLs((TLs) newChild);
             return;
         }

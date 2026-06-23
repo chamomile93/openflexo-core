@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AQuitDirective extends PDirective
-{
+public final class AQuitDirective extends PDirective {
     private TQuit _quit_;
 
-    public AQuitDirective()
-    {
+    public AQuitDirective() {
         // Constructor
     }
 
     public AQuitDirective(
-        @SuppressWarnings("hiding") TQuit _quit_)
-    {
+            @SuppressWarnings("hiding") TQuit _quit_) {
         // Constructor
         setQuit(_quit_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AQuitDirective(
-            cloneNode(this._quit_));
+                cloneNode(this._quit_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAQuitDirective(this);
     }
 
-    public TQuit getQuit()
-    {
+    public TQuit getQuit() {
         return this._quit_;
     }
 
-    public void setQuit(TQuit node)
-    {
-        if(this._quit_ != null)
-        {
+    public void setQuit(TQuit node) {
+        if (this._quit_ != null) {
             this._quit_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AQuitDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._quit_);
+                + toString(this._quit_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._quit_ == child)
-        {
+        if (this._quit_ == child) {
             this._quit_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AQuitDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._quit_ == oldChild)
-        {
+        if (this._quit_ == oldChild) {
             setQuit((TQuit) newChild);
             return;
         }

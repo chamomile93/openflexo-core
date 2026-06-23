@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AQmarkConditionalExp extends PConditionalExp
-{
+public final class AQmarkConditionalExp extends PConditionalExp {
     private PConditionalOrExp _conditionalOrExp_;
     private TQmark _qmark_;
     private PExpression _expression_;
     private TColon _colon_;
     private PConditionalExp _conditionalExp_;
 
-    public AQmarkConditionalExp()
-    {
+    public AQmarkConditionalExp() {
         // Constructor
     }
 
     public AQmarkConditionalExp(
-        @SuppressWarnings("hiding") PConditionalOrExp _conditionalOrExp_,
-        @SuppressWarnings("hiding") TQmark _qmark_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") PConditionalExp _conditionalExp_)
-    {
+            @SuppressWarnings("hiding") PConditionalOrExp _conditionalOrExp_,
+            @SuppressWarnings("hiding") TQmark _qmark_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") TColon _colon_,
+            @SuppressWarnings("hiding") PConditionalExp _conditionalExp_) {
         // Constructor
         setConditionalOrExp(_conditionalOrExp_);
 
@@ -39,38 +36,31 @@ public final class AQmarkConditionalExp extends PConditionalExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AQmarkConditionalExp(
-            cloneNode(this._conditionalOrExp_),
-            cloneNode(this._qmark_),
-            cloneNode(this._expression_),
-            cloneNode(this._colon_),
-            cloneNode(this._conditionalExp_));
+                cloneNode(this._conditionalOrExp_),
+                cloneNode(this._qmark_),
+                cloneNode(this._expression_),
+                cloneNode(this._colon_),
+                cloneNode(this._conditionalExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAQmarkConditionalExp(this);
     }
 
-    public PConditionalOrExp getConditionalOrExp()
-    {
+    public PConditionalOrExp getConditionalOrExp() {
         return this._conditionalOrExp_;
     }
 
-    public void setConditionalOrExp(PConditionalOrExp node)
-    {
-        if(this._conditionalOrExp_ != null)
-        {
+    public void setConditionalOrExp(PConditionalOrExp node) {
+        if (this._conditionalOrExp_ != null) {
             this._conditionalOrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AQmarkConditionalExp extends PConditionalExp
         this._conditionalOrExp_ = node;
     }
 
-    public TQmark getQmark()
-    {
+    public TQmark getQmark() {
         return this._qmark_;
     }
 
-    public void setQmark(TQmark node)
-    {
-        if(this._qmark_ != null)
-        {
+    public void setQmark(TQmark node) {
+        if (this._qmark_ != null) {
             this._qmark_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AQmarkConditionalExp extends PConditionalExp
         this._qmark_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AQmarkConditionalExp extends PConditionalExp
         this._expression_ = node;
     }
 
-    public TColon getColon()
-    {
+    public TColon getColon() {
         return this._colon_;
     }
 
-    public void setColon(TColon node)
-    {
-        if(this._colon_ != null)
-        {
+    public void setColon(TColon node) {
+        if (this._colon_ != null) {
             this._colon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AQmarkConditionalExp extends PConditionalExp
         this._colon_ = node;
     }
 
-    public PConditionalExp getConditionalExp()
-    {
+    public PConditionalExp getConditionalExp() {
         return this._conditionalExp_;
     }
 
-    public void setConditionalExp(PConditionalExp node)
-    {
-        if(this._conditionalExp_ != null)
-        {
+    public void setConditionalExp(PConditionalExp node) {
+        if (this._conditionalExp_ != null) {
             this._conditionalExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AQmarkConditionalExp extends PConditionalExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._conditionalOrExp_)
-            + toString(this._qmark_)
-            + toString(this._expression_)
-            + toString(this._colon_)
-            + toString(this._conditionalExp_);
+                + toString(this._conditionalOrExp_)
+                + toString(this._qmark_)
+                + toString(this._expression_)
+                + toString(this._colon_)
+                + toString(this._conditionalExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._conditionalOrExp_ == child)
-        {
+        if (this._conditionalOrExp_ == child) {
             this._conditionalOrExp_ = null;
             return;
         }
 
-        if(this._qmark_ == child)
-        {
+        if (this._qmark_ == child) {
             this._qmark_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._colon_ == child)
-        {
+        if (this._colon_ == child) {
             this._colon_ = null;
             return;
         }
 
-        if(this._conditionalExp_ == child)
-        {
+        if (this._conditionalExp_ == child) {
             this._conditionalExp_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AQmarkConditionalExp extends PConditionalExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._conditionalOrExp_ == oldChild)
-        {
+        if (this._conditionalOrExp_ == oldChild) {
             setConditionalOrExp((PConditionalOrExp) newChild);
             return;
         }
 
-        if(this._qmark_ == oldChild)
-        {
+        if (this._qmark_ == oldChild) {
             setQmark((TQmark) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._colon_ == oldChild)
-        {
+        if (this._colon_ == oldChild) {
             setColon((TColon) newChild);
             return;
         }
 
-        if(this._conditionalExp_ == oldChild)
-        {
+        if (this._conditionalExp_ == oldChild) {
             setConditionalExp((PConditionalExp) newChild);
             return;
         }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASimpleConditionalOrExp extends PConditionalOrExp
-{
+public final class ASimpleConditionalOrExp extends PConditionalOrExp {
     private PConditionalAndExp _conditionalAndExp_;
 
-    public ASimpleConditionalOrExp()
-    {
+    public ASimpleConditionalOrExp() {
         // Constructor
     }
 
     public ASimpleConditionalOrExp(
-        @SuppressWarnings("hiding") PConditionalAndExp _conditionalAndExp_)
-    {
+            @SuppressWarnings("hiding") PConditionalAndExp _conditionalAndExp_) {
         // Constructor
         setConditionalAndExp(_conditionalAndExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASimpleConditionalOrExp(
-            cloneNode(this._conditionalAndExp_));
+                cloneNode(this._conditionalAndExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASimpleConditionalOrExp(this);
     }
 
-    public PConditionalAndExp getConditionalAndExp()
-    {
+    public PConditionalAndExp getConditionalAndExp() {
         return this._conditionalAndExp_;
     }
 
-    public void setConditionalAndExp(PConditionalAndExp node)
-    {
-        if(this._conditionalAndExp_ != null)
-        {
+    public void setConditionalAndExp(PConditionalAndExp node) {
+        if (this._conditionalAndExp_ != null) {
             this._conditionalAndExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASimpleConditionalOrExp extends PConditionalOrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._conditionalAndExp_);
+                + toString(this._conditionalAndExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._conditionalAndExp_ == child)
-        {
+        if (this._conditionalAndExp_ == child) {
             this._conditionalAndExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASimpleConditionalOrExp extends PConditionalOrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._conditionalAndExp_ == oldChild)
-        {
+        if (this._conditionalAndExp_ == oldChild) {
             setConditionalAndExp((PConditionalAndExp) newChild);
             return;
         }

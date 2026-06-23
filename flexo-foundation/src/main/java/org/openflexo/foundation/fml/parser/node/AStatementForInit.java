@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AStatementForInit extends PForInit
-{
+public final class AStatementForInit extends PForInit {
     private PStatementExpression _statementExpression_;
 
-    public AStatementForInit()
-    {
+    public AStatementForInit() {
         // Constructor
     }
 
     public AStatementForInit(
-        @SuppressWarnings("hiding") PStatementExpression _statementExpression_)
-    {
+            @SuppressWarnings("hiding") PStatementExpression _statementExpression_) {
         // Constructor
         setStatementExpression(_statementExpression_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AStatementForInit(
-            cloneNode(this._statementExpression_));
+                cloneNode(this._statementExpression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAStatementForInit(this);
     }
 
-    public PStatementExpression getStatementExpression()
-    {
+    public PStatementExpression getStatementExpression() {
         return this._statementExpression_;
     }
 
-    public void setStatementExpression(PStatementExpression node)
-    {
-        if(this._statementExpression_ != null)
-        {
+    public void setStatementExpression(PStatementExpression node) {
+        if (this._statementExpression_ != null) {
             this._statementExpression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AStatementForInit extends PForInit
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._statementExpression_);
+                + toString(this._statementExpression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._statementExpression_ == child)
-        {
+        if (this._statementExpression_ == child) {
             this._statementExpression_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AStatementForInit extends PForInit
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._statementExpression_ == oldChild)
-        {
+        if (this._statementExpression_ == oldChild) {
             setStatementExpression((PStatementExpression) newChild);
             return;
         }

@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TMore extends Token
-{
-    public TMore()
-    {
+public final class TMore extends Token {
+    public TMore() {
         super.setText("more");
     }
 
-    public TMore(int line, int pos)
-    {
+    public TMore(int line, int pos) {
         super.setText("more");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TMore(getLine(), getPos());
+    public Object clone() {
+        return new TMore(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTMore(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TMore text.");
     }
 }

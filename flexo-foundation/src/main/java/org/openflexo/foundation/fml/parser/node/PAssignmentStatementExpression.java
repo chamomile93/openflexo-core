@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PAssignmentStatementExpression extends Node
-{
+public abstract class PAssignmentStatementExpression extends Node {
     // Empty body
 }

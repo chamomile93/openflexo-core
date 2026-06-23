@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ARcResourcesDirective extends PResourcesDirective
-{
+public final class ARcResourcesDirective extends PResourcesDirective {
     private TResources _resources_;
     private TStar _star_;
     private PReferenceByUri _resourceCenter_;
 
-    public ARcResourcesDirective()
-    {
+    public ARcResourcesDirective() {
         // Constructor
     }
 
     public ARcResourcesDirective(
-        @SuppressWarnings("hiding") TResources _resources_,
-        @SuppressWarnings("hiding") TStar _star_,
-        @SuppressWarnings("hiding") PReferenceByUri _resourceCenter_)
-    {
+            @SuppressWarnings("hiding") TResources _resources_,
+            @SuppressWarnings("hiding") TStar _star_,
+            @SuppressWarnings("hiding") PReferenceByUri _resourceCenter_) {
         // Constructor
         setResources(_resources_);
 
@@ -31,36 +28,29 @@ public final class ARcResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ARcResourcesDirective(
-            cloneNode(this._resources_),
-            cloneNode(this._star_),
-            cloneNode(this._resourceCenter_));
+                cloneNode(this._resources_),
+                cloneNode(this._star_),
+                cloneNode(this._resourceCenter_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseARcResourcesDirective(this);
     }
 
-    public TResources getResources()
-    {
+    public TResources getResources() {
         return this._resources_;
     }
 
-    public void setResources(TResources node)
-    {
-        if(this._resources_ != null)
-        {
+    public void setResources(TResources node) {
+        if (this._resources_ != null) {
             this._resources_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ARcResourcesDirective extends PResourcesDirective
         this._resources_ = node;
     }
 
-    public TStar getStar()
-    {
+    public TStar getStar() {
         return this._star_;
     }
 
-    public void setStar(TStar node)
-    {
-        if(this._star_ != null)
-        {
+    public void setStar(TStar node) {
+        if (this._star_ != null) {
             this._star_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ARcResourcesDirective extends PResourcesDirective
         this._star_ = node;
     }
 
-    public PReferenceByUri getResourceCenter()
-    {
+    public PReferenceByUri getResourceCenter() {
         return this._resourceCenter_;
     }
 
-    public void setResourceCenter(PReferenceByUri node)
-    {
-        if(this._resourceCenter_ != null)
-        {
+    public void setResourceCenter(PReferenceByUri node) {
+        if (this._resourceCenter_ != null) {
             this._resourceCenter_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ARcResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._resources_)
-            + toString(this._star_)
-            + toString(this._resourceCenter_);
+                + toString(this._resources_)
+                + toString(this._star_)
+                + toString(this._resourceCenter_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._resources_ == child)
-        {
+        if (this._resources_ == child) {
             this._resources_ = null;
             return;
         }
 
-        if(this._star_ == child)
-        {
+        if (this._star_ == child) {
             this._star_ = null;
             return;
         }
 
-        if(this._resourceCenter_ == child)
-        {
+        if (this._resourceCenter_ == child) {
             this._resourceCenter_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ARcResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._resources_ == oldChild)
-        {
+        if (this._resources_ == oldChild) {
             setResources((TResources) newChild);
             return;
         }
 
-        if(this._star_ == oldChild)
-        {
+        if (this._star_ == oldChild) {
             setStar((TStar) newChild);
             return;
         }
 
-        if(this._resourceCenter_ == oldChild)
-        {
+        if (this._resourceCenter_ == oldChild) {
             setResourceCenter((PReferenceByUri) newChild);
             return;
         }

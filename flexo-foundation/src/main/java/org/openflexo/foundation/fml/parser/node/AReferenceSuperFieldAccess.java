@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AReferenceSuperFieldAccess extends PFieldAccess
-{
+public final class AReferenceSuperFieldAccess extends PFieldAccess {
     private PCompositeIdent _identifier1_;
     private TDot _dot1_;
     private TKwSuper _kwSuper_;
     private TDot _dot2_;
     private TLidentifier _identifier2_;
 
-    public AReferenceSuperFieldAccess()
-    {
+    public AReferenceSuperFieldAccess() {
         // Constructor
     }
 
     public AReferenceSuperFieldAccess(
-        @SuppressWarnings("hiding") PCompositeIdent _identifier1_,
-        @SuppressWarnings("hiding") TDot _dot1_,
-        @SuppressWarnings("hiding") TKwSuper _kwSuper_,
-        @SuppressWarnings("hiding") TDot _dot2_,
-        @SuppressWarnings("hiding") TLidentifier _identifier2_)
-    {
+            @SuppressWarnings("hiding") PCompositeIdent _identifier1_,
+            @SuppressWarnings("hiding") TDot _dot1_,
+            @SuppressWarnings("hiding") TKwSuper _kwSuper_,
+            @SuppressWarnings("hiding") TDot _dot2_,
+            @SuppressWarnings("hiding") TLidentifier _identifier2_) {
         // Constructor
         setIdentifier1(_identifier1_);
 
@@ -39,38 +36,31 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AReferenceSuperFieldAccess(
-            cloneNode(this._identifier1_),
-            cloneNode(this._dot1_),
-            cloneNode(this._kwSuper_),
-            cloneNode(this._dot2_),
-            cloneNode(this._identifier2_));
+                cloneNode(this._identifier1_),
+                cloneNode(this._dot1_),
+                cloneNode(this._kwSuper_),
+                cloneNode(this._dot2_),
+                cloneNode(this._identifier2_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAReferenceSuperFieldAccess(this);
     }
 
-    public PCompositeIdent getIdentifier1()
-    {
+    public PCompositeIdent getIdentifier1() {
         return this._identifier1_;
     }
 
-    public void setIdentifier1(PCompositeIdent node)
-    {
-        if(this._identifier1_ != null)
-        {
+    public void setIdentifier1(PCompositeIdent node) {
+        if (this._identifier1_ != null) {
             this._identifier1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
         this._identifier1_ = node;
     }
 
-    public TDot getDot1()
-    {
+    public TDot getDot1() {
         return this._dot1_;
     }
 
-    public void setDot1(TDot node)
-    {
-        if(this._dot1_ != null)
-        {
+    public void setDot1(TDot node) {
+        if (this._dot1_ != null) {
             this._dot1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
         this._dot1_ = node;
     }
 
-    public TKwSuper getKwSuper()
-    {
+    public TKwSuper getKwSuper() {
         return this._kwSuper_;
     }
 
-    public void setKwSuper(TKwSuper node)
-    {
-        if(this._kwSuper_ != null)
-        {
+    public void setKwSuper(TKwSuper node) {
+        if (this._kwSuper_ != null) {
             this._kwSuper_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
         this._kwSuper_ = node;
     }
 
-    public TDot getDot2()
-    {
+    public TDot getDot2() {
         return this._dot2_;
     }
 
-    public void setDot2(TDot node)
-    {
-        if(this._dot2_ != null)
-        {
+    public void setDot2(TDot node) {
+        if (this._dot2_ != null) {
             this._dot2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
         this._dot2_ = node;
     }
 
-    public TLidentifier getIdentifier2()
-    {
+    public TLidentifier getIdentifier2() {
         return this._identifier2_;
     }
 
-    public void setIdentifier2(TLidentifier node)
-    {
-        if(this._identifier2_ != null)
-        {
+    public void setIdentifier2(TLidentifier node) {
+        if (this._identifier2_ != null) {
             this._identifier2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._identifier1_)
-            + toString(this._dot1_)
-            + toString(this._kwSuper_)
-            + toString(this._dot2_)
-            + toString(this._identifier2_);
+                + toString(this._identifier1_)
+                + toString(this._dot1_)
+                + toString(this._kwSuper_)
+                + toString(this._dot2_)
+                + toString(this._identifier2_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._identifier1_ == child)
-        {
+        if (this._identifier1_ == child) {
             this._identifier1_ = null;
             return;
         }
 
-        if(this._dot1_ == child)
-        {
+        if (this._dot1_ == child) {
             this._dot1_ = null;
             return;
         }
 
-        if(this._kwSuper_ == child)
-        {
+        if (this._kwSuper_ == child) {
             this._kwSuper_ = null;
             return;
         }
 
-        if(this._dot2_ == child)
-        {
+        if (this._dot2_ == child) {
             this._dot2_ = null;
             return;
         }
 
-        if(this._identifier2_ == child)
-        {
+        if (this._identifier2_ == child) {
             this._identifier2_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AReferenceSuperFieldAccess extends PFieldAccess
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._identifier1_ == oldChild)
-        {
+        if (this._identifier1_ == oldChild) {
             setIdentifier1((PCompositeIdent) newChild);
             return;
         }
 
-        if(this._dot1_ == oldChild)
-        {
+        if (this._dot1_ == oldChild) {
             setDot1((TDot) newChild);
             return;
         }
 
-        if(this._kwSuper_ == oldChild)
-        {
+        if (this._kwSuper_ == oldChild) {
             setKwSuper((TKwSuper) newChild);
             return;
         }
 
-        if(this._dot2_ == oldChild)
-        {
+        if (this._dot2_ == oldChild) {
             setDot2((TDot) newChild);
             return;
         }
 
-        if(this._identifier2_ == oldChild)
-        {
+        if (this._identifier2_ == oldChild) {
             setIdentifier2((TLidentifier) newChild);
             return;
         }

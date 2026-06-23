@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APostIncrExp extends PPostIncrExp
-{
+public final class APostIncrExp extends PPostIncrExp {
     private PPostfixExp _postfixExp_;
     private TPlusPlus _plusPlus_;
 
-    public APostIncrExp()
-    {
+    public APostIncrExp() {
         // Constructor
     }
 
     public APostIncrExp(
-        @SuppressWarnings("hiding") PPostfixExp _postfixExp_,
-        @SuppressWarnings("hiding") TPlusPlus _plusPlus_)
-    {
+            @SuppressWarnings("hiding") PPostfixExp _postfixExp_,
+            @SuppressWarnings("hiding") TPlusPlus _plusPlus_) {
         // Constructor
         setPostfixExp(_postfixExp_);
 
@@ -27,35 +24,28 @@ public final class APostIncrExp extends PPostIncrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APostIncrExp(
-            cloneNode(this._postfixExp_),
-            cloneNode(this._plusPlus_));
+                cloneNode(this._postfixExp_),
+                cloneNode(this._plusPlus_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPostIncrExp(this);
     }
 
-    public PPostfixExp getPostfixExp()
-    {
+    public PPostfixExp getPostfixExp() {
         return this._postfixExp_;
     }
 
-    public void setPostfixExp(PPostfixExp node)
-    {
-        if(this._postfixExp_ != null)
-        {
+    public void setPostfixExp(PPostfixExp node) {
+        if (this._postfixExp_ != null) {
             this._postfixExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APostIncrExp extends PPostIncrExp
         this._postfixExp_ = node;
     }
 
-    public TPlusPlus getPlusPlus()
-    {
+    public TPlusPlus getPlusPlus() {
         return this._plusPlus_;
     }
 
-    public void setPlusPlus(TPlusPlus node)
-    {
-        if(this._plusPlus_ != null)
-        {
+    public void setPlusPlus(TPlusPlus node) {
+        if (this._plusPlus_ != null) {
             this._plusPlus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APostIncrExp extends PPostIncrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._postfixExp_)
-            + toString(this._plusPlus_);
+                + toString(this._postfixExp_)
+                + toString(this._plusPlus_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._postfixExp_ == child)
-        {
+        if (this._postfixExp_ == child) {
             this._postfixExp_ = null;
             return;
         }
 
-        if(this._plusPlus_ == child)
-        {
+        if (this._plusPlus_ == child) {
             this._plusPlus_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APostIncrExp extends PPostIncrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._postfixExp_ == oldChild)
-        {
+        if (this._postfixExp_ == oldChild) {
             setPostfixExp((PPostfixExp) newChild);
             return;
         }
 
-        if(this._plusPlus_ == oldChild)
-        {
+        if (this._plusPlus_ == oldChild) {
             setPlusPlus((TPlusPlus) newChild);
             return;
         }

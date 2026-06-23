@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TLs extends Token
-{
-    public TLs()
-    {
+public final class TLs extends Token {
+    public TLs() {
         super.setText("ls");
     }
 
-    public TLs(int line, int pos)
-    {
+    public TLs(int line, int pos) {
         super.setText("ls");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TLs(getLine(), getPos());
+    public Object clone() {
+        return new TLs(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTLs(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TLs text.");
     }
 }

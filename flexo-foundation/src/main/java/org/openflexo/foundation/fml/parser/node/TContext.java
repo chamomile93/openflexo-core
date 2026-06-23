@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TContext extends Token
-{
-    public TContext()
-    {
+public final class TContext extends Token {
+    public TContext() {
         super.setText("context");
     }
 
-    public TContext(int line, int pos)
-    {
+    public TContext(int line, int pos) {
         super.setText("context");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TContext(getLine(), getPos());
+    public Object clone() {
+        return new TContext(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTContext(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TContext text.");
     }
 }

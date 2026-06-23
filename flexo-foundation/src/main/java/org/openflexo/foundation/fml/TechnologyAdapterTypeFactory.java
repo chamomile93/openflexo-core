@@ -8,26 +8,25 @@ import org.openflexo.toolbox.PropertyChangedSupportDefaultImplementation;
 
 /**
  * Abstract implementation for a {@link CustomType} factory
- * 
- * @author sylvain
- * 
+ *
  * @param <T>
+ * @author sylvain
  */
 public abstract class TechnologyAdapterTypeFactory<T extends CustomType, TA extends TechnologyAdapter<TA>>
-		extends PropertyChangedSupportDefaultImplementation implements CustomTypeFactory<T> {
+        extends PropertyChangedSupportDefaultImplementation implements CustomTypeFactory<T> {
 
-	private final TA technologyAdapter;
+    private final TA technologyAdapter;
 
-	public TechnologyAdapterTypeFactory(TA technologyAdapter) {
-		this.technologyAdapter = technologyAdapter;
-	}
+    public TechnologyAdapterTypeFactory(TA technologyAdapter) {
+        this.technologyAdapter = technologyAdapter;
+    }
 
-	public TA getTechnologyAdapter() {
-		return technologyAdapter;
-	}
+    public TA getTechnologyAdapter() {
+        return technologyAdapter;
+    }
 
-	public FlexoServiceManager getServiceManager() {
-		return getTechnologyAdapter().getTechnologyAdapterService().getServiceManager();
-	}
+    public FlexoServiceManager getServiceManager() {
+        return getTechnologyAdapter().getTechnologyAdapterService().getServiceManager();
+    }
 
 }

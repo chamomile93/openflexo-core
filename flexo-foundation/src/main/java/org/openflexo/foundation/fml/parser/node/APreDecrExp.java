@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APreDecrExp extends PPreDecrExp
-{
+public final class APreDecrExp extends PPreDecrExp {
     private TMinusMinus _minusMinus_;
     private PUnaryExp _unaryExp_;
 
-    public APreDecrExp()
-    {
+    public APreDecrExp() {
         // Constructor
     }
 
     public APreDecrExp(
-        @SuppressWarnings("hiding") TMinusMinus _minusMinus_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") TMinusMinus _minusMinus_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setMinusMinus(_minusMinus_);
 
@@ -27,35 +24,28 @@ public final class APreDecrExp extends PPreDecrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APreDecrExp(
-            cloneNode(this._minusMinus_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._minusMinus_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPreDecrExp(this);
     }
 
-    public TMinusMinus getMinusMinus()
-    {
+    public TMinusMinus getMinusMinus() {
         return this._minusMinus_;
     }
 
-    public void setMinusMinus(TMinusMinus node)
-    {
-        if(this._minusMinus_ != null)
-        {
+    public void setMinusMinus(TMinusMinus node) {
+        if (this._minusMinus_ != null) {
             this._minusMinus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APreDecrExp extends PPreDecrExp
         this._minusMinus_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APreDecrExp extends PPreDecrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._minusMinus_)
-            + toString(this._unaryExp_);
+                + toString(this._minusMinus_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._minusMinus_ == child)
-        {
+        if (this._minusMinus_ == child) {
             this._minusMinus_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APreDecrExp extends PPreDecrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._minusMinus_ == oldChild)
-        {
+        if (this._minusMinus_ == oldChild) {
             setMinusMinus((TMinusMinus) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

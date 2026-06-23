@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PVersion extends Node
-{
+public abstract class PVersion extends Node {
     // Empty body
 }

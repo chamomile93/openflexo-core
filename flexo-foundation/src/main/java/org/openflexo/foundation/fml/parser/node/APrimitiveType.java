@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrimitiveType extends PType
-{
+public final class APrimitiveType extends PType {
     private PPrimitiveType _primitiveType_;
 
-    public APrimitiveType()
-    {
+    public APrimitiveType() {
         // Constructor
     }
 
     public APrimitiveType(
-        @SuppressWarnings("hiding") PPrimitiveType _primitiveType_)
-    {
+            @SuppressWarnings("hiding") PPrimitiveType _primitiveType_) {
         // Constructor
         setPrimitiveType(_primitiveType_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrimitiveType(
-            cloneNode(this._primitiveType_));
+                cloneNode(this._primitiveType_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrimitiveType(this);
     }
 
-    public PPrimitiveType getPrimitiveType()
-    {
+    public PPrimitiveType getPrimitiveType() {
         return this._primitiveType_;
     }
 
-    public void setPrimitiveType(PPrimitiveType node)
-    {
-        if(this._primitiveType_ != null)
-        {
+    public void setPrimitiveType(PPrimitiveType node) {
+        if (this._primitiveType_ != null) {
             this._primitiveType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APrimitiveType extends PType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._primitiveType_);
+                + toString(this._primitiveType_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._primitiveType_ == child)
-        {
+        if (this._primitiveType_ == child) {
             this._primitiveType_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APrimitiveType extends PType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._primitiveType_ == oldChild)
-        {
+        if (this._primitiveType_ == oldChild) {
             setPrimitiveType((PPrimitiveType) newChild);
             return;
         }

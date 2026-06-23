@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACompositeTidentSuffix extends PCompositeTidentSuffix
-{
+public final class ACompositeTidentSuffix extends PCompositeTidentSuffix {
     private TDollar _dollar_;
     private TUidentifier _uidentifier_;
 
-    public ACompositeTidentSuffix()
-    {
+    public ACompositeTidentSuffix() {
         // Constructor
     }
 
     public ACompositeTidentSuffix(
-        @SuppressWarnings("hiding") TDollar _dollar_,
-        @SuppressWarnings("hiding") TUidentifier _uidentifier_)
-    {
+            @SuppressWarnings("hiding") TDollar _dollar_,
+            @SuppressWarnings("hiding") TUidentifier _uidentifier_) {
         // Constructor
         setDollar(_dollar_);
 
@@ -27,35 +24,28 @@ public final class ACompositeTidentSuffix extends PCompositeTidentSuffix
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACompositeTidentSuffix(
-            cloneNode(this._dollar_),
-            cloneNode(this._uidentifier_));
+                cloneNode(this._dollar_),
+                cloneNode(this._uidentifier_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACompositeTidentSuffix(this);
     }
 
-    public TDollar getDollar()
-    {
+    public TDollar getDollar() {
         return this._dollar_;
     }
 
-    public void setDollar(TDollar node)
-    {
-        if(this._dollar_ != null)
-        {
+    public void setDollar(TDollar node) {
+        if (this._dollar_ != null) {
             this._dollar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ACompositeTidentSuffix extends PCompositeTidentSuffix
         this._dollar_ = node;
     }
 
-    public TUidentifier getUidentifier()
-    {
+    public TUidentifier getUidentifier() {
         return this._uidentifier_;
     }
 
-    public void setUidentifier(TUidentifier node)
-    {
-        if(this._uidentifier_ != null)
-        {
+    public void setUidentifier(TUidentifier node) {
+        if (this._uidentifier_ != null) {
             this._uidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ACompositeTidentSuffix extends PCompositeTidentSuffix
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._dollar_)
-            + toString(this._uidentifier_);
+                + toString(this._dollar_)
+                + toString(this._uidentifier_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._dollar_ == child)
-        {
+        if (this._dollar_ == child) {
             this._dollar_ = null;
             return;
         }
 
-        if(this._uidentifier_ == child)
-        {
+        if (this._uidentifier_ == child) {
             this._uidentifier_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ACompositeTidentSuffix extends PCompositeTidentSuffix
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._dollar_ == oldChild)
-        {
+        if (this._dollar_ == oldChild) {
             setDollar((TDollar) newChild);
             return;
         }
 
-        if(this._uidentifier_ == oldChild)
-        {
+        if (this._uidentifier_ == oldChild) {
             setUidentifier((TUidentifier) newChild);
             return;
         }

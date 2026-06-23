@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TMinusR extends Token
-{
-    public TMinusR()
-    {
+public final class TMinusR extends Token {
+    public TMinusR() {
         super.setText("-r");
     }
 
-    public TMinusR(int line, int pos)
-    {
+    public TMinusR(int line, int pos) {
         super.setText("-r");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TMinusR(getLine(), getPos());
+    public Object clone() {
+        return new TMinusR(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTMinusR(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TMinusR text.");
     }
 }

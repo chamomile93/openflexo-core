@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public interface Switch
-{
-        // Empty body
+public interface Switch {
+    // Empty body
 }

@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AForBasicStatement extends PStatement
-{
+public final class AForBasicStatement extends PStatement {
     private TKwFor _kwFor_;
     private TLPar _lPar_;
     private PForInit _forInit_;
@@ -16,21 +15,19 @@ public final class AForBasicStatement extends PStatement
     private TRPar _rPar_;
     private PStatement _statement_;
 
-    public AForBasicStatement()
-    {
+    public AForBasicStatement() {
         // Constructor
     }
 
     public AForBasicStatement(
-        @SuppressWarnings("hiding") TKwFor _kwFor_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PForInit _forInit_,
-        @SuppressWarnings("hiding") TSemi _semi1_,
-        @SuppressWarnings("hiding") TSemi _semi2_,
-        @SuppressWarnings("hiding") PStatementExpression _statementExpression_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PStatement _statement_)
-    {
+            @SuppressWarnings("hiding") TKwFor _kwFor_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PForInit _forInit_,
+            @SuppressWarnings("hiding") TSemi _semi1_,
+            @SuppressWarnings("hiding") TSemi _semi2_,
+            @SuppressWarnings("hiding") PStatementExpression _statementExpression_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PStatement _statement_) {
         // Constructor
         setKwFor(_kwFor_);
 
@@ -51,41 +48,34 @@ public final class AForBasicStatement extends PStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AForBasicStatement(
-            cloneNode(this._kwFor_),
-            cloneNode(this._lPar_),
-            cloneNode(this._forInit_),
-            cloneNode(this._semi1_),
-            cloneNode(this._semi2_),
-            cloneNode(this._statementExpression_),
-            cloneNode(this._rPar_),
-            cloneNode(this._statement_));
+                cloneNode(this._kwFor_),
+                cloneNode(this._lPar_),
+                cloneNode(this._forInit_),
+                cloneNode(this._semi1_),
+                cloneNode(this._semi2_),
+                cloneNode(this._statementExpression_),
+                cloneNode(this._rPar_),
+                cloneNode(this._statement_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAForBasicStatement(this);
     }
 
-    public TKwFor getKwFor()
-    {
+    public TKwFor getKwFor() {
         return this._kwFor_;
     }
 
-    public void setKwFor(TKwFor node)
-    {
-        if(this._kwFor_ != null)
-        {
+    public void setKwFor(TKwFor node) {
+        if (this._kwFor_ != null) {
             this._kwFor_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +85,17 @@ public final class AForBasicStatement extends PStatement
         this._kwFor_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -120,22 +105,17 @@ public final class AForBasicStatement extends PStatement
         this._lPar_ = node;
     }
 
-    public PForInit getForInit()
-    {
+    public PForInit getForInit() {
         return this._forInit_;
     }
 
-    public void setForInit(PForInit node)
-    {
-        if(this._forInit_ != null)
-        {
+    public void setForInit(PForInit node) {
+        if (this._forInit_ != null) {
             this._forInit_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -145,22 +125,17 @@ public final class AForBasicStatement extends PStatement
         this._forInit_ = node;
     }
 
-    public TSemi getSemi1()
-    {
+    public TSemi getSemi1() {
         return this._semi1_;
     }
 
-    public void setSemi1(TSemi node)
-    {
-        if(this._semi1_ != null)
-        {
+    public void setSemi1(TSemi node) {
+        if (this._semi1_ != null) {
             this._semi1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -170,22 +145,17 @@ public final class AForBasicStatement extends PStatement
         this._semi1_ = node;
     }
 
-    public TSemi getSemi2()
-    {
+    public TSemi getSemi2() {
         return this._semi2_;
     }
 
-    public void setSemi2(TSemi node)
-    {
-        if(this._semi2_ != null)
-        {
+    public void setSemi2(TSemi node) {
+        if (this._semi2_ != null) {
             this._semi2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -195,22 +165,17 @@ public final class AForBasicStatement extends PStatement
         this._semi2_ = node;
     }
 
-    public PStatementExpression getStatementExpression()
-    {
+    public PStatementExpression getStatementExpression() {
         return this._statementExpression_;
     }
 
-    public void setStatementExpression(PStatementExpression node)
-    {
-        if(this._statementExpression_ != null)
-        {
+    public void setStatementExpression(PStatementExpression node) {
+        if (this._statementExpression_ != null) {
             this._statementExpression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -220,22 +185,17 @@ public final class AForBasicStatement extends PStatement
         this._statementExpression_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -245,22 +205,17 @@ public final class AForBasicStatement extends PStatement
         this._rPar_ = node;
     }
 
-    public PStatement getStatement()
-    {
+    public PStatement getStatement() {
         return this._statement_;
     }
 
-    public void setStatement(PStatement node)
-    {
-        if(this._statement_ != null)
-        {
+    public void setStatement(PStatement node) {
+        if (this._statement_ != null) {
             this._statement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -271,67 +226,57 @@ public final class AForBasicStatement extends PStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwFor_)
-            + toString(this._lPar_)
-            + toString(this._forInit_)
-            + toString(this._semi1_)
-            + toString(this._semi2_)
-            + toString(this._statementExpression_)
-            + toString(this._rPar_)
-            + toString(this._statement_);
+                + toString(this._kwFor_)
+                + toString(this._lPar_)
+                + toString(this._forInit_)
+                + toString(this._semi1_)
+                + toString(this._semi2_)
+                + toString(this._statementExpression_)
+                + toString(this._rPar_)
+                + toString(this._statement_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwFor_ == child)
-        {
+        if (this._kwFor_ == child) {
             this._kwFor_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._forInit_ == child)
-        {
+        if (this._forInit_ == child) {
             this._forInit_ = null;
             return;
         }
 
-        if(this._semi1_ == child)
-        {
+        if (this._semi1_ == child) {
             this._semi1_ = null;
             return;
         }
 
-        if(this._semi2_ == child)
-        {
+        if (this._semi2_ == child) {
             this._semi2_ = null;
             return;
         }
 
-        if(this._statementExpression_ == child)
-        {
+        if (this._statementExpression_ == child) {
             this._statementExpression_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._statement_ == child)
-        {
+        if (this._statement_ == child) {
             this._statement_ = null;
             return;
         }
@@ -340,53 +285,44 @@ public final class AForBasicStatement extends PStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwFor_ == oldChild)
-        {
+        if (this._kwFor_ == oldChild) {
             setKwFor((TKwFor) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._forInit_ == oldChild)
-        {
+        if (this._forInit_ == oldChild) {
             setForInit((PForInit) newChild);
             return;
         }
 
-        if(this._semi1_ == oldChild)
-        {
+        if (this._semi1_ == oldChild) {
             setSemi1((TSemi) newChild);
             return;
         }
 
-        if(this._semi2_ == oldChild)
-        {
+        if (this._semi2_ == oldChild) {
             setSemi2((TSemi) newChild);
             return;
         }
 
-        if(this._statementExpression_ == oldChild)
-        {
+        if (this._statementExpression_ == oldChild) {
             setStatementExpression((PStatementExpression) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._statement_ == oldChild)
-        {
+        if (this._statement_ == oldChild) {
             setStatement((PStatement) newChild);
             return;
         }

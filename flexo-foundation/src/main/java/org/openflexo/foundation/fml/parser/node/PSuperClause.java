@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PSuperClause extends Node
-{
+public abstract class PSuperClause extends Node {
     // Empty body
 }

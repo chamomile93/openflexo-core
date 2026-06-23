@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APublicVisibility extends PVisibility
-{
+public final class APublicVisibility extends PVisibility {
     private TKwPublic _kwPublic_;
 
-    public APublicVisibility()
-    {
+    public APublicVisibility() {
         // Constructor
     }
 
     public APublicVisibility(
-        @SuppressWarnings("hiding") TKwPublic _kwPublic_)
-    {
+            @SuppressWarnings("hiding") TKwPublic _kwPublic_) {
         // Constructor
         setKwPublic(_kwPublic_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APublicVisibility(
-            cloneNode(this._kwPublic_));
+                cloneNode(this._kwPublic_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPublicVisibility(this);
     }
 
-    public TKwPublic getKwPublic()
-    {
+    public TKwPublic getKwPublic() {
         return this._kwPublic_;
     }
 
-    public void setKwPublic(TKwPublic node)
-    {
-        if(this._kwPublic_ != null)
-        {
+    public void setKwPublic(TKwPublic node) {
+        if (this._kwPublic_ != null) {
             this._kwPublic_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APublicVisibility extends PVisibility
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwPublic_);
+                + toString(this._kwPublic_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwPublic_ == child)
-        {
+        if (this._kwPublic_ == child) {
             this._kwPublic_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APublicVisibility extends PVisibility
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwPublic_ == oldChild)
-        {
+        if (this._kwPublic_ == oldChild) {
             setKwPublic((TKwPublic) newChild);
             return;
         }

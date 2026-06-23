@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair
-{
+public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair {
     private PCompositeIdent _identifier_;
     private TAssign _assign_;
     private PConditionalExp _conditionalExp_;
 
-    public AAnnotationKeyValuePair()
-    {
+    public AAnnotationKeyValuePair() {
         // Constructor
     }
 
     public AAnnotationKeyValuePair(
-        @SuppressWarnings("hiding") PCompositeIdent _identifier_,
-        @SuppressWarnings("hiding") TAssign _assign_,
-        @SuppressWarnings("hiding") PConditionalExp _conditionalExp_)
-    {
+            @SuppressWarnings("hiding") PCompositeIdent _identifier_,
+            @SuppressWarnings("hiding") TAssign _assign_,
+            @SuppressWarnings("hiding") PConditionalExp _conditionalExp_) {
         // Constructor
         setIdentifier(_identifier_);
 
@@ -31,36 +28,29 @@ public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAnnotationKeyValuePair(
-            cloneNode(this._identifier_),
-            cloneNode(this._assign_),
-            cloneNode(this._conditionalExp_));
+                cloneNode(this._identifier_),
+                cloneNode(this._assign_),
+                cloneNode(this._conditionalExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAnnotationKeyValuePair(this);
     }
 
-    public PCompositeIdent getIdentifier()
-    {
+    public PCompositeIdent getIdentifier() {
         return this._identifier_;
     }
 
-    public void setIdentifier(PCompositeIdent node)
-    {
-        if(this._identifier_ != null)
-        {
+    public void setIdentifier(PCompositeIdent node) {
+        if (this._identifier_ != null) {
             this._identifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair
         this._identifier_ = node;
     }
 
-    public TAssign getAssign()
-    {
+    public TAssign getAssign() {
         return this._assign_;
     }
 
-    public void setAssign(TAssign node)
-    {
-        if(this._assign_ != null)
-        {
+    public void setAssign(TAssign node) {
+        if (this._assign_ != null) {
             this._assign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair
         this._assign_ = node;
     }
 
-    public PConditionalExp getConditionalExp()
-    {
+    public PConditionalExp getConditionalExp() {
         return this._conditionalExp_;
     }
 
-    public void setConditionalExp(PConditionalExp node)
-    {
-        if(this._conditionalExp_ != null)
-        {
+    public void setConditionalExp(PConditionalExp node) {
+        if (this._conditionalExp_ != null) {
             this._conditionalExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._identifier_)
-            + toString(this._assign_)
-            + toString(this._conditionalExp_);
+                + toString(this._identifier_)
+                + toString(this._assign_)
+                + toString(this._conditionalExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._identifier_ == child)
-        {
+        if (this._identifier_ == child) {
             this._identifier_ = null;
             return;
         }
 
-        if(this._assign_ == child)
-        {
+        if (this._assign_ == child) {
             this._assign_ = null;
             return;
         }
 
-        if(this._conditionalExp_ == child)
-        {
+        if (this._conditionalExp_ == child) {
             this._conditionalExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AAnnotationKeyValuePair extends PAnnotationKeyValuePair
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._identifier_ == oldChild)
-        {
+        if (this._identifier_ == oldChild) {
             setIdentifier((PCompositeIdent) newChild);
             return;
         }
 
-        if(this._assign_ == oldChild)
-        {
+        if (this._assign_ == oldChild) {
             setAssign((TAssign) newChild);
             return;
         }
 
-        if(this._conditionalExp_ == oldChild)
-        {
+        if (this._conditionalExp_ == oldChild) {
             setConditionalExp((PConditionalExp) newChild);
             return;
         }

@@ -2,15 +2,14 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AFmlInnerConceptDecl extends PInnerConceptDecl
-{
+public final class AFmlInnerConceptDecl extends PInnerConceptDecl {
     private final LinkedList<PAnnotation> _annotations_ = new LinkedList<PAnnotation>();
     private PVisibility _visibility_;
     private PType _type_;
@@ -21,22 +20,20 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
     private PFmlParameters _fmlParameters_;
     private TSemi _semi_;
 
-    public AFmlInnerConceptDecl()
-    {
+    public AFmlInnerConceptDecl() {
         // Constructor
     }
 
     public AFmlInnerConceptDecl(
-        @SuppressWarnings("hiding") List<?> _annotations_,
-        @SuppressWarnings("hiding") PVisibility _visibility_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") PCardinality _cardinality_,
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_,
-        @SuppressWarnings("hiding") TKwWith _kwWith_,
-        @SuppressWarnings("hiding") TUidentifier _role_,
-        @SuppressWarnings("hiding") PFmlParameters _fmlParameters_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") List<?> _annotations_,
+            @SuppressWarnings("hiding") PVisibility _visibility_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") PCardinality _cardinality_,
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_,
+            @SuppressWarnings("hiding") TKwWith _kwWith_,
+            @SuppressWarnings("hiding") TUidentifier _role_,
+            @SuppressWarnings("hiding") PFmlParameters _fmlParameters_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setAnnotations(_annotations_);
 
@@ -59,44 +56,37 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlInnerConceptDecl(
-            cloneList(this._annotations_),
-            cloneNode(this._visibility_),
-            cloneNode(this._type_),
-            cloneNode(this._cardinality_),
-            cloneNode(this._lidentifier_),
-            cloneNode(this._kwWith_),
-            cloneNode(this._role_),
-            cloneNode(this._fmlParameters_),
-            cloneNode(this._semi_));
+                cloneList(this._annotations_),
+                cloneNode(this._visibility_),
+                cloneNode(this._type_),
+                cloneNode(this._cardinality_),
+                cloneNode(this._lidentifier_),
+                cloneNode(this._kwWith_),
+                cloneNode(this._role_),
+                cloneNode(this._fmlParameters_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlInnerConceptDecl(this);
     }
 
-    public LinkedList<PAnnotation> getAnnotations()
-    {
+    public LinkedList<PAnnotation> getAnnotations() {
         return this._annotations_;
     }
 
-    public void setAnnotations(List<?> list)
-    {
-        for(PAnnotation e : this._annotations_)
-        {
+    public void setAnnotations(List<?> list) {
+        for (PAnnotation e : this._annotations_) {
             e.parent(null);
         }
         this._annotations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -105,22 +95,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         }
     }
 
-    public PVisibility getVisibility()
-    {
+    public PVisibility getVisibility() {
         return this._visibility_;
     }
 
-    public void setVisibility(PVisibility node)
-    {
-        if(this._visibility_ != null)
-        {
+    public void setVisibility(PVisibility node) {
+        if (this._visibility_ != null) {
             this._visibility_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +115,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._visibility_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +135,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._type_ = node;
     }
 
-    public PCardinality getCardinality()
-    {
+    public PCardinality getCardinality() {
         return this._cardinality_;
     }
 
-    public void setCardinality(PCardinality node)
-    {
-        if(this._cardinality_ != null)
-        {
+    public void setCardinality(PCardinality node) {
+        if (this._cardinality_ != null) {
             this._cardinality_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -180,22 +155,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._cardinality_ = node;
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -205,22 +175,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._lidentifier_ = node;
     }
 
-    public TKwWith getKwWith()
-    {
+    public TKwWith getKwWith() {
         return this._kwWith_;
     }
 
-    public void setKwWith(TKwWith node)
-    {
-        if(this._kwWith_ != null)
-        {
+    public void setKwWith(TKwWith node) {
+        if (this._kwWith_ != null) {
             this._kwWith_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -230,22 +195,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._kwWith_ = node;
     }
 
-    public TUidentifier getRole()
-    {
+    public TUidentifier getRole() {
         return this._role_;
     }
 
-    public void setRole(TUidentifier node)
-    {
-        if(this._role_ != null)
-        {
+    public void setRole(TUidentifier node) {
+        if (this._role_ != null) {
             this._role_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -255,22 +215,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._role_ = node;
     }
 
-    public PFmlParameters getFmlParameters()
-    {
+    public PFmlParameters getFmlParameters() {
         return this._fmlParameters_;
     }
 
-    public void setFmlParameters(PFmlParameters node)
-    {
-        if(this._fmlParameters_ != null)
-        {
+    public void setFmlParameters(PFmlParameters node) {
+        if (this._fmlParameters_ != null) {
             this._fmlParameters_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -280,22 +235,17 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
         this._fmlParameters_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -306,73 +256,62 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotations_)
-            + toString(this._visibility_)
-            + toString(this._type_)
-            + toString(this._cardinality_)
-            + toString(this._lidentifier_)
-            + toString(this._kwWith_)
-            + toString(this._role_)
-            + toString(this._fmlParameters_)
-            + toString(this._semi_);
+                + toString(this._annotations_)
+                + toString(this._visibility_)
+                + toString(this._type_)
+                + toString(this._cardinality_)
+                + toString(this._lidentifier_)
+                + toString(this._kwWith_)
+                + toString(this._role_)
+                + toString(this._fmlParameters_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotations_.remove(child))
-        {
+        if (this._annotations_.remove(child)) {
             return;
         }
 
-        if(this._visibility_ == child)
-        {
+        if (this._visibility_ == child) {
             this._visibility_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._cardinality_ == child)
-        {
+        if (this._cardinality_ == child) {
             this._cardinality_ = null;
             return;
         }
 
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
 
-        if(this._kwWith_ == child)
-        {
+        if (this._kwWith_ == child) {
             this._kwWith_ = null;
             return;
         }
 
-        if(this._role_ == child)
-        {
+        if (this._role_ == child) {
             this._role_ = null;
             return;
         }
 
-        if(this._fmlParameters_ == child)
-        {
+        if (this._fmlParameters_ == child) {
             this._fmlParameters_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -381,15 +320,11 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -402,50 +337,42 @@ public final class AFmlInnerConceptDecl extends PInnerConceptDecl
             }
         }
 
-        if(this._visibility_ == oldChild)
-        {
+        if (this._visibility_ == oldChild) {
             setVisibility((PVisibility) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._cardinality_ == oldChild)
-        {
+        if (this._cardinality_ == oldChild) {
             setCardinality((PCardinality) newChild);
             return;
         }
 
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._kwWith_ == oldChild)
-        {
+        if (this._kwWith_ == oldChild) {
             setKwWith((TKwWith) newChild);
             return;
         }
 
-        if(this._role_ == oldChild)
-        {
+        if (this._role_ == oldChild) {
             setRole((TUidentifier) newChild);
             return;
         }
 
-        if(this._fmlParameters_ == oldChild)
-        {
+        if (this._fmlParameters_ == oldChild) {
             setFmlParameters((PFmlParameters) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

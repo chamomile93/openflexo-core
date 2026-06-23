@@ -2,16 +2,16 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AModelDecl extends PModelDecl
-{
+public final class AModelDecl extends PModelDecl {
     private final LinkedList<PAnnotation> _annotations_ = new LinkedList<PAnnotation>();
+    private final LinkedList<PInnerConceptDecl> _innerModelDeclaration_ = new LinkedList<PInnerConceptDecl>();
     private PVisibility _visibility_;
     private TKwAbstract _kwAbstract_;
     private TKwModel _kwModel_;
@@ -19,26 +19,23 @@ public final class AModelDecl extends PModelDecl
     private PSuperClause _superClause_;
     private PInsideClause _insideClause_;
     private TLBrc _lBrc_;
-    private final LinkedList<PInnerConceptDecl> _innerModelDeclaration_ = new LinkedList<PInnerConceptDecl>();
     private TRBrc _rBrc_;
 
-    public AModelDecl()
-    {
+    public AModelDecl() {
         // Constructor
     }
 
     public AModelDecl(
-        @SuppressWarnings("hiding") List<?> _annotations_,
-        @SuppressWarnings("hiding") PVisibility _visibility_,
-        @SuppressWarnings("hiding") TKwAbstract _kwAbstract_,
-        @SuppressWarnings("hiding") TKwModel _kwModel_,
-        @SuppressWarnings("hiding") TUidentifier _uidentifier_,
-        @SuppressWarnings("hiding") PSuperClause _superClause_,
-        @SuppressWarnings("hiding") PInsideClause _insideClause_,
-        @SuppressWarnings("hiding") TLBrc _lBrc_,
-        @SuppressWarnings("hiding") List<?> _innerModelDeclaration_,
-        @SuppressWarnings("hiding") TRBrc _rBrc_)
-    {
+            @SuppressWarnings("hiding") List<?> _annotations_,
+            @SuppressWarnings("hiding") PVisibility _visibility_,
+            @SuppressWarnings("hiding") TKwAbstract _kwAbstract_,
+            @SuppressWarnings("hiding") TKwModel _kwModel_,
+            @SuppressWarnings("hiding") TUidentifier _uidentifier_,
+            @SuppressWarnings("hiding") PSuperClause _superClause_,
+            @SuppressWarnings("hiding") PInsideClause _insideClause_,
+            @SuppressWarnings("hiding") TLBrc _lBrc_,
+            @SuppressWarnings("hiding") List<?> _innerModelDeclaration_,
+            @SuppressWarnings("hiding") TRBrc _rBrc_) {
         // Constructor
         setAnnotations(_annotations_);
 
@@ -63,45 +60,38 @@ public final class AModelDecl extends PModelDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AModelDecl(
-            cloneList(this._annotations_),
-            cloneNode(this._visibility_),
-            cloneNode(this._kwAbstract_),
-            cloneNode(this._kwModel_),
-            cloneNode(this._uidentifier_),
-            cloneNode(this._superClause_),
-            cloneNode(this._insideClause_),
-            cloneNode(this._lBrc_),
-            cloneList(this._innerModelDeclaration_),
-            cloneNode(this._rBrc_));
+                cloneList(this._annotations_),
+                cloneNode(this._visibility_),
+                cloneNode(this._kwAbstract_),
+                cloneNode(this._kwModel_),
+                cloneNode(this._uidentifier_),
+                cloneNode(this._superClause_),
+                cloneNode(this._insideClause_),
+                cloneNode(this._lBrc_),
+                cloneList(this._innerModelDeclaration_),
+                cloneNode(this._rBrc_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAModelDecl(this);
     }
 
-    public LinkedList<PAnnotation> getAnnotations()
-    {
+    public LinkedList<PAnnotation> getAnnotations() {
         return this._annotations_;
     }
 
-    public void setAnnotations(List<?> list)
-    {
-        for(PAnnotation e : this._annotations_)
-        {
+    public void setAnnotations(List<?> list) {
+        for (PAnnotation e : this._annotations_) {
             e.parent(null);
         }
         this._annotations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -110,22 +100,17 @@ public final class AModelDecl extends PModelDecl
         }
     }
 
-    public PVisibility getVisibility()
-    {
+    public PVisibility getVisibility() {
         return this._visibility_;
     }
 
-    public void setVisibility(PVisibility node)
-    {
-        if(this._visibility_ != null)
-        {
+    public void setVisibility(PVisibility node) {
+        if (this._visibility_ != null) {
             this._visibility_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +120,17 @@ public final class AModelDecl extends PModelDecl
         this._visibility_ = node;
     }
 
-    public TKwAbstract getKwAbstract()
-    {
+    public TKwAbstract getKwAbstract() {
         return this._kwAbstract_;
     }
 
-    public void setKwAbstract(TKwAbstract node)
-    {
-        if(this._kwAbstract_ != null)
-        {
+    public void setKwAbstract(TKwAbstract node) {
+        if (this._kwAbstract_ != null) {
             this._kwAbstract_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +140,17 @@ public final class AModelDecl extends PModelDecl
         this._kwAbstract_ = node;
     }
 
-    public TKwModel getKwModel()
-    {
+    public TKwModel getKwModel() {
         return this._kwModel_;
     }
 
-    public void setKwModel(TKwModel node)
-    {
-        if(this._kwModel_ != null)
-        {
+    public void setKwModel(TKwModel node) {
+        if (this._kwModel_ != null) {
             this._kwModel_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +160,17 @@ public final class AModelDecl extends PModelDecl
         this._kwModel_ = node;
     }
 
-    public TUidentifier getUidentifier()
-    {
+    public TUidentifier getUidentifier() {
         return this._uidentifier_;
     }
 
-    public void setUidentifier(TUidentifier node)
-    {
-        if(this._uidentifier_ != null)
-        {
+    public void setUidentifier(TUidentifier node) {
+        if (this._uidentifier_ != null) {
             this._uidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -210,22 +180,17 @@ public final class AModelDecl extends PModelDecl
         this._uidentifier_ = node;
     }
 
-    public PSuperClause getSuperClause()
-    {
+    public PSuperClause getSuperClause() {
         return this._superClause_;
     }
 
-    public void setSuperClause(PSuperClause node)
-    {
-        if(this._superClause_ != null)
-        {
+    public void setSuperClause(PSuperClause node) {
+        if (this._superClause_ != null) {
             this._superClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -235,22 +200,17 @@ public final class AModelDecl extends PModelDecl
         this._superClause_ = node;
     }
 
-    public PInsideClause getInsideClause()
-    {
+    public PInsideClause getInsideClause() {
         return this._insideClause_;
     }
 
-    public void setInsideClause(PInsideClause node)
-    {
-        if(this._insideClause_ != null)
-        {
+    public void setInsideClause(PInsideClause node) {
+        if (this._insideClause_ != null) {
             this._insideClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -260,22 +220,17 @@ public final class AModelDecl extends PModelDecl
         this._insideClause_ = node;
     }
 
-    public TLBrc getLBrc()
-    {
+    public TLBrc getLBrc() {
         return this._lBrc_;
     }
 
-    public void setLBrc(TLBrc node)
-    {
-        if(this._lBrc_ != null)
-        {
+    public void setLBrc(TLBrc node) {
+        if (this._lBrc_ != null) {
             this._lBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -285,24 +240,19 @@ public final class AModelDecl extends PModelDecl
         this._lBrc_ = node;
     }
 
-    public LinkedList<PInnerConceptDecl> getInnerModelDeclaration()
-    {
+    public LinkedList<PInnerConceptDecl> getInnerModelDeclaration() {
         return this._innerModelDeclaration_;
     }
 
-    public void setInnerModelDeclaration(List<?> list)
-    {
-        for(PInnerConceptDecl e : this._innerModelDeclaration_)
-        {
+    public void setInnerModelDeclaration(List<?> list) {
+        for (PInnerConceptDecl e : this._innerModelDeclaration_) {
             e.parent(null);
         }
         this._innerModelDeclaration_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PInnerConceptDecl e = (PInnerConceptDecl) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -311,22 +261,17 @@ public final class AModelDecl extends PModelDecl
         }
     }
 
-    public TRBrc getRBrc()
-    {
+    public TRBrc getRBrc() {
         return this._rBrc_;
     }
 
-    public void setRBrc(TRBrc node)
-    {
-        if(this._rBrc_ != null)
-        {
+    public void setRBrc(TRBrc node) {
+        if (this._rBrc_ != null) {
             this._rBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -337,79 +282,67 @@ public final class AModelDecl extends PModelDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotations_)
-            + toString(this._visibility_)
-            + toString(this._kwAbstract_)
-            + toString(this._kwModel_)
-            + toString(this._uidentifier_)
-            + toString(this._superClause_)
-            + toString(this._insideClause_)
-            + toString(this._lBrc_)
-            + toString(this._innerModelDeclaration_)
-            + toString(this._rBrc_);
+                + toString(this._annotations_)
+                + toString(this._visibility_)
+                + toString(this._kwAbstract_)
+                + toString(this._kwModel_)
+                + toString(this._uidentifier_)
+                + toString(this._superClause_)
+                + toString(this._insideClause_)
+                + toString(this._lBrc_)
+                + toString(this._innerModelDeclaration_)
+                + toString(this._rBrc_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotations_.remove(child))
-        {
+        if (this._annotations_.remove(child)) {
             return;
         }
 
-        if(this._visibility_ == child)
-        {
+        if (this._visibility_ == child) {
             this._visibility_ = null;
             return;
         }
 
-        if(this._kwAbstract_ == child)
-        {
+        if (this._kwAbstract_ == child) {
             this._kwAbstract_ = null;
             return;
         }
 
-        if(this._kwModel_ == child)
-        {
+        if (this._kwModel_ == child) {
             this._kwModel_ = null;
             return;
         }
 
-        if(this._uidentifier_ == child)
-        {
+        if (this._uidentifier_ == child) {
             this._uidentifier_ = null;
             return;
         }
 
-        if(this._superClause_ == child)
-        {
+        if (this._superClause_ == child) {
             this._superClause_ = null;
             return;
         }
 
-        if(this._insideClause_ == child)
-        {
+        if (this._insideClause_ == child) {
             this._insideClause_ = null;
             return;
         }
 
-        if(this._lBrc_ == child)
-        {
+        if (this._lBrc_ == child) {
             this._lBrc_ = null;
             return;
         }
 
-        if(this._innerModelDeclaration_.remove(child))
-        {
+        if (this._innerModelDeclaration_.remove(child)) {
             return;
         }
 
-        if(this._rBrc_ == child)
-        {
+        if (this._rBrc_ == child) {
             this._rBrc_ = null;
             return;
         }
@@ -418,15 +351,11 @@ public final class AModelDecl extends PModelDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -439,54 +368,44 @@ public final class AModelDecl extends PModelDecl
             }
         }
 
-        if(this._visibility_ == oldChild)
-        {
+        if (this._visibility_ == oldChild) {
             setVisibility((PVisibility) newChild);
             return;
         }
 
-        if(this._kwAbstract_ == oldChild)
-        {
+        if (this._kwAbstract_ == oldChild) {
             setKwAbstract((TKwAbstract) newChild);
             return;
         }
 
-        if(this._kwModel_ == oldChild)
-        {
+        if (this._kwModel_ == oldChild) {
             setKwModel((TKwModel) newChild);
             return;
         }
 
-        if(this._uidentifier_ == oldChild)
-        {
+        if (this._uidentifier_ == oldChild) {
             setUidentifier((TUidentifier) newChild);
             return;
         }
 
-        if(this._superClause_ == oldChild)
-        {
+        if (this._superClause_ == oldChild) {
             setSuperClause((PSuperClause) newChild);
             return;
         }
 
-        if(this._insideClause_ == oldChild)
-        {
+        if (this._insideClause_ == oldChild) {
             setInsideClause((PInsideClause) newChild);
             return;
         }
 
-        if(this._lBrc_ == oldChild)
-        {
+        if (this._lBrc_ == oldChild) {
             setLBrc((TLBrc) newChild);
             return;
         }
 
-        for(ListIterator<PInnerConceptDecl> i = this._innerModelDeclaration_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PInnerConceptDecl> i = this._innerModelDeclaration_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PInnerConceptDecl) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -499,8 +418,7 @@ public final class AModelDecl extends PModelDecl
             }
         }
 
-        if(this._rBrc_ == oldChild)
-        {
+        if (this._rBrc_ == oldChild) {
             setRBrc((TRBrc) newChild);
             return;
         }

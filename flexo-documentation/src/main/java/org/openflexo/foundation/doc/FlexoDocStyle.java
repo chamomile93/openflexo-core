@@ -25,22 +25,19 @@ import org.openflexo.pamela.annotations.ModelEntity;
 
 /**
  * Generic abstract concept representing style information of a portion of a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoDocStyle<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocObject<D, TA> {
 
-	public String getStringRepresentation();
+    public String getStringRepresentation();
 
-	public static abstract class FlexoDocStyleImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocObjectImpl<D, TA> implements FlexoDocStyle<D, TA> {
+    public static abstract class FlexoDocStyleImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocObjectImpl<D, TA> implements FlexoDocStyle<D, TA> {
 
-	}
+    }
 
 }

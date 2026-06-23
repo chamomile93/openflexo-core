@@ -2,15 +2,14 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AEnumDecl extends PEnumDecl
-{
+public final class AEnumDecl extends PEnumDecl {
     private final LinkedList<PAnnotation> _annotations_ = new LinkedList<PAnnotation>();
     private PVisibility _visibility_;
     private TKwEnum _kwEnum_;
@@ -19,20 +18,18 @@ public final class AEnumDecl extends PEnumDecl
     private PEnumValuesList _enumValuesList_;
     private TRBrc _rBrc_;
 
-    public AEnumDecl()
-    {
+    public AEnumDecl() {
         // Constructor
     }
 
     public AEnumDecl(
-        @SuppressWarnings("hiding") List<?> _annotations_,
-        @SuppressWarnings("hiding") PVisibility _visibility_,
-        @SuppressWarnings("hiding") TKwEnum _kwEnum_,
-        @SuppressWarnings("hiding") TUidentifier _uidentifier_,
-        @SuppressWarnings("hiding") TLBrc _lBrc_,
-        @SuppressWarnings("hiding") PEnumValuesList _enumValuesList_,
-        @SuppressWarnings("hiding") TRBrc _rBrc_)
-    {
+            @SuppressWarnings("hiding") List<?> _annotations_,
+            @SuppressWarnings("hiding") PVisibility _visibility_,
+            @SuppressWarnings("hiding") TKwEnum _kwEnum_,
+            @SuppressWarnings("hiding") TUidentifier _uidentifier_,
+            @SuppressWarnings("hiding") TLBrc _lBrc_,
+            @SuppressWarnings("hiding") PEnumValuesList _enumValuesList_,
+            @SuppressWarnings("hiding") TRBrc _rBrc_) {
         // Constructor
         setAnnotations(_annotations_);
 
@@ -51,42 +48,35 @@ public final class AEnumDecl extends PEnumDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEnumDecl(
-            cloneList(this._annotations_),
-            cloneNode(this._visibility_),
-            cloneNode(this._kwEnum_),
-            cloneNode(this._uidentifier_),
-            cloneNode(this._lBrc_),
-            cloneNode(this._enumValuesList_),
-            cloneNode(this._rBrc_));
+                cloneList(this._annotations_),
+                cloneNode(this._visibility_),
+                cloneNode(this._kwEnum_),
+                cloneNode(this._uidentifier_),
+                cloneNode(this._lBrc_),
+                cloneNode(this._enumValuesList_),
+                cloneNode(this._rBrc_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEnumDecl(this);
     }
 
-    public LinkedList<PAnnotation> getAnnotations()
-    {
+    public LinkedList<PAnnotation> getAnnotations() {
         return this._annotations_;
     }
 
-    public void setAnnotations(List<?> list)
-    {
-        for(PAnnotation e : this._annotations_)
-        {
+    public void setAnnotations(List<?> list) {
+        for (PAnnotation e : this._annotations_) {
             e.parent(null);
         }
         this._annotations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -95,22 +85,17 @@ public final class AEnumDecl extends PEnumDecl
         }
     }
 
-    public PVisibility getVisibility()
-    {
+    public PVisibility getVisibility() {
         return this._visibility_;
     }
 
-    public void setVisibility(PVisibility node)
-    {
-        if(this._visibility_ != null)
-        {
+    public void setVisibility(PVisibility node) {
+        if (this._visibility_ != null) {
             this._visibility_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -120,22 +105,17 @@ public final class AEnumDecl extends PEnumDecl
         this._visibility_ = node;
     }
 
-    public TKwEnum getKwEnum()
-    {
+    public TKwEnum getKwEnum() {
         return this._kwEnum_;
     }
 
-    public void setKwEnum(TKwEnum node)
-    {
-        if(this._kwEnum_ != null)
-        {
+    public void setKwEnum(TKwEnum node) {
+        if (this._kwEnum_ != null) {
             this._kwEnum_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -145,22 +125,17 @@ public final class AEnumDecl extends PEnumDecl
         this._kwEnum_ = node;
     }
 
-    public TUidentifier getUidentifier()
-    {
+    public TUidentifier getUidentifier() {
         return this._uidentifier_;
     }
 
-    public void setUidentifier(TUidentifier node)
-    {
-        if(this._uidentifier_ != null)
-        {
+    public void setUidentifier(TUidentifier node) {
+        if (this._uidentifier_ != null) {
             this._uidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -170,22 +145,17 @@ public final class AEnumDecl extends PEnumDecl
         this._uidentifier_ = node;
     }
 
-    public TLBrc getLBrc()
-    {
+    public TLBrc getLBrc() {
         return this._lBrc_;
     }
 
-    public void setLBrc(TLBrc node)
-    {
-        if(this._lBrc_ != null)
-        {
+    public void setLBrc(TLBrc node) {
+        if (this._lBrc_ != null) {
             this._lBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -195,22 +165,17 @@ public final class AEnumDecl extends PEnumDecl
         this._lBrc_ = node;
     }
 
-    public PEnumValuesList getEnumValuesList()
-    {
+    public PEnumValuesList getEnumValuesList() {
         return this._enumValuesList_;
     }
 
-    public void setEnumValuesList(PEnumValuesList node)
-    {
-        if(this._enumValuesList_ != null)
-        {
+    public void setEnumValuesList(PEnumValuesList node) {
+        if (this._enumValuesList_ != null) {
             this._enumValuesList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -220,22 +185,17 @@ public final class AEnumDecl extends PEnumDecl
         this._enumValuesList_ = node;
     }
 
-    public TRBrc getRBrc()
-    {
+    public TRBrc getRBrc() {
         return this._rBrc_;
     }
 
-    public void setRBrc(TRBrc node)
-    {
-        if(this._rBrc_ != null)
-        {
+    public void setRBrc(TRBrc node) {
+        if (this._rBrc_ != null) {
             this._rBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -246,59 +206,50 @@ public final class AEnumDecl extends PEnumDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotations_)
-            + toString(this._visibility_)
-            + toString(this._kwEnum_)
-            + toString(this._uidentifier_)
-            + toString(this._lBrc_)
-            + toString(this._enumValuesList_)
-            + toString(this._rBrc_);
+                + toString(this._annotations_)
+                + toString(this._visibility_)
+                + toString(this._kwEnum_)
+                + toString(this._uidentifier_)
+                + toString(this._lBrc_)
+                + toString(this._enumValuesList_)
+                + toString(this._rBrc_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotations_.remove(child))
-        {
+        if (this._annotations_.remove(child)) {
             return;
         }
 
-        if(this._visibility_ == child)
-        {
+        if (this._visibility_ == child) {
             this._visibility_ = null;
             return;
         }
 
-        if(this._kwEnum_ == child)
-        {
+        if (this._kwEnum_ == child) {
             this._kwEnum_ = null;
             return;
         }
 
-        if(this._uidentifier_ == child)
-        {
+        if (this._uidentifier_ == child) {
             this._uidentifier_ = null;
             return;
         }
 
-        if(this._lBrc_ == child)
-        {
+        if (this._lBrc_ == child) {
             this._lBrc_ = null;
             return;
         }
 
-        if(this._enumValuesList_ == child)
-        {
+        if (this._enumValuesList_ == child) {
             this._enumValuesList_ = null;
             return;
         }
 
-        if(this._rBrc_ == child)
-        {
+        if (this._rBrc_ == child) {
             this._rBrc_ = null;
             return;
         }
@@ -307,15 +258,11 @@ public final class AEnumDecl extends PEnumDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -328,38 +275,32 @@ public final class AEnumDecl extends PEnumDecl
             }
         }
 
-        if(this._visibility_ == oldChild)
-        {
+        if (this._visibility_ == oldChild) {
             setVisibility((PVisibility) newChild);
             return;
         }
 
-        if(this._kwEnum_ == oldChild)
-        {
+        if (this._kwEnum_ == oldChild) {
             setKwEnum((TKwEnum) newChild);
             return;
         }
 
-        if(this._uidentifier_ == oldChild)
-        {
+        if (this._uidentifier_ == oldChild) {
             setUidentifier((TUidentifier) newChild);
             return;
         }
 
-        if(this._lBrc_ == oldChild)
-        {
+        if (this._lBrc_ == oldChild) {
             setLBrc((TLBrc) newChild);
             return;
         }
 
-        if(this._enumValuesList_ == oldChild)
-        {
+        if (this._enumValuesList_ == oldChild) {
             setEnumValuesList((PEnumValuesList) newChild);
             return;
         }
 
-        if(this._rBrc_ == oldChild)
-        {
+        if (this._rBrc_ == oldChild) {
             setRBrc((TRBrc) newChild);
             return;
         }

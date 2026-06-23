@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADotPath extends PPath
-{
+public final class ADotPath extends PPath {
     private TDot _dot_;
 
-    public ADotPath()
-    {
+    public ADotPath() {
         // Constructor
     }
 
     public ADotPath(
-        @SuppressWarnings("hiding") TDot _dot_)
-    {
+            @SuppressWarnings("hiding") TDot _dot_) {
         // Constructor
         setDot(_dot_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADotPath(
-            cloneNode(this._dot_));
+                cloneNode(this._dot_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADotPath(this);
     }
 
-    public TDot getDot()
-    {
+    public TDot getDot() {
         return this._dot_;
     }
 
-    public void setDot(TDot node)
-    {
-        if(this._dot_ != null)
-        {
+    public void setDot(TDot node) {
+        if (this._dot_ != null) {
             this._dot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ADotPath extends PPath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._dot_);
+                + toString(this._dot_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._dot_ == child)
-        {
+        if (this._dot_ == child) {
             this._dot_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ADotPath extends PPath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._dot_ == oldChild)
-        {
+        if (this._dot_ == oldChild) {
             setDot((TDot) newChild);
             return;
         }

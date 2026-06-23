@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
-{
+public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs {
     private PAnnotationKeyValuePairs _annotationKeyValuePairs_;
     private TComma _comma_;
     private PAnnotationKeyValuePair _annotationKeyValuePair_;
 
-    public AManyAnnotationKeyValuePairs()
-    {
+    public AManyAnnotationKeyValuePairs() {
         // Constructor
     }
 
     public AManyAnnotationKeyValuePairs(
-        @SuppressWarnings("hiding") PAnnotationKeyValuePairs _annotationKeyValuePairs_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") PAnnotationKeyValuePair _annotationKeyValuePair_)
-    {
+            @SuppressWarnings("hiding") PAnnotationKeyValuePairs _annotationKeyValuePairs_,
+            @SuppressWarnings("hiding") TComma _comma_,
+            @SuppressWarnings("hiding") PAnnotationKeyValuePair _annotationKeyValuePair_) {
         // Constructor
         setAnnotationKeyValuePairs(_annotationKeyValuePairs_);
 
@@ -31,36 +28,29 @@ public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AManyAnnotationKeyValuePairs(
-            cloneNode(this._annotationKeyValuePairs_),
-            cloneNode(this._comma_),
-            cloneNode(this._annotationKeyValuePair_));
+                cloneNode(this._annotationKeyValuePairs_),
+                cloneNode(this._comma_),
+                cloneNode(this._annotationKeyValuePair_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAManyAnnotationKeyValuePairs(this);
     }
 
-    public PAnnotationKeyValuePairs getAnnotationKeyValuePairs()
-    {
+    public PAnnotationKeyValuePairs getAnnotationKeyValuePairs() {
         return this._annotationKeyValuePairs_;
     }
 
-    public void setAnnotationKeyValuePairs(PAnnotationKeyValuePairs node)
-    {
-        if(this._annotationKeyValuePairs_ != null)
-        {
+    public void setAnnotationKeyValuePairs(PAnnotationKeyValuePairs node) {
+        if (this._annotationKeyValuePairs_ != null) {
             this._annotationKeyValuePairs_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
         this._annotationKeyValuePairs_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
         this._comma_ = node;
     }
 
-    public PAnnotationKeyValuePair getAnnotationKeyValuePair()
-    {
+    public PAnnotationKeyValuePair getAnnotationKeyValuePair() {
         return this._annotationKeyValuePair_;
     }
 
-    public void setAnnotationKeyValuePair(PAnnotationKeyValuePair node)
-    {
-        if(this._annotationKeyValuePair_ != null)
-        {
+    public void setAnnotationKeyValuePair(PAnnotationKeyValuePair node) {
+        if (this._annotationKeyValuePair_ != null) {
             this._annotationKeyValuePair_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotationKeyValuePairs_)
-            + toString(this._comma_)
-            + toString(this._annotationKeyValuePair_);
+                + toString(this._annotationKeyValuePairs_)
+                + toString(this._comma_)
+                + toString(this._annotationKeyValuePair_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotationKeyValuePairs_ == child)
-        {
+        if (this._annotationKeyValuePairs_ == child) {
             this._annotationKeyValuePairs_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
 
-        if(this._annotationKeyValuePair_ == child)
-        {
+        if (this._annotationKeyValuePair_ == child) {
             this._annotationKeyValuePair_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AManyAnnotationKeyValuePairs extends PAnnotationKeyValuePairs
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._annotationKeyValuePairs_ == oldChild)
-        {
+        if (this._annotationKeyValuePairs_ == oldChild) {
             setAnnotationKeyValuePairs((PAnnotationKeyValuePairs) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }
 
-        if(this._annotationKeyValuePair_ == oldChild)
-        {
+        if (this._annotationKeyValuePair_ == oldChild) {
             setAnnotationKeyValuePair((PAnnotationKeyValuePair) newChild);
             return;
         }

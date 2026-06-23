@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TPercentAssign extends Token
-{
-    public TPercentAssign()
-    {
+public final class TPercentAssign extends Token {
+    public TPercentAssign() {
         super.setText("%=");
     }
 
-    public TPercentAssign(int line, int pos)
-    {
+    public TPercentAssign(int line, int pos) {
         super.setText("%=");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TPercentAssign(getLine(), getPos());
+    public Object clone() {
+        return new TPercentAssign(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTPercentAssign(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TPercentAssign text.");
     }
 }

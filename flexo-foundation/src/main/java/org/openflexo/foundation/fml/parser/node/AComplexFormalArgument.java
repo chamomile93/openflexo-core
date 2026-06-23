@@ -5,24 +5,21 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AComplexFormalArgument extends PFormalArgument
-{
+public final class AComplexFormalArgument extends PFormalArgument {
     private TKwRequired _kwRequired_;
     private PReferenceType _referenceType_;
     private TLidentifier _argName_;
     private PDefaultArgumentValue _defaultArgumentValue_;
 
-    public AComplexFormalArgument()
-    {
+    public AComplexFormalArgument() {
         // Constructor
     }
 
     public AComplexFormalArgument(
-        @SuppressWarnings("hiding") TKwRequired _kwRequired_,
-        @SuppressWarnings("hiding") PReferenceType _referenceType_,
-        @SuppressWarnings("hiding") TLidentifier _argName_,
-        @SuppressWarnings("hiding") PDefaultArgumentValue _defaultArgumentValue_)
-    {
+            @SuppressWarnings("hiding") TKwRequired _kwRequired_,
+            @SuppressWarnings("hiding") PReferenceType _referenceType_,
+            @SuppressWarnings("hiding") TLidentifier _argName_,
+            @SuppressWarnings("hiding") PDefaultArgumentValue _defaultArgumentValue_) {
         // Constructor
         setKwRequired(_kwRequired_);
 
@@ -35,37 +32,30 @@ public final class AComplexFormalArgument extends PFormalArgument
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AComplexFormalArgument(
-            cloneNode(this._kwRequired_),
-            cloneNode(this._referenceType_),
-            cloneNode(this._argName_),
-            cloneNode(this._defaultArgumentValue_));
+                cloneNode(this._kwRequired_),
+                cloneNode(this._referenceType_),
+                cloneNode(this._argName_),
+                cloneNode(this._defaultArgumentValue_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAComplexFormalArgument(this);
     }
 
-    public TKwRequired getKwRequired()
-    {
+    public TKwRequired getKwRequired() {
         return this._kwRequired_;
     }
 
-    public void setKwRequired(TKwRequired node)
-    {
-        if(this._kwRequired_ != null)
-        {
+    public void setKwRequired(TKwRequired node) {
+        if (this._kwRequired_ != null) {
             this._kwRequired_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -75,22 +65,17 @@ public final class AComplexFormalArgument extends PFormalArgument
         this._kwRequired_ = node;
     }
 
-    public PReferenceType getReferenceType()
-    {
+    public PReferenceType getReferenceType() {
         return this._referenceType_;
     }
 
-    public void setReferenceType(PReferenceType node)
-    {
-        if(this._referenceType_ != null)
-        {
+    public void setReferenceType(PReferenceType node) {
+        if (this._referenceType_ != null) {
             this._referenceType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -100,22 +85,17 @@ public final class AComplexFormalArgument extends PFormalArgument
         this._referenceType_ = node;
     }
 
-    public TLidentifier getArgName()
-    {
+    public TLidentifier getArgName() {
         return this._argName_;
     }
 
-    public void setArgName(TLidentifier node)
-    {
-        if(this._argName_ != null)
-        {
+    public void setArgName(TLidentifier node) {
+        if (this._argName_ != null) {
             this._argName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -125,22 +105,17 @@ public final class AComplexFormalArgument extends PFormalArgument
         this._argName_ = node;
     }
 
-    public PDefaultArgumentValue getDefaultArgumentValue()
-    {
+    public PDefaultArgumentValue getDefaultArgumentValue() {
         return this._defaultArgumentValue_;
     }
 
-    public void setDefaultArgumentValue(PDefaultArgumentValue node)
-    {
-        if(this._defaultArgumentValue_ != null)
-        {
+    public void setDefaultArgumentValue(PDefaultArgumentValue node) {
+        if (this._defaultArgumentValue_ != null) {
             this._defaultArgumentValue_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -151,39 +126,33 @@ public final class AComplexFormalArgument extends PFormalArgument
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwRequired_)
-            + toString(this._referenceType_)
-            + toString(this._argName_)
-            + toString(this._defaultArgumentValue_);
+                + toString(this._kwRequired_)
+                + toString(this._referenceType_)
+                + toString(this._argName_)
+                + toString(this._defaultArgumentValue_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwRequired_ == child)
-        {
+        if (this._kwRequired_ == child) {
             this._kwRequired_ = null;
             return;
         }
 
-        if(this._referenceType_ == child)
-        {
+        if (this._referenceType_ == child) {
             this._referenceType_ = null;
             return;
         }
 
-        if(this._argName_ == child)
-        {
+        if (this._argName_ == child) {
             this._argName_ = null;
             return;
         }
 
-        if(this._defaultArgumentValue_ == child)
-        {
+        if (this._defaultArgumentValue_ == child) {
             this._defaultArgumentValue_ = null;
             return;
         }
@@ -192,29 +161,24 @@ public final class AComplexFormalArgument extends PFormalArgument
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwRequired_ == oldChild)
-        {
+        if (this._kwRequired_ == oldChild) {
             setKwRequired((TKwRequired) newChild);
             return;
         }
 
-        if(this._referenceType_ == oldChild)
-        {
+        if (this._referenceType_ == oldChild) {
             setReferenceType((PReferenceType) newChild);
             return;
         }
 
-        if(this._argName_ == oldChild)
-        {
+        if (this._argName_ == oldChild) {
             setArgName((TLidentifier) newChild);
             return;
         }
 
-        if(this._defaultArgumentValue_ == oldChild)
-        {
+        if (this._defaultArgumentValue_ == oldChild) {
             setDefaultArgumentValue((PDefaultArgumentValue) newChild);
             return;
         }

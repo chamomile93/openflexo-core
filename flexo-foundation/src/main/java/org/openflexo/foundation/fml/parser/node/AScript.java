@@ -2,61 +2,51 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AScript extends PScript
-{
+public final class AScript extends PScript {
     private final LinkedList<PCommandInScript> _commands_ = new LinkedList<PCommandInScript>();
 
-    public AScript()
-    {
+    public AScript() {
         // Constructor
     }
 
     public AScript(
-        @SuppressWarnings("hiding") List<?> _commands_)
-    {
+            @SuppressWarnings("hiding") List<?> _commands_) {
         // Constructor
         setCommands(_commands_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AScript(
-            cloneList(this._commands_));
+                cloneList(this._commands_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAScript(this);
     }
 
-    public LinkedList<PCommandInScript> getCommands()
-    {
+    public LinkedList<PCommandInScript> getCommands() {
         return this._commands_;
     }
 
-    public void setCommands(List<?> list)
-    {
-        for(PCommandInScript e : this._commands_)
-        {
+    public void setCommands(List<?> list) {
+        for (PCommandInScript e : this._commands_) {
             e.parent(null);
         }
         this._commands_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PCommandInScript e = (PCommandInScript) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -66,18 +56,15 @@ public final class AScript extends PScript
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._commands_);
+                + toString(this._commands_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._commands_.remove(child))
-        {
+        if (this._commands_.remove(child)) {
             return;
         }
 
@@ -85,15 +72,11 @@ public final class AScript extends PScript
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PCommandInScript> i = this._commands_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PCommandInScript> i = this._commands_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PCommandInScript) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);

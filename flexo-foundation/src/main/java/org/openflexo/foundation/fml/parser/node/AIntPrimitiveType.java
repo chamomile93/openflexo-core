@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AIntPrimitiveType extends PPrimitiveType
-{
+public final class AIntPrimitiveType extends PPrimitiveType {
     private TTyInt _tyInt_;
 
-    public AIntPrimitiveType()
-    {
+    public AIntPrimitiveType() {
         // Constructor
     }
 
     public AIntPrimitiveType(
-        @SuppressWarnings("hiding") TTyInt _tyInt_)
-    {
+            @SuppressWarnings("hiding") TTyInt _tyInt_) {
         // Constructor
         setTyInt(_tyInt_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AIntPrimitiveType(
-            cloneNode(this._tyInt_));
+                cloneNode(this._tyInt_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAIntPrimitiveType(this);
     }
 
-    public TTyInt getTyInt()
-    {
+    public TTyInt getTyInt() {
         return this._tyInt_;
     }
 
-    public void setTyInt(TTyInt node)
-    {
-        if(this._tyInt_ != null)
-        {
+    public void setTyInt(TTyInt node) {
+        if (this._tyInt_ != null) {
             this._tyInt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AIntPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._tyInt_);
+                + toString(this._tyInt_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._tyInt_ == child)
-        {
+        if (this._tyInt_ == child) {
             this._tyInt_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AIntPrimitiveType extends PPrimitiveType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._tyInt_ == oldChild)
-        {
+        if (this._tyInt_ == oldChild) {
             setTyInt((TTyInt) newChild);
             return;
         }

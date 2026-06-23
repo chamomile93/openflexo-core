@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AIdentifierPrimary extends PPrimary
-{
+public final class AIdentifierPrimary extends PPrimary {
     private PCompositeIdent _compositeIdent_;
 
-    public AIdentifierPrimary()
-    {
+    public AIdentifierPrimary() {
         // Constructor
     }
 
     public AIdentifierPrimary(
-        @SuppressWarnings("hiding") PCompositeIdent _compositeIdent_)
-    {
+            @SuppressWarnings("hiding") PCompositeIdent _compositeIdent_) {
         // Constructor
         setCompositeIdent(_compositeIdent_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AIdentifierPrimary(
-            cloneNode(this._compositeIdent_));
+                cloneNode(this._compositeIdent_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAIdentifierPrimary(this);
     }
 
-    public PCompositeIdent getCompositeIdent()
-    {
+    public PCompositeIdent getCompositeIdent() {
         return this._compositeIdent_;
     }
 
-    public void setCompositeIdent(PCompositeIdent node)
-    {
-        if(this._compositeIdent_ != null)
-        {
+    public void setCompositeIdent(PCompositeIdent node) {
+        if (this._compositeIdent_ != null) {
             this._compositeIdent_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AIdentifierPrimary extends PPrimary
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._compositeIdent_);
+                + toString(this._compositeIdent_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._compositeIdent_ == child)
-        {
+        if (this._compositeIdent_ == child) {
             this._compositeIdent_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AIdentifierPrimary extends PPrimary
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._compositeIdent_ == oldChild)
-        {
+        if (this._compositeIdent_ == oldChild) {
             setCompositeIdent((PCompositeIdent) newChild);
             return;
         }

@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AComplexType extends PType
-{
+public final class AComplexType extends PType {
     private PReferenceType _referenceType_;
     private PAtVersion _atVersion_;
 
-    public AComplexType()
-    {
+    public AComplexType() {
         // Constructor
     }
 
     public AComplexType(
-        @SuppressWarnings("hiding") PReferenceType _referenceType_,
-        @SuppressWarnings("hiding") PAtVersion _atVersion_)
-    {
+            @SuppressWarnings("hiding") PReferenceType _referenceType_,
+            @SuppressWarnings("hiding") PAtVersion _atVersion_) {
         // Constructor
         setReferenceType(_referenceType_);
 
@@ -27,35 +24,28 @@ public final class AComplexType extends PType
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AComplexType(
-            cloneNode(this._referenceType_),
-            cloneNode(this._atVersion_));
+                cloneNode(this._referenceType_),
+                cloneNode(this._atVersion_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAComplexType(this);
     }
 
-    public PReferenceType getReferenceType()
-    {
+    public PReferenceType getReferenceType() {
         return this._referenceType_;
     }
 
-    public void setReferenceType(PReferenceType node)
-    {
-        if(this._referenceType_ != null)
-        {
+    public void setReferenceType(PReferenceType node) {
+        if (this._referenceType_ != null) {
             this._referenceType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AComplexType extends PType
         this._referenceType_ = node;
     }
 
-    public PAtVersion getAtVersion()
-    {
+    public PAtVersion getAtVersion() {
         return this._atVersion_;
     }
 
-    public void setAtVersion(PAtVersion node)
-    {
-        if(this._atVersion_ != null)
-        {
+    public void setAtVersion(PAtVersion node) {
+        if (this._atVersion_ != null) {
             this._atVersion_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AComplexType extends PType
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._referenceType_)
-            + toString(this._atVersion_);
+                + toString(this._referenceType_)
+                + toString(this._atVersion_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._referenceType_ == child)
-        {
+        if (this._referenceType_ == child) {
             this._referenceType_ = null;
             return;
         }
 
-        if(this._atVersion_ == child)
-        {
+        if (this._atVersion_ == child) {
             this._atVersion_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AComplexType extends PType
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._referenceType_ == oldChild)
-        {
+        if (this._referenceType_ == oldChild) {
             setReferenceType((PReferenceType) newChild);
             return;
         }
 
-        if(this._atVersion_ == oldChild)
-        {
+        if (this._atVersion_ == oldChild) {
             setAtVersion((PAtVersion) newChild);
             return;
         }

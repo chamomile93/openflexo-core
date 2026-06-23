@@ -20,25 +20,22 @@
 
 package org.openflexo.foundation.doc;
 
-import java.awt.Image;
-
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ModelEntity;
 
+import java.awt.*;
+
 /**
  * Represent a run with a drawing in a paragraph of a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoDrawingRun<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocRun<D, TA> {
 
-	public String getImageName();
+    public String getImageName();
 
-	public Image getImage();
+    public Image getImage();
 }

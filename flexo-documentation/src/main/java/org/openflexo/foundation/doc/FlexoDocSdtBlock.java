@@ -25,24 +25,21 @@ import org.openflexo.pamela.annotations.ModelEntity;
 
 /**
  * Generic abstract concept representing a block-level structured document content in a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoDocSdtBlock<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocElement<D, TA> {
 
-	public static abstract class FlexoDocSdtBlockImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocumentElementImpl<D, TA> implements FlexoDocSdtBlock<D, TA> {
+    public static abstract class FlexoDocSdtBlockImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocumentElementImpl<D, TA> implements FlexoDocSdtBlock<D, TA> {
 
-		@Override
-		public String toString() {
-			return "SdtBlock(" + getIdentifier() + ")";
-		}
-	}
+        @Override
+        public String toString() {
+            return "SdtBlock(" + getIdentifier() + ")";
+        }
+    }
 
 }

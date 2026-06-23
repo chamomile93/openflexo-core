@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFailureClause extends PFailureClause
-{
+public final class AFailureClause extends PFailureClause {
     private TKwOnfailure _kwOnfailure_;
     private TColon _colon_;
     private PStatement _statement_;
 
-    public AFailureClause()
-    {
+    public AFailureClause() {
         // Constructor
     }
 
     public AFailureClause(
-        @SuppressWarnings("hiding") TKwOnfailure _kwOnfailure_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") PStatement _statement_)
-    {
+            @SuppressWarnings("hiding") TKwOnfailure _kwOnfailure_,
+            @SuppressWarnings("hiding") TColon _colon_,
+            @SuppressWarnings("hiding") PStatement _statement_) {
         // Constructor
         setKwOnfailure(_kwOnfailure_);
 
@@ -31,36 +28,29 @@ public final class AFailureClause extends PFailureClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFailureClause(
-            cloneNode(this._kwOnfailure_),
-            cloneNode(this._colon_),
-            cloneNode(this._statement_));
+                cloneNode(this._kwOnfailure_),
+                cloneNode(this._colon_),
+                cloneNode(this._statement_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFailureClause(this);
     }
 
-    public TKwOnfailure getKwOnfailure()
-    {
+    public TKwOnfailure getKwOnfailure() {
         return this._kwOnfailure_;
     }
 
-    public void setKwOnfailure(TKwOnfailure node)
-    {
-        if(this._kwOnfailure_ != null)
-        {
+    public void setKwOnfailure(TKwOnfailure node) {
+        if (this._kwOnfailure_ != null) {
             this._kwOnfailure_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AFailureClause extends PFailureClause
         this._kwOnfailure_ = node;
     }
 
-    public TColon getColon()
-    {
+    public TColon getColon() {
         return this._colon_;
     }
 
-    public void setColon(TColon node)
-    {
-        if(this._colon_ != null)
-        {
+    public void setColon(TColon node) {
+        if (this._colon_ != null) {
             this._colon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AFailureClause extends PFailureClause
         this._colon_ = node;
     }
 
-    public PStatement getStatement()
-    {
+    public PStatement getStatement() {
         return this._statement_;
     }
 
-    public void setStatement(PStatement node)
-    {
-        if(this._statement_ != null)
-        {
+    public void setStatement(PStatement node) {
+        if (this._statement_ != null) {
             this._statement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AFailureClause extends PFailureClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwOnfailure_)
-            + toString(this._colon_)
-            + toString(this._statement_);
+                + toString(this._kwOnfailure_)
+                + toString(this._colon_)
+                + toString(this._statement_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwOnfailure_ == child)
-        {
+        if (this._kwOnfailure_ == child) {
             this._kwOnfailure_ = null;
             return;
         }
 
-        if(this._colon_ == child)
-        {
+        if (this._colon_ == child) {
             this._colon_ = null;
             return;
         }
 
-        if(this._statement_ == child)
-        {
+        if (this._statement_ == child) {
             this._statement_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AFailureClause extends PFailureClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwOnfailure_ == oldChild)
-        {
+        if (this._kwOnfailure_ == oldChild) {
             setKwOnfailure((TKwOnfailure) newChild);
             return;
         }
 
-        if(this._colon_ == oldChild)
-        {
+        if (this._colon_ == oldChild) {
             setColon((TColon) newChild);
             return;
         }
 
-        if(this._statement_ == oldChild)
-        {
+        if (this._statement_ == oldChild) {
             setStatement((PStatement) newChild);
             return;
         }

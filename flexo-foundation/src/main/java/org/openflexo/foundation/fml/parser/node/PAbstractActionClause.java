@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PAbstractActionClause extends Node
-{
+public abstract class PAbstractActionClause extends Node {
     // Empty body
 }

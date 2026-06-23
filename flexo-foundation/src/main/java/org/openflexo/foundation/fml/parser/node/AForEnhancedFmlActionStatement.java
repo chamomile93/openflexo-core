@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AForEnhancedFmlActionStatement extends PStatement
-{
+public final class AForEnhancedFmlActionStatement extends PStatement {
     private TKwFor _kwFor_;
     private TLPar _lPar_;
     private PType _type_;
@@ -16,21 +15,19 @@ public final class AForEnhancedFmlActionStatement extends PStatement
     private TRPar _rPar_;
     private PStatement _statement_;
 
-    public AForEnhancedFmlActionStatement()
-    {
+    public AForEnhancedFmlActionStatement() {
         // Constructor
     }
 
     public AForEnhancedFmlActionStatement(
-        @SuppressWarnings("hiding") TKwFor _kwFor_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PStatement _statement_)
-    {
+            @SuppressWarnings("hiding") TKwFor _kwFor_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_,
+            @SuppressWarnings("hiding") TColon _colon_,
+            @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PStatement _statement_) {
         // Constructor
         setKwFor(_kwFor_);
 
@@ -51,41 +48,34 @@ public final class AForEnhancedFmlActionStatement extends PStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AForEnhancedFmlActionStatement(
-            cloneNode(this._kwFor_),
-            cloneNode(this._lPar_),
-            cloneNode(this._type_),
-            cloneNode(this._lidentifier_),
-            cloneNode(this._colon_),
-            cloneNode(this._fmlActionExp_),
-            cloneNode(this._rPar_),
-            cloneNode(this._statement_));
+                cloneNode(this._kwFor_),
+                cloneNode(this._lPar_),
+                cloneNode(this._type_),
+                cloneNode(this._lidentifier_),
+                cloneNode(this._colon_),
+                cloneNode(this._fmlActionExp_),
+                cloneNode(this._rPar_),
+                cloneNode(this._statement_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAForEnhancedFmlActionStatement(this);
     }
 
-    public TKwFor getKwFor()
-    {
+    public TKwFor getKwFor() {
         return this._kwFor_;
     }
 
-    public void setKwFor(TKwFor node)
-    {
-        if(this._kwFor_ != null)
-        {
+    public void setKwFor(TKwFor node) {
+        if (this._kwFor_ != null) {
             this._kwFor_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +85,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._kwFor_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -120,22 +105,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._lPar_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -145,22 +125,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._type_ = node;
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -170,22 +145,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._lidentifier_ = node;
     }
 
-    public TColon getColon()
-    {
+    public TColon getColon() {
         return this._colon_;
     }
 
-    public void setColon(TColon node)
-    {
-        if(this._colon_ != null)
-        {
+    public void setColon(TColon node) {
+        if (this._colon_ != null) {
             this._colon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -195,22 +165,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._colon_ = node;
     }
 
-    public PFmlActionExp getFmlActionExp()
-    {
+    public PFmlActionExp getFmlActionExp() {
         return this._fmlActionExp_;
     }
 
-    public void setFmlActionExp(PFmlActionExp node)
-    {
-        if(this._fmlActionExp_ != null)
-        {
+    public void setFmlActionExp(PFmlActionExp node) {
+        if (this._fmlActionExp_ != null) {
             this._fmlActionExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -220,22 +185,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._fmlActionExp_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -245,22 +205,17 @@ public final class AForEnhancedFmlActionStatement extends PStatement
         this._rPar_ = node;
     }
 
-    public PStatement getStatement()
-    {
+    public PStatement getStatement() {
         return this._statement_;
     }
 
-    public void setStatement(PStatement node)
-    {
-        if(this._statement_ != null)
-        {
+    public void setStatement(PStatement node) {
+        if (this._statement_ != null) {
             this._statement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -271,67 +226,57 @@ public final class AForEnhancedFmlActionStatement extends PStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwFor_)
-            + toString(this._lPar_)
-            + toString(this._type_)
-            + toString(this._lidentifier_)
-            + toString(this._colon_)
-            + toString(this._fmlActionExp_)
-            + toString(this._rPar_)
-            + toString(this._statement_);
+                + toString(this._kwFor_)
+                + toString(this._lPar_)
+                + toString(this._type_)
+                + toString(this._lidentifier_)
+                + toString(this._colon_)
+                + toString(this._fmlActionExp_)
+                + toString(this._rPar_)
+                + toString(this._statement_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwFor_ == child)
-        {
+        if (this._kwFor_ == child) {
             this._kwFor_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
 
-        if(this._colon_ == child)
-        {
+        if (this._colon_ == child) {
             this._colon_ = null;
             return;
         }
 
-        if(this._fmlActionExp_ == child)
-        {
+        if (this._fmlActionExp_ == child) {
             this._fmlActionExp_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._statement_ == child)
-        {
+        if (this._statement_ == child) {
             this._statement_ = null;
             return;
         }
@@ -340,53 +285,44 @@ public final class AForEnhancedFmlActionStatement extends PStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwFor_ == oldChild)
-        {
+        if (this._kwFor_ == oldChild) {
             setKwFor((TKwFor) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._colon_ == oldChild)
-        {
+        if (this._colon_ == oldChild) {
             setColon((TColon) newChild);
             return;
         }
 
-        if(this._fmlActionExp_ == oldChild)
-        {
+        if (this._fmlActionExp_ == oldChild) {
             setFmlActionExp((PFmlActionExp) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._statement_ == oldChild)
-        {
+        if (this._statement_ == oldChild) {
             setStatement((PStatement) newChild);
             return;
         }

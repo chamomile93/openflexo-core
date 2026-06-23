@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclaration
-{
+public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclaration {
     private TKwAssert _kwAssert_;
     private PExpression _expression_;
     private PFailureClause _failureClause_;
 
-    public AProtectedSimpleAssertDeclaration()
-    {
+    public AProtectedSimpleAssertDeclaration() {
         // Constructor
     }
 
     public AProtectedSimpleAssertDeclaration(
-        @SuppressWarnings("hiding") TKwAssert _kwAssert_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") PFailureClause _failureClause_)
-    {
+            @SuppressWarnings("hiding") TKwAssert _kwAssert_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") PFailureClause _failureClause_) {
         // Constructor
         setKwAssert(_kwAssert_);
 
@@ -31,36 +28,29 @@ public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclar
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AProtectedSimpleAssertDeclaration(
-            cloneNode(this._kwAssert_),
-            cloneNode(this._expression_),
-            cloneNode(this._failureClause_));
+                cloneNode(this._kwAssert_),
+                cloneNode(this._expression_),
+                cloneNode(this._failureClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAProtectedSimpleAssertDeclaration(this);
     }
 
-    public TKwAssert getKwAssert()
-    {
+    public TKwAssert getKwAssert() {
         return this._kwAssert_;
     }
 
-    public void setKwAssert(TKwAssert node)
-    {
-        if(this._kwAssert_ != null)
-        {
+    public void setKwAssert(TKwAssert node) {
+        if (this._kwAssert_ != null) {
             this._kwAssert_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclar
         this._kwAssert_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclar
         this._expression_ = node;
     }
 
-    public PFailureClause getFailureClause()
-    {
+    public PFailureClause getFailureClause() {
         return this._failureClause_;
     }
 
-    public void setFailureClause(PFailureClause node)
-    {
-        if(this._failureClause_ != null)
-        {
+    public void setFailureClause(PFailureClause node) {
+        if (this._failureClause_ != null) {
             this._failureClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclar
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwAssert_)
-            + toString(this._expression_)
-            + toString(this._failureClause_);
+                + toString(this._kwAssert_)
+                + toString(this._expression_)
+                + toString(this._failureClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwAssert_ == child)
-        {
+        if (this._kwAssert_ == child) {
             this._kwAssert_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._failureClause_ == child)
-        {
+        if (this._failureClause_ == child) {
             this._failureClause_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AProtectedSimpleAssertDeclaration extends PSimpleAssertDeclar
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwAssert_ == oldChild)
-        {
+        if (this._kwAssert_ == oldChild) {
             setKwAssert((TKwAssert) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._failureClause_ == oldChild)
-        {
+        if (this._failureClause_ == oldChild) {
             setFailureClause((PFailureClause) newChild);
             return;
         }

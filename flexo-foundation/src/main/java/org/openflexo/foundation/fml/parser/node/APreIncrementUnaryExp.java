@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APreIncrementUnaryExp extends PUnaryExp
-{
+public final class APreIncrementUnaryExp extends PUnaryExp {
     private PPreIncrExp _preIncrExp_;
 
-    public APreIncrementUnaryExp()
-    {
+    public APreIncrementUnaryExp() {
         // Constructor
     }
 
     public APreIncrementUnaryExp(
-        @SuppressWarnings("hiding") PPreIncrExp _preIncrExp_)
-    {
+            @SuppressWarnings("hiding") PPreIncrExp _preIncrExp_) {
         // Constructor
         setPreIncrExp(_preIncrExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APreIncrementUnaryExp(
-            cloneNode(this._preIncrExp_));
+                cloneNode(this._preIncrExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPreIncrementUnaryExp(this);
     }
 
-    public PPreIncrExp getPreIncrExp()
-    {
+    public PPreIncrExp getPreIncrExp() {
         return this._preIncrExp_;
     }
 
-    public void setPreIncrExp(PPreIncrExp node)
-    {
-        if(this._preIncrExp_ != null)
-        {
+    public void setPreIncrExp(PPreIncrExp node) {
+        if (this._preIncrExp_ != null) {
             this._preIncrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APreIncrementUnaryExp extends PUnaryExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._preIncrExp_);
+                + toString(this._preIncrExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._preIncrExp_ == child)
-        {
+        if (this._preIncrExp_ == child) {
             this._preIncrExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APreIncrementUnaryExp extends PUnaryExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._preIncrExp_ == oldChild)
-        {
+        if (this._preIncrExp_ == oldChild) {
             setPreIncrExp((PPreIncrExp) newChild);
             return;
         }

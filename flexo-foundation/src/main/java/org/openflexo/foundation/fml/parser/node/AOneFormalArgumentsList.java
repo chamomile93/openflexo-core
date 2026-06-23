@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOneFormalArgumentsList extends PFormalArgumentsList
-{
+public final class AOneFormalArgumentsList extends PFormalArgumentsList {
     private PFormalArgument _formalArgument_;
 
-    public AOneFormalArgumentsList()
-    {
+    public AOneFormalArgumentsList() {
         // Constructor
     }
 
     public AOneFormalArgumentsList(
-        @SuppressWarnings("hiding") PFormalArgument _formalArgument_)
-    {
+            @SuppressWarnings("hiding") PFormalArgument _formalArgument_) {
         // Constructor
         setFormalArgument(_formalArgument_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOneFormalArgumentsList(
-            cloneNode(this._formalArgument_));
+                cloneNode(this._formalArgument_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOneFormalArgumentsList(this);
     }
 
-    public PFormalArgument getFormalArgument()
-    {
+    public PFormalArgument getFormalArgument() {
         return this._formalArgument_;
     }
 
-    public void setFormalArgument(PFormalArgument node)
-    {
-        if(this._formalArgument_ != null)
-        {
+    public void setFormalArgument(PFormalArgument node) {
+        if (this._formalArgument_ != null) {
             this._formalArgument_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AOneFormalArgumentsList extends PFormalArgumentsList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._formalArgument_);
+                + toString(this._formalArgument_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._formalArgument_ == child)
-        {
+        if (this._formalArgument_ == child) {
             this._formalArgument_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AOneFormalArgumentsList extends PFormalArgumentsList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._formalArgument_ == oldChild)
-        {
+        if (this._formalArgument_ == oldChild) {
             setFormalArgument((PFormalArgument) newChild);
             return;
         }

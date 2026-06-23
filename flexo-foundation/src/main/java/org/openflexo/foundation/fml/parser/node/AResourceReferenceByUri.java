@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AResourceReferenceByUri extends PReferenceByUri
-{
+public final class AResourceReferenceByUri extends PReferenceByUri {
     private TLBkt _lBkt_;
     private PUriExpression _resource_;
     private TRBkt _rBkt_;
 
-    public AResourceReferenceByUri()
-    {
+    public AResourceReferenceByUri() {
         // Constructor
     }
 
     public AResourceReferenceByUri(
-        @SuppressWarnings("hiding") TLBkt _lBkt_,
-        @SuppressWarnings("hiding") PUriExpression _resource_,
-        @SuppressWarnings("hiding") TRBkt _rBkt_)
-    {
+            @SuppressWarnings("hiding") TLBkt _lBkt_,
+            @SuppressWarnings("hiding") PUriExpression _resource_,
+            @SuppressWarnings("hiding") TRBkt _rBkt_) {
         // Constructor
         setLBkt(_lBkt_);
 
@@ -31,36 +28,29 @@ public final class AResourceReferenceByUri extends PReferenceByUri
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AResourceReferenceByUri(
-            cloneNode(this._lBkt_),
-            cloneNode(this._resource_),
-            cloneNode(this._rBkt_));
+                cloneNode(this._lBkt_),
+                cloneNode(this._resource_),
+                cloneNode(this._rBkt_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAResourceReferenceByUri(this);
     }
 
-    public TLBkt getLBkt()
-    {
+    public TLBkt getLBkt() {
         return this._lBkt_;
     }
 
-    public void setLBkt(TLBkt node)
-    {
-        if(this._lBkt_ != null)
-        {
+    public void setLBkt(TLBkt node) {
+        if (this._lBkt_ != null) {
             this._lBkt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AResourceReferenceByUri extends PReferenceByUri
         this._lBkt_ = node;
     }
 
-    public PUriExpression getResource()
-    {
+    public PUriExpression getResource() {
         return this._resource_;
     }
 
-    public void setResource(PUriExpression node)
-    {
-        if(this._resource_ != null)
-        {
+    public void setResource(PUriExpression node) {
+        if (this._resource_ != null) {
             this._resource_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AResourceReferenceByUri extends PReferenceByUri
         this._resource_ = node;
     }
 
-    public TRBkt getRBkt()
-    {
+    public TRBkt getRBkt() {
         return this._rBkt_;
     }
 
-    public void setRBkt(TRBkt node)
-    {
-        if(this._rBkt_ != null)
-        {
+    public void setRBkt(TRBkt node) {
+        if (this._rBkt_ != null) {
             this._rBkt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AResourceReferenceByUri extends PReferenceByUri
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lBkt_)
-            + toString(this._resource_)
-            + toString(this._rBkt_);
+                + toString(this._lBkt_)
+                + toString(this._resource_)
+                + toString(this._rBkt_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lBkt_ == child)
-        {
+        if (this._lBkt_ == child) {
             this._lBkt_ = null;
             return;
         }
 
-        if(this._resource_ == child)
-        {
+        if (this._resource_ == child) {
             this._resource_ = null;
             return;
         }
 
-        if(this._rBkt_ == child)
-        {
+        if (this._rBkt_ == child) {
             this._rBkt_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AResourceReferenceByUri extends PReferenceByUri
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lBkt_ == oldChild)
-        {
+        if (this._lBkt_ == oldChild) {
             setLBkt((TLBkt) newChild);
             return;
         }
 
-        if(this._resource_ == oldChild)
-        {
+        if (this._resource_ == oldChild) {
             setResource((PUriExpression) newChild);
             return;
         }
 
-        if(this._rBkt_ == oldChild)
-        {
+        if (this._rBkt_ == oldChild) {
             setRBkt((TRBkt) newChild);
             return;
         }

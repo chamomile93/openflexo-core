@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AUshrShiftExp extends PShiftExp
-{
+public final class AUshrShiftExp extends PShiftExp {
     private PShiftExp _shiftExp_;
     private TUshr _ushr_;
     private PAddExp _addExp_;
 
-    public AUshrShiftExp()
-    {
+    public AUshrShiftExp() {
         // Constructor
     }
 
     public AUshrShiftExp(
-        @SuppressWarnings("hiding") PShiftExp _shiftExp_,
-        @SuppressWarnings("hiding") TUshr _ushr_,
-        @SuppressWarnings("hiding") PAddExp _addExp_)
-    {
+            @SuppressWarnings("hiding") PShiftExp _shiftExp_,
+            @SuppressWarnings("hiding") TUshr _ushr_,
+            @SuppressWarnings("hiding") PAddExp _addExp_) {
         // Constructor
         setShiftExp(_shiftExp_);
 
@@ -31,36 +28,29 @@ public final class AUshrShiftExp extends PShiftExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AUshrShiftExp(
-            cloneNode(this._shiftExp_),
-            cloneNode(this._ushr_),
-            cloneNode(this._addExp_));
+                cloneNode(this._shiftExp_),
+                cloneNode(this._ushr_),
+                cloneNode(this._addExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAUshrShiftExp(this);
     }
 
-    public PShiftExp getShiftExp()
-    {
+    public PShiftExp getShiftExp() {
         return this._shiftExp_;
     }
 
-    public void setShiftExp(PShiftExp node)
-    {
-        if(this._shiftExp_ != null)
-        {
+    public void setShiftExp(PShiftExp node) {
+        if (this._shiftExp_ != null) {
             this._shiftExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AUshrShiftExp extends PShiftExp
         this._shiftExp_ = node;
     }
 
-    public TUshr getUshr()
-    {
+    public TUshr getUshr() {
         return this._ushr_;
     }
 
-    public void setUshr(TUshr node)
-    {
-        if(this._ushr_ != null)
-        {
+    public void setUshr(TUshr node) {
+        if (this._ushr_ != null) {
             this._ushr_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AUshrShiftExp extends PShiftExp
         this._ushr_ = node;
     }
 
-    public PAddExp getAddExp()
-    {
+    public PAddExp getAddExp() {
         return this._addExp_;
     }
 
-    public void setAddExp(PAddExp node)
-    {
-        if(this._addExp_ != null)
-        {
+    public void setAddExp(PAddExp node) {
+        if (this._addExp_ != null) {
             this._addExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AUshrShiftExp extends PShiftExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._shiftExp_)
-            + toString(this._ushr_)
-            + toString(this._addExp_);
+                + toString(this._shiftExp_)
+                + toString(this._ushr_)
+                + toString(this._addExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._shiftExp_ == child)
-        {
+        if (this._shiftExp_ == child) {
             this._shiftExp_ = null;
             return;
         }
 
-        if(this._ushr_ == child)
-        {
+        if (this._ushr_ == child) {
             this._ushr_ = null;
             return;
         }
 
-        if(this._addExp_ == child)
-        {
+        if (this._addExp_ == child) {
             this._addExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AUshrShiftExp extends PShiftExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._shiftExp_ == oldChild)
-        {
+        if (this._shiftExp_ == oldChild) {
             setShiftExp((PShiftExp) newChild);
             return;
         }
 
-        if(this._ushr_ == oldChild)
-        {
+        if (this._ushr_ == oldChild) {
             setUshr((TUshr) newChild);
             return;
         }
 
-        if(this._addExp_ == oldChild)
-        {
+        if (this._addExp_ == oldChild) {
             setAddExp((PAddExp) newChild);
             return;
         }

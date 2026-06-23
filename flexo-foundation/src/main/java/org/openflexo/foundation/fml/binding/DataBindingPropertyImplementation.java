@@ -35,13 +35,6 @@
 
 package org.openflexo.foundation.fml.binding;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.logging.Logger;
-
 import org.openflexo.connie.DataBinding;
 import org.openflexo.connie.DataBinding.BindingDefinitionType;
 import org.openflexo.connie.binding.javareflect.InvalidKeyValuePropertyException;
@@ -57,131 +50,133 @@ import org.openflexo.pamela.model.ModelProperty;
 import org.openflexo.pamela.model.property.DefaultSinglePropertyImplementation;
 import org.openflexo.pamela.model.property.ParameteredPropertyImplementation;
 
+import java.lang.annotation.*;
+import java.util.logging.Logger;
+
 public class DataBindingPropertyImplementation<O extends FMLObject, T> extends DefaultSinglePropertyImplementation<O, DataBinding<T>>
-		implements ParameteredPropertyImplementation<DataBindingProperty> {
+        implements ParameteredPropertyImplementation<DataBindingProperty> {
 
-	@Retention(RetentionPolicy.RUNTIME)
-	@Inherited
-	@Target(value = ElementType.METHOD)
-	public @interface DataBindingProperty {
-		String bindingName();
+    private static final Logger logger = Logger.getLogger(DataBindingPropertyImplementation.class.getPackage().getName());
+    private DataBindingProperty propertyImplementationParameters = null;
 
-		Class<?> declaredType();
+    public DataBindingPropertyImplementation(ProxyMethodHandler<O> handler, ModelProperty<O> property) throws InvalidDataException {
+        super(handler, property);
+    }
 
-		String owner();
+    @Override
+    public DataBindingProperty getParameters() {
+        if (propertyImplementationParameters == null) {
+            propertyImplementationParameters = getProperty().getGetterMethod().getAnnotation(DataBindingProperty.class);
+        }
+        if (propertyImplementationParameters == null) {
+            logger.warning("Cannot find annotation DataBindingProperty in " + getProperty().getGetterMethod());
+        }
+        return propertyImplementationParameters;
+    }
 
-		BindingDefinitionType bindingDefinitionType();
+    public Class<T> getDeclaredType() {
+        if (getParameters() != null) {
+            return (Class<T>) getParameters().declaredType();
+        }
+        return (Class<T>) Object.class;
+    }
 
-		boolean isMandatory();
-	}
+    public O getOwner() {
+        if (getParameters() != null) {
+            Object owner;
+            try {
+                owner = JavaBindingEvaluator.evaluateBinding(getParameters().owner(), getObject());
+                // System.out.println(getParameters().owner() + " > " + computedOwner);
+                if (owner == null) {
+                    logger.warning("Cannot compute owner with " + getParameters().owner() + " : null value");
+                }
+                return (O) owner;
+            } catch (InvalidKeyValuePropertyException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (TypeMismatchException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (NullReferenceException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ReflectiveOperationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ClassCastException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            // return (Class<T>) getParameters().declaredType();
+        }
+        return getObject();
+    }
 
-	private static final Logger logger = Logger.getLogger(DataBindingPropertyImplementation.class.getPackage().getName());
+    public BindingDefinitionType getBindingDefinitionType() {
+        if (getParameters() != null) {
+            return getParameters().bindingDefinitionType();
+        }
+        return DataBinding.BindingDefinitionType.GET;
+    }
 
-	private DataBindingProperty propertyImplementationParameters = null;
+    public String getBindingName() {
+        if (getParameters() != null) {
+            return getParameters().bindingName();
+        }
+        return getProperty().getPropertyIdentifier();
+    }
 
-	public DataBindingPropertyImplementation(ProxyMethodHandler<O> handler, ModelProperty<O> property) throws InvalidDataException {
-		super(handler, property);
-	}
+    public boolean isMandatory() {
+        if (getParameters() != null) {
+            return getParameters().isMandatory();
+        }
+        return true;
+    }
 
-	@Override
-	public DataBindingProperty getParameters() {
-		if (propertyImplementationParameters == null) {
-			propertyImplementationParameters = getProperty().getGetterMethod().getAnnotation(DataBindingProperty.class);
-		}
-		if (propertyImplementationParameters == null) {
-			logger.warning("Cannot find annotation DataBindingProperty in " + getProperty().getGetterMethod());
-		}
-		return propertyImplementationParameters;
-	}
+    @Override
+    public DataBinding<T> get() throws ModelDefinitionException {
+        DataBinding<T> returned = super.get();
+        if (returned == null) {
+            returned = new DataBinding<>(getObject(), getDeclaredType(), getBindingDefinitionType());
+            returned.setBindingName(getBindingName());
+            returned.setMandatory(isMandatory());
+            setInternalValue(returned);
+        }
+        return returned;
+    }
 
-	public Class<T> getDeclaredType() {
-		if (getParameters() != null) {
-			return (Class<T>) getParameters().declaredType();
-		}
-		return (Class<T>) Object.class;
-	}
+    @Override
+    public void set(DataBinding<T> aValue) throws ModelDefinitionException {
+        if (aValue != null) {
+            aValue.setOwner(getOwner());
+            aValue.setDeclaredType(getDeclaredType());
+            aValue.setBindingDefinitionType(getBindingDefinitionType());
+            aValue.setBindingName(getBindingName());
+            aValue.setMandatory(isMandatory());
+        }
+        setInternalValue(aValue);
+        getObject().notifiedBindingChanged(aValue);
 
-	public O getOwner() {
-		if (getParameters() != null) {
-			Object owner;
-			try {
-				owner = JavaBindingEvaluator.evaluateBinding(getParameters().owner(), getObject());
-				// System.out.println(getParameters().owner() + " > " + computedOwner);
-				if (owner == null) {
-					logger.warning("Cannot compute owner with " + getParameters().owner() + " : null value");
-				}
-				return (O) owner;
-			} catch (InvalidKeyValuePropertyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TypeMismatchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NullReferenceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ReflectiveOperationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassCastException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			// return (Class<T>) getParameters().declaredType();
-		}
-		return getObject();
-	}
+    }
 
-	public BindingDefinitionType getBindingDefinitionType() {
-		if (getParameters() != null) {
-			return getParameters().bindingDefinitionType();
-		}
-		return DataBinding.BindingDefinitionType.GET;
-	}
+    @Override
+    public void update(DataBinding<T> aValue) throws ModelDefinitionException {
+        // System.out.println("Hop, l'objet " + getObject() + " change son binding " + getBindingName() + " pour " + aValue.toString());
+        get().setUnparsedBinding(aValue.toString());
+    }
 
-	public String getBindingName() {
-		if (getParameters() != null) {
-			return getParameters().bindingName();
-		}
-		return getProperty().getPropertyIdentifier();
-	}
+    @Retention(RetentionPolicy.RUNTIME)
+    @Inherited
+    @Target(value = ElementType.METHOD)
+    public @interface DataBindingProperty {
+        String bindingName();
 
-	public boolean isMandatory() {
-		if (getParameters() != null) {
-			return getParameters().isMandatory();
-		}
-		return true;
-	}
+        Class<?> declaredType();
 
-	@Override
-	public DataBinding<T> get() throws ModelDefinitionException {
-		DataBinding<T> returned = super.get();
-		if (returned == null) {
-			returned = new DataBinding<>(getObject(), getDeclaredType(), getBindingDefinitionType());
-			returned.setBindingName(getBindingName());
-			returned.setMandatory(isMandatory());
-			setInternalValue(returned);
-		}
-		return returned;
-	}
+        String owner();
 
-	@Override
-	public void set(DataBinding<T> aValue) throws ModelDefinitionException {
-		if (aValue != null) {
-			aValue.setOwner(getOwner());
-			aValue.setDeclaredType(getDeclaredType());
-			aValue.setBindingDefinitionType(getBindingDefinitionType());
-			aValue.setBindingName(getBindingName());
-			aValue.setMandatory(isMandatory());
-		}
-		setInternalValue(aValue);
-		getObject().notifiedBindingChanged(aValue);
+        BindingDefinitionType bindingDefinitionType();
 
-	}
-
-	@Override
-	public void update(DataBinding<T> aValue) throws ModelDefinitionException {
-		// System.out.println("Hop, l'objet " + getObject() + " change son binding " + getBindingName() + " pour " + aValue.toString());
-		get().setUnparsedBinding(aValue.toString());
-	}
+        boolean isMandatory();
+    }
 }

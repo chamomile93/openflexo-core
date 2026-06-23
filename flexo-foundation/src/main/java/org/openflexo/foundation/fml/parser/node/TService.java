@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TService extends Token
-{
-    public TService()
-    {
+public final class TService extends Token {
+    public TService() {
         super.setText("service");
     }
 
-    public TService(int line, int pos)
-    {
+    public TService(int line, int pos) {
         super.setText("service");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TService(getLine(), getPos());
+    public Object clone() {
+        return new TService(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTService(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TService text.");
     }
 }

@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PMethodInvocation extends Node
-{
+public abstract class PMethodInvocation extends Node {
     // Empty body
 }

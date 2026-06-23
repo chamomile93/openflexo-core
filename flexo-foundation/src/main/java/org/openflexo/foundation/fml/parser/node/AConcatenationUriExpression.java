@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AConcatenationUriExpression extends PUriExpression
-{
+public final class AConcatenationUriExpression extends PUriExpression {
     private PUriExpression _left_;
     private TPlus _plus_;
     private PUriExpressionPrimary _right_;
 
-    public AConcatenationUriExpression()
-    {
+    public AConcatenationUriExpression() {
         // Constructor
     }
 
     public AConcatenationUriExpression(
-        @SuppressWarnings("hiding") PUriExpression _left_,
-        @SuppressWarnings("hiding") TPlus _plus_,
-        @SuppressWarnings("hiding") PUriExpressionPrimary _right_)
-    {
+            @SuppressWarnings("hiding") PUriExpression _left_,
+            @SuppressWarnings("hiding") TPlus _plus_,
+            @SuppressWarnings("hiding") PUriExpressionPrimary _right_) {
         // Constructor
         setLeft(_left_);
 
@@ -31,36 +28,29 @@ public final class AConcatenationUriExpression extends PUriExpression
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AConcatenationUriExpression(
-            cloneNode(this._left_),
-            cloneNode(this._plus_),
-            cloneNode(this._right_));
+                cloneNode(this._left_),
+                cloneNode(this._plus_),
+                cloneNode(this._right_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAConcatenationUriExpression(this);
     }
 
-    public PUriExpression getLeft()
-    {
+    public PUriExpression getLeft() {
         return this._left_;
     }
 
-    public void setLeft(PUriExpression node)
-    {
-        if(this._left_ != null)
-        {
+    public void setLeft(PUriExpression node) {
+        if (this._left_ != null) {
             this._left_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AConcatenationUriExpression extends PUriExpression
         this._left_ = node;
     }
 
-    public TPlus getPlus()
-    {
+    public TPlus getPlus() {
         return this._plus_;
     }
 
-    public void setPlus(TPlus node)
-    {
-        if(this._plus_ != null)
-        {
+    public void setPlus(TPlus node) {
+        if (this._plus_ != null) {
             this._plus_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AConcatenationUriExpression extends PUriExpression
         this._plus_ = node;
     }
 
-    public PUriExpressionPrimary getRight()
-    {
+    public PUriExpressionPrimary getRight() {
         return this._right_;
     }
 
-    public void setRight(PUriExpressionPrimary node)
-    {
-        if(this._right_ != null)
-        {
+    public void setRight(PUriExpressionPrimary node) {
+        if (this._right_ != null) {
             this._right_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AConcatenationUriExpression extends PUriExpression
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._left_)
-            + toString(this._plus_)
-            + toString(this._right_);
+                + toString(this._left_)
+                + toString(this._plus_)
+                + toString(this._right_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._left_ == child)
-        {
+        if (this._left_ == child) {
             this._left_ = null;
             return;
         }
 
-        if(this._plus_ == child)
-        {
+        if (this._plus_ == child) {
             this._plus_ = null;
             return;
         }
 
-        if(this._right_ == child)
-        {
+        if (this._right_ == child) {
             this._right_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AConcatenationUriExpression extends PUriExpression
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._left_ == oldChild)
-        {
+        if (this._left_ == oldChild) {
             setLeft((PUriExpression) newChild);
             return;
         }
 
-        if(this._plus_ == oldChild)
-        {
+        if (this._plus_ == oldChild) {
             setPlus((TPlus) newChild);
             return;
         }
 
-        if(this._right_ == oldChild)
-        {
+        if (this._right_ == oldChild) {
             setRight((PUriExpressionPrimary) newChild);
             return;
         }

@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PLeftHandSide extends Node
-{
+public abstract class PLeftHandSide extends Node {
     // Empty body
 }

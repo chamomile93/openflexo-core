@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AMinusfSimplePathPrefix extends PSimplePathPrefix
-{
+public final class AMinusfSimplePathPrefix extends PSimplePathPrefix {
     private PSimplePathTerminal _simplePathTerminal_;
     private TMinusF _minusF_;
 
-    public AMinusfSimplePathPrefix()
-    {
+    public AMinusfSimplePathPrefix() {
         // Constructor
     }
 
     public AMinusfSimplePathPrefix(
-        @SuppressWarnings("hiding") PSimplePathTerminal _simplePathTerminal_,
-        @SuppressWarnings("hiding") TMinusF _minusF_)
-    {
+            @SuppressWarnings("hiding") PSimplePathTerminal _simplePathTerminal_,
+            @SuppressWarnings("hiding") TMinusF _minusF_) {
         // Constructor
         setSimplePathTerminal(_simplePathTerminal_);
 
@@ -27,35 +24,28 @@ public final class AMinusfSimplePathPrefix extends PSimplePathPrefix
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AMinusfSimplePathPrefix(
-            cloneNode(this._simplePathTerminal_),
-            cloneNode(this._minusF_));
+                cloneNode(this._simplePathTerminal_),
+                cloneNode(this._minusF_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAMinusfSimplePathPrefix(this);
     }
 
-    public PSimplePathTerminal getSimplePathTerminal()
-    {
+    public PSimplePathTerminal getSimplePathTerminal() {
         return this._simplePathTerminal_;
     }
 
-    public void setSimplePathTerminal(PSimplePathTerminal node)
-    {
-        if(this._simplePathTerminal_ != null)
-        {
+    public void setSimplePathTerminal(PSimplePathTerminal node) {
+        if (this._simplePathTerminal_ != null) {
             this._simplePathTerminal_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AMinusfSimplePathPrefix extends PSimplePathPrefix
         this._simplePathTerminal_ = node;
     }
 
-    public TMinusF getMinusF()
-    {
+    public TMinusF getMinusF() {
         return this._minusF_;
     }
 
-    public void setMinusF(TMinusF node)
-    {
-        if(this._minusF_ != null)
-        {
+    public void setMinusF(TMinusF node) {
+        if (this._minusF_ != null) {
             this._minusF_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AMinusfSimplePathPrefix extends PSimplePathPrefix
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._simplePathTerminal_)
-            + toString(this._minusF_);
+                + toString(this._simplePathTerminal_)
+                + toString(this._minusF_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._simplePathTerminal_ == child)
-        {
+        if (this._simplePathTerminal_ == child) {
             this._simplePathTerminal_ = null;
             return;
         }
 
-        if(this._minusF_ == child)
-        {
+        if (this._minusF_ == child) {
             this._minusF_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AMinusfSimplePathPrefix extends PSimplePathPrefix
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._simplePathTerminal_ == oldChild)
-        {
+        if (this._simplePathTerminal_ == oldChild) {
             setSimplePathTerminal((PSimplePathTerminal) newChild);
             return;
         }
 
-        if(this._minusF_ == oldChild)
-        {
+        if (this._minusF_ == oldChild) {
             setMinusF((TMinusF) newChild);
             return;
         }

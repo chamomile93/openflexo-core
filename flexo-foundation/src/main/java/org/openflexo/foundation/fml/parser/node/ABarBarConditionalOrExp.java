@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABarBarConditionalOrExp extends PConditionalOrExp
-{
+public final class ABarBarConditionalOrExp extends PConditionalOrExp {
     private PConditionalOrExp _conditionalOrExp_;
     private TBarBar _barBar_;
     private PConditionalAndExp _conditionalAndExp_;
 
-    public ABarBarConditionalOrExp()
-    {
+    public ABarBarConditionalOrExp() {
         // Constructor
     }
 
     public ABarBarConditionalOrExp(
-        @SuppressWarnings("hiding") PConditionalOrExp _conditionalOrExp_,
-        @SuppressWarnings("hiding") TBarBar _barBar_,
-        @SuppressWarnings("hiding") PConditionalAndExp _conditionalAndExp_)
-    {
+            @SuppressWarnings("hiding") PConditionalOrExp _conditionalOrExp_,
+            @SuppressWarnings("hiding") TBarBar _barBar_,
+            @SuppressWarnings("hiding") PConditionalAndExp _conditionalAndExp_) {
         // Constructor
         setConditionalOrExp(_conditionalOrExp_);
 
@@ -31,36 +28,29 @@ public final class ABarBarConditionalOrExp extends PConditionalOrExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABarBarConditionalOrExp(
-            cloneNode(this._conditionalOrExp_),
-            cloneNode(this._barBar_),
-            cloneNode(this._conditionalAndExp_));
+                cloneNode(this._conditionalOrExp_),
+                cloneNode(this._barBar_),
+                cloneNode(this._conditionalAndExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABarBarConditionalOrExp(this);
     }
 
-    public PConditionalOrExp getConditionalOrExp()
-    {
+    public PConditionalOrExp getConditionalOrExp() {
         return this._conditionalOrExp_;
     }
 
-    public void setConditionalOrExp(PConditionalOrExp node)
-    {
-        if(this._conditionalOrExp_ != null)
-        {
+    public void setConditionalOrExp(PConditionalOrExp node) {
+        if (this._conditionalOrExp_ != null) {
             this._conditionalOrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ABarBarConditionalOrExp extends PConditionalOrExp
         this._conditionalOrExp_ = node;
     }
 
-    public TBarBar getBarBar()
-    {
+    public TBarBar getBarBar() {
         return this._barBar_;
     }
 
-    public void setBarBar(TBarBar node)
-    {
-        if(this._barBar_ != null)
-        {
+    public void setBarBar(TBarBar node) {
+        if (this._barBar_ != null) {
             this._barBar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ABarBarConditionalOrExp extends PConditionalOrExp
         this._barBar_ = node;
     }
 
-    public PConditionalAndExp getConditionalAndExp()
-    {
+    public PConditionalAndExp getConditionalAndExp() {
         return this._conditionalAndExp_;
     }
 
-    public void setConditionalAndExp(PConditionalAndExp node)
-    {
-        if(this._conditionalAndExp_ != null)
-        {
+    public void setConditionalAndExp(PConditionalAndExp node) {
+        if (this._conditionalAndExp_ != null) {
             this._conditionalAndExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ABarBarConditionalOrExp extends PConditionalOrExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._conditionalOrExp_)
-            + toString(this._barBar_)
-            + toString(this._conditionalAndExp_);
+                + toString(this._conditionalOrExp_)
+                + toString(this._barBar_)
+                + toString(this._conditionalAndExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._conditionalOrExp_ == child)
-        {
+        if (this._conditionalOrExp_ == child) {
             this._conditionalOrExp_ = null;
             return;
         }
 
-        if(this._barBar_ == child)
-        {
+        if (this._barBar_ == child) {
             this._barBar_ = null;
             return;
         }
 
-        if(this._conditionalAndExp_ == child)
-        {
+        if (this._conditionalAndExp_ == child) {
             this._conditionalAndExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ABarBarConditionalOrExp extends PConditionalOrExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._conditionalOrExp_ == oldChild)
-        {
+        if (this._conditionalOrExp_ == oldChild) {
             setConditionalOrExp((PConditionalOrExp) newChild);
             return;
         }
 
-        if(this._barBar_ == oldChild)
-        {
+        if (this._barBar_ == oldChild) {
             setBarBar((TBarBar) newChild);
             return;
         }
 
-        if(this._conditionalAndExp_ == oldChild)
-        {
+        if (this._conditionalAndExp_ == oldChild) {
             setConditionalAndExp((PConditionalAndExp) newChild);
             return;
         }

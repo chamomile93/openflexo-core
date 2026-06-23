@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AEnumDeclarationInnerConceptDecl extends PInnerConceptDecl
-{
+public final class AEnumDeclarationInnerConceptDecl extends PInnerConceptDecl {
     private PEnumDecl _enumDecl_;
 
-    public AEnumDeclarationInnerConceptDecl()
-    {
+    public AEnumDeclarationInnerConceptDecl() {
         // Constructor
     }
 
     public AEnumDeclarationInnerConceptDecl(
-        @SuppressWarnings("hiding") PEnumDecl _enumDecl_)
-    {
+            @SuppressWarnings("hiding") PEnumDecl _enumDecl_) {
         // Constructor
         setEnumDecl(_enumDecl_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AEnumDeclarationInnerConceptDecl(
-            cloneNode(this._enumDecl_));
+                cloneNode(this._enumDecl_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAEnumDeclarationInnerConceptDecl(this);
     }
 
-    public PEnumDecl getEnumDecl()
-    {
+    public PEnumDecl getEnumDecl() {
         return this._enumDecl_;
     }
 
-    public void setEnumDecl(PEnumDecl node)
-    {
-        if(this._enumDecl_ != null)
-        {
+    public void setEnumDecl(PEnumDecl node) {
+        if (this._enumDecl_ != null) {
             this._enumDecl_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AEnumDeclarationInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._enumDecl_);
+                + toString(this._enumDecl_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._enumDecl_ == child)
-        {
+        if (this._enumDecl_ == child) {
             this._enumDecl_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AEnumDeclarationInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._enumDecl_ == oldChild)
-        {
+        if (this._enumDecl_ == oldChild) {
             setEnumDecl((PEnumDecl) newChild);
             return;
         }

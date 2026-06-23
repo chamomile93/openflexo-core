@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PUriExpressionPrimary extends Node
-{
+public abstract class PUriExpressionPrimary extends Node {
     // Empty body
 }

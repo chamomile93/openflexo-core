@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AResourcesDirective extends PDirective
-{
+public final class AResourcesDirective extends PDirective {
     private PResourcesDirective _resourcesDirective_;
 
-    public AResourcesDirective()
-    {
+    public AResourcesDirective() {
         // Constructor
     }
 
     public AResourcesDirective(
-        @SuppressWarnings("hiding") PResourcesDirective _resourcesDirective_)
-    {
+            @SuppressWarnings("hiding") PResourcesDirective _resourcesDirective_) {
         // Constructor
         setResourcesDirective(_resourcesDirective_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AResourcesDirective(
-            cloneNode(this._resourcesDirective_));
+                cloneNode(this._resourcesDirective_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAResourcesDirective(this);
     }
 
-    public PResourcesDirective getResourcesDirective()
-    {
+    public PResourcesDirective getResourcesDirective() {
         return this._resourcesDirective_;
     }
 
-    public void setResourcesDirective(PResourcesDirective node)
-    {
-        if(this._resourcesDirective_ != null)
-        {
+    public void setResourcesDirective(PResourcesDirective node) {
+        if (this._resourcesDirective_ != null) {
             this._resourcesDirective_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AResourcesDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._resourcesDirective_);
+                + toString(this._resourcesDirective_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._resourcesDirective_ == child)
-        {
+        if (this._resourcesDirective_ == child) {
             this._resourcesDirective_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AResourcesDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._resourcesDirective_ == oldChild)
-        {
+        if (this._resourcesDirective_ == oldChild) {
             setResourcesDirective((PResourcesDirective) newChild);
             return;
         }

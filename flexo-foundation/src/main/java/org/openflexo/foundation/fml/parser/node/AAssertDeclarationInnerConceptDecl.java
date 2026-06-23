@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AAssertDeclarationInnerConceptDecl extends PInnerConceptDecl
-{
+public final class AAssertDeclarationInnerConceptDecl extends PInnerConceptDecl {
     private PAssertDecl _assertDecl_;
 
-    public AAssertDeclarationInnerConceptDecl()
-    {
+    public AAssertDeclarationInnerConceptDecl() {
         // Constructor
     }
 
     public AAssertDeclarationInnerConceptDecl(
-        @SuppressWarnings("hiding") PAssertDecl _assertDecl_)
-    {
+            @SuppressWarnings("hiding") PAssertDecl _assertDecl_) {
         // Constructor
         setAssertDecl(_assertDecl_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAssertDeclarationInnerConceptDecl(
-            cloneNode(this._assertDecl_));
+                cloneNode(this._assertDecl_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAssertDeclarationInnerConceptDecl(this);
     }
 
-    public PAssertDecl getAssertDecl()
-    {
+    public PAssertDecl getAssertDecl() {
         return this._assertDecl_;
     }
 
-    public void setAssertDecl(PAssertDecl node)
-    {
-        if(this._assertDecl_ != null)
-        {
+    public void setAssertDecl(PAssertDecl node) {
+        if (this._assertDecl_ != null) {
             this._assertDecl_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AAssertDeclarationInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._assertDecl_);
+                + toString(this._assertDecl_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._assertDecl_ == child)
-        {
+        if (this._assertDecl_ == child) {
             this._assertDecl_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AAssertDeclarationInnerConceptDecl extends PInnerConceptDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._assertDecl_ == oldChild)
-        {
+        if (this._assertDecl_ == oldChild) {
             setAssertDecl((PAssertDecl) newChild);
             return;
         }

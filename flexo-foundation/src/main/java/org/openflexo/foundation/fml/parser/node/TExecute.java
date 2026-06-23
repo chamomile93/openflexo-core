@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TExecute extends Token
-{
-    public TExecute()
-    {
+public final class TExecute extends Token {
+    public TExecute() {
         super.setText("execute");
     }
 
-    public TExecute(int line, int pos)
-    {
+    public TExecute(int line, int pos) {
         super.setText("execute");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TExecute(getLine(), getPos());
+    public Object clone() {
+        return new TExecute(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTExecute(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TExecute text.");
     }
 }

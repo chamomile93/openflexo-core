@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ANewInstanceStatementExpression extends PStatementExpression
-{
+public final class ANewInstanceStatementExpression extends PStatementExpression {
     private PNewInstance _newInstance_;
 
-    public ANewInstanceStatementExpression()
-    {
+    public ANewInstanceStatementExpression() {
         // Constructor
     }
 
     public ANewInstanceStatementExpression(
-        @SuppressWarnings("hiding") PNewInstance _newInstance_)
-    {
+            @SuppressWarnings("hiding") PNewInstance _newInstance_) {
         // Constructor
         setNewInstance(_newInstance_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANewInstanceStatementExpression(
-            cloneNode(this._newInstance_));
+                cloneNode(this._newInstance_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANewInstanceStatementExpression(this);
     }
 
-    public PNewInstance getNewInstance()
-    {
+    public PNewInstance getNewInstance() {
         return this._newInstance_;
     }
 
-    public void setNewInstance(PNewInstance node)
-    {
-        if(this._newInstance_ != null)
-        {
+    public void setNewInstance(PNewInstance node) {
+        if (this._newInstance_ != null) {
             this._newInstance_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ANewInstanceStatementExpression extends PStatementExpression
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._newInstance_);
+                + toString(this._newInstance_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._newInstance_ == child)
-        {
+        if (this._newInstance_ == child) {
             this._newInstance_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ANewInstanceStatementExpression extends PStatementExpression
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._newInstance_ == oldChild)
-        {
+        if (this._newInstance_ == oldChild) {
             setNewInstance((PNewInstance) newChild);
             return;
         }

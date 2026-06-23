@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASimpleRelationalExp extends PRelationalExp
-{
+public final class ASimpleRelationalExp extends PRelationalExp {
     private PShiftExp _shiftExp_;
 
-    public ASimpleRelationalExp()
-    {
+    public ASimpleRelationalExp() {
         // Constructor
     }
 
     public ASimpleRelationalExp(
-        @SuppressWarnings("hiding") PShiftExp _shiftExp_)
-    {
+            @SuppressWarnings("hiding") PShiftExp _shiftExp_) {
         // Constructor
         setShiftExp(_shiftExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASimpleRelationalExp(
-            cloneNode(this._shiftExp_));
+                cloneNode(this._shiftExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASimpleRelationalExp(this);
     }
 
-    public PShiftExp getShiftExp()
-    {
+    public PShiftExp getShiftExp() {
         return this._shiftExp_;
     }
 
-    public void setShiftExp(PShiftExp node)
-    {
-        if(this._shiftExp_ != null)
-        {
+    public void setShiftExp(PShiftExp node) {
+        if (this._shiftExp_ != null) {
             this._shiftExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASimpleRelationalExp extends PRelationalExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._shiftExp_);
+                + toString(this._shiftExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._shiftExp_ == child)
-        {
+        if (this._shiftExp_ == child) {
             this._shiftExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASimpleRelationalExp extends PRelationalExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._shiftExp_ == oldChild)
-        {
+        if (this._shiftExp_ == oldChild) {
             setShiftExp((PShiftExp) newChild);
             return;
         }

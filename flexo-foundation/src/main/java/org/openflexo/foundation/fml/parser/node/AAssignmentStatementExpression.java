@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AAssignmentStatementExpression extends PStatementExpression
-{
+public final class AAssignmentStatementExpression extends PStatementExpression {
     private PAssignmentStatementExpression _assignmentStatementExpression_;
 
-    public AAssignmentStatementExpression()
-    {
+    public AAssignmentStatementExpression() {
         // Constructor
     }
 
     public AAssignmentStatementExpression(
-        @SuppressWarnings("hiding") PAssignmentStatementExpression _assignmentStatementExpression_)
-    {
+            @SuppressWarnings("hiding") PAssignmentStatementExpression _assignmentStatementExpression_) {
         // Constructor
         setAssignmentStatementExpression(_assignmentStatementExpression_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAssignmentStatementExpression(
-            cloneNode(this._assignmentStatementExpression_));
+                cloneNode(this._assignmentStatementExpression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAssignmentStatementExpression(this);
     }
 
-    public PAssignmentStatementExpression getAssignmentStatementExpression()
-    {
+    public PAssignmentStatementExpression getAssignmentStatementExpression() {
         return this._assignmentStatementExpression_;
     }
 
-    public void setAssignmentStatementExpression(PAssignmentStatementExpression node)
-    {
-        if(this._assignmentStatementExpression_ != null)
-        {
+    public void setAssignmentStatementExpression(PAssignmentStatementExpression node) {
+        if (this._assignmentStatementExpression_ != null) {
             this._assignmentStatementExpression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AAssignmentStatementExpression extends PStatementExpression
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._assignmentStatementExpression_);
+                + toString(this._assignmentStatementExpression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._assignmentStatementExpression_ == child)
-        {
+        if (this._assignmentStatementExpression_ == child) {
             this._assignmentStatementExpression_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AAssignmentStatementExpression extends PStatementExpression
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._assignmentStatementExpression_ == oldChild)
-        {
+        if (this._assignmentStatementExpression_ == oldChild) {
             setAssignmentStatementExpression((PAssignmentStatementExpression) newChild);
             return;
         }

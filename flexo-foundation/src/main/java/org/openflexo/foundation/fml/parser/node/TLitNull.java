@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TLitNull extends Token
-{
-    public TLitNull()
-    {
+public final class TLitNull extends Token {
+    public TLitNull() {
         super.setText("null");
     }
 
-    public TLitNull(int line, int pos)
-    {
+    public TLitNull(int line, int pos) {
         super.setText("null");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TLitNull(getLine(), getPos());
+    public Object clone() {
+        return new TLitNull(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTLitNull(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TLitNull text.");
     }
 }

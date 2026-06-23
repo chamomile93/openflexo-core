@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PPreDecrExp extends Node
-{
+public abstract class PPreDecrExp extends Node {
     // Empty body
 }

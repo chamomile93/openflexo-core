@@ -21,62 +21,53 @@
 package org.openflexo.foundation.doc;
 
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.pamela.annotations.CloningStrategy;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.Implementation;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Setter;
+import org.openflexo.pamela.annotations.*;
 import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
 
 /**
  * Represent a textual run in a paragraph of a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoTextRun<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocRun<D, TA> {
 
-	@PropertyIdentifier(type = String.class)
-	public static final String TEXT_KEY = "text";
+    @PropertyIdentifier(type = String.class)
+    public static final String TEXT_KEY = "text";
 
-	@Getter(TEXT_KEY)
-	@CloningStrategy(StrategyType.IGNORE)
-	public String getText();
+    @Getter(TEXT_KEY)
+    @CloningStrategy(StrategyType.IGNORE)
+    public String getText();
 
-	@Setter(TEXT_KEY)
-	public void setText(String text);
+    @Setter(TEXT_KEY)
+    public void setText(String text);
 
-	public String getTextPreview();
+    public String getTextPreview();
 
-	public void fireTextChanged();
+    public void fireTextChanged();
 
-	@Implementation
-	public static abstract class FlexoTextRunImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoRunImpl<D, TA> implements FlexoTextRun<D, TA> {
+    @Implementation
+    public static abstract class FlexoTextRunImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoRunImpl<D, TA> implements FlexoTextRun<D, TA> {
 
-		@Override
-		public String getTextPreview() {
-			// TODO: perf issue
-			String rawText = getText();
-			if (rawText.length() > 35) {
-				return rawText.substring(0, 35) + "...";
-			}
-			else {
-				return rawText;
-			}
-		}
+        @Override
+        public String getTextPreview() {
+            // TODO: perf issue
+            String rawText = getText();
+            if (rawText.length() > 35) {
+                return rawText.substring(0, 35) + "...";
+            } else {
+                return rawText;
+            }
+        }
 
-		@Override
-		public void fireTextChanged() {
-			getPropertyChangeSupport().firePropertyChange("text", null, getText());
-			getPropertyChangeSupport().firePropertyChange("textPreview", null, getTextPreview());
-		}
-	}
+        @Override
+        public void fireTextChanged() {
+            getPropertyChangeSupport().firePropertyChange("text", null, getText());
+            getPropertyChangeSupport().firePropertyChange("textPreview", null, getTextPreview());
+        }
+    }
 
 }

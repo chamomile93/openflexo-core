@@ -2,29 +2,26 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class ABlockStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement
-{
-    private TLBrc _lBrc_;
+public final class ABlockStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement {
     private final LinkedList<PBlockStatement> _blockStatements_ = new LinkedList<PBlockStatement>();
+    private TLBrc _lBrc_;
     private TRBrc _rBrc_;
 
-    public ABlockStatementWithoutTrailingSubstatement()
-    {
+    public ABlockStatementWithoutTrailingSubstatement() {
         // Constructor
     }
 
     public ABlockStatementWithoutTrailingSubstatement(
-        @SuppressWarnings("hiding") TLBrc _lBrc_,
-        @SuppressWarnings("hiding") List<?> _blockStatements_,
-        @SuppressWarnings("hiding") TRBrc _rBrc_)
-    {
+            @SuppressWarnings("hiding") TLBrc _lBrc_,
+            @SuppressWarnings("hiding") List<?> _blockStatements_,
+            @SuppressWarnings("hiding") TRBrc _rBrc_) {
         // Constructor
         setLBrc(_lBrc_);
 
@@ -35,36 +32,29 @@ public final class ABlockStatementWithoutTrailingSubstatement extends PStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABlockStatementWithoutTrailingSubstatement(
-            cloneNode(this._lBrc_),
-            cloneList(this._blockStatements_),
-            cloneNode(this._rBrc_));
+                cloneNode(this._lBrc_),
+                cloneList(this._blockStatements_),
+                cloneNode(this._rBrc_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABlockStatementWithoutTrailingSubstatement(this);
     }
 
-    public TLBrc getLBrc()
-    {
+    public TLBrc getLBrc() {
         return this._lBrc_;
     }
 
-    public void setLBrc(TLBrc node)
-    {
-        if(this._lBrc_ != null)
-        {
+    public void setLBrc(TLBrc node) {
+        if (this._lBrc_ != null) {
             this._lBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -74,24 +64,19 @@ public final class ABlockStatementWithoutTrailingSubstatement extends PStatement
         this._lBrc_ = node;
     }
 
-    public LinkedList<PBlockStatement> getBlockStatements()
-    {
+    public LinkedList<PBlockStatement> getBlockStatements() {
         return this._blockStatements_;
     }
 
-    public void setBlockStatements(List<?> list)
-    {
-        for(PBlockStatement e : this._blockStatements_)
-        {
+    public void setBlockStatements(List<?> list) {
+        for (PBlockStatement e : this._blockStatements_) {
             e.parent(null);
         }
         this._blockStatements_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PBlockStatement e = (PBlockStatement) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -100,22 +85,17 @@ public final class ABlockStatementWithoutTrailingSubstatement extends PStatement
         }
     }
 
-    public TRBrc getRBrc()
-    {
+    public TRBrc getRBrc() {
         return this._rBrc_;
     }
 
-    public void setRBrc(TRBrc node)
-    {
-        if(this._rBrc_ != null)
-        {
+    public void setRBrc(TRBrc node) {
+        if (this._rBrc_ != null) {
             this._rBrc_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -126,31 +106,26 @@ public final class ABlockStatementWithoutTrailingSubstatement extends PStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lBrc_)
-            + toString(this._blockStatements_)
-            + toString(this._rBrc_);
+                + toString(this._lBrc_)
+                + toString(this._blockStatements_)
+                + toString(this._rBrc_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lBrc_ == child)
-        {
+        if (this._lBrc_ == child) {
             this._lBrc_ = null;
             return;
         }
 
-        if(this._blockStatements_.remove(child))
-        {
+        if (this._blockStatements_.remove(child)) {
             return;
         }
 
-        if(this._rBrc_ == child)
-        {
+        if (this._rBrc_ == child) {
             this._rBrc_ = null;
             return;
         }
@@ -159,21 +134,16 @@ public final class ABlockStatementWithoutTrailingSubstatement extends PStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lBrc_ == oldChild)
-        {
+        if (this._lBrc_ == oldChild) {
             setLBrc((TLBrc) newChild);
             return;
         }
 
-        for(ListIterator<PBlockStatement> i = this._blockStatements_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PBlockStatement> i = this._blockStatements_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PBlockStatement) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -186,8 +156,7 @@ public final class ABlockStatementWithoutTrailingSubstatement extends PStatement
             }
         }
 
-        if(this._rBrc_ == oldChild)
-        {
+        if (this._rBrc_ == oldChild) {
             setRBrc((TRBrc) newChild);
             return;
         }

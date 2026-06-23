@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFireActionFmlActionExp extends PFmlActionExp
-{
+public final class AFireActionFmlActionExp extends PFmlActionExp {
     private TKwFire _kwFire_;
     private PExpression _expression_;
 
-    public AFireActionFmlActionExp()
-    {
+    public AFireActionFmlActionExp() {
         // Constructor
     }
 
     public AFireActionFmlActionExp(
-        @SuppressWarnings("hiding") TKwFire _kwFire_,
-        @SuppressWarnings("hiding") PExpression _expression_)
-    {
+            @SuppressWarnings("hiding") TKwFire _kwFire_,
+            @SuppressWarnings("hiding") PExpression _expression_) {
         // Constructor
         setKwFire(_kwFire_);
 
@@ -27,35 +24,28 @@ public final class AFireActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFireActionFmlActionExp(
-            cloneNode(this._kwFire_),
-            cloneNode(this._expression_));
+                cloneNode(this._kwFire_),
+                cloneNode(this._expression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFireActionFmlActionExp(this);
     }
 
-    public TKwFire getKwFire()
-    {
+    public TKwFire getKwFire() {
         return this._kwFire_;
     }
 
-    public void setKwFire(TKwFire node)
-    {
-        if(this._kwFire_ != null)
-        {
+    public void setKwFire(TKwFire node) {
+        if (this._kwFire_ != null) {
             this._kwFire_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AFireActionFmlActionExp extends PFmlActionExp
         this._kwFire_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AFireActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwFire_)
-            + toString(this._expression_);
+                + toString(this._kwFire_)
+                + toString(this._expression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwFire_ == child)
-        {
+        if (this._kwFire_ == child) {
             this._kwFire_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AFireActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwFire_ == oldChild)
-        {
+        if (this._kwFire_ == oldChild) {
             setKwFire((TKwFire) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }

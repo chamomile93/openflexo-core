@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PQualifiedArgumentList extends Node
-{
+public abstract class PQualifiedArgumentList extends Node {
     // Empty body
 }

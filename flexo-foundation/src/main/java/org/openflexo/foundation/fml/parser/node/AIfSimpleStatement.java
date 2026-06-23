@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AIfSimpleStatement extends PStatement
-{
+public final class AIfSimpleStatement extends PStatement {
     private TKwIf _kwIf_;
     private TLPar _lPar_;
     private PExpression _expression_;
     private TRPar _rPar_;
     private PStatement _statement_;
 
-    public AIfSimpleStatement()
-    {
+    public AIfSimpleStatement() {
         // Constructor
     }
 
     public AIfSimpleStatement(
-        @SuppressWarnings("hiding") TKwIf _kwIf_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PStatement _statement_)
-    {
+            @SuppressWarnings("hiding") TKwIf _kwIf_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PStatement _statement_) {
         // Constructor
         setKwIf(_kwIf_);
 
@@ -39,38 +36,31 @@ public final class AIfSimpleStatement extends PStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AIfSimpleStatement(
-            cloneNode(this._kwIf_),
-            cloneNode(this._lPar_),
-            cloneNode(this._expression_),
-            cloneNode(this._rPar_),
-            cloneNode(this._statement_));
+                cloneNode(this._kwIf_),
+                cloneNode(this._lPar_),
+                cloneNode(this._expression_),
+                cloneNode(this._rPar_),
+                cloneNode(this._statement_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAIfSimpleStatement(this);
     }
 
-    public TKwIf getKwIf()
-    {
+    public TKwIf getKwIf() {
         return this._kwIf_;
     }
 
-    public void setKwIf(TKwIf node)
-    {
-        if(this._kwIf_ != null)
-        {
+    public void setKwIf(TKwIf node) {
+        if (this._kwIf_ != null) {
             this._kwIf_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AIfSimpleStatement extends PStatement
         this._kwIf_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AIfSimpleStatement extends PStatement
         this._lPar_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AIfSimpleStatement extends PStatement
         this._expression_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AIfSimpleStatement extends PStatement
         this._rPar_ = node;
     }
 
-    public PStatement getStatement()
-    {
+    public PStatement getStatement() {
         return this._statement_;
     }
 
-    public void setStatement(PStatement node)
-    {
-        if(this._statement_ != null)
-        {
+    public void setStatement(PStatement node) {
+        if (this._statement_ != null) {
             this._statement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AIfSimpleStatement extends PStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwIf_)
-            + toString(this._lPar_)
-            + toString(this._expression_)
-            + toString(this._rPar_)
-            + toString(this._statement_);
+                + toString(this._kwIf_)
+                + toString(this._lPar_)
+                + toString(this._expression_)
+                + toString(this._rPar_)
+                + toString(this._statement_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwIf_ == child)
-        {
+        if (this._kwIf_ == child) {
             this._kwIf_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._statement_ == child)
-        {
+        if (this._statement_ == child) {
             this._statement_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AIfSimpleStatement extends PStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwIf_ == oldChild)
-        {
+        if (this._kwIf_ == oldChild) {
             setKwIf((TKwIf) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._statement_ == oldChild)
-        {
+        if (this._statement_ == oldChild) {
             setStatement((PStatement) newChild);
             return;
         }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AHistoryDirective extends PDirective
-{
+public final class AHistoryDirective extends PDirective {
     private THistory _history_;
 
-    public AHistoryDirective()
-    {
+    public AHistoryDirective() {
         // Constructor
     }
 
     public AHistoryDirective(
-        @SuppressWarnings("hiding") THistory _history_)
-    {
+            @SuppressWarnings("hiding") THistory _history_) {
         // Constructor
         setHistory(_history_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AHistoryDirective(
-            cloneNode(this._history_));
+                cloneNode(this._history_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAHistoryDirective(this);
     }
 
-    public THistory getHistory()
-    {
+    public THistory getHistory() {
         return this._history_;
     }
 
-    public void setHistory(THistory node)
-    {
-        if(this._history_ != null)
-        {
+    public void setHistory(THistory node) {
+        if (this._history_ != null) {
             this._history_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AHistoryDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._history_);
+                + toString(this._history_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._history_ == child)
-        {
+        if (this._history_ == child) {
             this._history_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AHistoryDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._history_ == oldChild)
-        {
+        if (this._history_ == oldChild) {
             setHistory((THistory) newChild);
             return;
         }

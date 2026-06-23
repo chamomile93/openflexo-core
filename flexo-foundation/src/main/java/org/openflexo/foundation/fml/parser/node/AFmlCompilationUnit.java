@@ -2,33 +2,30 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AFmlCompilationUnit extends PFmlCompilationUnit
-{
+public final class AFmlCompilationUnit extends PFmlCompilationUnit {
     private final LinkedList<PNamespaceDecl> _namespaceDeclaration_ = new LinkedList<PNamespaceDecl>();
     private final LinkedList<PUseDecl> _useDeclarations_ = new LinkedList<PUseDecl>();
     private final LinkedList<PImportDecl> _importDeclarations_ = new LinkedList<PImportDecl>();
     private final LinkedList<PTypeDecl> _typeDeclarations_ = new LinkedList<PTypeDecl>();
     private PModelDecl _modelDecl_;
 
-    public AFmlCompilationUnit()
-    {
+    public AFmlCompilationUnit() {
         // Constructor
     }
 
     public AFmlCompilationUnit(
-        @SuppressWarnings("hiding") List<?> _namespaceDeclaration_,
-        @SuppressWarnings("hiding") List<?> _useDeclarations_,
-        @SuppressWarnings("hiding") List<?> _importDeclarations_,
-        @SuppressWarnings("hiding") List<?> _typeDeclarations_,
-        @SuppressWarnings("hiding") PModelDecl _modelDecl_)
-    {
+            @SuppressWarnings("hiding") List<?> _namespaceDeclaration_,
+            @SuppressWarnings("hiding") List<?> _useDeclarations_,
+            @SuppressWarnings("hiding") List<?> _importDeclarations_,
+            @SuppressWarnings("hiding") List<?> _typeDeclarations_,
+            @SuppressWarnings("hiding") PModelDecl _modelDecl_) {
         // Constructor
         setNamespaceDeclaration(_namespaceDeclaration_);
 
@@ -43,40 +40,33 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlCompilationUnit(
-            cloneList(this._namespaceDeclaration_),
-            cloneList(this._useDeclarations_),
-            cloneList(this._importDeclarations_),
-            cloneList(this._typeDeclarations_),
-            cloneNode(this._modelDecl_));
+                cloneList(this._namespaceDeclaration_),
+                cloneList(this._useDeclarations_),
+                cloneList(this._importDeclarations_),
+                cloneList(this._typeDeclarations_),
+                cloneNode(this._modelDecl_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlCompilationUnit(this);
     }
 
-    public LinkedList<PNamespaceDecl> getNamespaceDeclaration()
-    {
+    public LinkedList<PNamespaceDecl> getNamespaceDeclaration() {
         return this._namespaceDeclaration_;
     }
 
-    public void setNamespaceDeclaration(List<?> list)
-    {
-        for(PNamespaceDecl e : this._namespaceDeclaration_)
-        {
+    public void setNamespaceDeclaration(List<?> list) {
+        for (PNamespaceDecl e : this._namespaceDeclaration_) {
             e.parent(null);
         }
         this._namespaceDeclaration_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PNamespaceDecl e = (PNamespaceDecl) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -85,24 +75,19 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
         }
     }
 
-    public LinkedList<PUseDecl> getUseDeclarations()
-    {
+    public LinkedList<PUseDecl> getUseDeclarations() {
         return this._useDeclarations_;
     }
 
-    public void setUseDeclarations(List<?> list)
-    {
-        for(PUseDecl e : this._useDeclarations_)
-        {
+    public void setUseDeclarations(List<?> list) {
+        for (PUseDecl e : this._useDeclarations_) {
             e.parent(null);
         }
         this._useDeclarations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PUseDecl e = (PUseDecl) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -111,24 +96,19 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
         }
     }
 
-    public LinkedList<PImportDecl> getImportDeclarations()
-    {
+    public LinkedList<PImportDecl> getImportDeclarations() {
         return this._importDeclarations_;
     }
 
-    public void setImportDeclarations(List<?> list)
-    {
-        for(PImportDecl e : this._importDeclarations_)
-        {
+    public void setImportDeclarations(List<?> list) {
+        for (PImportDecl e : this._importDeclarations_) {
             e.parent(null);
         }
         this._importDeclarations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PImportDecl e = (PImportDecl) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -137,24 +117,19 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
         }
     }
 
-    public LinkedList<PTypeDecl> getTypeDeclarations()
-    {
+    public LinkedList<PTypeDecl> getTypeDeclarations() {
         return this._typeDeclarations_;
     }
 
-    public void setTypeDeclarations(List<?> list)
-    {
-        for(PTypeDecl e : this._typeDeclarations_)
-        {
+    public void setTypeDeclarations(List<?> list) {
+        for (PTypeDecl e : this._typeDeclarations_) {
             e.parent(null);
         }
         this._typeDeclarations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PTypeDecl e = (PTypeDecl) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -163,22 +138,17 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
         }
     }
 
-    public PModelDecl getModelDecl()
-    {
+    public PModelDecl getModelDecl() {
         return this._modelDecl_;
     }
 
-    public void setModelDecl(PModelDecl node)
-    {
-        if(this._modelDecl_ != null)
-        {
+    public void setModelDecl(PModelDecl node) {
+        if (this._modelDecl_ != null) {
             this._modelDecl_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -189,42 +159,35 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._namespaceDeclaration_)
-            + toString(this._useDeclarations_)
-            + toString(this._importDeclarations_)
-            + toString(this._typeDeclarations_)
-            + toString(this._modelDecl_);
+                + toString(this._namespaceDeclaration_)
+                + toString(this._useDeclarations_)
+                + toString(this._importDeclarations_)
+                + toString(this._typeDeclarations_)
+                + toString(this._modelDecl_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._namespaceDeclaration_.remove(child))
-        {
+        if (this._namespaceDeclaration_.remove(child)) {
             return;
         }
 
-        if(this._useDeclarations_.remove(child))
-        {
+        if (this._useDeclarations_.remove(child)) {
             return;
         }
 
-        if(this._importDeclarations_.remove(child))
-        {
+        if (this._importDeclarations_.remove(child)) {
             return;
         }
 
-        if(this._typeDeclarations_.remove(child))
-        {
+        if (this._typeDeclarations_.remove(child)) {
             return;
         }
 
-        if(this._modelDecl_ == child)
-        {
+        if (this._modelDecl_ == child) {
             this._modelDecl_ = null;
             return;
         }
@@ -233,15 +196,11 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PNamespaceDecl> i = this._namespaceDeclaration_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PNamespaceDecl> i = this._namespaceDeclaration_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PNamespaceDecl) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -254,12 +213,9 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
             }
         }
 
-        for(ListIterator<PUseDecl> i = this._useDeclarations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PUseDecl> i = this._useDeclarations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PUseDecl) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -272,12 +228,9 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
             }
         }
 
-        for(ListIterator<PImportDecl> i = this._importDeclarations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PImportDecl> i = this._importDeclarations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PImportDecl) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -290,12 +243,9 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
             }
         }
 
-        for(ListIterator<PTypeDecl> i = this._typeDeclarations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PTypeDecl> i = this._typeDeclarations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PTypeDecl) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -308,8 +258,7 @@ public final class AFmlCompilationUnit extends PFmlCompilationUnit
             }
         }
 
-        if(this._modelDecl_ == oldChild)
-        {
+        if (this._modelDecl_ == oldChild) {
             setModelDecl((PModelDecl) newChild);
             return;
         }

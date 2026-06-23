@@ -2,59 +2,95 @@
 
 package org.openflexo.foundation.fml.parser.lexer;
 
+import org.openflexo.foundation.fml.parser.node.*;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PushbackReader;
 
-import org.openflexo.foundation.fml.parser.node.*;
-
 @SuppressWarnings("nls")
-public class Lexer
-{
+public class Lexer {
+    private static int[][][][] gotoTable;
+    private static int[][] accept;
+
+    static {
+        try {
+            DataInputStream s = new DataInputStream(
+                    new BufferedInputStream(
+                            Lexer.class.getResourceAsStream("lexer.dat")));
+
+            // read gotoTable
+            int length = s.readInt();
+            gotoTable = new int[length][][][];
+            for (int i = 0; i < gotoTable.length; i++) {
+                length = s.readInt();
+                gotoTable[i] = new int[length][][];
+                for (int j = 0; j < gotoTable[i].length; j++) {
+                    length = s.readInt();
+                    gotoTable[i][j] = new int[length][3];
+                    for (int k = 0; k < gotoTable[i][j].length; k++) {
+                        for (int l = 0; l < 3; l++) {
+                            gotoTable[i][j][k][l] = s.readInt();
+                        }
+                    }
+                }
+            }
+
+            // read accept
+            length = s.readInt();
+            accept = new int[length][];
+            for (int i = 0; i < accept.length; i++) {
+                length = s.readInt();
+                accept[i] = new int[length];
+                for (int j = 0; j < accept[i].length; j++) {
+                    accept[i][j] = s.readInt();
+                }
+            }
+
+            s.close();
+        } catch (Exception e) {
+            throw new RuntimeException("The file \"lexer.dat\" is either missing or corrupted.");
+        }
+    }
+
+    private final StringBuffer text = new StringBuffer();
     protected Token token;
     protected State state = State.NORMAL;
-
     private IPushbackReader in;
     private int line;
     private int pos;
     private boolean cr;
     private boolean eof;
-    private final StringBuffer text = new StringBuffer();
 
-    @SuppressWarnings("unused")
-    protected void filter() throws LexerException, IOException
-    {
-        // Do nothing
-    }
-
-    public Lexer(@SuppressWarnings("hiding") final PushbackReader in)
-    {
+    public Lexer(@SuppressWarnings("hiding") final PushbackReader in) {
         this.in = new IPushbackReader() {
 
             private PushbackReader pushbackReader = in;
-            
+
             @Override
             public void unread(int c) throws IOException {
                 pushbackReader.unread(c);
             }
-            
+
             @Override
             public int read() throws IOException {
                 return pushbackReader.read();
             }
         };
     }
- 
-    public Lexer(@SuppressWarnings("hiding") IPushbackReader in)
-    {
+
+    public Lexer(@SuppressWarnings("hiding") IPushbackReader in) {
         this.in = in;
     }
- 
-    public Token peek() throws LexerException, IOException
-    {
-        while(this.token == null)
-        {
+
+    @SuppressWarnings("unused")
+    protected void filter() throws LexerException, IOException {
+        // Do nothing
+    }
+
+    public Token peek() throws LexerException, IOException {
+        while (this.token == null) {
             this.token = getToken();
             filter();
         }
@@ -62,10 +98,8 @@ public class Lexer
         return this.token;
     }
 
-    public Token next() throws LexerException, IOException
-    {
-        while(this.token == null)
-        {
+    public Token next() throws LexerException, IOException {
+        while (this.token == null) {
             this.token = getToken();
             filter();
         }
@@ -75,8 +109,7 @@ public class Lexer
         return result;
     }
 
-    protected Token getToken() throws IOException, LexerException
-    {
+    protected Token getToken() throws IOException, LexerException {
         int dfa_state = 0;
 
         int start_pos = this.pos;
@@ -92,2185 +125,2600 @@ public class Lexer
         @SuppressWarnings("hiding") int[] accept = Lexer.accept[this.state.id()];
         this.text.setLength(0);
 
-        while(true)
-        {
+        while (true) {
             int c = getChar();
 
-            if(c != -1)
-            {
-                switch(c)
-                {
-                case 10:
-                    if(this.cr)
-                    {
-                        this.cr = false;
-                    }
-                    else
-                    {
+            if (c != -1) {
+                switch (c) {
+                    case 10:
+                        if (this.cr) {
+                            this.cr = false;
+                        } else {
+                            this.line++;
+                            this.pos = 0;
+                        }
+                        break;
+                    case 13:
                         this.line++;
                         this.pos = 0;
-                    }
-                    break;
-                case 13:
-                    this.line++;
-                    this.pos = 0;
-                    this.cr = true;
-                    break;
-                default:
-                    this.pos++;
-                    this.cr = false;
-                    break;
+                        this.cr = true;
+                        break;
+                    default:
+                        this.pos++;
+                        this.cr = false;
+                        break;
                 }
 
                 this.text.append((char) c);
 
-                do
-                {
-                    int oldState = (dfa_state < -1) ? (-2 -dfa_state) : dfa_state;
+                do {
+                    int oldState = (dfa_state < -1) ? (-2 - dfa_state) : dfa_state;
 
                     dfa_state = -1;
 
-                    int[][] tmp1 =  gotoTable[oldState];
+                    int[][] tmp1 = gotoTable[oldState];
                     int low = 0;
                     int high = tmp1.length - 1;
 
-                    while(low <= high)
-                    {
+                    while (low <= high) {
                         // int middle = (low + high) / 2;
                         int middle = (low + high) >>> 1;
                         int[] tmp2 = tmp1[middle];
 
-                        if(c < tmp2[0])
-                        {
+                        if (c < tmp2[0]) {
                             high = middle - 1;
-                        }
-                        else if(c > tmp2[1])
-                        {
+                        } else if (c > tmp2[1]) {
                             low = middle + 1;
-                        }
-                        else
-                        {
+                        } else {
                             dfa_state = tmp2[2];
                             break;
                         }
                     }
-                }while(dfa_state < -1);
-            }
-            else
-            {
+                } while (dfa_state < -1);
+            } else {
                 dfa_state = -1;
             }
 
-            if(dfa_state >= 0)
-            {
-                if(accept[dfa_state] != -1)
-                {
+            if (dfa_state >= 0) {
+                if (accept[dfa_state] != -1) {
                     accept_state = dfa_state;
                     accept_token = accept[dfa_state];
                     accept_length = this.text.length();
                     accept_pos = this.pos;
                     accept_line = this.line;
                 }
-            }
-            else
-            {
-                if(accept_state != -1)
-                {
-                    switch(accept_token)
-                    {
-                    case 0:
-                        {
+            } else {
+                if (accept_state != -1) {
+                    switch (accept_token) {
+                        case 0: {
                             @SuppressWarnings("hiding") Token token = new0(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 1:
-                        {
+                        case 1: {
                             @SuppressWarnings("hiding") Token token = new1(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.BINDING; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.BINDING;
+                                    break;
                             }
                             return token;
                         }
-                    case 2:
-                        {
+                        case 2: {
                             @SuppressWarnings("hiding") Token token = new2(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.COMMAND; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.COMMAND;
+                                    break;
                             }
                             return token;
                         }
-                    case 3:
-                        {
+                        case 3: {
                             @SuppressWarnings("hiding") Token token = new3(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 4:
-                        {
+                        case 4: {
                             @SuppressWarnings("hiding") Token token = new4(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 5:
-                        {
+                        case 5: {
                             @SuppressWarnings("hiding") Token token = new5(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 6:
-                        {
+                        case 6: {
                             @SuppressWarnings("hiding") Token token = new6(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 7:
-                        {
+                        case 7: {
                             @SuppressWarnings("hiding") Token token = new7(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 8:
-                        {
+                        case 8: {
                             @SuppressWarnings("hiding") Token token = new8(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 9:
-                        {
+                        case 9: {
                             @SuppressWarnings("hiding") Token token = new9(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 10:
-                        {
+                        case 10: {
                             @SuppressWarnings("hiding") Token token = new10(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 11:
-                        {
+                        case 11: {
                             @SuppressWarnings("hiding") Token token = new11(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 12:
-                        {
+                        case 12: {
                             @SuppressWarnings("hiding") Token token = new12(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 13:
-                        {
+                        case 13: {
                             @SuppressWarnings("hiding") Token token = new13(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 14:
-                        {
+                        case 14: {
                             @SuppressWarnings("hiding") Token token = new14(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 15:
-                        {
+                        case 15: {
                             @SuppressWarnings("hiding") Token token = new15(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 16:
-                        {
+                        case 16: {
                             @SuppressWarnings("hiding") Token token = new16(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 17:
-                        {
+                        case 17: {
                             @SuppressWarnings("hiding") Token token = new17(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 18:
-                        {
+                        case 18: {
                             @SuppressWarnings("hiding") Token token = new18(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 19:
-                        {
+                        case 19: {
                             @SuppressWarnings("hiding") Token token = new19(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 20:
-                        {
+                        case 20: {
                             @SuppressWarnings("hiding") Token token = new20(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 21:
-                        {
+                        case 21: {
                             @SuppressWarnings("hiding") Token token = new21(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 22:
-                        {
+                        case 22: {
                             @SuppressWarnings("hiding") Token token = new22(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 23:
-                        {
+                        case 23: {
                             @SuppressWarnings("hiding") Token token = new23(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 24:
-                        {
+                        case 24: {
                             @SuppressWarnings("hiding") Token token = new24(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 25:
-                        {
+                        case 25: {
                             @SuppressWarnings("hiding") Token token = new25(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 26:
-                        {
+                        case 26: {
                             @SuppressWarnings("hiding") Token token = new26(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 27:
-                        {
+                        case 27: {
                             @SuppressWarnings("hiding") Token token = new27(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 28:
-                        {
+                        case 28: {
                             @SuppressWarnings("hiding") Token token = new28(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 29:
-                        {
+                        case 29: {
                             @SuppressWarnings("hiding") Token token = new29(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 30:
-                        {
+                        case 30: {
                             @SuppressWarnings("hiding") Token token = new30(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 31:
-                        {
+                        case 31: {
                             @SuppressWarnings("hiding") Token token = new31(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 32:
-                        {
+                        case 32: {
                             @SuppressWarnings("hiding") Token token = new32(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 33:
-                        {
+                        case 33: {
                             @SuppressWarnings("hiding") Token token = new33(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 34:
-                        {
+                        case 34: {
                             @SuppressWarnings("hiding") Token token = new34(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 35:
-                        {
+                        case 35: {
                             @SuppressWarnings("hiding") Token token = new35(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 36:
-                        {
+                        case 36: {
                             @SuppressWarnings("hiding") Token token = new36(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 37:
-                        {
+                        case 37: {
                             @SuppressWarnings("hiding") Token token = new37(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 38:
-                        {
+                        case 38: {
                             @SuppressWarnings("hiding") Token token = new38(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 39:
-                        {
+                        case 39: {
                             @SuppressWarnings("hiding") Token token = new39(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 40:
-                        {
+                        case 40: {
                             @SuppressWarnings("hiding") Token token = new40(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 41:
-                        {
+                        case 41: {
                             @SuppressWarnings("hiding") Token token = new41(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 42:
-                        {
+                        case 42: {
                             @SuppressWarnings("hiding") Token token = new42(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 43:
-                        {
+                        case 43: {
                             @SuppressWarnings("hiding") Token token = new43(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 44:
-                        {
+                        case 44: {
                             @SuppressWarnings("hiding") Token token = new44(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 45:
-                        {
+                        case 45: {
                             @SuppressWarnings("hiding") Token token = new45(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 46:
-                        {
+                        case 46: {
                             @SuppressWarnings("hiding") Token token = new46(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 47:
-                        {
+                        case 47: {
                             @SuppressWarnings("hiding") Token token = new47(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 48:
-                        {
+                        case 48: {
                             @SuppressWarnings("hiding") Token token = new48(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.NORMAL; break;
-                                case 0: state = State.NORMAL; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.NORMAL;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 49:
-                        {
+                        case 49: {
                             @SuppressWarnings("hiding") Token token = new49(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 2: state = State.COMMAND; break;
-                                case 0: state = State.BINDING; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 0:
+                                    state = State.BINDING;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 50:
-                        {
+                        case 50: {
                             @SuppressWarnings("hiding") Token token = new50(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.NORMAL; break;
-                                case 2: state = State.COMMAND; break;
-                                case 0: state = State.NORMAL; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.NORMAL;
+                                    break;
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 51:
-                        {
+                        case 51: {
                             @SuppressWarnings("hiding") Token token = new51(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 52:
-                        {
+                        case 52: {
                             @SuppressWarnings("hiding") Token token = new52(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 53:
-                        {
+                        case 53: {
                             @SuppressWarnings("hiding") Token token = new53(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 54:
-                        {
+                        case 54: {
                             @SuppressWarnings("hiding") Token token = new54(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 55:
-                        {
+                        case 55: {
                             @SuppressWarnings("hiding") Token token = new55(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 56:
-                        {
+                        case 56: {
                             @SuppressWarnings("hiding") Token token = new56(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 57:
-                        {
+                        case 57: {
                             @SuppressWarnings("hiding") Token token = new57(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 58:
-                        {
+                        case 58: {
                             @SuppressWarnings("hiding") Token token = new58(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 59:
-                        {
+                        case 59: {
                             @SuppressWarnings("hiding") Token token = new59(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 60:
-                        {
+                        case 60: {
                             @SuppressWarnings("hiding") Token token = new60(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 61:
-                        {
+                        case 61: {
                             @SuppressWarnings("hiding") Token token = new61(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 62:
-                        {
+                        case 62: {
                             @SuppressWarnings("hiding") Token token = new62(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 63:
-                        {
+                        case 63: {
                             @SuppressWarnings("hiding") Token token = new63(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 64:
-                        {
+                        case 64: {
                             @SuppressWarnings("hiding") Token token = new64(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 65:
-                        {
+                        case 65: {
                             @SuppressWarnings("hiding") Token token = new65(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 66:
-                        {
+                        case 66: {
                             @SuppressWarnings("hiding") Token token = new66(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 67:
-                        {
+                        case 67: {
                             @SuppressWarnings("hiding") Token token = new67(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 68:
-                        {
+                        case 68: {
                             @SuppressWarnings("hiding") Token token = new68(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 69:
-                        {
+                        case 69: {
                             @SuppressWarnings("hiding") Token token = new69(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 70:
-                        {
+                        case 70: {
                             @SuppressWarnings("hiding") Token token = new70(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 71:
-                        {
+                        case 71: {
                             @SuppressWarnings("hiding") Token token = new71(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 72:
-                        {
+                        case 72: {
                             @SuppressWarnings("hiding") Token token = new72(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 73:
-                        {
+                        case 73: {
                             @SuppressWarnings("hiding") Token token = new73(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 74:
-                        {
+                        case 74: {
                             @SuppressWarnings("hiding") Token token = new74(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 75:
-                        {
+                        case 75: {
                             @SuppressWarnings("hiding") Token token = new75(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 76:
-                        {
+                        case 76: {
                             @SuppressWarnings("hiding") Token token = new76(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 77:
-                        {
+                        case 77: {
                             @SuppressWarnings("hiding") Token token = new77(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 78:
-                        {
+                        case 78: {
                             @SuppressWarnings("hiding") Token token = new78(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 79:
-                        {
+                        case 79: {
                             @SuppressWarnings("hiding") Token token = new79(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 0: state = State.NORMAL; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 80:
-                        {
+                        case 80: {
                             @SuppressWarnings("hiding") Token token = new80(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 81:
-                        {
+                        case 81: {
                             @SuppressWarnings("hiding") Token token = new81(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 82:
-                        {
+                        case 82: {
                             @SuppressWarnings("hiding") Token token = new82(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 83:
-                        {
+                        case 83: {
                             @SuppressWarnings("hiding") Token token = new83(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 84:
-                        {
+                        case 84: {
                             @SuppressWarnings("hiding") Token token = new84(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 85:
-                        {
+                        case 85: {
                             @SuppressWarnings("hiding") Token token = new85(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 86:
-                        {
+                        case 86: {
                             @SuppressWarnings("hiding") Token token = new86(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 87:
-                        {
+                        case 87: {
                             @SuppressWarnings("hiding") Token token = new87(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 88:
-                        {
+                        case 88: {
                             @SuppressWarnings("hiding") Token token = new88(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 89:
-                        {
+                        case 89: {
                             @SuppressWarnings("hiding") Token token = new89(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 90:
-                        {
+                        case 90: {
                             @SuppressWarnings("hiding") Token token = new90(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 91:
-                        {
+                        case 91: {
                             @SuppressWarnings("hiding") Token token = new91(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 92:
-                        {
+                        case 92: {
                             @SuppressWarnings("hiding") Token token = new92(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 93:
-                        {
+                        case 93: {
                             @SuppressWarnings("hiding") Token token = new93(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 94:
-                        {
+                        case 94: {
                             @SuppressWarnings("hiding") Token token = new94(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 95:
-                        {
+                        case 95: {
                             @SuppressWarnings("hiding") Token token = new95(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 96:
-                        {
+                        case 96: {
                             @SuppressWarnings("hiding") Token token = new96(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 97:
-                        {
+                        case 97: {
                             @SuppressWarnings("hiding") Token token = new97(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.BINDING; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.BINDING;
+                                    break;
                             }
                             return token;
                         }
-                    case 98:
-                        {
+                        case 98: {
                             @SuppressWarnings("hiding") Token token = new98(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 99:
-                        {
+                        case 99: {
                             @SuppressWarnings("hiding") Token token = new99(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 100:
-                        {
+                        case 100: {
                             @SuppressWarnings("hiding") Token token = new100(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 101:
-                        {
+                        case 101: {
                             @SuppressWarnings("hiding") Token token = new101(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 102:
-                        {
+                        case 102: {
                             @SuppressWarnings("hiding") Token token = new102(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 2: state = State.COMMAND; break;
-                                case 0: state = State.BINDING; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 0:
+                                    state = State.BINDING;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 103:
-                        {
+                        case 103: {
                             @SuppressWarnings("hiding") Token token = new103(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 104:
-                        {
+                        case 104: {
                             @SuppressWarnings("hiding") Token token = new104(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 105:
-                        {
+                        case 105: {
                             @SuppressWarnings("hiding") Token token = new105(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 106:
-                        {
+                        case 106: {
                             @SuppressWarnings("hiding") Token token = new106(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 107:
-                        {
+                        case 107: {
                             @SuppressWarnings("hiding") Token token = new107(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 2: state = State.COMMAND; break;
-                                case 0: state = State.NORMAL; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 108:
-                        {
+                        case 108: {
                             @SuppressWarnings("hiding") Token token = new108(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 109:
-                        {
+                        case 109: {
                             @SuppressWarnings("hiding") Token token = new109(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 110:
-                        {
+                        case 110: {
                             @SuppressWarnings("hiding") Token token = new110(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 111:
-                        {
+                        case 111: {
                             @SuppressWarnings("hiding") Token token = new111(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 112:
-                        {
+                        case 112: {
                             @SuppressWarnings("hiding") Token token = new112(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 113:
-                        {
+                        case 113: {
                             @SuppressWarnings("hiding") Token token = new113(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 114:
-                        {
+                        case 114: {
                             @SuppressWarnings("hiding") Token token = new114(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 115:
-                        {
+                        case 115: {
                             @SuppressWarnings("hiding") Token token = new115(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 116:
-                        {
+                        case 116: {
                             @SuppressWarnings("hiding") Token token = new116(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 117:
-                        {
+                        case 117: {
                             @SuppressWarnings("hiding") Token token = new117(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 118:
-                        {
+                        case 118: {
                             @SuppressWarnings("hiding") Token token = new118(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 119:
-                        {
+                        case 119: {
                             @SuppressWarnings("hiding") Token token = new119(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 120:
-                        {
+                        case 120: {
                             @SuppressWarnings("hiding") Token token = new120(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.BINDING; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.BINDING;
+                                    break;
                             }
                             return token;
                         }
-                    case 121:
-                        {
+                        case 121: {
                             @SuppressWarnings("hiding") Token token = new121(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 122:
-                        {
+                        case 122: {
                             @SuppressWarnings("hiding") Token token = new122(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.BINDING; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.BINDING;
+                                    break;
                             }
                             return token;
                         }
-                    case 123:
-                        {
+                        case 123: {
                             @SuppressWarnings("hiding") Token token = new123(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 124:
-                        {
+                        case 124: {
                             @SuppressWarnings("hiding") Token token = new124(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 0: state = State.NORMAL; break;
+                            switch (state.id()) {
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
                             }
                             return token;
                         }
-                    case 125:
-                        {
+                        case 125: {
                             @SuppressWarnings("hiding") Token token = new125(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
-                            switch(state.id())
-                            {
-                                case 1: state = State.BINDING; break;
-                                case 2: state = State.COMMAND; break;
-                                case 0: state = State.NORMAL; break;
-                                case 3: state = State.SCRIPT; break;
+                            switch (state.id()) {
+                                case 1:
+                                    state = State.BINDING;
+                                    break;
+                                case 2:
+                                    state = State.COMMAND;
+                                    break;
+                                case 0:
+                                    state = State.NORMAL;
+                                    break;
+                                case 3:
+                                    state = State.SCRIPT;
+                                    break;
                             }
                             return token;
                         }
-                    case 126:
-                        {
+                        case 126: {
                             @SuppressWarnings("hiding") Token token = new126(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 127:
-                        {
+                        case 127: {
                             @SuppressWarnings("hiding") Token token = new127(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 128:
-                        {
+                        case 128: {
                             @SuppressWarnings("hiding") Token token = new128(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 129:
-                        {
+                        case 129: {
                             @SuppressWarnings("hiding") Token token = new129(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 130:
-                        {
+                        case 130: {
                             @SuppressWarnings("hiding") Token token = new130(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 131:
-                        {
+                        case 131: {
                             @SuppressWarnings("hiding") Token token = new131(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 132:
-                        {
+                        case 132: {
                             @SuppressWarnings("hiding") Token token = new132(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 133:
-                        {
+                        case 133: {
                             @SuppressWarnings("hiding") Token token = new133(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 134:
-                        {
+                        case 134: {
                             @SuppressWarnings("hiding") Token token = new134(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 135:
-                        {
+                        case 135: {
                             @SuppressWarnings("hiding") Token token = new135(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 136:
-                        {
+                        case 136: {
                             @SuppressWarnings("hiding") Token token = new136(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 137:
-                        {
+                        case 137: {
                             @SuppressWarnings("hiding") Token token = new137(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 138:
-                        {
+                        case 138: {
                             @SuppressWarnings("hiding") Token token = new138(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 139:
-                        {
+                        case 139: {
                             @SuppressWarnings("hiding") Token token = new139(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 140:
-                        {
+                        case 140: {
                             @SuppressWarnings("hiding") Token token = new140(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 141:
-                        {
+                        case 141: {
                             @SuppressWarnings("hiding") Token token = new141(
-                                start_line + 1,
-                                start_pos + 1);
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 142:
-                        {
+                        case 142: {
                             @SuppressWarnings("hiding") Token token = new142(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 143:
-                        {
+                        case 143: {
                             @SuppressWarnings("hiding") Token token = new143(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 144:
-                        {
+                        case 144: {
                             @SuppressWarnings("hiding") Token token = new144(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 145:
-                        {
+                        case 145: {
                             @SuppressWarnings("hiding") Token token = new145(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 146:
-                        {
+                        case 146: {
                             @SuppressWarnings("hiding") Token token = new146(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 147:
-                        {
+                        case 147: {
                             @SuppressWarnings("hiding") Token token = new147(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
-                    case 148:
-                        {
+                        case 148: {
                             @SuppressWarnings("hiding") Token token = new148(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
+                                    getText(accept_length),
+                                    start_line + 1,
+                                    start_pos + 1);
                             pushBack(accept_length);
                             this.pos = accept_pos;
                             this.line = accept_line;
                             return token;
                         }
                     }
-                }
-                else
-                {
-                    if(this.text.length() > 0)
-                    {
+                } else {
+                    if (this.text.length() > 0) {
                         throw new LexerException(
-                            new InvalidToken(this.text.substring(0, 1), start_line + 1, start_pos + 1),
-                            "[" + (start_line + 1) + "," + (start_pos + 1) + "]" +
-                            " Unknown token: " + this.text);
+                                new InvalidToken(this.text.substring(0, 1), start_line + 1, start_pos + 1),
+                                "[" + (start_line + 1) + "," + (start_pos + 1) + "]" +
+                                        " Unknown token: " + this.text);
                     }
 
                     @SuppressWarnings("hiding") EOF token = new EOF(
-                        start_line + 1,
-                        start_pos + 1);
+                            start_line + 1,
+                            start_pos + 1);
                     return token;
                 }
             }
         }
     }
 
-    Token new0(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TStartCompilationUnit(text, line, pos); }
-    Token new1(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TStartBinding(text, line, pos); }
-    Token new2(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TStartCommand(text, line, pos); }
-    Token new3(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TStartScript(text, line, pos); }
-    Token new4(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TAmp(line, pos); }
-    Token new5(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TAmpAmp(line, pos); }
-    Token new6(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TAmpAssign(line, pos); }
-    Token new7(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TAssign(line, pos); }
-    Token new8(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TBar(line, pos); }
-    Token new9(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TBarAssign(line, pos); }
-    Token new10(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TBarBar(line, pos); }
-    Token new11(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TCaret(line, pos); }
-    Token new12(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TCaretAssign(line, pos); }
-    Token new13(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TColon(line, pos); }
-    Token new14(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEmark(line, pos); }
-    Token new15(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEq(line, pos); }
-    Token new16(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TGt(line, pos); }
-    Token new17(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TGteq(line, pos); }
-    Token new18(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLt(line, pos); }
-    Token new19(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLteq(line, pos); }
-    Token new20(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinus(line, pos); }
-    Token new21(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinusAssign(line, pos); }
-    Token new22(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinusMinus(line, pos); }
-    Token new23(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TNeq(line, pos); }
-    Token new24(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPercent(line, pos); }
-    Token new25(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPercentAssign(line, pos); }
-    Token new26(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPlus(line, pos); }
-    Token new27(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPlusAssign(line, pos); }
-    Token new28(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPlusPlus(line, pos); }
-    Token new29(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TQmark(line, pos); }
-    Token new30(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TShl(line, pos); }
-    Token new31(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TShlAssign(line, pos); }
-    Token new32(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TShr(line, pos); }
-    Token new33(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TShrAssign(line, pos); }
-    Token new34(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TSlash(line, pos); }
-    Token new35(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TSlashAssign(line, pos); }
-    Token new36(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TStar(line, pos); }
-    Token new37(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TStarAssign(line, pos); }
-    Token new38(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTilde(line, pos); }
-    Token new39(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TUshr(line, pos); }
-    Token new40(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TUshrAssign(line, pos); }
-    Token new41(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TAt(line, pos); }
-    Token new42(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TColonColon(line, pos); }
-    Token new43(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TComma(line, pos); }
-    Token new44(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TDollar(line, pos); }
-    Token new45(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TDot(line, pos); }
-    Token new46(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TDotDot(line, pos); }
-    Token new47(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TDotDotDot(line, pos); }
-    Token new48(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TSemi(line, pos); }
-    Token new49(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLPar(line, pos); }
-    Token new50(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TRPar(line, pos); }
-    Token new51(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLBkt(line, pos); }
-    Token new52(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TRBkt(line, pos); }
-    Token new53(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLBrc(line, pos); }
-    Token new54(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TRBrc(line, pos); }
-    Token new55(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new THelp(line, pos); }
-    Token new56(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new THistory(line, pos); }
-    Token new57(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TExecute(line, pos); }
-    Token new58(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TPwd(line, pos); }
-    Token new59(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLs(line, pos); }
-    Token new60(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TCd(line, pos); }
-    Token new61(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TServices(line, pos); }
-    Token new62(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TService(line, pos); }
-    Token new63(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TActivate(line, pos); }
-    Token new64(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TResources(line, pos); }
-    Token new65(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TOpen(line, pos); }
-    Token new66(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLoad(line, pos); }
-    Token new67(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMore(line, pos); }
-    Token new68(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEnter(line, pos); }
-    Token new69(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TExit(line, pos); }
-    Token new70(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TQuit(line, pos); }
-    Token new71(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TContext(line, pos); }
-    Token new72(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinusRc(line, pos); }
-    Token new73(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinusR(line, pos); }
-    Token new74(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinusD(line, pos); }
-    Token new75(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TMinusF(line, pos); }
-    Token new76(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwAbstract(line, pos); }
-    Token new77(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwAction(line, pos); }
-    Token new78(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwAs(line, pos); }
-    Token new79(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwAssert(line, pos); }
-    Token new80(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwBegin(line, pos); }
-    Token new81(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwConcept(line, pos); }
-    Token new82(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwConnect(line, pos); }
-    Token new83(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwCreate(line, pos); }
-    Token new84(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwDefault(line, pos); }
-    Token new85(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwDelete(line, pos); }
-    Token new86(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwDo(line, pos); }
-    Token new87(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwElse(line, pos); }
-    Token new88(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwEnd(line, pos); }
-    Token new89(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwEnum(line, pos); }
-    Token new90(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwEvent(line, pos); }
-    Token new91(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwExtends(line, pos); }
-    Token new92(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwFire(line, pos); }
-    Token new93(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwFor(line, pos); }
-    Token new94(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwFrom(line, pos); }
-    Token new95(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwGet(line, pos); }
-    Token new96(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwIf(line, pos); }
-    Token new97(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwImport(line, pos); }
-    Token new98(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwIn(line, pos); }
-    Token new99(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwInside(line, pos); }
-    Token new100(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwInstanceof(line, pos); }
-    Token new101(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwListen(line, pos); }
-    Token new102(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwLog(line, pos); }
-    Token new103(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwMatch(line, pos); }
-    Token new104(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwModel(line, pos); }
-    Token new105(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwNamespace(line, pos); }
-    Token new106(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwNotify(line, pos); }
-    Token new107(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwNew(line, pos); }
-    Token new108(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwOnfailure(line, pos); }
-    Token new109(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwPrivate(line, pos); }
-    Token new110(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwProtected(line, pos); }
-    Token new111(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwPublic(line, pos); }
-    Token new112(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwRequired(line, pos); }
-    Token new113(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwReturn(line, pos); }
-    Token new114(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwSelect(line, pos); }
-    Token new115(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwSet(line, pos); }
-    Token new116(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwSuper(line, pos); }
-    Token new117(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwThen(line, pos); }
-    Token new118(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwTypedef(line, pos); }
-    Token new119(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwUnique(line, pos); }
-    Token new120(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwUse(line, pos); }
-    Token new121(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwUsing(line, pos); }
-    Token new122(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwValues(line, pos); }
-    Token new123(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwWhere(line, pos); }
-    Token new124(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwWhile(line, pos); }
-    Token new125(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TKwWith(line, pos); }
-    Token new126(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyBoolean(line, pos); }
-    Token new127(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyChar(line, pos); }
-    Token new128(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyShort(line, pos); }
-    Token new129(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyInt(line, pos); }
-    Token new130(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyLong(line, pos); }
-    Token new131(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyByte(line, pos); }
-    Token new132(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyFloat(line, pos); }
-    Token new133(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyDouble(line, pos); }
-    Token new134(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTyVoid(line, pos); }
-    Token new135(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitString(text, line, pos); }
-    Token new136(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitCharacter(text, line, pos); }
-    Token new137(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitFloat(text, line, pos); }
-    Token new138(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitInteger(text, line, pos); }
-    Token new139(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitNull(line, pos); }
-    Token new140(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitTrue(line, pos); }
-    Token new141(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLitFalse(line, pos); }
-    Token new142(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TCidentifier(text, line, pos); }
-    Token new143(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLidentifier(text, line, pos); }
-    Token new144(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TUidentifier(text, line, pos); }
-    Token new145(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TWhiteSpace(text, line, pos); }
-    Token new146(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TTraditionalComment(text, line, pos); }
-    Token new147(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TDocumentationComment(text, line, pos); }
-    Token new148(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TEndOfLineComment(text, line, pos); }
+    Token new0(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TStartCompilationUnit(text, line, pos);
+    }
 
-    private int getChar() throws IOException
-    {
-        if(this.eof)
-        {
+    Token new1(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TStartBinding(text, line, pos);
+    }
+
+    Token new2(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TStartCommand(text, line, pos);
+    }
+
+    Token new3(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TStartScript(text, line, pos);
+    }
+
+    Token new4(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TAmp(line, pos);
+    }
+
+    Token new5(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TAmpAmp(line, pos);
+    }
+
+    Token new6(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TAmpAssign(line, pos);
+    }
+
+    Token new7(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TAssign(line, pos);
+    }
+
+    Token new8(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TBar(line, pos);
+    }
+
+    Token new9(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TBarAssign(line, pos);
+    }
+
+    Token new10(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TBarBar(line, pos);
+    }
+
+    Token new11(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TCaret(line, pos);
+    }
+
+    Token new12(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TCaretAssign(line, pos);
+    }
+
+    Token new13(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TColon(line, pos);
+    }
+
+    Token new14(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TEmark(line, pos);
+    }
+
+    Token new15(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TEq(line, pos);
+    }
+
+    Token new16(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TGt(line, pos);
+    }
+
+    Token new17(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TGteq(line, pos);
+    }
+
+    Token new18(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLt(line, pos);
+    }
+
+    Token new19(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLteq(line, pos);
+    }
+
+    Token new20(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinus(line, pos);
+    }
+
+    Token new21(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinusAssign(line, pos);
+    }
+
+    Token new22(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinusMinus(line, pos);
+    }
+
+    Token new23(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TNeq(line, pos);
+    }
+
+    Token new24(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TPercent(line, pos);
+    }
+
+    Token new25(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TPercentAssign(line, pos);
+    }
+
+    Token new26(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TPlus(line, pos);
+    }
+
+    Token new27(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TPlusAssign(line, pos);
+    }
+
+    Token new28(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TPlusPlus(line, pos);
+    }
+
+    Token new29(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TQmark(line, pos);
+    }
+
+    Token new30(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TShl(line, pos);
+    }
+
+    Token new31(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TShlAssign(line, pos);
+    }
+
+    Token new32(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TShr(line, pos);
+    }
+
+    Token new33(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TShrAssign(line, pos);
+    }
+
+    Token new34(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TSlash(line, pos);
+    }
+
+    Token new35(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TSlashAssign(line, pos);
+    }
+
+    Token new36(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TStar(line, pos);
+    }
+
+    Token new37(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TStarAssign(line, pos);
+    }
+
+    Token new38(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTilde(line, pos);
+    }
+
+    Token new39(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TUshr(line, pos);
+    }
+
+    Token new40(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TUshrAssign(line, pos);
+    }
+
+    Token new41(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TAt(line, pos);
+    }
+
+    Token new42(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TColonColon(line, pos);
+    }
+
+    Token new43(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TComma(line, pos);
+    }
+
+    Token new44(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TDollar(line, pos);
+    }
+
+    Token new45(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TDot(line, pos);
+    }
+
+    Token new46(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TDotDot(line, pos);
+    }
+
+    Token new47(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TDotDotDot(line, pos);
+    }
+
+    Token new48(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TSemi(line, pos);
+    }
+
+    Token new49(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLPar(line, pos);
+    }
+
+    Token new50(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TRPar(line, pos);
+    }
+
+    Token new51(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLBkt(line, pos);
+    }
+
+    Token new52(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TRBkt(line, pos);
+    }
+
+    Token new53(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLBrc(line, pos);
+    }
+
+    Token new54(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TRBrc(line, pos);
+    }
+
+    Token new55(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new THelp(line, pos);
+    }
+
+    Token new56(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new THistory(line, pos);
+    }
+
+    Token new57(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TExecute(line, pos);
+    }
+
+    Token new58(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TPwd(line, pos);
+    }
+
+    Token new59(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLs(line, pos);
+    }
+
+    Token new60(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TCd(line, pos);
+    }
+
+    Token new61(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TServices(line, pos);
+    }
+
+    Token new62(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TService(line, pos);
+    }
+
+    Token new63(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TActivate(line, pos);
+    }
+
+    Token new64(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TResources(line, pos);
+    }
+
+    Token new65(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TOpen(line, pos);
+    }
+
+    Token new66(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLoad(line, pos);
+    }
+
+    Token new67(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMore(line, pos);
+    }
+
+    Token new68(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TEnter(line, pos);
+    }
+
+    Token new69(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TExit(line, pos);
+    }
+
+    Token new70(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TQuit(line, pos);
+    }
+
+    Token new71(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TContext(line, pos);
+    }
+
+    Token new72(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinusRc(line, pos);
+    }
+
+    Token new73(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinusR(line, pos);
+    }
+
+    Token new74(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinusD(line, pos);
+    }
+
+    Token new75(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TMinusF(line, pos);
+    }
+
+    Token new76(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwAbstract(line, pos);
+    }
+
+    Token new77(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwAction(line, pos);
+    }
+
+    Token new78(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwAs(line, pos);
+    }
+
+    Token new79(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwAssert(line, pos);
+    }
+
+    Token new80(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwBegin(line, pos);
+    }
+
+    Token new81(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwConcept(line, pos);
+    }
+
+    Token new82(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwConnect(line, pos);
+    }
+
+    Token new83(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwCreate(line, pos);
+    }
+
+    Token new84(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwDefault(line, pos);
+    }
+
+    Token new85(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwDelete(line, pos);
+    }
+
+    Token new86(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwDo(line, pos);
+    }
+
+    Token new87(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwElse(line, pos);
+    }
+
+    Token new88(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwEnd(line, pos);
+    }
+
+    Token new89(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwEnum(line, pos);
+    }
+
+    Token new90(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwEvent(line, pos);
+    }
+
+    Token new91(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwExtends(line, pos);
+    }
+
+    Token new92(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwFire(line, pos);
+    }
+
+    Token new93(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwFor(line, pos);
+    }
+
+    Token new94(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwFrom(line, pos);
+    }
+
+    Token new95(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwGet(line, pos);
+    }
+
+    Token new96(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwIf(line, pos);
+    }
+
+    Token new97(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwImport(line, pos);
+    }
+
+    Token new98(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwIn(line, pos);
+    }
+
+    Token new99(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwInside(line, pos);
+    }
+
+    Token new100(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwInstanceof(line, pos);
+    }
+
+    Token new101(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwListen(line, pos);
+    }
+
+    Token new102(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwLog(line, pos);
+    }
+
+    Token new103(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwMatch(line, pos);
+    }
+
+    Token new104(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwModel(line, pos);
+    }
+
+    Token new105(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwNamespace(line, pos);
+    }
+
+    Token new106(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwNotify(line, pos);
+    }
+
+    Token new107(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwNew(line, pos);
+    }
+
+    Token new108(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwOnfailure(line, pos);
+    }
+
+    Token new109(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwPrivate(line, pos);
+    }
+
+    Token new110(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwProtected(line, pos);
+    }
+
+    Token new111(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwPublic(line, pos);
+    }
+
+    Token new112(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwRequired(line, pos);
+    }
+
+    Token new113(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwReturn(line, pos);
+    }
+
+    Token new114(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwSelect(line, pos);
+    }
+
+    Token new115(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwSet(line, pos);
+    }
+
+    Token new116(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwSuper(line, pos);
+    }
+
+    Token new117(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwThen(line, pos);
+    }
+
+    Token new118(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwTypedef(line, pos);
+    }
+
+    Token new119(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwUnique(line, pos);
+    }
+
+    Token new120(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwUse(line, pos);
+    }
+
+    Token new121(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwUsing(line, pos);
+    }
+
+    Token new122(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwValues(line, pos);
+    }
+
+    Token new123(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwWhere(line, pos);
+    }
+
+    Token new124(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwWhile(line, pos);
+    }
+
+    Token new125(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TKwWith(line, pos);
+    }
+
+    Token new126(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyBoolean(line, pos);
+    }
+
+    Token new127(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyChar(line, pos);
+    }
+
+    Token new128(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyShort(line, pos);
+    }
+
+    Token new129(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyInt(line, pos);
+    }
+
+    Token new130(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyLong(line, pos);
+    }
+
+    Token new131(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyByte(line, pos);
+    }
+
+    Token new132(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyFloat(line, pos);
+    }
+
+    Token new133(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyDouble(line, pos);
+    }
+
+    Token new134(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTyVoid(line, pos);
+    }
+
+    Token new135(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitString(text, line, pos);
+    }
+
+    Token new136(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitCharacter(text, line, pos);
+    }
+
+    Token new137(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitFloat(text, line, pos);
+    }
+
+    Token new138(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitInteger(text, line, pos);
+    }
+
+    Token new139(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitNull(line, pos);
+    }
+
+    Token new140(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitTrue(line, pos);
+    }
+
+    Token new141(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLitFalse(line, pos);
+    }
+
+    Token new142(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TCidentifier(text, line, pos);
+    }
+
+    Token new143(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TLidentifier(text, line, pos);
+    }
+
+    Token new144(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TUidentifier(text, line, pos);
+    }
+
+    Token new145(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TWhiteSpace(text, line, pos);
+    }
+
+    Token new146(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TTraditionalComment(text, line, pos);
+    }
+
+    Token new147(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TDocumentationComment(text, line, pos);
+    }
+
+    Token new148(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) {
+        return new TEndOfLineComment(text, line, pos);
+    }
+
+    private int getChar() throws IOException {
+        if (this.eof) {
             return -1;
         }
 
         int result = this.in.read();
 
-        if(result == -1)
-        {
+        if (result == -1) {
             this.eof = true;
         }
 
         return result;
     }
 
-    private void pushBack(int acceptLength) throws IOException
-    {
+    private void pushBack(int acceptLength) throws IOException {
         int length = this.text.length();
-        for(int i = length - 1; i >= acceptLength; i--)
-        {
+        for (int i = length - 1; i >= acceptLength; i--) {
             this.eof = false;
 
             this.in.unread(this.text.charAt(i));
         }
     }
-
-    protected void unread(@SuppressWarnings("hiding") Token token) throws IOException
-    {
-        @SuppressWarnings("hiding") String text = token.getText();
-        int length = text.length();
-
-        for(int i = length - 1; i >= 0; i--)
-        {
-            this.eof = false;
-
-            this.in.unread(text.charAt(i));
-        }
-
-        this.pos = token.getPos() - 1;
-        this.line = token.getLine() - 1;
-    }
-
-    private String getText(int acceptLength)
-    {
-        StringBuffer s = new StringBuffer(acceptLength);
-        for(int i = 0; i < acceptLength; i++)
-        {
-            s.append(this.text.charAt(i));
-        }
-
-        return s.toString();
-    }
-
-    private static int[][][][] gotoTable;
 /*  {
         { // NORMAL
             {{9, 9, 1}, {10, 10, 2}, {12, 12, 3}, {13, 13, 4}, {32, 32, 5}, {33, 33, 6}, {34, 34, 7}, {36, 36, 8}, {37, 37, 9}, {38, 38, 10}, {39, 39, 11}, {40, 40, 12}, {41, 41, 13}, {42, 42, 14}, {43, 43, 15}, {44, 44, 16}, {45, 45, 17}, {46, 46, 18}, {47, 47, 19}, {48, 48, 20}, {49, 57, 21}, {58, 58, 22}, {59, 59, 23}, {60, 60, 24}, {61, 61, 25}, {62, 62, 26}, {63, 63, 27}, {64, 64, 28}, {65, 90, 29}, {91, 91, 30}, {93, 93, 31}, {94, 94, 32}, {95, 95, 33}, {97, 97, 34}, {98, 98, 35}, {99, 99, 36}, {100, 100, 37}, {101, 101, 38}, {102, 102, 39}, {103, 103, 40}, {104, 104, 41}, {105, 105, 42}, {106, 107, 41}, {108, 108, 43}, {109, 109, 44}, {110, 110, 45}, {111, 111, 46}, {112, 112, 47}, {113, 113, 41}, {114, 114, 48}, {115, 115, 49}, {116, 116, 50}, {117, 117, 51}, {118, 118, 52}, {119, 119, 53}, {120, 122, 41}, {123, 123, 54}, {124, 124, 55}, {125, 125, 56}, {126, 126, 57}, },
@@ -5548,7 +5996,19 @@ public class Lexer
         }
     };*/
 
-    private static int[][] accept;
+    protected void unread(@SuppressWarnings("hiding") Token token) throws IOException {
+        @SuppressWarnings("hiding") String text = token.getText();
+        int length = text.length();
+
+        for (int i = length - 1; i >= 0; i--) {
+            this.eof = false;
+
+            this.in.unread(text.charAt(i));
+        }
+
+        this.pos = token.getPos() - 1;
+        this.line = token.getLine() - 1;
+    }
 /*  {
         // NORMAL
         {0, 145, 145, 145, 145, 145, 14, -1, 44, 24, 4, -1, 49, 50, 36, 26, 43, 20, 45, 34, 138, 138, 13, 48, 18, 7, 16, 29, 41, 142, 51, 52, 11, 142, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 53, 8, 54, 38, 145, 23, -1, 135, -1, 25, 5, 6, -1, -1, 37, 28, 27, 22, 21, 46, 137, -1, 148, 35, 137, 138, 142, 142, 137, 142, 137, 138, 142, 142, 137, -1, 137, 138, -1, 138, 42, 30, 19, 15, 17, 32, 144, 142, 142, 142, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 144, 12, 143, 142, 142, 142, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 78, 143, 143, 143, 143, 143, 143, 143, 86, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 96, 143, 98, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 9, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 136, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 47, 137, -1, 137, 137, -1, 137, -1, -1, -1, -1, 148, 148, 148, 137, 137, -1, 137, 137, -1, 137, 138, 138, 142, -1, -1, 137, 138, 138, 138, 137, 138, 138, 31, 33, 39, 144, 144, 144, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 143, 88, 143, 143, 143, 143, 143, 143, 93, 143, 95, 143, 143, 129, 143, 102, 143, 143, 143, 143, 107, 143, 143, 143, 143, 143, 143, 143, 143, 143, 115, 143, 143, 143, 143, 143, 143, 120, 143, 143, 143, 143, 143, 143, -1, -1, -1, -1, -1, -1, 137, -1, -1, -1, -1, -1, -1, 147, 148, -1, -1, 137, 137, 137, 137, 137, 138, 138, 138, 137, 137, 40, 143, 143, 143, 143, 143, 131, 127, 143, 143, 143, 143, 143, 143, 87, 89, 143, 143, 143, 92, 143, 94, 143, 143, 143, 143, 130, 143, 143, 143, 143, 139, 143, 143, 143, 143, 143, 143, 143, 143, 143, 117, 140, 143, 143, 143, 143, 134, 143, 143, 125, -1, -1, -1, -1, -1, 146, -1, -1, -1, -1, -1, 143, 143, 143, 80, 143, 143, 143, 143, 143, 143, 143, 90, 143, 141, 132, 143, 143, 143, 143, 103, 104, 143, 143, 143, 143, 143, 143, 143, 143, 143, 128, 116, 143, 143, 121, 143, 123, 124, -1, -1, -1, -1, -1, -1, 143, 77, 79, 143, 143, 143, 83, 143, 85, 133, 143, 97, 99, 143, 101, 143, 106, 143, 143, 143, 111, 143, 113, 114, 143, 119, 122, -1, 143, 126, 81, 82, 84, 91, 143, 143, 143, 109, 143, 143, 118, 76, 143, 143, 143, 143, 112, 143, 105, 108, 110, 100, },
@@ -5561,8 +6021,16 @@ public class Lexer
 
     };*/
 
-    public static class State
-    {
+    private String getText(int acceptLength) {
+        StringBuffer s = new StringBuffer(acceptLength);
+        for (int i = 0; i < acceptLength; i++) {
+            s.append(this.text.charAt(i));
+        }
+
+        return s.toString();
+    }
+
+    public static class State {
         public final static State NORMAL = new State(0);
         public final static State BINDING = new State(1);
         public final static State COMMAND = new State(2);
@@ -5570,64 +6038,12 @@ public class Lexer
 
         private int id;
 
-        private State(@SuppressWarnings("hiding") int id)
-        {
+        private State(@SuppressWarnings("hiding") int id) {
             this.id = id;
         }
 
-        public int id()
-        {
+        public int id() {
             return this.id;
-        }
-    }
-
-    static 
-    {
-        try
-        {
-            DataInputStream s = new DataInputStream(
-                new BufferedInputStream(
-                Lexer.class.getResourceAsStream("lexer.dat")));
-
-            // read gotoTable
-            int length = s.readInt();
-            gotoTable = new int[length][][][];
-            for(int i = 0; i < gotoTable.length; i++)
-            {
-                length = s.readInt();
-                gotoTable[i] = new int[length][][];
-                for(int j = 0; j < gotoTable[i].length; j++)
-                {
-                    length = s.readInt();
-                    gotoTable[i][j] = new int[length][3];
-                    for(int k = 0; k < gotoTable[i][j].length; k++)
-                    {
-                        for(int l = 0; l < 3; l++)
-                        {
-                            gotoTable[i][j][k][l] = s.readInt();
-                        }
-                    }
-                }
-            }
-
-            // read accept
-            length = s.readInt();
-            accept = new int[length][];
-            for(int i = 0; i < accept.length; i++)
-            {
-                length = s.readInt();
-                accept[i] = new int[length];
-                for(int j = 0; j < accept[i].length; j++)
-                {
-                    accept[i][j] = s.readInt();
-                }
-            }
-
-            s.close();
-        }
-        catch(Exception e)
-        {
-            throw new RuntimeException("The file \"lexer.dat\" is either missing or corrupted.");
         }
     }
 }

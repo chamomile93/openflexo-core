@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PEventDecl extends Node
-{
+public abstract class PEventDecl extends Node {
     // Empty body
 }

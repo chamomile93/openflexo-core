@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrimaryFieldAccess extends PFieldAccess
-{
+public final class APrimaryFieldAccess extends PFieldAccess {
     private PPrimaryNoId _primaryNoId_;
     private TDot _dot_;
     private TLidentifier _lidentifier_;
 
-    public APrimaryFieldAccess()
-    {
+    public APrimaryFieldAccess() {
         // Constructor
     }
 
     public APrimaryFieldAccess(
-        @SuppressWarnings("hiding") PPrimaryNoId _primaryNoId_,
-        @SuppressWarnings("hiding") TDot _dot_,
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_)
-    {
+            @SuppressWarnings("hiding") PPrimaryNoId _primaryNoId_,
+            @SuppressWarnings("hiding") TDot _dot_,
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_) {
         // Constructor
         setPrimaryNoId(_primaryNoId_);
 
@@ -31,36 +28,29 @@ public final class APrimaryFieldAccess extends PFieldAccess
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrimaryFieldAccess(
-            cloneNode(this._primaryNoId_),
-            cloneNode(this._dot_),
-            cloneNode(this._lidentifier_));
+                cloneNode(this._primaryNoId_),
+                cloneNode(this._dot_),
+                cloneNode(this._lidentifier_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrimaryFieldAccess(this);
     }
 
-    public PPrimaryNoId getPrimaryNoId()
-    {
+    public PPrimaryNoId getPrimaryNoId() {
         return this._primaryNoId_;
     }
 
-    public void setPrimaryNoId(PPrimaryNoId node)
-    {
-        if(this._primaryNoId_ != null)
-        {
+    public void setPrimaryNoId(PPrimaryNoId node) {
+        if (this._primaryNoId_ != null) {
             this._primaryNoId_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class APrimaryFieldAccess extends PFieldAccess
         this._primaryNoId_ = node;
     }
 
-    public TDot getDot()
-    {
+    public TDot getDot() {
         return this._dot_;
     }
 
-    public void setDot(TDot node)
-    {
-        if(this._dot_ != null)
-        {
+    public void setDot(TDot node) {
+        if (this._dot_ != null) {
             this._dot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class APrimaryFieldAccess extends PFieldAccess
         this._dot_ = node;
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class APrimaryFieldAccess extends PFieldAccess
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._primaryNoId_)
-            + toString(this._dot_)
-            + toString(this._lidentifier_);
+                + toString(this._primaryNoId_)
+                + toString(this._dot_)
+                + toString(this._lidentifier_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._primaryNoId_ == child)
-        {
+        if (this._primaryNoId_ == child) {
             this._primaryNoId_ = null;
             return;
         }
 
-        if(this._dot_ == child)
-        {
+        if (this._dot_ == child) {
             this._dot_ = null;
             return;
         }
 
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class APrimaryFieldAccess extends PFieldAccess
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._primaryNoId_ == oldChild)
-        {
+        if (this._primaryNoId_ == oldChild) {
             setPrimaryNoId((PPrimaryNoId) newChild);
             return;
         }
 
-        if(this._dot_ == oldChild)
-        {
+        if (this._dot_ == oldChild) {
             setDot((TDot) newChild);
             return;
         }
 
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }

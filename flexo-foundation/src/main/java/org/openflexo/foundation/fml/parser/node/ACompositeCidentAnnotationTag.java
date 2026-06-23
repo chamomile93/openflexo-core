@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACompositeCidentAnnotationTag extends PAnnotationTag
-{
+public final class ACompositeCidentAnnotationTag extends PAnnotationTag {
     private PCompositeCident _compositeCident_;
 
-    public ACompositeCidentAnnotationTag()
-    {
+    public ACompositeCidentAnnotationTag() {
         // Constructor
     }
 
     public ACompositeCidentAnnotationTag(
-        @SuppressWarnings("hiding") PCompositeCident _compositeCident_)
-    {
+            @SuppressWarnings("hiding") PCompositeCident _compositeCident_) {
         // Constructor
         setCompositeCident(_compositeCident_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACompositeCidentAnnotationTag(
-            cloneNode(this._compositeCident_));
+                cloneNode(this._compositeCident_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACompositeCidentAnnotationTag(this);
     }
 
-    public PCompositeCident getCompositeCident()
-    {
+    public PCompositeCident getCompositeCident() {
         return this._compositeCident_;
     }
 
-    public void setCompositeCident(PCompositeCident node)
-    {
-        if(this._compositeCident_ != null)
-        {
+    public void setCompositeCident(PCompositeCident node) {
+        if (this._compositeCident_ != null) {
             this._compositeCident_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ACompositeCidentAnnotationTag extends PAnnotationTag
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._compositeCident_);
+                + toString(this._compositeCident_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._compositeCident_ == child)
-        {
+        if (this._compositeCident_ == child) {
             this._compositeCident_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ACompositeCidentAnnotationTag extends PAnnotationTag
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._compositeCident_ == oldChild)
-        {
+        if (this._compositeCident_ == oldChild) {
             setCompositeCident((PCompositeCident) newChild);
             return;
         }

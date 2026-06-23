@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AUshrAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class AUshrAssignAssignmentOperator extends PAssignmentOperator {
     private TUshrAssign _ushrAssign_;
 
-    public AUshrAssignAssignmentOperator()
-    {
+    public AUshrAssignAssignmentOperator() {
         // Constructor
     }
 
     public AUshrAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TUshrAssign _ushrAssign_)
-    {
+            @SuppressWarnings("hiding") TUshrAssign _ushrAssign_) {
         // Constructor
         setUshrAssign(_ushrAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AUshrAssignAssignmentOperator(
-            cloneNode(this._ushrAssign_));
+                cloneNode(this._ushrAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAUshrAssignAssignmentOperator(this);
     }
 
-    public TUshrAssign getUshrAssign()
-    {
+    public TUshrAssign getUshrAssign() {
         return this._ushrAssign_;
     }
 
-    public void setUshrAssign(TUshrAssign node)
-    {
-        if(this._ushrAssign_ != null)
-        {
+    public void setUshrAssign(TUshrAssign node) {
+        if (this._ushrAssign_ != null) {
             this._ushrAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AUshrAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._ushrAssign_);
+                + toString(this._ushrAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._ushrAssign_ == child)
-        {
+        if (this._ushrAssign_ == child) {
             this._ushrAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AUshrAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._ushrAssign_ == oldChild)
-        {
+        if (this._ushrAssign_ == oldChild) {
             setUshrAssign((TUshrAssign) newChild);
             return;
         }

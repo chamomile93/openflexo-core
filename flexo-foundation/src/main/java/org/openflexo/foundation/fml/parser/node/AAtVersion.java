@@ -5,24 +5,21 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AAtVersion extends PAtVersion
-{
+public final class AAtVersion extends PAtVersion {
     private TAt _at_;
     private TLPar _lPar_;
     private PVersion _version_;
     private TRPar _rPar_;
 
-    public AAtVersion()
-    {
+    public AAtVersion() {
         // Constructor
     }
 
     public AAtVersion(
-        @SuppressWarnings("hiding") TAt _at_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PVersion _version_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TAt _at_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PVersion _version_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setAt(_at_);
 
@@ -35,37 +32,30 @@ public final class AAtVersion extends PAtVersion
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAtVersion(
-            cloneNode(this._at_),
-            cloneNode(this._lPar_),
-            cloneNode(this._version_),
-            cloneNode(this._rPar_));
+                cloneNode(this._at_),
+                cloneNode(this._lPar_),
+                cloneNode(this._version_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAtVersion(this);
     }
 
-    public TAt getAt()
-    {
+    public TAt getAt() {
         return this._at_;
     }
 
-    public void setAt(TAt node)
-    {
-        if(this._at_ != null)
-        {
+    public void setAt(TAt node) {
+        if (this._at_ != null) {
             this._at_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -75,22 +65,17 @@ public final class AAtVersion extends PAtVersion
         this._at_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -100,22 +85,17 @@ public final class AAtVersion extends PAtVersion
         this._lPar_ = node;
     }
 
-    public PVersion getVersion()
-    {
+    public PVersion getVersion() {
         return this._version_;
     }
 
-    public void setVersion(PVersion node)
-    {
-        if(this._version_ != null)
-        {
+    public void setVersion(PVersion node) {
+        if (this._version_ != null) {
             this._version_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -125,22 +105,17 @@ public final class AAtVersion extends PAtVersion
         this._version_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -151,39 +126,33 @@ public final class AAtVersion extends PAtVersion
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._at_)
-            + toString(this._lPar_)
-            + toString(this._version_)
-            + toString(this._rPar_);
+                + toString(this._at_)
+                + toString(this._lPar_)
+                + toString(this._version_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._at_ == child)
-        {
+        if (this._at_ == child) {
             this._at_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._version_ == child)
-        {
+        if (this._version_ == child) {
             this._version_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -192,29 +161,24 @@ public final class AAtVersion extends PAtVersion
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._at_ == oldChild)
-        {
+        if (this._at_ == oldChild) {
             setAt((TAt) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._version_ == oldChild)
-        {
+        if (this._version_ == oldChild) {
             setVersion((PVersion) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

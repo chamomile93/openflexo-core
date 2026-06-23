@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AMultiple2Cardinality extends PCardinality
-{
+public final class AMultiple2Cardinality extends PCardinality {
     private TDotDotDot _dotDotDot_;
 
-    public AMultiple2Cardinality()
-    {
+    public AMultiple2Cardinality() {
         // Constructor
     }
 
     public AMultiple2Cardinality(
-        @SuppressWarnings("hiding") TDotDotDot _dotDotDot_)
-    {
+            @SuppressWarnings("hiding") TDotDotDot _dotDotDot_) {
         // Constructor
         setDotDotDot(_dotDotDot_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AMultiple2Cardinality(
-            cloneNode(this._dotDotDot_));
+                cloneNode(this._dotDotDot_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAMultiple2Cardinality(this);
     }
 
-    public TDotDotDot getDotDotDot()
-    {
+    public TDotDotDot getDotDotDot() {
         return this._dotDotDot_;
     }
 
-    public void setDotDotDot(TDotDotDot node)
-    {
-        if(this._dotDotDot_ != null)
-        {
+    public void setDotDotDot(TDotDotDot node) {
+        if (this._dotDotDot_ != null) {
             this._dotDotDot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AMultiple2Cardinality extends PCardinality
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._dotDotDot_);
+                + toString(this._dotDotDot_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._dotDotDot_ == child)
-        {
+        if (this._dotDotDot_ == child) {
             this._dotDotDot_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AMultiple2Cardinality extends PCardinality
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._dotDotDot_ == oldChild)
-        {
+        if (this._dotDotDot_ == oldChild) {
             setDotDotDot((TDotDotDot) newChild);
             return;
         }

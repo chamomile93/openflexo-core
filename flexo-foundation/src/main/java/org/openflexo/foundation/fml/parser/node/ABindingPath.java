@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABindingPath extends PPath
-{
+public final class ABindingPath extends PPath {
     private PSimplePath _simplePath_;
 
-    public ABindingPath()
-    {
+    public ABindingPath() {
         // Constructor
     }
 
     public ABindingPath(
-        @SuppressWarnings("hiding") PSimplePath _simplePath_)
-    {
+            @SuppressWarnings("hiding") PSimplePath _simplePath_) {
         // Constructor
         setSimplePath(_simplePath_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABindingPath(
-            cloneNode(this._simplePath_));
+                cloneNode(this._simplePath_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABindingPath(this);
     }
 
-    public PSimplePath getSimplePath()
-    {
+    public PSimplePath getSimplePath() {
         return this._simplePath_;
     }
 
-    public void setSimplePath(PSimplePath node)
-    {
-        if(this._simplePath_ != null)
-        {
+    public void setSimplePath(PSimplePath node) {
+        if (this._simplePath_ != null) {
             this._simplePath_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ABindingPath extends PPath
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._simplePath_);
+                + toString(this._simplePath_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._simplePath_ == child)
-        {
+        if (this._simplePath_ == child) {
             this._simplePath_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ABindingPath extends PPath
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._simplePath_ == oldChild)
-        {
+        if (this._simplePath_ == oldChild) {
             setSimplePath((PSimplePath) newChild);
             return;
         }

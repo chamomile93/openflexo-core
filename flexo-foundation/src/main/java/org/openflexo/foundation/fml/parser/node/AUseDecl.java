@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AUseDecl extends PUseDecl
-{
+public final class AUseDecl extends PUseDecl {
     private TKwUse _kwUse_;
     private PCompositeTident _identifier_;
     private TKwAs _kwAs_;
     private TCidentifier _taId_;
     private TSemi _semi_;
 
-    public AUseDecl()
-    {
+    public AUseDecl() {
         // Constructor
     }
 
     public AUseDecl(
-        @SuppressWarnings("hiding") TKwUse _kwUse_,
-        @SuppressWarnings("hiding") PCompositeTident _identifier_,
-        @SuppressWarnings("hiding") TKwAs _kwAs_,
-        @SuppressWarnings("hiding") TCidentifier _taId_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwUse _kwUse_,
+            @SuppressWarnings("hiding") PCompositeTident _identifier_,
+            @SuppressWarnings("hiding") TKwAs _kwAs_,
+            @SuppressWarnings("hiding") TCidentifier _taId_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwUse(_kwUse_);
 
@@ -39,38 +36,31 @@ public final class AUseDecl extends PUseDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AUseDecl(
-            cloneNode(this._kwUse_),
-            cloneNode(this._identifier_),
-            cloneNode(this._kwAs_),
-            cloneNode(this._taId_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwUse_),
+                cloneNode(this._identifier_),
+                cloneNode(this._kwAs_),
+                cloneNode(this._taId_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAUseDecl(this);
     }
 
-    public TKwUse getKwUse()
-    {
+    public TKwUse getKwUse() {
         return this._kwUse_;
     }
 
-    public void setKwUse(TKwUse node)
-    {
-        if(this._kwUse_ != null)
-        {
+    public void setKwUse(TKwUse node) {
+        if (this._kwUse_ != null) {
             this._kwUse_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AUseDecl extends PUseDecl
         this._kwUse_ = node;
     }
 
-    public PCompositeTident getIdentifier()
-    {
+    public PCompositeTident getIdentifier() {
         return this._identifier_;
     }
 
-    public void setIdentifier(PCompositeTident node)
-    {
-        if(this._identifier_ != null)
-        {
+    public void setIdentifier(PCompositeTident node) {
+        if (this._identifier_ != null) {
             this._identifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AUseDecl extends PUseDecl
         this._identifier_ = node;
     }
 
-    public TKwAs getKwAs()
-    {
+    public TKwAs getKwAs() {
         return this._kwAs_;
     }
 
-    public void setKwAs(TKwAs node)
-    {
-        if(this._kwAs_ != null)
-        {
+    public void setKwAs(TKwAs node) {
+        if (this._kwAs_ != null) {
             this._kwAs_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AUseDecl extends PUseDecl
         this._kwAs_ = node;
     }
 
-    public TCidentifier getTaId()
-    {
+    public TCidentifier getTaId() {
         return this._taId_;
     }
 
-    public void setTaId(TCidentifier node)
-    {
-        if(this._taId_ != null)
-        {
+    public void setTaId(TCidentifier node) {
+        if (this._taId_ != null) {
             this._taId_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AUseDecl extends PUseDecl
         this._taId_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AUseDecl extends PUseDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwUse_)
-            + toString(this._identifier_)
-            + toString(this._kwAs_)
-            + toString(this._taId_)
-            + toString(this._semi_);
+                + toString(this._kwUse_)
+                + toString(this._identifier_)
+                + toString(this._kwAs_)
+                + toString(this._taId_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwUse_ == child)
-        {
+        if (this._kwUse_ == child) {
             this._kwUse_ = null;
             return;
         }
 
-        if(this._identifier_ == child)
-        {
+        if (this._identifier_ == child) {
             this._identifier_ = null;
             return;
         }
 
-        if(this._kwAs_ == child)
-        {
+        if (this._kwAs_ == child) {
             this._kwAs_ = null;
             return;
         }
 
-        if(this._taId_ == child)
-        {
+        if (this._taId_ == child) {
             this._taId_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AUseDecl extends PUseDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwUse_ == oldChild)
-        {
+        if (this._kwUse_ == oldChild) {
             setKwUse((TKwUse) newChild);
             return;
         }
 
-        if(this._identifier_ == oldChild)
-        {
+        if (this._identifier_ == oldChild) {
             setIdentifier((PCompositeTident) newChild);
             return;
         }
 
-        if(this._kwAs_ == oldChild)
-        {
+        if (this._kwAs_ == oldChild) {
             setKwAs((TKwAs) newChild);
             return;
         }
 
-        if(this._taId_ == oldChild)
-        {
+        if (this._taId_ == oldChild) {
             setTaId((TCidentifier) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

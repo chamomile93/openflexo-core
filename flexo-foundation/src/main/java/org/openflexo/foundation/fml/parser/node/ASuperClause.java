@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASuperClause extends PSuperClause
-{
+public final class ASuperClause extends PSuperClause {
     private TKwExtends _kwExtends_;
     private PSuperTypeList _superTypeList_;
 
-    public ASuperClause()
-    {
+    public ASuperClause() {
         // Constructor
     }
 
     public ASuperClause(
-        @SuppressWarnings("hiding") TKwExtends _kwExtends_,
-        @SuppressWarnings("hiding") PSuperTypeList _superTypeList_)
-    {
+            @SuppressWarnings("hiding") TKwExtends _kwExtends_,
+            @SuppressWarnings("hiding") PSuperTypeList _superTypeList_) {
         // Constructor
         setKwExtends(_kwExtends_);
 
@@ -27,35 +24,28 @@ public final class ASuperClause extends PSuperClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASuperClause(
-            cloneNode(this._kwExtends_),
-            cloneNode(this._superTypeList_));
+                cloneNode(this._kwExtends_),
+                cloneNode(this._superTypeList_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASuperClause(this);
     }
 
-    public TKwExtends getKwExtends()
-    {
+    public TKwExtends getKwExtends() {
         return this._kwExtends_;
     }
 
-    public void setKwExtends(TKwExtends node)
-    {
-        if(this._kwExtends_ != null)
-        {
+    public void setKwExtends(TKwExtends node) {
+        if (this._kwExtends_ != null) {
             this._kwExtends_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ASuperClause extends PSuperClause
         this._kwExtends_ = node;
     }
 
-    public PSuperTypeList getSuperTypeList()
-    {
+    public PSuperTypeList getSuperTypeList() {
         return this._superTypeList_;
     }
 
-    public void setSuperTypeList(PSuperTypeList node)
-    {
-        if(this._superTypeList_ != null)
-        {
+    public void setSuperTypeList(PSuperTypeList node) {
+        if (this._superTypeList_ != null) {
             this._superTypeList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ASuperClause extends PSuperClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwExtends_)
-            + toString(this._superTypeList_);
+                + toString(this._kwExtends_)
+                + toString(this._superTypeList_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwExtends_ == child)
-        {
+        if (this._kwExtends_ == child) {
             this._kwExtends_ = null;
             return;
         }
 
-        if(this._superTypeList_ == child)
-        {
+        if (this._superTypeList_ == child) {
             this._superTypeList_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ASuperClause extends PSuperClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwExtends_ == oldChild)
-        {
+        if (this._kwExtends_ == oldChild) {
             setKwExtends((TKwExtends) newChild);
             return;
         }
 
-        if(this._superTypeList_ == oldChild)
-        {
+        if (this._superTypeList_ == oldChild) {
             setSuperTypeList((PSuperTypeList) newChild);
             return;
         }

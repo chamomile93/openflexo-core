@@ -1,161 +1,157 @@
 /**
- * 
+ *
  * Copyright (c) 2014-2015, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.rt;
 
-import java.util.logging.Logger;
-
-import org.openflexo.foundation.fml.AbstractCreationScheme;
-import org.openflexo.foundation.fml.CreationScheme;
-import org.openflexo.foundation.fml.FlexoConcept;
-import org.openflexo.foundation.fml.FlexoEvent;
-import org.openflexo.foundation.fml.VirtualModel;
+import org.openflexo.foundation.fml.*;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.XMLElement;
 
+import java.util.logging.Logger;
+
 /**
  * Implementation of an instance of a plain {@link VirtualModel} natively managed by the {@link FMLRTTechnologyAdapter}<br>
- * 
+ *
  * Such {@link VirtualModel} instance might be serialized using XML
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 @ModelEntity
 @ImplementationClass(FMLRTVirtualModelInstance.FMLRTVirtualModelInstanceImpl.class)
 @XMLElement
 public interface FMLRTVirtualModelInstance extends VirtualModelInstance<FMLRTVirtualModelInstance, FMLRTTechnologyAdapter> {
 
-	/**
-	 * Instantiate and register a new {@link FlexoConceptInstance}
-	 * 
-	 * @param pattern
-	 * @return
-	 */
-	public FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, CreationScheme creationScheme,
-			RunTimeEvaluationContext evaluationContext) throws FMLExecutionException;
+    /**
+     * Instantiate and register a new {@link FlexoConceptInstance}
+     *
+     * @param pattern
+     * @return
+     */
+    public FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, CreationScheme creationScheme,
+                                                            RunTimeEvaluationContext evaluationContext) throws FMLExecutionException;
 
-	/**
-	 * Instantiate and register a new {@link FlexoConceptInstance} in a container FlexoConceptInstance
-	 * 
-	 * @param pattern
-	 * @return
-	 */
-	public FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, FlexoConceptInstance container,
-			AbstractCreationScheme creationScheme, RunTimeEvaluationContext evaluationContext) throws FMLExecutionException;
+    /**
+     * Instantiate and register a new {@link FlexoConceptInstance} in a container FlexoConceptInstance
+     *
+     * @param pattern
+     * @return
+     */
+    public FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, FlexoConceptInstance container,
+                                                            AbstractCreationScheme creationScheme, RunTimeEvaluationContext evaluationContext) throws FMLExecutionException;
 
-	/**
-	 * Instanciate and fire a new {@link FlexoConceptInstance} as a Flexo event
-	 * 
-	 * @param pattern
-	 * @return
-	 */
-	public FlexoEventInstance makeNewEvent(FlexoEvent event, AbstractCreationScheme creationScheme,
-			RunTimeEvaluationContext evaluationContext) throws FMLExecutionException;
+    /**
+     * Instanciate and fire a new {@link FlexoConceptInstance} as a Flexo event
+     *
+     * @param pattern
+     * @return
+     */
+    public FlexoEventInstance makeNewEvent(FlexoEvent event, AbstractCreationScheme creationScheme,
+                                           RunTimeEvaluationContext evaluationContext) throws FMLExecutionException;
 
-	public static abstract class FMLRTVirtualModelInstanceImpl
-			extends VirtualModelInstanceImpl<FMLRTVirtualModelInstance, FMLRTTechnologyAdapter> implements FMLRTVirtualModelInstance {
+    public static abstract class FMLRTVirtualModelInstanceImpl
+            extends VirtualModelInstanceImpl<FMLRTVirtualModelInstance, FMLRTTechnologyAdapter> implements FMLRTVirtualModelInstance {
 
-		private static final Logger logger = Logger.getLogger(FMLRTVirtualModelInstance.class.getPackage().getName());
+        private static final Logger logger = Logger.getLogger(FMLRTVirtualModelInstance.class.getPackage().getName());
 
-		@Override
-		public FMLRTTechnologyAdapter getTechnologyAdapter() {
-			if (getVirtualModelInstanceResource() != null) {
-				return getVirtualModelInstanceResource().getTechnologyAdapter();
-			}
-			return null;
-		}
+        @Override
+        public FMLRTTechnologyAdapter getTechnologyAdapter() {
+            if (getVirtualModelInstanceResource() != null) {
+                return getVirtualModelInstanceResource().getTechnologyAdapter();
+            }
+            return null;
+        }
 
-		@Override
-		public FMLRTVirtualModelInstanceRepository<?> getVirtualModelInstanceRepository() {
-			if (getResource() != null) {
-				return getResource().getResourceCenter().getVirtualModelInstanceRepository();
-			}
-			return null;
-		}
+        @Override
+        public FMLRTVirtualModelInstanceRepository<?> getVirtualModelInstanceRepository() {
+            if (getResource() != null) {
+                return getResource().getResourceCenter().getVirtualModelInstanceRepository();
+            }
+            return null;
+        }
 
-		@Override
-		public FMLRTVirtualModelInstanceModelFactory getFactory() {
-			return (FMLRTVirtualModelInstanceModelFactory) super.getFactory();
-		}
+        @Override
+        public FMLRTVirtualModelInstanceModelFactory getFactory() {
+            return (FMLRTVirtualModelInstanceModelFactory) super.getFactory();
+        }
 
-		/**
-		 * Instanciate and register a new {@link FlexoConceptInstance}
-		 * 
-		 * @param pattern
-		 * @return
-		 */
-		@Override
-		public final FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, CreationScheme creationScheme,
-				RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
+        /**
+         * Instanciate and register a new {@link FlexoConceptInstance}
+         *
+         * @param pattern
+         * @return
+         */
+        @Override
+        public final FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, CreationScheme creationScheme,
+                                                                      RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 
-			return makeNewFlexoConceptInstance(concept, null, creationScheme, evaluationContext);
-		}
+            return makeNewFlexoConceptInstance(concept, null, creationScheme, evaluationContext);
+        }
 
-		/**
-		 * Instantiate and register a new {@link FlexoConceptInstance} in a container FlexoConceptInstance
-		 * 
-		 * @param pattern
-		 * @return
-		 */
-		@Override
-		public final FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, FlexoConceptInstance container,
-				AbstractCreationScheme creationScheme, RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
+        /**
+         * Instantiate and register a new {@link FlexoConceptInstance} in a container FlexoConceptInstance
+         *
+         * @param pattern
+         * @return
+         */
+        @Override
+        public final FlexoConceptInstance makeNewFlexoConceptInstance(FlexoConcept concept, FlexoConceptInstance container,
+                                                                      AbstractCreationScheme creationScheme, RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 
-			return getFactory().makeNewFlexoConceptInstance(concept, container, this, creationScheme, evaluationContext);
+            return getFactory().makeNewFlexoConceptInstance(concept, container, this, creationScheme, evaluationContext);
 
-		}
+        }
 
-		/**
-		 * Instanciate and fire a new {@link FlexoEventInstance} as a Flexo event
-		 * 
-		 * @param pattern
-		 * @return
-		 */
-		@Override
-		public FlexoEventInstance makeNewEvent(FlexoEvent event, AbstractCreationScheme creationScheme,
-				RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
+        /**
+         * Instanciate and fire a new {@link FlexoEventInstance} as a Flexo event
+         *
+         * @param pattern
+         * @return
+         */
+        @Override
+        public FlexoEventInstance makeNewEvent(FlexoEvent event, AbstractCreationScheme creationScheme,
+                                               RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 
-			return getFactory().makeNewEventInstance(event, this, creationScheme, evaluationContext);
+            return getFactory().makeNewEventInstance(event, this, creationScheme, evaluationContext);
 
-		}
+        }
 
-	}
+    }
 
 }

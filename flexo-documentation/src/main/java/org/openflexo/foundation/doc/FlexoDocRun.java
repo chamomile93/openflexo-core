@@ -28,53 +28,50 @@ import org.openflexo.pamela.annotations.Setter;
 
 /**
  * Generic abstract concept representing a run in a paragraph of a text-based document (eg .docx, .odt, etc...)
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 public interface FlexoDocRun<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocObject<D, TA> {
 
-	@PropertyIdentifier(type = FlexoDocParagraph.class)
-	public static final String PARAGRAPH_KEY = "paragraph";
-	@PropertyIdentifier(type = FlexoRunStyle.class)
-	public static final String RUN_STYLE_KEY = "runStyle";
+    @PropertyIdentifier(type = FlexoDocParagraph.class)
+    public static final String PARAGRAPH_KEY = "paragraph";
+    @PropertyIdentifier(type = FlexoRunStyle.class)
+    public static final String RUN_STYLE_KEY = "runStyle";
 
-	@Getter(PARAGRAPH_KEY)
-	public FlexoDocParagraph<D, TA> getParagraph();
+    @Getter(PARAGRAPH_KEY)
+    public FlexoDocParagraph<D, TA> getParagraph();
 
-	@Setter(PARAGRAPH_KEY)
-	public void setParagraph(FlexoDocParagraph<D, TA> paragraph);
+    @Setter(PARAGRAPH_KEY)
+    public void setParagraph(FlexoDocParagraph<D, TA> paragraph);
 
-	@Getter(value = RUN_STYLE_KEY, ignoreType = true)
-	public FlexoRunStyle<D, TA> getRunStyle();
+    @Getter(value = RUN_STYLE_KEY, ignoreType = true)
+    public FlexoRunStyle<D, TA> getRunStyle();
 
-	@Setter(RUN_STYLE_KEY)
-	public void setRunStyle(FlexoRunStyle<D, TA> style);
+    @Setter(RUN_STYLE_KEY)
+    public void setRunStyle(FlexoRunStyle<D, TA> style);
 
-	/**
-	 * Return index of the run<br>
-	 * Index of a run is the run occurence in the paragraph
-	 * 
-	 * @return
-	 */
-	public int getIndex();
+    /**
+     * Return index of the run<br>
+     * Index of a run is the run occurence in the paragraph
+     *
+     * @return
+     */
+    public int getIndex();
 
-	public static abstract class FlexoRunImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocObjectImpl<D, TA> implements FlexoDocRun<D, TA> {
+    public static abstract class FlexoRunImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocObjectImpl<D, TA> implements FlexoDocRun<D, TA> {
 
-		@Override
-		public int getIndex() {
-			if (getParagraph() != null) {
-				return getParagraph().getRuns().indexOf(this);
-			}
-			return -1;
-		}
+        @Override
+        public int getIndex() {
+            if (getParagraph() != null) {
+                return getParagraph().getRuns().indexOf(this);
+            }
+            return -1;
+        }
 
-	}
+    }
 
 }

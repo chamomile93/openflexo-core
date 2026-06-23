@@ -20,8 +20,6 @@
 
 package org.openflexo.foundation.resource;
 
-import java.util.logging.Logger;
-
 import org.openflexo.connie.type.TypeUtils;
 import org.openflexo.foundation.FlexoServiceManager;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
@@ -30,109 +28,106 @@ import org.openflexo.foundation.technologyadapter.TechnologyContextManager;
 import org.openflexo.foundation.technologyadapter.TechnologyObject;
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 
+import java.util.logging.Logger;
+
 /**
  * Abstract implementation a factory that manages the life-cycle of a given type of {@link TechnologyAdapterResource} managed by a given
  * technology
- * 
- * @author sylvain
  *
- * @param <R>
- *            type of FlexoResource being handled by this factory, implementing both {@link TechnologyAdapterResource} and
- *            {@link PamelaResource}
- * @param <RD>
- *            type of {@link ResourceData} managed by resources (contents of resources)
- * @param <TA>
- *            type of {@link TechnologyAdapter}
+ * @param <R>  type of FlexoResource being handled by this factory, implementing both {@link TechnologyAdapterResource} and
+ *             {@link PamelaResource}
+ * @param <RD> type of {@link ResourceData} managed by resources (contents of resources)
+ * @param <TA> type of {@link TechnologyAdapter}
+ * @author sylvain
  */
 public abstract class TechnologySpecificFlexoResourceFactory<R extends TechnologyAdapterResource<RD, TA>, RD extends ResourceData<RD> & TechnologyObject<TA>, TA extends TechnologyAdapter<TA>>
-		extends FlexoResourceFactory<R, RD> implements ITechnologySpecificFlexoResourceFactory<R, RD, TA> {
+        extends FlexoResourceFactory<R, RD> implements ITechnologySpecificFlexoResourceFactory<R, RD, TA> {
 
-	private static final Logger logger = Logger.getLogger(TechnologySpecificFlexoResourceFactory.class.getPackage().getName());
+    private static final Logger logger = Logger.getLogger(TechnologySpecificFlexoResourceFactory.class.getPackage().getName());
 
-	private final FlexoResourceType resourceType;
+    private final FlexoResourceType resourceType;
 
-	/**
-	 * Generic constructor
-	 * 
-	 * @param resourceClass
-	 * @throws ModelDefinitionException
-	 */
-	protected TechnologySpecificFlexoResourceFactory(Class<R> resourceClass) throws ModelDefinitionException {
-		super(resourceClass);
-		resourceType = new FlexoResourceType(this);
-	}
+    /**
+     * Generic constructor
+     *
+     * @param resourceClass
+     * @throws ModelDefinitionException
+     */
+    protected TechnologySpecificFlexoResourceFactory(Class<R> resourceClass) throws ModelDefinitionException {
+        super(resourceClass);
+        resourceType = new FlexoResourceType(this);
+    }
 
-	/**
-	 * Generic constructor
-	 * 
-	 * @param resourceClass
-	 * @throws ModelDefinitionException
-	 */
-	protected TechnologySpecificFlexoResourceFactory(Class<R> resourceClass, Class<?>... requiredClasses) throws ModelDefinitionException {
-		super(resourceClass);
-		resourceType = new FlexoResourceType(this);
-	}
+    /**
+     * Generic constructor
+     *
+     * @param resourceClass
+     * @throws ModelDefinitionException
+     */
+    protected TechnologySpecificFlexoResourceFactory(Class<R> resourceClass, Class<?>... requiredClasses) throws ModelDefinitionException {
+        super(resourceClass);
+        resourceType = new FlexoResourceType(this);
+    }
 
-	@Override
-	public FlexoResourceType getResourceType() {
-		return resourceType;
-	}
+    @Override
+    public FlexoResourceType getResourceType() {
+        return resourceType;
+    }
 
-	@Override
-	public Class<TA> getTechnologyAdapterClass() {
-		return (Class<TA>) (TypeUtils.getBaseClass(TypeUtils.getTypeArgument(getResourceClass(), TechnologyAdapterResource.class, 1)));
-	}
+    @Override
+    public Class<TA> getTechnologyAdapterClass() {
+        return (Class<TA>) (TypeUtils.getBaseClass(TypeUtils.getTypeArgument(getResourceClass(), TechnologyAdapterResource.class, 1)));
+    }
 
-	@Override
-	public TA getTechnologyAdapter(FlexoServiceManager sm) {
-		return sm.getTechnologyAdapterService().getTechnologyAdapter(getTechnologyAdapterClass());
-	}
+    @Override
+    public TA getTechnologyAdapter(FlexoServiceManager sm) {
+        return sm.getTechnologyAdapterService().getTechnologyAdapter(getTechnologyAdapterClass());
+    }
 
-	@Override
-	public TechnologyContextManager<TA> getTechnologyContextManager(FlexoServiceManager sm) {
-		TA technologyAdapter = sm.getTechnologyAdapterService().getTechnologyAdapter(getTechnologyAdapterClass());
-		return technologyAdapter.getTechnologyContextManager();
-	}
+    @Override
+    public TechnologyContextManager<TA> getTechnologyContextManager(FlexoServiceManager sm) {
+        TA technologyAdapter = sm.getTechnologyAdapterService().getTechnologyAdapter(getTechnologyAdapterClass());
+        return technologyAdapter.getTechnologyContextManager();
+    }
 
-	/**
-	 * Called to register a resource in a given {@link FlexoResourceCenter} and a given technology
-	 * 
-	 * @param resource
-	 * @param resourceCenter
-	 * @param technologyContextManager
-	 * @return
-	 */
-	@Override
-	public <I> R registerResource(R resource, FlexoResourceCenter<I> resourceCenter) {
+    /**
+     * Called to register a resource in a given {@link FlexoResourceCenter} and a given technology
+     *
+     * @param resource
+     * @param resourceCenter
+     * @param technologyContextManager
+     * @return
+     */
+    @Override
+    public <I> R registerResource(R resource, FlexoResourceCenter<I> resourceCenter) {
 
-		R returned = super.registerResource(resource, resourceCenter);
+        R returned = super.registerResource(resource, resourceCenter);
 
-		// Register the resource in the global repository of technology adapter
-		if (resourceCenter != null) {
-			TechnologyContextManager<TA> technologyContextManager = getTechnologyContextManager(resourceCenter.getServiceManager());
-			registerResourceInResourceRepository(resource,
-					technologyContextManager.getTechnologyAdapter().getGlobalRepository(resourceCenter));
-			resource.setTechnologyAdapter(technologyContextManager.getTechnologyAdapter());
-			resource.setTechnologyContextManager(technologyContextManager);
-			technologyContextManager.registerResource(resource);
-		}
-		else {
-			logger.warning("Could not register in null FlexoResourceCenter");
-		}
+        // Register the resource in the global repository of technology adapter
+        if (resourceCenter != null) {
+            TechnologyContextManager<TA> technologyContextManager = getTechnologyContextManager(resourceCenter.getServiceManager());
+            registerResourceInResourceRepository(resource,
+                    technologyContextManager.getTechnologyAdapter().getGlobalRepository(resourceCenter));
+            resource.setTechnologyAdapter(technologyContextManager.getTechnologyAdapter());
+            resource.setTechnologyContextManager(technologyContextManager);
+            technologyContextManager.registerResource(resource);
+        } else {
+            logger.warning("Could not register in null FlexoResourceCenter");
+        }
 
-		return returned;
-	}
+        return returned;
+    }
 
-	@Override
-	public <I> R unregisterResource(R resource, FlexoResourceCenter<I> resourceCenter) {
-		// Un-register the resource from the global repository of technology adapter
-		if (resourceCenter != null) {
-			TechnologyContextManager<TA> technologyContextManager = getTechnologyContextManager(resourceCenter.getServiceManager());
-			unregisterResourceInResourceRepository(resource,
-					technologyContextManager.getTechnologyAdapter().getGlobalRepository(resourceCenter));
-			technologyContextManager.unregisterResource(resource);
-		}
-		return super.unregisterResource(resource, resourceCenter);
-	}
+    @Override
+    public <I> R unregisterResource(R resource, FlexoResourceCenter<I> resourceCenter) {
+        // Un-register the resource from the global repository of technology adapter
+        if (resourceCenter != null) {
+            TechnologyContextManager<TA> technologyContextManager = getTechnologyContextManager(resourceCenter.getServiceManager());
+            unregisterResourceInResourceRepository(resource,
+                    technologyContextManager.getTechnologyAdapter().getGlobalRepository(resourceCenter));
+            technologyContextManager.unregisterResource(resource);
+        }
+        return super.unregisterResource(resource, resourceCenter);
+    }
 
 }

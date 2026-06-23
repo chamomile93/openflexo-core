@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AExpressionAssignmentStatementExpression extends PAssignmentStatementExpression
-{
+public final class AExpressionAssignmentStatementExpression extends PAssignmentStatementExpression {
     private PLeftHandSide _left_;
     private PAssignmentOperator _assignmentOperator_;
     private PExpression _right_;
 
-    public AExpressionAssignmentStatementExpression()
-    {
+    public AExpressionAssignmentStatementExpression() {
         // Constructor
     }
 
     public AExpressionAssignmentStatementExpression(
-        @SuppressWarnings("hiding") PLeftHandSide _left_,
-        @SuppressWarnings("hiding") PAssignmentOperator _assignmentOperator_,
-        @SuppressWarnings("hiding") PExpression _right_)
-    {
+            @SuppressWarnings("hiding") PLeftHandSide _left_,
+            @SuppressWarnings("hiding") PAssignmentOperator _assignmentOperator_,
+            @SuppressWarnings("hiding") PExpression _right_) {
         // Constructor
         setLeft(_left_);
 
@@ -31,36 +28,29 @@ public final class AExpressionAssignmentStatementExpression extends PAssignmentS
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AExpressionAssignmentStatementExpression(
-            cloneNode(this._left_),
-            cloneNode(this._assignmentOperator_),
-            cloneNode(this._right_));
+                cloneNode(this._left_),
+                cloneNode(this._assignmentOperator_),
+                cloneNode(this._right_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAExpressionAssignmentStatementExpression(this);
     }
 
-    public PLeftHandSide getLeft()
-    {
+    public PLeftHandSide getLeft() {
         return this._left_;
     }
 
-    public void setLeft(PLeftHandSide node)
-    {
-        if(this._left_ != null)
-        {
+    public void setLeft(PLeftHandSide node) {
+        if (this._left_ != null) {
             this._left_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AExpressionAssignmentStatementExpression extends PAssignmentS
         this._left_ = node;
     }
 
-    public PAssignmentOperator getAssignmentOperator()
-    {
+    public PAssignmentOperator getAssignmentOperator() {
         return this._assignmentOperator_;
     }
 
-    public void setAssignmentOperator(PAssignmentOperator node)
-    {
-        if(this._assignmentOperator_ != null)
-        {
+    public void setAssignmentOperator(PAssignmentOperator node) {
+        if (this._assignmentOperator_ != null) {
             this._assignmentOperator_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AExpressionAssignmentStatementExpression extends PAssignmentS
         this._assignmentOperator_ = node;
     }
 
-    public PExpression getRight()
-    {
+    public PExpression getRight() {
         return this._right_;
     }
 
-    public void setRight(PExpression node)
-    {
-        if(this._right_ != null)
-        {
+    public void setRight(PExpression node) {
+        if (this._right_ != null) {
             this._right_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AExpressionAssignmentStatementExpression extends PAssignmentS
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._left_)
-            + toString(this._assignmentOperator_)
-            + toString(this._right_);
+                + toString(this._left_)
+                + toString(this._assignmentOperator_)
+                + toString(this._right_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._left_ == child)
-        {
+        if (this._left_ == child) {
             this._left_ = null;
             return;
         }
 
-        if(this._assignmentOperator_ == child)
-        {
+        if (this._assignmentOperator_ == child) {
             this._assignmentOperator_ = null;
             return;
         }
 
-        if(this._right_ == child)
-        {
+        if (this._right_ == child) {
             this._right_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AExpressionAssignmentStatementExpression extends PAssignmentS
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._left_ == oldChild)
-        {
+        if (this._left_ == oldChild) {
             setLeft((PLeftHandSide) newChild);
             return;
         }
 
-        if(this._assignmentOperator_ == oldChild)
-        {
+        if (this._assignmentOperator_ == oldChild) {
             setAssignmentOperator((PAssignmentOperator) newChild);
             return;
         }
 
-        if(this._right_ == oldChild)
-        {
+        if (this._right_ == oldChild) {
             setRight((PExpression) newChild);
             return;
         }

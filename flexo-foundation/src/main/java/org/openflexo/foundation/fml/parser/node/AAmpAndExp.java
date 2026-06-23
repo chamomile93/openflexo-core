@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AAmpAndExp extends PAndExp
-{
+public final class AAmpAndExp extends PAndExp {
     private PAndExp _andExp_;
     private TAmp _amp_;
     private PEqualityExp _equalityExp_;
 
-    public AAmpAndExp()
-    {
+    public AAmpAndExp() {
         // Constructor
     }
 
     public AAmpAndExp(
-        @SuppressWarnings("hiding") PAndExp _andExp_,
-        @SuppressWarnings("hiding") TAmp _amp_,
-        @SuppressWarnings("hiding") PEqualityExp _equalityExp_)
-    {
+            @SuppressWarnings("hiding") PAndExp _andExp_,
+            @SuppressWarnings("hiding") TAmp _amp_,
+            @SuppressWarnings("hiding") PEqualityExp _equalityExp_) {
         // Constructor
         setAndExp(_andExp_);
 
@@ -31,36 +28,29 @@ public final class AAmpAndExp extends PAndExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAmpAndExp(
-            cloneNode(this._andExp_),
-            cloneNode(this._amp_),
-            cloneNode(this._equalityExp_));
+                cloneNode(this._andExp_),
+                cloneNode(this._amp_),
+                cloneNode(this._equalityExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAmpAndExp(this);
     }
 
-    public PAndExp getAndExp()
-    {
+    public PAndExp getAndExp() {
         return this._andExp_;
     }
 
-    public void setAndExp(PAndExp node)
-    {
-        if(this._andExp_ != null)
-        {
+    public void setAndExp(PAndExp node) {
+        if (this._andExp_ != null) {
             this._andExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AAmpAndExp extends PAndExp
         this._andExp_ = node;
     }
 
-    public TAmp getAmp()
-    {
+    public TAmp getAmp() {
         return this._amp_;
     }
 
-    public void setAmp(TAmp node)
-    {
-        if(this._amp_ != null)
-        {
+    public void setAmp(TAmp node) {
+        if (this._amp_ != null) {
             this._amp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AAmpAndExp extends PAndExp
         this._amp_ = node;
     }
 
-    public PEqualityExp getEqualityExp()
-    {
+    public PEqualityExp getEqualityExp() {
         return this._equalityExp_;
     }
 
-    public void setEqualityExp(PEqualityExp node)
-    {
-        if(this._equalityExp_ != null)
-        {
+    public void setEqualityExp(PEqualityExp node) {
+        if (this._equalityExp_ != null) {
             this._equalityExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AAmpAndExp extends PAndExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._andExp_)
-            + toString(this._amp_)
-            + toString(this._equalityExp_);
+                + toString(this._andExp_)
+                + toString(this._amp_)
+                + toString(this._equalityExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._andExp_ == child)
-        {
+        if (this._andExp_ == child) {
             this._andExp_ = null;
             return;
         }
 
-        if(this._amp_ == child)
-        {
+        if (this._amp_ == child) {
             this._amp_ = null;
             return;
         }
 
-        if(this._equalityExp_ == child)
-        {
+        if (this._equalityExp_ == child) {
             this._equalityExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AAmpAndExp extends PAndExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._andExp_ == oldChild)
-        {
+        if (this._andExp_ == oldChild) {
             setAndExp((PAndExp) newChild);
             return;
         }
 
-        if(this._amp_ == oldChild)
-        {
+        if (this._amp_ == oldChild) {
             setAmp((TAmp) newChild);
             return;
         }
 
-        if(this._equalityExp_ == oldChild)
-        {
+        if (this._equalityExp_ == oldChild) {
             setEqualityExp((PEqualityExp) newChild);
             return;
         }

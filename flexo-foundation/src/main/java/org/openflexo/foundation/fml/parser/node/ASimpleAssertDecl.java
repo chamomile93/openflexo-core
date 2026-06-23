@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASimpleAssertDecl extends PAssertDecl
-{
+public final class ASimpleAssertDecl extends PAssertDecl {
     private PSimpleAssertDeclaration _simpleAssertDeclaration_;
 
-    public ASimpleAssertDecl()
-    {
+    public ASimpleAssertDecl() {
         // Constructor
     }
 
     public ASimpleAssertDecl(
-        @SuppressWarnings("hiding") PSimpleAssertDeclaration _simpleAssertDeclaration_)
-    {
+            @SuppressWarnings("hiding") PSimpleAssertDeclaration _simpleAssertDeclaration_) {
         // Constructor
         setSimpleAssertDeclaration(_simpleAssertDeclaration_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASimpleAssertDecl(
-            cloneNode(this._simpleAssertDeclaration_));
+                cloneNode(this._simpleAssertDeclaration_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASimpleAssertDecl(this);
     }
 
-    public PSimpleAssertDeclaration getSimpleAssertDeclaration()
-    {
+    public PSimpleAssertDeclaration getSimpleAssertDeclaration() {
         return this._simpleAssertDeclaration_;
     }
 
-    public void setSimpleAssertDeclaration(PSimpleAssertDeclaration node)
-    {
-        if(this._simpleAssertDeclaration_ != null)
-        {
+    public void setSimpleAssertDeclaration(PSimpleAssertDeclaration node) {
+        if (this._simpleAssertDeclaration_ != null) {
             this._simpleAssertDeclaration_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASimpleAssertDecl extends PAssertDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._simpleAssertDeclaration_);
+                + toString(this._simpleAssertDeclaration_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._simpleAssertDeclaration_ == child)
-        {
+        if (this._simpleAssertDeclaration_ == child) {
             this._simpleAssertDeclaration_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASimpleAssertDecl extends PAssertDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._simpleAssertDeclaration_ == oldChild)
-        {
+        if (this._simpleAssertDeclaration_ == oldChild) {
             setSimpleAssertDeclaration((PSimpleAssertDeclaration) newChild);
             return;
         }

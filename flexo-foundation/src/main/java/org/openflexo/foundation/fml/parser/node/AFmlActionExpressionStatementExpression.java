@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFmlActionExpressionStatementExpression extends PStatementExpression
-{
+public final class AFmlActionExpressionStatementExpression extends PStatementExpression {
     private PFmlActionExp _fmlActionExp_;
 
-    public AFmlActionExpressionStatementExpression()
-    {
+    public AFmlActionExpressionStatementExpression() {
         // Constructor
     }
 
     public AFmlActionExpressionStatementExpression(
-        @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_)
-    {
+            @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_) {
         // Constructor
         setFmlActionExp(_fmlActionExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlActionExpressionStatementExpression(
-            cloneNode(this._fmlActionExp_));
+                cloneNode(this._fmlActionExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlActionExpressionStatementExpression(this);
     }
 
-    public PFmlActionExp getFmlActionExp()
-    {
+    public PFmlActionExp getFmlActionExp() {
         return this._fmlActionExp_;
     }
 
-    public void setFmlActionExp(PFmlActionExp node)
-    {
-        if(this._fmlActionExp_ != null)
-        {
+    public void setFmlActionExp(PFmlActionExp node) {
+        if (this._fmlActionExp_ != null) {
             this._fmlActionExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AFmlActionExpressionStatementExpression extends PStatementExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._fmlActionExp_);
+                + toString(this._fmlActionExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._fmlActionExp_ == child)
-        {
+        if (this._fmlActionExp_ == child) {
             this._fmlActionExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AFmlActionExpressionStatementExpression extends PStatementExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._fmlActionExp_ == oldChild)
-        {
+        if (this._fmlActionExp_ == oldChild) {
             setFmlActionExp((PFmlActionExp) newChild);
             return;
         }

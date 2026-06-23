@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PPrimaryNoId extends Node
-{
+public abstract class PPrimaryNoId extends Node {
     // Empty body
 }

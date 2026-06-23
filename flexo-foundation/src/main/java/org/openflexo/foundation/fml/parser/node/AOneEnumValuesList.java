@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AOneEnumValuesList extends PEnumValuesList
-{
+public final class AOneEnumValuesList extends PEnumValuesList {
     private PEnumValue _enumValue_;
 
-    public AOneEnumValuesList()
-    {
+    public AOneEnumValuesList() {
         // Constructor
     }
 
     public AOneEnumValuesList(
-        @SuppressWarnings("hiding") PEnumValue _enumValue_)
-    {
+            @SuppressWarnings("hiding") PEnumValue _enumValue_) {
         // Constructor
         setEnumValue(_enumValue_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AOneEnumValuesList(
-            cloneNode(this._enumValue_));
+                cloneNode(this._enumValue_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAOneEnumValuesList(this);
     }
 
-    public PEnumValue getEnumValue()
-    {
+    public PEnumValue getEnumValue() {
         return this._enumValue_;
     }
 
-    public void setEnumValue(PEnumValue node)
-    {
-        if(this._enumValue_ != null)
-        {
+    public void setEnumValue(PEnumValue node) {
+        if (this._enumValue_ != null) {
             this._enumValue_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AOneEnumValuesList extends PEnumValuesList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._enumValue_);
+                + toString(this._enumValue_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._enumValue_ == child)
-        {
+        if (this._enumValue_ == child) {
             this._enumValue_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AOneEnumValuesList extends PEnumValuesList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._enumValue_ == oldChild)
-        {
+        if (this._enumValue_ == oldChild) {
             setEnumValue((PEnumValue) newChild);
             return;
         }

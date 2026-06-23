@@ -26,118 +26,113 @@ import org.openflexo.foundation.fml.FlexoRole;
 import org.openflexo.foundation.fml.rt.AbstractVirtualModelInstanceModelFactory;
 import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ImplementationClass;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
+import org.openflexo.pamela.annotations.*;
 import org.openflexo.toolbox.StringUtils;
 
 @ModelEntity(isAbstract = true)
 @ImplementationClass(FlexoParagraphRole.FlexoParagraphRoleImpl.class)
 public interface FlexoParagraphRole<P extends FlexoDocParagraph<D, TA>, D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-		extends FlexoRole<P> {
+        extends FlexoRole<P> {
 
-	@PropertyIdentifier(type = FlexoDocParagraph.class)
-	public static final String PARAGRAPH_KEY = "paragraph";
-	@PropertyIdentifier(type = String.class)
-	public static final String PARAGRAPH_ID_KEY = "paragraphId";
+    @PropertyIdentifier(type = FlexoDocParagraph.class)
+    public static final String PARAGRAPH_KEY = "paragraph";
+    @PropertyIdentifier(type = String.class)
+    public static final String PARAGRAPH_ID_KEY = "paragraphId";
 
-	/**
-	 * Return the template document
-	 * 
-	 * @return
-	 */
-	public FlexoDocument<D, TA> getDocument();
+    /**
+     * Return the template document
+     *
+     * @return
+     */
+    public FlexoDocument<D, TA> getDocument();
 
-	/**
-	 * Return the represented paragraph containing image in the template document resource<br>
-	 * Note that is not the paragraph that is to be managed at run-time
-	 * 
-	 * @return
-	 */
-	@Getter(value = PARAGRAPH_KEY)
-	public P getParagraph();
+    /**
+     * Return the represented paragraph containing image in the template document resource<br>
+     * Note that is not the paragraph that is to be managed at run-time
+     *
+     * @return
+     */
+    @Getter(value = PARAGRAPH_KEY)
+    public P getParagraph();
 
-	/**
-	 * Sets the represented paragraph containing image in the template document resource<br>
-	 * 
-	 * @param fragment
-	 */
-	@Setter(PARAGRAPH_KEY)
-	public void setParagraph(P table);
+    /**
+     * Sets the represented paragraph containing image in the template document resource<br>
+     *
+     * @param fragment
+     */
+    @Setter(PARAGRAPH_KEY)
+    public void setParagraph(P table);
 
-	/**
-	 * Return the represented paragraph id in the template document resource<br>
-	 */
-	@Getter(PARAGRAPH_ID_KEY)
-	@XMLAttribute
-	public String getParagraphId();
+    /**
+     * Return the represented paragraph id in the template document resource<br>
+     */
+    @Getter(PARAGRAPH_ID_KEY)
+    @XMLAttribute
+    public String getParagraphId();
 
-	@Setter(PARAGRAPH_ID_KEY)
-	public void setParagraphId(String paragraphId);
+    @Setter(PARAGRAPH_ID_KEY)
+    public void setParagraphId(String paragraphId);
 
-	public static abstract class FlexoParagraphRoleImpl<P extends FlexoDocParagraph<D, TA>, D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoRoleImpl<P> implements FlexoParagraphRole<P, D, TA> {
+    public static abstract class FlexoParagraphRoleImpl<P extends FlexoDocParagraph<D, TA>, D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoRoleImpl<P> implements FlexoParagraphRole<P, D, TA> {
 
-		private P paragraph;
-		private String paragraphId;
+        private P paragraph;
+        private String paragraphId;
 
-		@Override
-		public FlexoDocument<D, TA> getDocument() {
-			if (getModelSlot() instanceof FlexoDocumentModelSlot) {
-				return ((FlexoDocumentModelSlot<D, ?, ?>) getModelSlot()).getTemplateResource().getDocument();
-			}
-			return null;
-		}
+        @Override
+        public FlexoDocument<D, TA> getDocument() {
+            if (getModelSlot() instanceof FlexoDocumentModelSlot) {
+                return ((FlexoDocumentModelSlot<D, ?, ?>) getModelSlot()).getTemplateResource().getDocument();
+            }
+            return null;
+        }
 
-		@Override
-		public String getParagraphId() {
-			if (getParagraph() != null) {
-				return getParagraph().getIdentifier();
-			}
-			return paragraphId;
-		}
+        @Override
+        public String getParagraphId() {
+            if (getParagraph() != null) {
+                return getParagraph().getIdentifier();
+            }
+            return paragraphId;
+        }
 
-		@Override
-		public void setParagraphId(String tableId) {
-			if ((tableId == null && this.paragraphId != null) || (tableId != null && !tableId.equals(this.paragraphId))) {
-				String oldValue = getParagraphId();
-				this.paragraphId = tableId;
-				this.paragraph = null;
-				getPropertyChangeSupport().firePropertyChange(PARAGRAPH_ID_KEY, oldValue, tableId);
-				getPropertyChangeSupport().firePropertyChange(PARAGRAPH_KEY, null, paragraph);
-			}
-		}
+        @Override
+        public void setParagraphId(String tableId) {
+            if ((tableId == null && this.paragraphId != null) || (tableId != null && !tableId.equals(this.paragraphId))) {
+                String oldValue = getParagraphId();
+                this.paragraphId = tableId;
+                this.paragraph = null;
+                getPropertyChangeSupport().firePropertyChange(PARAGRAPH_ID_KEY, oldValue, tableId);
+                getPropertyChangeSupport().firePropertyChange(PARAGRAPH_KEY, null, paragraph);
+            }
+        }
 
-		@Override
-		public P getParagraph() {
-			if (paragraph == null && StringUtils.isNotEmpty(paragraphId) && getDocument() != null) {
-				paragraph = (P) getDocument().getElementWithIdentifier(paragraphId);
-			}
-			return paragraph;
-		}
+        @Override
+        public P getParagraph() {
+            if (paragraph == null && StringUtils.isNotEmpty(paragraphId) && getDocument() != null) {
+                paragraph = (P) getDocument().getElementWithIdentifier(paragraphId);
+            }
+            return paragraph;
+        }
 
-		@Override
-		public void setParagraph(P paragraph) {
-			P oldValue = this.paragraph;
-			if (paragraph != oldValue) {
-				this.paragraph = paragraph;
-				getPropertyChangeSupport().firePropertyChange(PARAGRAPH_KEY, oldValue, paragraph);
-				getPropertyChangeSupport().firePropertyChange(PARAGRAPH_ID_KEY, null, getParagraphId());
-			}
-		}
+        @Override
+        public void setParagraph(P paragraph) {
+            P oldValue = this.paragraph;
+            if (paragraph != oldValue) {
+                this.paragraph = paragraph;
+                getPropertyChangeSupport().firePropertyChange(PARAGRAPH_KEY, oldValue, paragraph);
+                getPropertyChangeSupport().firePropertyChange(PARAGRAPH_ID_KEY, null, getParagraphId());
+            }
+        }
 
-		@Override
-		public ParagraphActorReference<P> makeActorReference(P paragraph, FlexoConceptInstance fci) {
-			AbstractVirtualModelInstanceModelFactory<?> factory = fci.getFactory();
-			ParagraphActorReference<P> returned = factory.newInstance(ParagraphActorReference.class);
-			returned.setFlexoRole(this);
-			returned.setFlexoConceptInstance(fci);
-			returned.setModellingElement(paragraph);
-			return returned;
-		}
+        @Override
+        public ParagraphActorReference<P> makeActorReference(P paragraph, FlexoConceptInstance fci) {
+            AbstractVirtualModelInstanceModelFactory<?> factory = fci.getFactory();
+            ParagraphActorReference<P> returned = factory.newInstance(ParagraphActorReference.class);
+            returned.setFlexoRole(this);
+            returned.setFlexoConceptInstance(fci);
+            returned.setModellingElement(paragraph);
+            return returned;
+        }
 
-	}
+    }
 }

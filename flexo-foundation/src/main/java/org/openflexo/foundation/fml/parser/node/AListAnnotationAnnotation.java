@@ -2,33 +2,30 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AListAnnotationAnnotation extends PAnnotation
-{
+public final class AListAnnotationAnnotation extends PAnnotation {
+    private final LinkedList<PAnnotation> _annotation_ = new LinkedList<PAnnotation>();
     private TAt _at_;
     private PAnnotationTag _tag_;
     private TLPar _lPar_;
-    private final LinkedList<PAnnotation> _annotation_ = new LinkedList<PAnnotation>();
     private TRPar _rPar_;
 
-    public AListAnnotationAnnotation()
-    {
+    public AListAnnotationAnnotation() {
         // Constructor
     }
 
     public AListAnnotationAnnotation(
-        @SuppressWarnings("hiding") TAt _at_,
-        @SuppressWarnings("hiding") PAnnotationTag _tag_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") List<?> _annotation_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
-    {
+            @SuppressWarnings("hiding") TAt _at_,
+            @SuppressWarnings("hiding") PAnnotationTag _tag_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") List<?> _annotation_,
+            @SuppressWarnings("hiding") TRPar _rPar_) {
         // Constructor
         setAt(_at_);
 
@@ -43,38 +40,31 @@ public final class AListAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AListAnnotationAnnotation(
-            cloneNode(this._at_),
-            cloneNode(this._tag_),
-            cloneNode(this._lPar_),
-            cloneList(this._annotation_),
-            cloneNode(this._rPar_));
+                cloneNode(this._at_),
+                cloneNode(this._tag_),
+                cloneNode(this._lPar_),
+                cloneList(this._annotation_),
+                cloneNode(this._rPar_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAListAnnotationAnnotation(this);
     }
 
-    public TAt getAt()
-    {
+    public TAt getAt() {
         return this._at_;
     }
 
-    public void setAt(TAt node)
-    {
-        if(this._at_ != null)
-        {
+    public void setAt(TAt node) {
+        if (this._at_ != null) {
             this._at_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -84,22 +74,17 @@ public final class AListAnnotationAnnotation extends PAnnotation
         this._at_ = node;
     }
 
-    public PAnnotationTag getTag()
-    {
+    public PAnnotationTag getTag() {
         return this._tag_;
     }
 
-    public void setTag(PAnnotationTag node)
-    {
-        if(this._tag_ != null)
-        {
+    public void setTag(PAnnotationTag node) {
+        if (this._tag_ != null) {
             this._tag_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -109,22 +94,17 @@ public final class AListAnnotationAnnotation extends PAnnotation
         this._tag_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -134,24 +114,19 @@ public final class AListAnnotationAnnotation extends PAnnotation
         this._lPar_ = node;
     }
 
-    public LinkedList<PAnnotation> getAnnotation()
-    {
+    public LinkedList<PAnnotation> getAnnotation() {
         return this._annotation_;
     }
 
-    public void setAnnotation(List<?> list)
-    {
-        for(PAnnotation e : this._annotation_)
-        {
+    public void setAnnotation(List<?> list) {
+        for (PAnnotation e : this._annotation_) {
             e.parent(null);
         }
         this._annotation_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -160,22 +135,17 @@ public final class AListAnnotationAnnotation extends PAnnotation
         }
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -186,45 +156,38 @@ public final class AListAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._at_)
-            + toString(this._tag_)
-            + toString(this._lPar_)
-            + toString(this._annotation_)
-            + toString(this._rPar_);
+                + toString(this._at_)
+                + toString(this._tag_)
+                + toString(this._lPar_)
+                + toString(this._annotation_)
+                + toString(this._rPar_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._at_ == child)
-        {
+        if (this._at_ == child) {
             this._at_ = null;
             return;
         }
 
-        if(this._tag_ == child)
-        {
+        if (this._tag_ == child) {
             this._tag_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._annotation_.remove(child))
-        {
+        if (this._annotation_.remove(child)) {
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
@@ -233,33 +196,26 @@ public final class AListAnnotationAnnotation extends PAnnotation
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._at_ == oldChild)
-        {
+        if (this._at_ == oldChild) {
             setAt((TAt) newChild);
             return;
         }
 
-        if(this._tag_ == oldChild)
-        {
+        if (this._tag_ == oldChild) {
             setTag((PAnnotationTag) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        for(ListIterator<PAnnotation> i = this._annotation_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotation_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -272,8 +228,7 @@ public final class AListAnnotationAnnotation extends PAnnotation
             }
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }

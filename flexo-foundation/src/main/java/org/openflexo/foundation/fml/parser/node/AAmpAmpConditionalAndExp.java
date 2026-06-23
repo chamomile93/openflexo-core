@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AAmpAmpConditionalAndExp extends PConditionalAndExp
-{
+public final class AAmpAmpConditionalAndExp extends PConditionalAndExp {
     private PConditionalAndExp _conditionalAndExp_;
     private TAmpAmp _ampAmp_;
     private PInclusiveOrExp _inclusiveOrExp_;
 
-    public AAmpAmpConditionalAndExp()
-    {
+    public AAmpAmpConditionalAndExp() {
         // Constructor
     }
 
     public AAmpAmpConditionalAndExp(
-        @SuppressWarnings("hiding") PConditionalAndExp _conditionalAndExp_,
-        @SuppressWarnings("hiding") TAmpAmp _ampAmp_,
-        @SuppressWarnings("hiding") PInclusiveOrExp _inclusiveOrExp_)
-    {
+            @SuppressWarnings("hiding") PConditionalAndExp _conditionalAndExp_,
+            @SuppressWarnings("hiding") TAmpAmp _ampAmp_,
+            @SuppressWarnings("hiding") PInclusiveOrExp _inclusiveOrExp_) {
         // Constructor
         setConditionalAndExp(_conditionalAndExp_);
 
@@ -31,36 +28,29 @@ public final class AAmpAmpConditionalAndExp extends PConditionalAndExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AAmpAmpConditionalAndExp(
-            cloneNode(this._conditionalAndExp_),
-            cloneNode(this._ampAmp_),
-            cloneNode(this._inclusiveOrExp_));
+                cloneNode(this._conditionalAndExp_),
+                cloneNode(this._ampAmp_),
+                cloneNode(this._inclusiveOrExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAAmpAmpConditionalAndExp(this);
     }
 
-    public PConditionalAndExp getConditionalAndExp()
-    {
+    public PConditionalAndExp getConditionalAndExp() {
         return this._conditionalAndExp_;
     }
 
-    public void setConditionalAndExp(PConditionalAndExp node)
-    {
-        if(this._conditionalAndExp_ != null)
-        {
+    public void setConditionalAndExp(PConditionalAndExp node) {
+        if (this._conditionalAndExp_ != null) {
             this._conditionalAndExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AAmpAmpConditionalAndExp extends PConditionalAndExp
         this._conditionalAndExp_ = node;
     }
 
-    public TAmpAmp getAmpAmp()
-    {
+    public TAmpAmp getAmpAmp() {
         return this._ampAmp_;
     }
 
-    public void setAmpAmp(TAmpAmp node)
-    {
-        if(this._ampAmp_ != null)
-        {
+    public void setAmpAmp(TAmpAmp node) {
+        if (this._ampAmp_ != null) {
             this._ampAmp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AAmpAmpConditionalAndExp extends PConditionalAndExp
         this._ampAmp_ = node;
     }
 
-    public PInclusiveOrExp getInclusiveOrExp()
-    {
+    public PInclusiveOrExp getInclusiveOrExp() {
         return this._inclusiveOrExp_;
     }
 
-    public void setInclusiveOrExp(PInclusiveOrExp node)
-    {
-        if(this._inclusiveOrExp_ != null)
-        {
+    public void setInclusiveOrExp(PInclusiveOrExp node) {
+        if (this._inclusiveOrExp_ != null) {
             this._inclusiveOrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AAmpAmpConditionalAndExp extends PConditionalAndExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._conditionalAndExp_)
-            + toString(this._ampAmp_)
-            + toString(this._inclusiveOrExp_);
+                + toString(this._conditionalAndExp_)
+                + toString(this._ampAmp_)
+                + toString(this._inclusiveOrExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._conditionalAndExp_ == child)
-        {
+        if (this._conditionalAndExp_ == child) {
             this._conditionalAndExp_ = null;
             return;
         }
 
-        if(this._ampAmp_ == child)
-        {
+        if (this._ampAmp_ == child) {
             this._ampAmp_ = null;
             return;
         }
 
-        if(this._inclusiveOrExp_ == child)
-        {
+        if (this._inclusiveOrExp_ == child) {
             this._inclusiveOrExp_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AAmpAmpConditionalAndExp extends PConditionalAndExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._conditionalAndExp_ == oldChild)
-        {
+        if (this._conditionalAndExp_ == oldChild) {
             setConditionalAndExp((PConditionalAndExp) newChild);
             return;
         }
 
-        if(this._ampAmp_ == oldChild)
-        {
+        if (this._ampAmp_ == oldChild) {
             setAmpAmp((TAmpAmp) newChild);
             return;
         }
 
-        if(this._inclusiveOrExp_ == oldChild)
-        {
+        if (this._inclusiveOrExp_ == oldChild) {
             setInclusiveOrExp((PInclusiveOrExp) newChild);
             return;
         }

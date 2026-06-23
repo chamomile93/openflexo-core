@@ -2,33 +2,30 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
-{
+public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus {
+    private final LinkedList<PDim> _dims_ = new LinkedList<PDim>();
     private TLPar _lPar_;
     private PType _type_;
-    private final LinkedList<PDim> _dims_ = new LinkedList<PDim>();
     private TRPar _rPar_;
     private PUnaryExp _unaryExp_;
 
-    public ACastUnaryExpNotPlusMinus()
-    {
+    public ACastUnaryExpNotPlusMinus() {
         // Constructor
     }
 
     public ACastUnaryExpNotPlusMinus(
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") List<?> _dims_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PUnaryExp _unaryExp_)
-    {
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") List<?> _dims_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PUnaryExp _unaryExp_) {
         // Constructor
         setLPar(_lPar_);
 
@@ -43,38 +40,31 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACastUnaryExpNotPlusMinus(
-            cloneNode(this._lPar_),
-            cloneNode(this._type_),
-            cloneList(this._dims_),
-            cloneNode(this._rPar_),
-            cloneNode(this._unaryExp_));
+                cloneNode(this._lPar_),
+                cloneNode(this._type_),
+                cloneList(this._dims_),
+                cloneNode(this._rPar_),
+                cloneNode(this._unaryExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACastUnaryExpNotPlusMinus(this);
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -84,22 +74,17 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
         this._lPar_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -109,24 +94,19 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
         this._type_ = node;
     }
 
-    public LinkedList<PDim> getDims()
-    {
+    public LinkedList<PDim> getDims() {
         return this._dims_;
     }
 
-    public void setDims(List<?> list)
-    {
-        for(PDim e : this._dims_)
-        {
+    public void setDims(List<?> list) {
+        for (PDim e : this._dims_) {
             e.parent(null);
         }
         this._dims_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PDim e = (PDim) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -135,22 +115,17 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
         }
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
         this._rPar_ = node;
     }
 
-    public PUnaryExp getUnaryExp()
-    {
+    public PUnaryExp getUnaryExp() {
         return this._unaryExp_;
     }
 
-    public void setUnaryExp(PUnaryExp node)
-    {
-        if(this._unaryExp_ != null)
-        {
+    public void setUnaryExp(PUnaryExp node) {
+        if (this._unaryExp_ != null) {
             this._unaryExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -186,45 +156,38 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lPar_)
-            + toString(this._type_)
-            + toString(this._dims_)
-            + toString(this._rPar_)
-            + toString(this._unaryExp_);
+                + toString(this._lPar_)
+                + toString(this._type_)
+                + toString(this._dims_)
+                + toString(this._rPar_)
+                + toString(this._unaryExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._dims_.remove(child))
-        {
+        if (this._dims_.remove(child)) {
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._unaryExp_ == child)
-        {
+        if (this._unaryExp_ == child) {
             this._unaryExp_ = null;
             return;
         }
@@ -233,27 +196,21 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        for(ListIterator<PDim> i = this._dims_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PDim> i = this._dims_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PDim) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -266,14 +223,12 @@ public final class ACastUnaryExpNotPlusMinus extends PUnaryExpNotPlusMinus
             }
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._unaryExp_ == oldChild)
-        {
+        if (this._unaryExp_ == oldChild) {
             setUnaryExp((PUnaryExp) newChild);
             return;
         }

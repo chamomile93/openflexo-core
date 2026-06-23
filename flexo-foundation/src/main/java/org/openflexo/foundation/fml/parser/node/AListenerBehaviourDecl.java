@@ -2,15 +2,14 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AListenerBehaviourDecl extends PBehaviourDecl
-{
+public final class AListenerBehaviourDecl extends PBehaviourDecl {
     private final LinkedList<PAnnotation> _annotations_ = new LinkedList<PAnnotation>();
     private TKwListen _kwListen_;
     private PReferenceType _eventType_;
@@ -18,19 +17,17 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
     private PExpression _listened_;
     private PFlexoBehaviourBody _flexoBehaviourBody_;
 
-    public AListenerBehaviourDecl()
-    {
+    public AListenerBehaviourDecl() {
         // Constructor
     }
 
     public AListenerBehaviourDecl(
-        @SuppressWarnings("hiding") List<?> _annotations_,
-        @SuppressWarnings("hiding") TKwListen _kwListen_,
-        @SuppressWarnings("hiding") PReferenceType _eventType_,
-        @SuppressWarnings("hiding") TKwFrom _kwFrom_,
-        @SuppressWarnings("hiding") PExpression _listened_,
-        @SuppressWarnings("hiding") PFlexoBehaviourBody _flexoBehaviourBody_)
-    {
+            @SuppressWarnings("hiding") List<?> _annotations_,
+            @SuppressWarnings("hiding") TKwListen _kwListen_,
+            @SuppressWarnings("hiding") PReferenceType _eventType_,
+            @SuppressWarnings("hiding") TKwFrom _kwFrom_,
+            @SuppressWarnings("hiding") PExpression _listened_,
+            @SuppressWarnings("hiding") PFlexoBehaviourBody _flexoBehaviourBody_) {
         // Constructor
         setAnnotations(_annotations_);
 
@@ -47,41 +44,34 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AListenerBehaviourDecl(
-            cloneList(this._annotations_),
-            cloneNode(this._kwListen_),
-            cloneNode(this._eventType_),
-            cloneNode(this._kwFrom_),
-            cloneNode(this._listened_),
-            cloneNode(this._flexoBehaviourBody_));
+                cloneList(this._annotations_),
+                cloneNode(this._kwListen_),
+                cloneNode(this._eventType_),
+                cloneNode(this._kwFrom_),
+                cloneNode(this._listened_),
+                cloneNode(this._flexoBehaviourBody_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAListenerBehaviourDecl(this);
     }
 
-    public LinkedList<PAnnotation> getAnnotations()
-    {
+    public LinkedList<PAnnotation> getAnnotations() {
         return this._annotations_;
     }
 
-    public void setAnnotations(List<?> list)
-    {
-        for(PAnnotation e : this._annotations_)
-        {
+    public void setAnnotations(List<?> list) {
+        for (PAnnotation e : this._annotations_) {
             e.parent(null);
         }
         this._annotations_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PAnnotation e = (PAnnotation) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -90,22 +80,17 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
         }
     }
 
-    public TKwListen getKwListen()
-    {
+    public TKwListen getKwListen() {
         return this._kwListen_;
     }
 
-    public void setKwListen(TKwListen node)
-    {
-        if(this._kwListen_ != null)
-        {
+    public void setKwListen(TKwListen node) {
+        if (this._kwListen_ != null) {
             this._kwListen_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -115,22 +100,17 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
         this._kwListen_ = node;
     }
 
-    public PReferenceType getEventType()
-    {
+    public PReferenceType getEventType() {
         return this._eventType_;
     }
 
-    public void setEventType(PReferenceType node)
-    {
-        if(this._eventType_ != null)
-        {
+    public void setEventType(PReferenceType node) {
+        if (this._eventType_ != null) {
             this._eventType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -140,22 +120,17 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
         this._eventType_ = node;
     }
 
-    public TKwFrom getKwFrom()
-    {
+    public TKwFrom getKwFrom() {
         return this._kwFrom_;
     }
 
-    public void setKwFrom(TKwFrom node)
-    {
-        if(this._kwFrom_ != null)
-        {
+    public void setKwFrom(TKwFrom node) {
+        if (this._kwFrom_ != null) {
             this._kwFrom_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -165,22 +140,17 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
         this._kwFrom_ = node;
     }
 
-    public PExpression getListened()
-    {
+    public PExpression getListened() {
         return this._listened_;
     }
 
-    public void setListened(PExpression node)
-    {
-        if(this._listened_ != null)
-        {
+    public void setListened(PExpression node) {
+        if (this._listened_ != null) {
             this._listened_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -190,22 +160,17 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
         this._listened_ = node;
     }
 
-    public PFlexoBehaviourBody getFlexoBehaviourBody()
-    {
+    public PFlexoBehaviourBody getFlexoBehaviourBody() {
         return this._flexoBehaviourBody_;
     }
 
-    public void setFlexoBehaviourBody(PFlexoBehaviourBody node)
-    {
-        if(this._flexoBehaviourBody_ != null)
-        {
+    public void setFlexoBehaviourBody(PFlexoBehaviourBody node) {
+        if (this._flexoBehaviourBody_ != null) {
             this._flexoBehaviourBody_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -216,52 +181,44 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._annotations_)
-            + toString(this._kwListen_)
-            + toString(this._eventType_)
-            + toString(this._kwFrom_)
-            + toString(this._listened_)
-            + toString(this._flexoBehaviourBody_);
+                + toString(this._annotations_)
+                + toString(this._kwListen_)
+                + toString(this._eventType_)
+                + toString(this._kwFrom_)
+                + toString(this._listened_)
+                + toString(this._flexoBehaviourBody_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._annotations_.remove(child))
-        {
+        if (this._annotations_.remove(child)) {
             return;
         }
 
-        if(this._kwListen_ == child)
-        {
+        if (this._kwListen_ == child) {
             this._kwListen_ = null;
             return;
         }
 
-        if(this._eventType_ == child)
-        {
+        if (this._eventType_ == child) {
             this._eventType_ = null;
             return;
         }
 
-        if(this._kwFrom_ == child)
-        {
+        if (this._kwFrom_ == child) {
             this._kwFrom_ = null;
             return;
         }
 
-        if(this._listened_ == child)
-        {
+        if (this._listened_ == child) {
             this._listened_ = null;
             return;
         }
 
-        if(this._flexoBehaviourBody_ == child)
-        {
+        if (this._flexoBehaviourBody_ == child) {
             this._flexoBehaviourBody_ = null;
             return;
         }
@@ -270,15 +227,11 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        for(ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PAnnotation> i = this._annotations_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PAnnotation) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -291,32 +244,27 @@ public final class AListenerBehaviourDecl extends PBehaviourDecl
             }
         }
 
-        if(this._kwListen_ == oldChild)
-        {
+        if (this._kwListen_ == oldChild) {
             setKwListen((TKwListen) newChild);
             return;
         }
 
-        if(this._eventType_ == oldChild)
-        {
+        if (this._eventType_ == oldChild) {
             setEventType((PReferenceType) newChild);
             return;
         }
 
-        if(this._kwFrom_ == oldChild)
-        {
+        if (this._kwFrom_ == oldChild) {
             setKwFrom((TKwFrom) newChild);
             return;
         }
 
-        if(this._listened_ == oldChild)
-        {
+        if (this._listened_ == oldChild) {
             setListened((PExpression) newChild);
             return;
         }
 
-        if(this._flexoBehaviourBody_ == oldChild)
-        {
+        if (this._flexoBehaviourBody_ == oldChild) {
             setFlexoBehaviourBody((PFlexoBehaviourBody) newChild);
             return;
         }

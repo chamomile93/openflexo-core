@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADim extends PDim
-{
+public final class ADim extends PDim {
     private TLBkt _lBkt_;
     private TRBkt _rBkt_;
 
-    public ADim()
-    {
+    public ADim() {
         // Constructor
     }
 
     public ADim(
-        @SuppressWarnings("hiding") TLBkt _lBkt_,
-        @SuppressWarnings("hiding") TRBkt _rBkt_)
-    {
+            @SuppressWarnings("hiding") TLBkt _lBkt_,
+            @SuppressWarnings("hiding") TRBkt _rBkt_) {
         // Constructor
         setLBkt(_lBkt_);
 
@@ -27,35 +24,28 @@ public final class ADim extends PDim
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADim(
-            cloneNode(this._lBkt_),
-            cloneNode(this._rBkt_));
+                cloneNode(this._lBkt_),
+                cloneNode(this._rBkt_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADim(this);
     }
 
-    public TLBkt getLBkt()
-    {
+    public TLBkt getLBkt() {
         return this._lBkt_;
     }
 
-    public void setLBkt(TLBkt node)
-    {
-        if(this._lBkt_ != null)
-        {
+    public void setLBkt(TLBkt node) {
+        if (this._lBkt_ != null) {
             this._lBkt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ADim extends PDim
         this._lBkt_ = node;
     }
 
-    public TRBkt getRBkt()
-    {
+    public TRBkt getRBkt() {
         return this._rBkt_;
     }
 
-    public void setRBkt(TRBkt node)
-    {
-        if(this._rBkt_ != null)
-        {
+    public void setRBkt(TRBkt node) {
+        if (this._rBkt_ != null) {
             this._rBkt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ADim extends PDim
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lBkt_)
-            + toString(this._rBkt_);
+                + toString(this._lBkt_)
+                + toString(this._rBkt_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lBkt_ == child)
-        {
+        if (this._lBkt_ == child) {
             this._lBkt_ = null;
             return;
         }
 
-        if(this._rBkt_ == child)
-        {
+        if (this._rBkt_ == child) {
             this._rBkt_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ADim extends PDim
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lBkt_ == oldChild)
-        {
+        if (this._lBkt_ == oldChild) {
             setLBkt((TLBkt) newChild);
             return;
         }
 
-        if(this._rBkt_ == oldChild)
-        {
+        if (this._rBkt_ == oldChild) {
             setRBkt((TRBkt) newChild);
             return;
         }

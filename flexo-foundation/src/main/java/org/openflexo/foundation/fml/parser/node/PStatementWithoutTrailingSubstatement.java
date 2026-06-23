@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PStatementWithoutTrailingSubstatement extends Node
-{
+public abstract class PStatementWithoutTrailingSubstatement extends Node {
     // Empty body
 }

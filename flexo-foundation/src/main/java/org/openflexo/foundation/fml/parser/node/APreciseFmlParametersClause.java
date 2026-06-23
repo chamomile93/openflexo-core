@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APreciseFmlParametersClause extends PPreciseFmlParametersClause
-{
+public final class APreciseFmlParametersClause extends PPreciseFmlParametersClause {
     private TKwWith _kwWith_;
     private PFmlParameters _fmlParameters_;
 
-    public APreciseFmlParametersClause()
-    {
+    public APreciseFmlParametersClause() {
         // Constructor
     }
 
     public APreciseFmlParametersClause(
-        @SuppressWarnings("hiding") TKwWith _kwWith_,
-        @SuppressWarnings("hiding") PFmlParameters _fmlParameters_)
-    {
+            @SuppressWarnings("hiding") TKwWith _kwWith_,
+            @SuppressWarnings("hiding") PFmlParameters _fmlParameters_) {
         // Constructor
         setKwWith(_kwWith_);
 
@@ -27,35 +24,28 @@ public final class APreciseFmlParametersClause extends PPreciseFmlParametersClau
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APreciseFmlParametersClause(
-            cloneNode(this._kwWith_),
-            cloneNode(this._fmlParameters_));
+                cloneNode(this._kwWith_),
+                cloneNode(this._fmlParameters_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPreciseFmlParametersClause(this);
     }
 
-    public TKwWith getKwWith()
-    {
+    public TKwWith getKwWith() {
         return this._kwWith_;
     }
 
-    public void setKwWith(TKwWith node)
-    {
-        if(this._kwWith_ != null)
-        {
+    public void setKwWith(TKwWith node) {
+        if (this._kwWith_ != null) {
             this._kwWith_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APreciseFmlParametersClause extends PPreciseFmlParametersClau
         this._kwWith_ = node;
     }
 
-    public PFmlParameters getFmlParameters()
-    {
+    public PFmlParameters getFmlParameters() {
         return this._fmlParameters_;
     }
 
-    public void setFmlParameters(PFmlParameters node)
-    {
-        if(this._fmlParameters_ != null)
-        {
+    public void setFmlParameters(PFmlParameters node) {
+        if (this._fmlParameters_ != null) {
             this._fmlParameters_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APreciseFmlParametersClause extends PPreciseFmlParametersClau
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwWith_)
-            + toString(this._fmlParameters_);
+                + toString(this._kwWith_)
+                + toString(this._fmlParameters_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwWith_ == child)
-        {
+        if (this._kwWith_ == child) {
             this._kwWith_ = null;
             return;
         }
 
-        if(this._fmlParameters_ == child)
-        {
+        if (this._fmlParameters_ == child) {
             this._fmlParameters_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APreciseFmlParametersClause extends PPreciseFmlParametersClau
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwWith_ == oldChild)
-        {
+        if (this._kwWith_ == oldChild) {
             setKwWith((TKwWith) newChild);
             return;
         }
 
-        if(this._fmlParameters_ == oldChild)
-        {
+        if (this._fmlParameters_ == oldChild) {
             setFmlParameters((PFmlParameters) newChild);
             return;
         }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ALitteralUriExpressionPrimary extends PUriExpressionPrimary
-{
+public final class ALitteralUriExpressionPrimary extends PUriExpressionPrimary {
     private TLitString _litString_;
 
-    public ALitteralUriExpressionPrimary()
-    {
+    public ALitteralUriExpressionPrimary() {
         // Constructor
     }
 
     public ALitteralUriExpressionPrimary(
-        @SuppressWarnings("hiding") TLitString _litString_)
-    {
+            @SuppressWarnings("hiding") TLitString _litString_) {
         // Constructor
         setLitString(_litString_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ALitteralUriExpressionPrimary(
-            cloneNode(this._litString_));
+                cloneNode(this._litString_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseALitteralUriExpressionPrimary(this);
     }
 
-    public TLitString getLitString()
-    {
+    public TLitString getLitString() {
         return this._litString_;
     }
 
-    public void setLitString(TLitString node)
-    {
-        if(this._litString_ != null)
-        {
+    public void setLitString(TLitString node) {
+        if (this._litString_ != null) {
             this._litString_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ALitteralUriExpressionPrimary extends PUriExpressionPrimary
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._litString_);
+                + toString(this._litString_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._litString_ == child)
-        {
+        if (this._litString_ == child) {
             this._litString_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ALitteralUriExpressionPrimary extends PUriExpressionPrimary
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._litString_ == oldChild)
-        {
+        if (this._litString_ == oldChild) {
             setLitString((TLitString) newChild);
             return;
         }

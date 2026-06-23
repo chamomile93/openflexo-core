@@ -5,29 +5,24 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TStartCommand extends Token
-{
-    public TStartCommand(String text)
-    {
+public final class TStartCommand extends Token {
+    public TStartCommand(String text) {
         setText(text);
     }
 
-    public TStartCommand(String text, int line, int pos)
-    {
+    public TStartCommand(String text, int line, int pos) {
         setText(text);
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TStartCommand(getText(), getLine(), getPos());
+    public Object clone() {
+        return new TStartCommand(getText(), getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTStartCommand(this);
     }
 }

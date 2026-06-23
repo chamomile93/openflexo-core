@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TShr extends Token
-{
-    public TShr()
-    {
+public final class TShr extends Token {
+    public TShr() {
         super.setText(">>");
     }
 
-    public TShr(int line, int pos)
-    {
+    public TShr(int line, int pos) {
         super.setText(">>");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TShr(getLine(), getPos());
+    public Object clone() {
+        return new TShr(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTShr(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TShr text.");
     }
 }

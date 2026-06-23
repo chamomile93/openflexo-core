@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ANotifyActionFmlActionExp extends PFmlActionExp
-{
+public final class ANotifyActionFmlActionExp extends PFmlActionExp {
     private TKwNotify _kwNotify_;
     private PExpression _expression_;
     private PInClause _inClause_;
 
-    public ANotifyActionFmlActionExp()
-    {
+    public ANotifyActionFmlActionExp() {
         // Constructor
     }
 
     public ANotifyActionFmlActionExp(
-        @SuppressWarnings("hiding") TKwNotify _kwNotify_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") PInClause _inClause_)
-    {
+            @SuppressWarnings("hiding") TKwNotify _kwNotify_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") PInClause _inClause_) {
         // Constructor
         setKwNotify(_kwNotify_);
 
@@ -31,36 +28,29 @@ public final class ANotifyActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANotifyActionFmlActionExp(
-            cloneNode(this._kwNotify_),
-            cloneNode(this._expression_),
-            cloneNode(this._inClause_));
+                cloneNode(this._kwNotify_),
+                cloneNode(this._expression_),
+                cloneNode(this._inClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANotifyActionFmlActionExp(this);
     }
 
-    public TKwNotify getKwNotify()
-    {
+    public TKwNotify getKwNotify() {
         return this._kwNotify_;
     }
 
-    public void setKwNotify(TKwNotify node)
-    {
-        if(this._kwNotify_ != null)
-        {
+    public void setKwNotify(TKwNotify node) {
+        if (this._kwNotify_ != null) {
             this._kwNotify_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ANotifyActionFmlActionExp extends PFmlActionExp
         this._kwNotify_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ANotifyActionFmlActionExp extends PFmlActionExp
         this._expression_ = node;
     }
 
-    public PInClause getInClause()
-    {
+    public PInClause getInClause() {
         return this._inClause_;
     }
 
-    public void setInClause(PInClause node)
-    {
-        if(this._inClause_ != null)
-        {
+    public void setInClause(PInClause node) {
+        if (this._inClause_ != null) {
             this._inClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ANotifyActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwNotify_)
-            + toString(this._expression_)
-            + toString(this._inClause_);
+                + toString(this._kwNotify_)
+                + toString(this._expression_)
+                + toString(this._inClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwNotify_ == child)
-        {
+        if (this._kwNotify_ == child) {
             this._kwNotify_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._inClause_ == child)
-        {
+        if (this._inClause_ == child) {
             this._inClause_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ANotifyActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwNotify_ == oldChild)
-        {
+        if (this._kwNotify_ == oldChild) {
             setKwNotify((TKwNotify) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._inClause_ == oldChild)
-        {
+        if (this._inClause_ == oldChild) {
             setInClause((PInClause) newChild);
             return;
         }

@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwUnique extends Token
-{
-    public TKwUnique()
-    {
+public final class TKwUnique extends Token {
+    public TKwUnique() {
         super.setText("unique");
     }
 
-    public TKwUnique(int line, int pos)
-    {
+    public TKwUnique(int line, int pos) {
         super.setText("unique");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwUnique(getLine(), getPos());
+    public Object clone() {
+        return new TKwUnique(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwUnique(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwUnique text.");
     }
 }

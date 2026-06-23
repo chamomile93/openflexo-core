@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AInsideClause extends PInsideClause
-{
+public final class AInsideClause extends PInsideClause {
     private TKwInside _kwInside_;
     private PCompositeTident _compositeTident_;
 
-    public AInsideClause()
-    {
+    public AInsideClause() {
         // Constructor
     }
 
     public AInsideClause(
-        @SuppressWarnings("hiding") TKwInside _kwInside_,
-        @SuppressWarnings("hiding") PCompositeTident _compositeTident_)
-    {
+            @SuppressWarnings("hiding") TKwInside _kwInside_,
+            @SuppressWarnings("hiding") PCompositeTident _compositeTident_) {
         // Constructor
         setKwInside(_kwInside_);
 
@@ -27,35 +24,28 @@ public final class AInsideClause extends PInsideClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AInsideClause(
-            cloneNode(this._kwInside_),
-            cloneNode(this._compositeTident_));
+                cloneNode(this._kwInside_),
+                cloneNode(this._compositeTident_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAInsideClause(this);
     }
 
-    public TKwInside getKwInside()
-    {
+    public TKwInside getKwInside() {
         return this._kwInside_;
     }
 
-    public void setKwInside(TKwInside node)
-    {
-        if(this._kwInside_ != null)
-        {
+    public void setKwInside(TKwInside node) {
+        if (this._kwInside_ != null) {
             this._kwInside_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AInsideClause extends PInsideClause
         this._kwInside_ = node;
     }
 
-    public PCompositeTident getCompositeTident()
-    {
+    public PCompositeTident getCompositeTident() {
         return this._compositeTident_;
     }
 
-    public void setCompositeTident(PCompositeTident node)
-    {
-        if(this._compositeTident_ != null)
-        {
+    public void setCompositeTident(PCompositeTident node) {
+        if (this._compositeTident_ != null) {
             this._compositeTident_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AInsideClause extends PInsideClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwInside_)
-            + toString(this._compositeTident_);
+                + toString(this._kwInside_)
+                + toString(this._compositeTident_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwInside_ == child)
-        {
+        if (this._kwInside_ == child) {
             this._kwInside_ = null;
             return;
         }
 
-        if(this._compositeTident_ == child)
-        {
+        if (this._compositeTident_ == child) {
             this._compositeTident_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AInsideClause extends PInsideClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwInside_ == oldChild)
-        {
+        if (this._kwInside_ == oldChild) {
             setKwInside((TKwInside) newChild);
             return;
         }
 
-        if(this._compositeTident_ == oldChild)
-        {
+        if (this._compositeTident_ == oldChild) {
             setCompositeTident((PCompositeTident) newChild);
             return;
         }

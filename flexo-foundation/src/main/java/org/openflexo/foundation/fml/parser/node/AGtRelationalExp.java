@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AGtRelationalExp extends PRelationalExp
-{
+public final class AGtRelationalExp extends PRelationalExp {
     private PShiftExp _shiftExpression1_;
     private TGt _gt_;
     private PShiftExp _shiftExpression2_;
 
-    public AGtRelationalExp()
-    {
+    public AGtRelationalExp() {
         // Constructor
     }
 
     public AGtRelationalExp(
-        @SuppressWarnings("hiding") PShiftExp _shiftExpression1_,
-        @SuppressWarnings("hiding") TGt _gt_,
-        @SuppressWarnings("hiding") PShiftExp _shiftExpression2_)
-    {
+            @SuppressWarnings("hiding") PShiftExp _shiftExpression1_,
+            @SuppressWarnings("hiding") TGt _gt_,
+            @SuppressWarnings("hiding") PShiftExp _shiftExpression2_) {
         // Constructor
         setShiftExpression1(_shiftExpression1_);
 
@@ -31,36 +28,29 @@ public final class AGtRelationalExp extends PRelationalExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AGtRelationalExp(
-            cloneNode(this._shiftExpression1_),
-            cloneNode(this._gt_),
-            cloneNode(this._shiftExpression2_));
+                cloneNode(this._shiftExpression1_),
+                cloneNode(this._gt_),
+                cloneNode(this._shiftExpression2_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAGtRelationalExp(this);
     }
 
-    public PShiftExp getShiftExpression1()
-    {
+    public PShiftExp getShiftExpression1() {
         return this._shiftExpression1_;
     }
 
-    public void setShiftExpression1(PShiftExp node)
-    {
-        if(this._shiftExpression1_ != null)
-        {
+    public void setShiftExpression1(PShiftExp node) {
+        if (this._shiftExpression1_ != null) {
             this._shiftExpression1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AGtRelationalExp extends PRelationalExp
         this._shiftExpression1_ = node;
     }
 
-    public TGt getGt()
-    {
+    public TGt getGt() {
         return this._gt_;
     }
 
-    public void setGt(TGt node)
-    {
-        if(this._gt_ != null)
-        {
+    public void setGt(TGt node) {
+        if (this._gt_ != null) {
             this._gt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AGtRelationalExp extends PRelationalExp
         this._gt_ = node;
     }
 
-    public PShiftExp getShiftExpression2()
-    {
+    public PShiftExp getShiftExpression2() {
         return this._shiftExpression2_;
     }
 
-    public void setShiftExpression2(PShiftExp node)
-    {
-        if(this._shiftExpression2_ != null)
-        {
+    public void setShiftExpression2(PShiftExp node) {
+        if (this._shiftExpression2_ != null) {
             this._shiftExpression2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AGtRelationalExp extends PRelationalExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._shiftExpression1_)
-            + toString(this._gt_)
-            + toString(this._shiftExpression2_);
+                + toString(this._shiftExpression1_)
+                + toString(this._gt_)
+                + toString(this._shiftExpression2_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._shiftExpression1_ == child)
-        {
+        if (this._shiftExpression1_ == child) {
             this._shiftExpression1_ = null;
             return;
         }
 
-        if(this._gt_ == child)
-        {
+        if (this._gt_ == child) {
             this._gt_ = null;
             return;
         }
 
-        if(this._shiftExpression2_ == child)
-        {
+        if (this._shiftExpression2_ == child) {
             this._shiftExpression2_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AGtRelationalExp extends PRelationalExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._shiftExpression1_ == oldChild)
-        {
+        if (this._shiftExpression1_ == oldChild) {
             setShiftExpression1((PShiftExp) newChild);
             return;
         }
 
-        if(this._gt_ == oldChild)
-        {
+        if (this._gt_ == oldChild) {
             setGt((TGt) newChild);
             return;
         }
 
-        if(this._shiftExpression2_ == oldChild)
-        {
+        if (this._shiftExpression2_ == oldChild) {
             setShiftExpression2((PShiftExp) newChild);
             return;
         }

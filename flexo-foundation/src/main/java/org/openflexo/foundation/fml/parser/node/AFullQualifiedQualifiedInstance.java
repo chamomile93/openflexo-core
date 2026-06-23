@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
-{
+public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance {
     private TCidentifier _taId_;
     private TColonColon _colonColon_;
     private TUidentifier _argType_;
     private TColon _colon_;
     private PFmlParameters _fmlParameters_;
 
-    public AFullQualifiedQualifiedInstance()
-    {
+    public AFullQualifiedQualifiedInstance() {
         // Constructor
     }
 
     public AFullQualifiedQualifiedInstance(
-        @SuppressWarnings("hiding") TCidentifier _taId_,
-        @SuppressWarnings("hiding") TColonColon _colonColon_,
-        @SuppressWarnings("hiding") TUidentifier _argType_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") PFmlParameters _fmlParameters_)
-    {
+            @SuppressWarnings("hiding") TCidentifier _taId_,
+            @SuppressWarnings("hiding") TColonColon _colonColon_,
+            @SuppressWarnings("hiding") TUidentifier _argType_,
+            @SuppressWarnings("hiding") TColon _colon_,
+            @SuppressWarnings("hiding") PFmlParameters _fmlParameters_) {
         // Constructor
         setTaId(_taId_);
 
@@ -39,38 +36,31 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFullQualifiedQualifiedInstance(
-            cloneNode(this._taId_),
-            cloneNode(this._colonColon_),
-            cloneNode(this._argType_),
-            cloneNode(this._colon_),
-            cloneNode(this._fmlParameters_));
+                cloneNode(this._taId_),
+                cloneNode(this._colonColon_),
+                cloneNode(this._argType_),
+                cloneNode(this._colon_),
+                cloneNode(this._fmlParameters_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFullQualifiedQualifiedInstance(this);
     }
 
-    public TCidentifier getTaId()
-    {
+    public TCidentifier getTaId() {
         return this._taId_;
     }
 
-    public void setTaId(TCidentifier node)
-    {
-        if(this._taId_ != null)
-        {
+    public void setTaId(TCidentifier node) {
+        if (this._taId_ != null) {
             this._taId_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
         this._taId_ = node;
     }
 
-    public TColonColon getColonColon()
-    {
+    public TColonColon getColonColon() {
         return this._colonColon_;
     }
 
-    public void setColonColon(TColonColon node)
-    {
-        if(this._colonColon_ != null)
-        {
+    public void setColonColon(TColonColon node) {
+        if (this._colonColon_ != null) {
             this._colonColon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
         this._colonColon_ = node;
     }
 
-    public TUidentifier getArgType()
-    {
+    public TUidentifier getArgType() {
         return this._argType_;
     }
 
-    public void setArgType(TUidentifier node)
-    {
-        if(this._argType_ != null)
-        {
+    public void setArgType(TUidentifier node) {
+        if (this._argType_ != null) {
             this._argType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
         this._argType_ = node;
     }
 
-    public TColon getColon()
-    {
+    public TColon getColon() {
         return this._colon_;
     }
 
-    public void setColon(TColon node)
-    {
-        if(this._colon_ != null)
-        {
+    public void setColon(TColon node) {
+        if (this._colon_ != null) {
             this._colon_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
         this._colon_ = node;
     }
 
-    public PFmlParameters getFmlParameters()
-    {
+    public PFmlParameters getFmlParameters() {
         return this._fmlParameters_;
     }
 
-    public void setFmlParameters(PFmlParameters node)
-    {
-        if(this._fmlParameters_ != null)
-        {
+    public void setFmlParameters(PFmlParameters node) {
+        if (this._fmlParameters_ != null) {
             this._fmlParameters_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._taId_)
-            + toString(this._colonColon_)
-            + toString(this._argType_)
-            + toString(this._colon_)
-            + toString(this._fmlParameters_);
+                + toString(this._taId_)
+                + toString(this._colonColon_)
+                + toString(this._argType_)
+                + toString(this._colon_)
+                + toString(this._fmlParameters_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._taId_ == child)
-        {
+        if (this._taId_ == child) {
             this._taId_ = null;
             return;
         }
 
-        if(this._colonColon_ == child)
-        {
+        if (this._colonColon_ == child) {
             this._colonColon_ = null;
             return;
         }
 
-        if(this._argType_ == child)
-        {
+        if (this._argType_ == child) {
             this._argType_ = null;
             return;
         }
 
-        if(this._colon_ == child)
-        {
+        if (this._colon_ == child) {
             this._colon_ = null;
             return;
         }
 
-        if(this._fmlParameters_ == child)
-        {
+        if (this._fmlParameters_ == child) {
             this._fmlParameters_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AFullQualifiedQualifiedInstance extends PQualifiedInstance
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._taId_ == oldChild)
-        {
+        if (this._taId_ == oldChild) {
             setTaId((TCidentifier) newChild);
             return;
         }
 
-        if(this._colonColon_ == oldChild)
-        {
+        if (this._colonColon_ == oldChild) {
             setColonColon((TColonColon) newChild);
             return;
         }
 
-        if(this._argType_ == oldChild)
-        {
+        if (this._argType_ == oldChild) {
             setArgType((TUidentifier) newChild);
             return;
         }
 
-        if(this._colon_ == oldChild)
-        {
+        if (this._colon_ == oldChild) {
             setColon((TColon) newChild);
             return;
         }
 
-        if(this._fmlParameters_ == oldChild)
-        {
+        if (this._fmlParameters_ == oldChild) {
             setFmlParameters((PFmlParameters) newChild);
             return;
         }

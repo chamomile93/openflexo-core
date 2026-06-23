@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class POpenDirective extends Node
-{
+public abstract class POpenDirective extends Node {
     // Empty body
 }

@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PIterationAssertDeclaration extends Node
-{
+public abstract class PIterationAssertDeclaration extends Node {
     // Empty body
 }

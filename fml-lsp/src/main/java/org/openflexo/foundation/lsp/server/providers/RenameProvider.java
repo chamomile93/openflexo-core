@@ -1,35 +1,31 @@
 package org.openflexo.foundation.lsp.server.providers;
 
+import org.eclipse.lsp4j.*;
+import org.openflexo.foundation.lsp.languageServer.utils.TextUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipse.lsp4j.Position;
-import org.eclipse.lsp4j.Range;
-import org.eclipse.lsp4j.RenameParams;
-import org.eclipse.lsp4j.TextEdit;
-import org.eclipse.lsp4j.WorkspaceEdit;
-import org.openflexo.foundation.lsp.languageServer.utils.TextUtils;
-
 /**
  * Provides rename functionality for symbols in the FML language.
- * 
+ * <p>
  * Handles requests to rename identifiers by locating all occurrences
  * of the target word within a document and preparing the corresponding edits.
- * 
+ * <p>
  * Note: Currently, renaming is based on simple word matching and does not
  * distinguish symbol types or scopes.
  */
 public class RenameProvider {
-	
-	public RenameProvider() {
-		
-	}
-	
-	//TODO make the symbol detection uses the symbol and not juste the word
-    public CompletableFuture<WorkspaceEdit> provide(RenameParams params, Map<String,String> documents) {
+
+    public RenameProvider() {
+
+    }
+
+    //TODO make the symbol detection uses the symbol and not juste the word
+    public CompletableFuture<WorkspaceEdit> provide(RenameParams params, Map<String, String> documents) {
         String uri = params.getTextDocument().getUri();
         Position pos = params.getPosition();
         String newName = params.getNewName();
@@ -53,11 +49,11 @@ public class RenameProvider {
             int index = 0;
             while ((index = line.indexOf(oldName, index)) != -1) {
                 if ((index == 0 || !Character.isJavaIdentifierPart(line.charAt(index - 1))) &&
-                    (index + oldName.length() == line.length() || !Character.isJavaIdentifierPart(line.charAt(index + oldName.length())))) {
+                        (index + oldName.length() == line.length() || !Character.isJavaIdentifierPart(line.charAt(index + oldName.length())))) {
 
                     edits.add(new TextEdit(
-                        new Range(new Position(i, index), new Position(i, index + oldName.length())),
-                        newName
+                            new Range(new Position(i, index), new Position(i, index + oldName.length())),
+                            newName
                     ));
                 }
                 index += oldName.length();

@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PForInit extends Node
-{
+public abstract class PForInit extends Node {
     // Empty body
 }

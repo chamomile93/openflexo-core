@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AFmlActionReturnValueStatement extends PReturnValueStatement
-{
+public final class AFmlActionReturnValueStatement extends PReturnValueStatement {
     private TKwReturn _kwReturn_;
     private PFmlActionExp _fmlActionExp_;
     private TSemi _semi_;
 
-    public AFmlActionReturnValueStatement()
-    {
+    public AFmlActionReturnValueStatement() {
         // Constructor
     }
 
     public AFmlActionReturnValueStatement(
-        @SuppressWarnings("hiding") TKwReturn _kwReturn_,
-        @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwReturn _kwReturn_,
+            @SuppressWarnings("hiding") PFmlActionExp _fmlActionExp_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwReturn(_kwReturn_);
 
@@ -31,36 +28,29 @@ public final class AFmlActionReturnValueStatement extends PReturnValueStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AFmlActionReturnValueStatement(
-            cloneNode(this._kwReturn_),
-            cloneNode(this._fmlActionExp_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwReturn_),
+                cloneNode(this._fmlActionExp_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAFmlActionReturnValueStatement(this);
     }
 
-    public TKwReturn getKwReturn()
-    {
+    public TKwReturn getKwReturn() {
         return this._kwReturn_;
     }
 
-    public void setKwReturn(TKwReturn node)
-    {
-        if(this._kwReturn_ != null)
-        {
+    public void setKwReturn(TKwReturn node) {
+        if (this._kwReturn_ != null) {
             this._kwReturn_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AFmlActionReturnValueStatement extends PReturnValueStatement
         this._kwReturn_ = node;
     }
 
-    public PFmlActionExp getFmlActionExp()
-    {
+    public PFmlActionExp getFmlActionExp() {
         return this._fmlActionExp_;
     }
 
-    public void setFmlActionExp(PFmlActionExp node)
-    {
-        if(this._fmlActionExp_ != null)
-        {
+    public void setFmlActionExp(PFmlActionExp node) {
+        if (this._fmlActionExp_ != null) {
             this._fmlActionExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AFmlActionReturnValueStatement extends PReturnValueStatement
         this._fmlActionExp_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AFmlActionReturnValueStatement extends PReturnValueStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwReturn_)
-            + toString(this._fmlActionExp_)
-            + toString(this._semi_);
+                + toString(this._kwReturn_)
+                + toString(this._fmlActionExp_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwReturn_ == child)
-        {
+        if (this._kwReturn_ == child) {
             this._kwReturn_ = null;
             return;
         }
 
-        if(this._fmlActionExp_ == child)
-        {
+        if (this._fmlActionExp_ == child) {
             this._fmlActionExp_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AFmlActionReturnValueStatement extends PReturnValueStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwReturn_ == oldChild)
-        {
+        if (this._kwReturn_ == oldChild) {
             setKwReturn((TKwReturn) newChild);
             return;
         }
 
-        if(this._fmlActionExp_ == oldChild)
-        {
+        if (this._fmlActionExp_ == oldChild) {
             setFmlActionExp((PFmlActionExp) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

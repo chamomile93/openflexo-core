@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TTyByte extends Token
-{
-    public TTyByte()
-    {
+public final class TTyByte extends Token {
+    public TTyByte() {
         super.setText("byte");
     }
 
-    public TTyByte(int line, int pos)
-    {
+    public TTyByte(int line, int pos) {
         super.setText("byte");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TTyByte(getLine(), getPos());
+    public Object clone() {
+        return new TTyByte(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTTyByte(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TTyByte text.");
     }
 }

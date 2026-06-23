@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASelectActionFmlActionExp extends PFmlActionExp
-{
+public final class ASelectActionFmlActionExp extends PFmlActionExp {
     private TKwSelect _kwSelect_;
     private TKwUnique _kwUnique_;
     private PSelectType _selectedType_;
@@ -14,19 +13,17 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
     private PFromClause _fromClause_;
     private PWhereClause _whereClause_;
 
-    public ASelectActionFmlActionExp()
-    {
+    public ASelectActionFmlActionExp() {
         // Constructor
     }
 
     public ASelectActionFmlActionExp(
-        @SuppressWarnings("hiding") TKwSelect _kwSelect_,
-        @SuppressWarnings("hiding") TKwUnique _kwUnique_,
-        @SuppressWarnings("hiding") PSelectType _selectedType_,
-        @SuppressWarnings("hiding") PWithClause _withClause_,
-        @SuppressWarnings("hiding") PFromClause _fromClause_,
-        @SuppressWarnings("hiding") PWhereClause _whereClause_)
-    {
+            @SuppressWarnings("hiding") TKwSelect _kwSelect_,
+            @SuppressWarnings("hiding") TKwUnique _kwUnique_,
+            @SuppressWarnings("hiding") PSelectType _selectedType_,
+            @SuppressWarnings("hiding") PWithClause _withClause_,
+            @SuppressWarnings("hiding") PFromClause _fromClause_,
+            @SuppressWarnings("hiding") PWhereClause _whereClause_) {
         // Constructor
         setKwSelect(_kwSelect_);
 
@@ -43,39 +40,32 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASelectActionFmlActionExp(
-            cloneNode(this._kwSelect_),
-            cloneNode(this._kwUnique_),
-            cloneNode(this._selectedType_),
-            cloneNode(this._withClause_),
-            cloneNode(this._fromClause_),
-            cloneNode(this._whereClause_));
+                cloneNode(this._kwSelect_),
+                cloneNode(this._kwUnique_),
+                cloneNode(this._selectedType_),
+                cloneNode(this._withClause_),
+                cloneNode(this._fromClause_),
+                cloneNode(this._whereClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASelectActionFmlActionExp(this);
     }
 
-    public TKwSelect getKwSelect()
-    {
+    public TKwSelect getKwSelect() {
         return this._kwSelect_;
     }
 
-    public void setKwSelect(TKwSelect node)
-    {
-        if(this._kwSelect_ != null)
-        {
+    public void setKwSelect(TKwSelect node) {
+        if (this._kwSelect_ != null) {
             this._kwSelect_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
         this._kwSelect_ = node;
     }
 
-    public TKwUnique getKwUnique()
-    {
+    public TKwUnique getKwUnique() {
         return this._kwUnique_;
     }
 
-    public void setKwUnique(TKwUnique node)
-    {
-        if(this._kwUnique_ != null)
-        {
+    public void setKwUnique(TKwUnique node) {
+        if (this._kwUnique_ != null) {
             this._kwUnique_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
         this._kwUnique_ = node;
     }
 
-    public PSelectType getSelectedType()
-    {
+    public PSelectType getSelectedType() {
         return this._selectedType_;
     }
 
-    public void setSelectedType(PSelectType node)
-    {
-        if(this._selectedType_ != null)
-        {
+    public void setSelectedType(PSelectType node) {
+        if (this._selectedType_ != null) {
             this._selectedType_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
         this._selectedType_ = node;
     }
 
-    public PWithClause getWithClause()
-    {
+    public PWithClause getWithClause() {
         return this._withClause_;
     }
 
-    public void setWithClause(PWithClause node)
-    {
-        if(this._withClause_ != null)
-        {
+    public void setWithClause(PWithClause node) {
+        if (this._withClause_ != null) {
             this._withClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
         this._withClause_ = node;
     }
 
-    public PFromClause getFromClause()
-    {
+    public PFromClause getFromClause() {
         return this._fromClause_;
     }
 
-    public void setFromClause(PFromClause node)
-    {
-        if(this._fromClause_ != null)
-        {
+    public void setFromClause(PFromClause node) {
+        if (this._fromClause_ != null) {
             this._fromClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
         this._fromClause_ = node;
     }
 
-    public PWhereClause getWhereClause()
-    {
+    public PWhereClause getWhereClause() {
         return this._whereClause_;
     }
 
-    public void setWhereClause(PWhereClause node)
-    {
-        if(this._whereClause_ != null)
-        {
+    public void setWhereClause(PWhereClause node) {
+        if (this._whereClause_ != null) {
             this._whereClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwSelect_)
-            + toString(this._kwUnique_)
-            + toString(this._selectedType_)
-            + toString(this._withClause_)
-            + toString(this._fromClause_)
-            + toString(this._whereClause_);
+                + toString(this._kwSelect_)
+                + toString(this._kwUnique_)
+                + toString(this._selectedType_)
+                + toString(this._withClause_)
+                + toString(this._fromClause_)
+                + toString(this._whereClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwSelect_ == child)
-        {
+        if (this._kwSelect_ == child) {
             this._kwSelect_ = null;
             return;
         }
 
-        if(this._kwUnique_ == child)
-        {
+        if (this._kwUnique_ == child) {
             this._kwUnique_ = null;
             return;
         }
 
-        if(this._selectedType_ == child)
-        {
+        if (this._selectedType_ == child) {
             this._selectedType_ = null;
             return;
         }
 
-        if(this._withClause_ == child)
-        {
+        if (this._withClause_ == child) {
             this._withClause_ = null;
             return;
         }
 
-        if(this._fromClause_ == child)
-        {
+        if (this._fromClause_ == child) {
             this._fromClause_ = null;
             return;
         }
 
-        if(this._whereClause_ == child)
-        {
+        if (this._whereClause_ == child) {
             this._whereClause_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class ASelectActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwSelect_ == oldChild)
-        {
+        if (this._kwSelect_ == oldChild) {
             setKwSelect((TKwSelect) newChild);
             return;
         }
 
-        if(this._kwUnique_ == oldChild)
-        {
+        if (this._kwUnique_ == oldChild) {
             setKwUnique((TKwUnique) newChild);
             return;
         }
 
-        if(this._selectedType_ == oldChild)
-        {
+        if (this._selectedType_ == oldChild) {
             setSelectedType((PSelectType) newChild);
             return;
         }
 
-        if(this._withClause_ == oldChild)
-        {
+        if (this._withClause_ == oldChild) {
             setWithClause((PWithClause) newChild);
             return;
         }
 
-        if(this._fromClause_ == oldChild)
-        {
+        if (this._fromClause_ == oldChild) {
             setFromClause((PFromClause) newChild);
             return;
         }
 
-        if(this._whereClause_ == oldChild)
-        {
+        if (this._whereClause_ == oldChild) {
             setWhereClause((PWhereClause) newChild);
             return;
         }

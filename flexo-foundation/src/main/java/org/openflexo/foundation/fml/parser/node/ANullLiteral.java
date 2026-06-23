@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ANullLiteral extends PLiteral
-{
+public final class ANullLiteral extends PLiteral {
     private TLitNull _litNull_;
 
-    public ANullLiteral()
-    {
+    public ANullLiteral() {
         // Constructor
     }
 
     public ANullLiteral(
-        @SuppressWarnings("hiding") TLitNull _litNull_)
-    {
+            @SuppressWarnings("hiding") TLitNull _litNull_) {
         // Constructor
         setLitNull(_litNull_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANullLiteral(
-            cloneNode(this._litNull_));
+                cloneNode(this._litNull_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANullLiteral(this);
     }
 
-    public TLitNull getLitNull()
-    {
+    public TLitNull getLitNull() {
         return this._litNull_;
     }
 
-    public void setLitNull(TLitNull node)
-    {
-        if(this._litNull_ != null)
-        {
+    public void setLitNull(TLitNull node) {
+        if (this._litNull_ != null) {
             this._litNull_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ANullLiteral extends PLiteral
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._litNull_);
+                + toString(this._litNull_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._litNull_ == child)
-        {
+        if (this._litNull_ == child) {
             this._litNull_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ANullLiteral extends PLiteral
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._litNull_ == oldChild)
-        {
+        if (this._litNull_ == oldChild) {
             setLitNull((TLitNull) newChild);
             return;
         }

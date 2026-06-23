@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADeleteAbstractActionClause extends PAbstractActionClause
-{
+public final class ADeleteAbstractActionClause extends PAbstractActionClause {
     private PDeleteClause _deleteClause_;
 
-    public ADeleteAbstractActionClause()
-    {
+    public ADeleteAbstractActionClause() {
         // Constructor
     }
 
     public ADeleteAbstractActionClause(
-        @SuppressWarnings("hiding") PDeleteClause _deleteClause_)
-    {
+            @SuppressWarnings("hiding") PDeleteClause _deleteClause_) {
         // Constructor
         setDeleteClause(_deleteClause_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADeleteAbstractActionClause(
-            cloneNode(this._deleteClause_));
+                cloneNode(this._deleteClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADeleteAbstractActionClause(this);
     }
 
-    public PDeleteClause getDeleteClause()
-    {
+    public PDeleteClause getDeleteClause() {
         return this._deleteClause_;
     }
 
-    public void setDeleteClause(PDeleteClause node)
-    {
-        if(this._deleteClause_ != null)
-        {
+    public void setDeleteClause(PDeleteClause node) {
+        if (this._deleteClause_ != null) {
             this._deleteClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ADeleteAbstractActionClause extends PAbstractActionClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._deleteClause_);
+                + toString(this._deleteClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._deleteClause_ == child)
-        {
+        if (this._deleteClause_ == child) {
             this._deleteClause_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ADeleteAbstractActionClause extends PAbstractActionClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._deleteClause_ == oldChild)
-        {
+        if (this._deleteClause_ == oldChild) {
             setDeleteClause((PDeleteClause) newChild);
             return;
         }

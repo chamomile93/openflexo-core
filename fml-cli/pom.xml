@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.openflexo</groupId>
@@ -53,12 +55,12 @@
             <groupId>org.openflexo</groupId>
             <artifactId>flexodocresourcemanager</artifactId>
         </dependency>-->
-       <!--  <dependency>
-            <groupId>org.openflexo</groupId>
-            <artifactId>gina-core</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>-->
+        <!--  <dependency>
+             <groupId>org.openflexo</groupId>
+             <artifactId>gina-core</artifactId>
+             <classifier>tests</classifier>
+             <scope>test</scope>
+         </dependency>-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -69,18 +71,18 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>-->
-       <!--   <dependency>
-            <groupId>org.openflexo</groupId>
-            <artifactId>gina-swing-editor</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency> -->
-       <!--  <dependency>
-            <groupId>org.openflexo</groupId>
-            <artifactId>gina-swing</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>-->
+        <!--   <dependency>
+             <groupId>org.openflexo</groupId>
+             <artifactId>gina-swing-editor</artifactId>
+             <classifier>tests</classifier>
+             <scope>test</scope>
+         </dependency> -->
+        <!--  <dependency>
+             <groupId>org.openflexo</groupId>
+             <artifactId>gina-swing</artifactId>
+             <classifier>tests</classifier>
+             <scope>test</scope>
+         </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -97,10 +99,10 @@
         </dependency>
 
         <!-- Third Party -->
-	<dependency>
-		<groupId>com.google.inject</groupId>
-		<artifactId>guice</artifactId>
-	</dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

@@ -5,26 +5,23 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AWithLowerBoundsCardinality extends PCardinality
-{
+public final class AWithLowerBoundsCardinality extends PCardinality {
     private TLBkt _lBkt_;
     private TLitInteger _lower_;
     private TComma _comma_;
     private TStar _upper_;
     private TRBkt _rBkt_;
 
-    public AWithLowerBoundsCardinality()
-    {
+    public AWithLowerBoundsCardinality() {
         // Constructor
     }
 
     public AWithLowerBoundsCardinality(
-        @SuppressWarnings("hiding") TLBkt _lBkt_,
-        @SuppressWarnings("hiding") TLitInteger _lower_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") TStar _upper_,
-        @SuppressWarnings("hiding") TRBkt _rBkt_)
-    {
+            @SuppressWarnings("hiding") TLBkt _lBkt_,
+            @SuppressWarnings("hiding") TLitInteger _lower_,
+            @SuppressWarnings("hiding") TComma _comma_,
+            @SuppressWarnings("hiding") TStar _upper_,
+            @SuppressWarnings("hiding") TRBkt _rBkt_) {
         // Constructor
         setLBkt(_lBkt_);
 
@@ -39,38 +36,31 @@ public final class AWithLowerBoundsCardinality extends PCardinality
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AWithLowerBoundsCardinality(
-            cloneNode(this._lBkt_),
-            cloneNode(this._lower_),
-            cloneNode(this._comma_),
-            cloneNode(this._upper_),
-            cloneNode(this._rBkt_));
+                cloneNode(this._lBkt_),
+                cloneNode(this._lower_),
+                cloneNode(this._comma_),
+                cloneNode(this._upper_),
+                cloneNode(this._rBkt_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAWithLowerBoundsCardinality(this);
     }
 
-    public TLBkt getLBkt()
-    {
+    public TLBkt getLBkt() {
         return this._lBkt_;
     }
 
-    public void setLBkt(TLBkt node)
-    {
-        if(this._lBkt_ != null)
-        {
+    public void setLBkt(TLBkt node) {
+        if (this._lBkt_ != null) {
             this._lBkt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -80,22 +70,17 @@ public final class AWithLowerBoundsCardinality extends PCardinality
         this._lBkt_ = node;
     }
 
-    public TLitInteger getLower()
-    {
+    public TLitInteger getLower() {
         return this._lower_;
     }
 
-    public void setLower(TLitInteger node)
-    {
-        if(this._lower_ != null)
-        {
+    public void setLower(TLitInteger node) {
+        if (this._lower_ != null) {
             this._lower_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -105,22 +90,17 @@ public final class AWithLowerBoundsCardinality extends PCardinality
         this._lower_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -130,22 +110,17 @@ public final class AWithLowerBoundsCardinality extends PCardinality
         this._comma_ = node;
     }
 
-    public TStar getUpper()
-    {
+    public TStar getUpper() {
         return this._upper_;
     }
 
-    public void setUpper(TStar node)
-    {
-        if(this._upper_ != null)
-        {
+    public void setUpper(TStar node) {
+        if (this._upper_ != null) {
             this._upper_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +130,17 @@ public final class AWithLowerBoundsCardinality extends PCardinality
         this._upper_ = node;
     }
 
-    public TRBkt getRBkt()
-    {
+    public TRBkt getRBkt() {
         return this._rBkt_;
     }
 
-    public void setRBkt(TRBkt node)
-    {
-        if(this._rBkt_ != null)
-        {
+    public void setRBkt(TRBkt node) {
+        if (this._rBkt_ != null) {
             this._rBkt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -181,46 +151,39 @@ public final class AWithLowerBoundsCardinality extends PCardinality
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lBkt_)
-            + toString(this._lower_)
-            + toString(this._comma_)
-            + toString(this._upper_)
-            + toString(this._rBkt_);
+                + toString(this._lBkt_)
+                + toString(this._lower_)
+                + toString(this._comma_)
+                + toString(this._upper_)
+                + toString(this._rBkt_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lBkt_ == child)
-        {
+        if (this._lBkt_ == child) {
             this._lBkt_ = null;
             return;
         }
 
-        if(this._lower_ == child)
-        {
+        if (this._lower_ == child) {
             this._lower_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
 
-        if(this._upper_ == child)
-        {
+        if (this._upper_ == child) {
             this._upper_ = null;
             return;
         }
 
-        if(this._rBkt_ == child)
-        {
+        if (this._rBkt_ == child) {
             this._rBkt_ = null;
             return;
         }
@@ -229,35 +192,29 @@ public final class AWithLowerBoundsCardinality extends PCardinality
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lBkt_ == oldChild)
-        {
+        if (this._lBkt_ == oldChild) {
             setLBkt((TLBkt) newChild);
             return;
         }
 
-        if(this._lower_ == oldChild)
-        {
+        if (this._lower_ == oldChild) {
             setLower((TLitInteger) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }
 
-        if(this._upper_ == oldChild)
-        {
+        if (this._upper_ == oldChild) {
             setUpper((TStar) newChild);
             return;
         }
 
-        if(this._rBkt_ == oldChild)
-        {
+        if (this._rBkt_ == oldChild) {
             setRBkt((TRBkt) newChild);
             return;
         }

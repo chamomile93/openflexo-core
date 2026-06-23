@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PLiteral extends Node
-{
+public abstract class PLiteral extends Node {
     // Empty body
 }

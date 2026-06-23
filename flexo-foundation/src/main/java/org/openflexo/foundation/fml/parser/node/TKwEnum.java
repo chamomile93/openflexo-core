@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwEnum extends Token
-{
-    public TKwEnum()
-    {
+public final class TKwEnum extends Token {
+    public TKwEnum() {
         super.setText("enum");
     }
 
-    public TKwEnum(int line, int pos)
-    {
+    public TKwEnum(int line, int pos) {
         super.setText("enum");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwEnum(getLine(), getPos());
+    public Object clone() {
+        return new TKwEnum(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwEnum(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwEnum text.");
     }
 }

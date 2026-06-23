@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PFieldAccess extends Node
-{
+public abstract class PFieldAccess extends Node {
     // Empty body
 }

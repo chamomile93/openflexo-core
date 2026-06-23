@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASimpleShiftExp extends PShiftExp
-{
+public final class ASimpleShiftExp extends PShiftExp {
     private PAddExp _addExp_;
 
-    public ASimpleShiftExp()
-    {
+    public ASimpleShiftExp() {
         // Constructor
     }
 
     public ASimpleShiftExp(
-        @SuppressWarnings("hiding") PAddExp _addExp_)
-    {
+            @SuppressWarnings("hiding") PAddExp _addExp_) {
         // Constructor
         setAddExp(_addExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASimpleShiftExp(
-            cloneNode(this._addExp_));
+                cloneNode(this._addExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASimpleShiftExp(this);
     }
 
-    public PAddExp getAddExp()
-    {
+    public PAddExp getAddExp() {
         return this._addExp_;
     }
 
-    public void setAddExp(PAddExp node)
-    {
-        if(this._addExp_ != null)
-        {
+    public void setAddExp(PAddExp node) {
+        if (this._addExp_ != null) {
             this._addExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ASimpleShiftExp extends PShiftExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._addExp_);
+                + toString(this._addExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._addExp_ == child)
-        {
+        if (this._addExp_ == child) {
             this._addExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ASimpleShiftExp extends PShiftExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._addExp_ == oldChild)
-        {
+        if (this._addExp_ == oldChild) {
             setAddExp((PAddExp) newChild);
             return;
         }

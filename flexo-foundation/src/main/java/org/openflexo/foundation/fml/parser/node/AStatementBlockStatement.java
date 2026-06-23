@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AStatementBlockStatement extends PBlockStatement
-{
+public final class AStatementBlockStatement extends PBlockStatement {
     private PStatement _statement_;
 
-    public AStatementBlockStatement()
-    {
+    public AStatementBlockStatement() {
         // Constructor
     }
 
     public AStatementBlockStatement(
-        @SuppressWarnings("hiding") PStatement _statement_)
-    {
+            @SuppressWarnings("hiding") PStatement _statement_) {
         // Constructor
         setStatement(_statement_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AStatementBlockStatement(
-            cloneNode(this._statement_));
+                cloneNode(this._statement_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAStatementBlockStatement(this);
     }
 
-    public PStatement getStatement()
-    {
+    public PStatement getStatement() {
         return this._statement_;
     }
 
-    public void setStatement(PStatement node)
-    {
-        if(this._statement_ != null)
-        {
+    public void setStatement(PStatement node) {
+        if (this._statement_ != null) {
             this._statement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AStatementBlockStatement extends PBlockStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._statement_);
+                + toString(this._statement_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._statement_ == child)
-        {
+        if (this._statement_ == child) {
             this._statement_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AStatementBlockStatement extends PBlockStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._statement_ == oldChild)
-        {
+        if (this._statement_ == oldChild) {
             setStatement((PStatement) newChild);
             return;
         }

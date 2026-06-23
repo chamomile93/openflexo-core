@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADeleteActionFmlActionExp extends PFmlActionExp
-{
+public final class ADeleteActionFmlActionExp extends PFmlActionExp {
     private TKwDelete _kwDelete_;
     private PExpression _expression_;
     private PFromClause _fromClause_;
 
-    public ADeleteActionFmlActionExp()
-    {
+    public ADeleteActionFmlActionExp() {
         // Constructor
     }
 
     public ADeleteActionFmlActionExp(
-        @SuppressWarnings("hiding") TKwDelete _kwDelete_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") PFromClause _fromClause_)
-    {
+            @SuppressWarnings("hiding") TKwDelete _kwDelete_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") PFromClause _fromClause_) {
         // Constructor
         setKwDelete(_kwDelete_);
 
@@ -31,36 +28,29 @@ public final class ADeleteActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADeleteActionFmlActionExp(
-            cloneNode(this._kwDelete_),
-            cloneNode(this._expression_),
-            cloneNode(this._fromClause_));
+                cloneNode(this._kwDelete_),
+                cloneNode(this._expression_),
+                cloneNode(this._fromClause_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADeleteActionFmlActionExp(this);
     }
 
-    public TKwDelete getKwDelete()
-    {
+    public TKwDelete getKwDelete() {
         return this._kwDelete_;
     }
 
-    public void setKwDelete(TKwDelete node)
-    {
-        if(this._kwDelete_ != null)
-        {
+    public void setKwDelete(TKwDelete node) {
+        if (this._kwDelete_ != null) {
             this._kwDelete_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class ADeleteActionFmlActionExp extends PFmlActionExp
         this._kwDelete_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class ADeleteActionFmlActionExp extends PFmlActionExp
         this._expression_ = node;
     }
 
-    public PFromClause getFromClause()
-    {
+    public PFromClause getFromClause() {
         return this._fromClause_;
     }
 
-    public void setFromClause(PFromClause node)
-    {
-        if(this._fromClause_ != null)
-        {
+    public void setFromClause(PFromClause node) {
+        if (this._fromClause_ != null) {
             this._fromClause_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class ADeleteActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwDelete_)
-            + toString(this._expression_)
-            + toString(this._fromClause_);
+                + toString(this._kwDelete_)
+                + toString(this._expression_)
+                + toString(this._fromClause_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwDelete_ == child)
-        {
+        if (this._kwDelete_ == child) {
             this._kwDelete_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._fromClause_ == child)
-        {
+        if (this._fromClause_ == child) {
             this._fromClause_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class ADeleteActionFmlActionExp extends PFmlActionExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwDelete_ == oldChild)
-        {
+        if (this._kwDelete_ == oldChild) {
             setKwDelete((TKwDelete) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._fromClause_ == oldChild)
-        {
+        if (this._fromClause_ == oldChild) {
             setFromClause((PFromClause) newChild);
             return;
         }

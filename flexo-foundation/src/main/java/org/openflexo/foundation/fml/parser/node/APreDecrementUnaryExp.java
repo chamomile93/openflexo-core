@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APreDecrementUnaryExp extends PUnaryExp
-{
+public final class APreDecrementUnaryExp extends PUnaryExp {
     private PPreDecrExp _preDecrExp_;
 
-    public APreDecrementUnaryExp()
-    {
+    public APreDecrementUnaryExp() {
         // Constructor
     }
 
     public APreDecrementUnaryExp(
-        @SuppressWarnings("hiding") PPreDecrExp _preDecrExp_)
-    {
+            @SuppressWarnings("hiding") PPreDecrExp _preDecrExp_) {
         // Constructor
         setPreDecrExp(_preDecrExp_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APreDecrementUnaryExp(
-            cloneNode(this._preDecrExp_));
+                cloneNode(this._preDecrExp_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPreDecrementUnaryExp(this);
     }
 
-    public PPreDecrExp getPreDecrExp()
-    {
+    public PPreDecrExp getPreDecrExp() {
         return this._preDecrExp_;
     }
 
-    public void setPreDecrExp(PPreDecrExp node)
-    {
-        if(this._preDecrExp_ != null)
-        {
+    public void setPreDecrExp(PPreDecrExp node) {
+        if (this._preDecrExp_ != null) {
             this._preDecrExp_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APreDecrementUnaryExp extends PUnaryExp
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._preDecrExp_);
+                + toString(this._preDecrExp_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._preDecrExp_ == child)
-        {
+        if (this._preDecrExp_ == child) {
             this._preDecrExp_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APreDecrementUnaryExp extends PUnaryExp
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._preDecrExp_ == oldChild)
-        {
+        if (this._preDecrExp_ == oldChild) {
             setPreDecrExp((PPreDecrExp) newChild);
             return;
         }

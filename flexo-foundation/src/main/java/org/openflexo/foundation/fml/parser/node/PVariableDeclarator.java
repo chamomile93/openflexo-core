@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PVariableDeclarator extends Node
-{
+public abstract class PVariableDeclarator extends Node {
     // Empty body
 }

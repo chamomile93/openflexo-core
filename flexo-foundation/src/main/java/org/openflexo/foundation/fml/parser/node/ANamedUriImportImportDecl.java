@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ANamedUriImportImportDecl extends PImportDecl
-{
+public final class ANamedUriImportImportDecl extends PImportDecl {
     private TKwImport _kwImport_;
     private PTypeDeclType _type_;
     private PIdentifier _name_;
@@ -14,19 +13,17 @@ public final class ANamedUriImportImportDecl extends PImportDecl
     private PReferenceByUri _object_;
     private TSemi _semi_;
 
-    public ANamedUriImportImportDecl()
-    {
+    public ANamedUriImportImportDecl() {
         // Constructor
     }
 
     public ANamedUriImportImportDecl(
-        @SuppressWarnings("hiding") TKwImport _kwImport_,
-        @SuppressWarnings("hiding") PTypeDeclType _type_,
-        @SuppressWarnings("hiding") PIdentifier _name_,
-        @SuppressWarnings("hiding") TKwFrom _kwFrom_,
-        @SuppressWarnings("hiding") PReferenceByUri _object_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwImport _kwImport_,
+            @SuppressWarnings("hiding") PTypeDeclType _type_,
+            @SuppressWarnings("hiding") PIdentifier _name_,
+            @SuppressWarnings("hiding") TKwFrom _kwFrom_,
+            @SuppressWarnings("hiding") PReferenceByUri _object_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwImport(_kwImport_);
 
@@ -43,39 +40,32 @@ public final class ANamedUriImportImportDecl extends PImportDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANamedUriImportImportDecl(
-            cloneNode(this._kwImport_),
-            cloneNode(this._type_),
-            cloneNode(this._name_),
-            cloneNode(this._kwFrom_),
-            cloneNode(this._object_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwImport_),
+                cloneNode(this._type_),
+                cloneNode(this._name_),
+                cloneNode(this._kwFrom_),
+                cloneNode(this._object_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANamedUriImportImportDecl(this);
     }
 
-    public TKwImport getKwImport()
-    {
+    public TKwImport getKwImport() {
         return this._kwImport_;
     }
 
-    public void setKwImport(TKwImport node)
-    {
-        if(this._kwImport_ != null)
-        {
+    public void setKwImport(TKwImport node) {
+        if (this._kwImport_ != null) {
             this._kwImport_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class ANamedUriImportImportDecl extends PImportDecl
         this._kwImport_ = node;
     }
 
-    public PTypeDeclType getType()
-    {
+    public PTypeDeclType getType() {
         return this._type_;
     }
 
-    public void setType(PTypeDeclType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PTypeDeclType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class ANamedUriImportImportDecl extends PImportDecl
         this._type_ = node;
     }
 
-    public PIdentifier getName()
-    {
+    public PIdentifier getName() {
         return this._name_;
     }
 
-    public void setName(PIdentifier node)
-    {
-        if(this._name_ != null)
-        {
+    public void setName(PIdentifier node) {
+        if (this._name_ != null) {
             this._name_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class ANamedUriImportImportDecl extends PImportDecl
         this._name_ = node;
     }
 
-    public TKwFrom getKwFrom()
-    {
+    public TKwFrom getKwFrom() {
         return this._kwFrom_;
     }
 
-    public void setKwFrom(TKwFrom node)
-    {
-        if(this._kwFrom_ != null)
-        {
+    public void setKwFrom(TKwFrom node) {
+        if (this._kwFrom_ != null) {
             this._kwFrom_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class ANamedUriImportImportDecl extends PImportDecl
         this._kwFrom_ = node;
     }
 
-    public PReferenceByUri getObject()
-    {
+    public PReferenceByUri getObject() {
         return this._object_;
     }
 
-    public void setObject(PReferenceByUri node)
-    {
-        if(this._object_ != null)
-        {
+    public void setObject(PReferenceByUri node) {
+        if (this._object_ != null) {
             this._object_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class ANamedUriImportImportDecl extends PImportDecl
         this._object_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class ANamedUriImportImportDecl extends PImportDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwImport_)
-            + toString(this._type_)
-            + toString(this._name_)
-            + toString(this._kwFrom_)
-            + toString(this._object_)
-            + toString(this._semi_);
+                + toString(this._kwImport_)
+                + toString(this._type_)
+                + toString(this._name_)
+                + toString(this._kwFrom_)
+                + toString(this._object_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwImport_ == child)
-        {
+        if (this._kwImport_ == child) {
             this._kwImport_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._name_ == child)
-        {
+        if (this._name_ == child) {
             this._name_ = null;
             return;
         }
 
-        if(this._kwFrom_ == child)
-        {
+        if (this._kwFrom_ == child) {
             this._kwFrom_ = null;
             return;
         }
 
-        if(this._object_ == child)
-        {
+        if (this._object_ == child) {
             this._object_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class ANamedUriImportImportDecl extends PImportDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwImport_ == oldChild)
-        {
+        if (this._kwImport_ == oldChild) {
             setKwImport((TKwImport) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PTypeDeclType) newChild);
             return;
         }
 
-        if(this._name_ == oldChild)
-        {
+        if (this._name_ == oldChild) {
             setName((PIdentifier) newChild);
             return;
         }
 
-        if(this._kwFrom_ == oldChild)
-        {
+        if (this._kwFrom_ == oldChild) {
             setKwFrom((TKwFrom) newChild);
             return;
         }
 
-        if(this._object_ == oldChild)
-        {
+        if (this._object_ == oldChild) {
             setObject((PReferenceByUri) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PWildcardBounds extends Node
-{
+public abstract class PWildcardBounds extends Node {
     // Empty body
 }

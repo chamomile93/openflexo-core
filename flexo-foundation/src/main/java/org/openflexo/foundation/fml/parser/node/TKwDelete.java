@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwDelete extends Token
-{
-    public TKwDelete()
-    {
+public final class TKwDelete extends Token {
+    public TKwDelete() {
         super.setText("delete");
     }
 
-    public TKwDelete(int line, int pos)
-    {
+    public TKwDelete(int line, int pos) {
         super.setText("delete");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwDelete(getLine(), getPos());
+    public Object clone() {
+        return new TKwDelete(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwDelete(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwDelete text.");
     }
 }

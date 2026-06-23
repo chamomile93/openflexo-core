@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PEntryPoint extends Node
-{
+public abstract class PEntryPoint extends Node {
     // Empty body
 }

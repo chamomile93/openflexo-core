@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AManyArgumentList extends PArgumentList
-{
+public final class AManyArgumentList extends PArgumentList {
     private PArgumentList _argumentList_;
     private TComma _comma_;
     private PExpression _expression_;
 
-    public AManyArgumentList()
-    {
+    public AManyArgumentList() {
         // Constructor
     }
 
     public AManyArgumentList(
-        @SuppressWarnings("hiding") PArgumentList _argumentList_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") PExpression _expression_)
-    {
+            @SuppressWarnings("hiding") PArgumentList _argumentList_,
+            @SuppressWarnings("hiding") TComma _comma_,
+            @SuppressWarnings("hiding") PExpression _expression_) {
         // Constructor
         setArgumentList(_argumentList_);
 
@@ -31,36 +28,29 @@ public final class AManyArgumentList extends PArgumentList
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AManyArgumentList(
-            cloneNode(this._argumentList_),
-            cloneNode(this._comma_),
-            cloneNode(this._expression_));
+                cloneNode(this._argumentList_),
+                cloneNode(this._comma_),
+                cloneNode(this._expression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAManyArgumentList(this);
     }
 
-    public PArgumentList getArgumentList()
-    {
+    public PArgumentList getArgumentList() {
         return this._argumentList_;
     }
 
-    public void setArgumentList(PArgumentList node)
-    {
-        if(this._argumentList_ != null)
-        {
+    public void setArgumentList(PArgumentList node) {
+        if (this._argumentList_ != null) {
             this._argumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AManyArgumentList extends PArgumentList
         this._argumentList_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AManyArgumentList extends PArgumentList
         this._comma_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AManyArgumentList extends PArgumentList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._argumentList_)
-            + toString(this._comma_)
-            + toString(this._expression_);
+                + toString(this._argumentList_)
+                + toString(this._comma_)
+                + toString(this._expression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._argumentList_ == child)
-        {
+        if (this._argumentList_ == child) {
             this._argumentList_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AManyArgumentList extends PArgumentList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._argumentList_ == oldChild)
-        {
+        if (this._argumentList_ == oldChild) {
             setArgumentList((PArgumentList) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }

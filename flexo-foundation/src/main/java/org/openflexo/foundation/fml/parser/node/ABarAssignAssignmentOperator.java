@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABarAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class ABarAssignAssignmentOperator extends PAssignmentOperator {
     private TBarAssign _barAssign_;
 
-    public ABarAssignAssignmentOperator()
-    {
+    public ABarAssignAssignmentOperator() {
         // Constructor
     }
 
     public ABarAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TBarAssign _barAssign_)
-    {
+            @SuppressWarnings("hiding") TBarAssign _barAssign_) {
         // Constructor
         setBarAssign(_barAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABarAssignAssignmentOperator(
-            cloneNode(this._barAssign_));
+                cloneNode(this._barAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABarAssignAssignmentOperator(this);
     }
 
-    public TBarAssign getBarAssign()
-    {
+    public TBarAssign getBarAssign() {
         return this._barAssign_;
     }
 
-    public void setBarAssign(TBarAssign node)
-    {
-        if(this._barAssign_ != null)
-        {
+    public void setBarAssign(TBarAssign node) {
+        if (this._barAssign_ != null) {
             this._barAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ABarAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._barAssign_);
+                + toString(this._barAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._barAssign_ == child)
-        {
+        if (this._barAssign_ == child) {
             this._barAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ABarAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._barAssign_ == oldChild)
-        {
+        if (this._barAssign_ == oldChild) {
             setBarAssign((TBarAssign) newChild);
             return;
         }

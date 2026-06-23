@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TQuit extends Token
-{
-    public TQuit()
-    {
+public final class TQuit extends Token {
+    public TQuit() {
         super.setText("quit");
     }
 
-    public TQuit(int line, int pos)
-    {
+    public TQuit(int line, int pos) {
         super.setText("quit");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TQuit(getLine(), getPos());
+    public Object clone() {
+        return new TQuit(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTQuit(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TQuit text.");
     }
 }

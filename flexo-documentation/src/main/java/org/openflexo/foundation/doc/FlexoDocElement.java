@@ -20,174 +20,166 @@
 
 package org.openflexo.foundation.doc;
 
+import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
+import org.openflexo.pamela.annotations.*;
+import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
+
 import java.util.Collections;
 import java.util.List;
-
-import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.pamela.annotations.CloningStrategy;
-import org.openflexo.pamela.annotations.Getter;
-import org.openflexo.pamela.annotations.ImplementationClass;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
 
 /**
  * Generic abstract concept representing an object beeing part of a text-based document at root level<br>
  * A {@link FlexoDocument} is composed of a sequence of {@link FlexoDocElement}<br>
- * 
+ * <p>
  * A FlexoDocElement has a unique identifier
- * 
- * @author sylvain
  *
- * @param <D>
- *            type of {@link FlexoDocument} involving this concept
- * @param <TA>
- *            {@link TechnologyAdapter} of current implementation
+ * @param <D>  type of {@link FlexoDocument} involving this concept
+ * @param <TA> {@link TechnologyAdapter} of current implementation
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(FlexoDocElement.FlexoDocumentElementImpl.class)
 public interface FlexoDocElement<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>> extends FlexoDocObject<D, TA> {
 
-	@PropertyIdentifier(type = String.class)
-	public static final String IDENTIFIER_KEY = "identifier";
-	@PropertyIdentifier(type = String.class)
-	public static final String BASE_IDENTIFIER_KEY = "baseIdentifier";
-	@PropertyIdentifier(type = NamedDocStyle.class)
-	public static final String NAMED_STYLE_KEY = "namedStyle";
-	@PropertyIdentifier(type = FlexoParagraphStyle.class)
-	public static final String PARAGRAPH_STYLE_KEY = "paragraphStyle";
-	@PropertyIdentifier(type = FlexoDocElementContainer.class)
-	public static final String CONTAINER_KEY = "container";
+    @PropertyIdentifier(type = String.class)
+    public static final String IDENTIFIER_KEY = "identifier";
+    @PropertyIdentifier(type = String.class)
+    public static final String BASE_IDENTIFIER_KEY = "baseIdentifier";
+    @PropertyIdentifier(type = NamedDocStyle.class)
+    public static final String NAMED_STYLE_KEY = "namedStyle";
+    @PropertyIdentifier(type = FlexoParagraphStyle.class)
+    public static final String PARAGRAPH_STYLE_KEY = "paragraphStyle";
+    @PropertyIdentifier(type = FlexoDocElementContainer.class)
+    public static final String CONTAINER_KEY = "container";
 
-	public static final String CHILDREN_ELEMENTS_KEY = "childrenElements";
+    public static final String CHILDREN_ELEMENTS_KEY = "childrenElements";
 
-	/**
-	 * Return identifier of the {@link FlexoDocElement} in the {@link FlexoDocument}<br>
-	 * The identifier is here a {@link String} and MUST be unique regarding the whole {@link FlexoDocument}.<br>
-	 * Please note that two different documents may have both a paragraph with same identifier
-	 * 
-	 * @return
-	 */
-	@Getter(IDENTIFIER_KEY)
-	@CloningStrategy(StrategyType.IGNORE)
-	public String getIdentifier();
+    /**
+     * Return identifier of the {@link FlexoDocElement} in the {@link FlexoDocument}<br>
+     * The identifier is here a {@link String} and MUST be unique regarding the whole {@link FlexoDocument}.<br>
+     * Please note that two different documents may have both a paragraph with same identifier
+     *
+     * @return
+     */
+    @Getter(IDENTIFIER_KEY)
+    @CloningStrategy(StrategyType.IGNORE)
+    public String getIdentifier();
 
-	@Setter(IDENTIFIER_KEY)
-	public void setIdentifier(String identifier);
+    @Setter(IDENTIFIER_KEY)
+    public void setIdentifier(String identifier);
 
-	/**
-	 * Return identifier of the {@link FlexoDocElement} in the template {@link FlexoDocument} if this element<br>
-	 * has been built according to template-based operation
-	 * 
-	 * @return
-	 */
-	@Getter(BASE_IDENTIFIER_KEY)
-	public String getBaseIdentifier();
+    /**
+     * Return identifier of the {@link FlexoDocElement} in the template {@link FlexoDocument} if this element<br>
+     * has been built according to template-based operation
+     *
+     * @return
+     */
+    @Getter(BASE_IDENTIFIER_KEY)
+    public String getBaseIdentifier();
 
-	@Setter(BASE_IDENTIFIER_KEY)
-	public void setBaseIdentifier(String baseIdentifier);
+    @Setter(BASE_IDENTIFIER_KEY)
+    public void setBaseIdentifier(String baseIdentifier);
 
-	@Getter(value = NAMED_STYLE_KEY)
-	public NamedDocStyle<D, TA> getNamedStyle();
+    @Getter(value = NAMED_STYLE_KEY)
+    public NamedDocStyle<D, TA> getNamedStyle();
 
-	@Setter(NAMED_STYLE_KEY)
-	public void setNamedStyle(NamedDocStyle<D, TA> style);
+    @Setter(NAMED_STYLE_KEY)
+    public void setNamedStyle(NamedDocStyle<D, TA> style);
 
-	@Getter(value = PARAGRAPH_STYLE_KEY, ignoreType = true)
-	public FlexoParagraphStyle<D, TA> getParagraphStyle();
+    @Getter(value = PARAGRAPH_STYLE_KEY, ignoreType = true)
+    public FlexoParagraphStyle<D, TA> getParagraphStyle();
 
-	@Setter(PARAGRAPH_STYLE_KEY)
-	public void setParagraphStyle(FlexoParagraphStyle<D, TA> style);
+    @Setter(PARAGRAPH_STYLE_KEY)
+    public void setParagraphStyle(FlexoParagraphStyle<D, TA> style);
 
-	/**
-	 * Return the list of children elements for this element, which are infered to be children of current element while interpreting the
-	 * document as a structured document (see {@link FlexoDocument#getStructuringStyles()})
-	 * 
-	 * @return
-	 */
-	public List<FlexoDocElement<D, TA>> getChildrenElements();
+    /**
+     * Return the list of children elements for this element, which are infered to be children of current element while interpreting the
+     * document as a structured document (see {@link FlexoDocument#getStructuringStyles()})
+     *
+     * @return
+     */
+    public List<FlexoDocElement<D, TA>> getChildrenElements();
 
-	public void invalidateChildrenElements();
+    public void invalidateChildrenElements();
 
-	public void notifyChildrenElementsChanged();
+    public void notifyChildrenElementsChanged();
 
-	/**
-	 * Return container of this element in the document<br>
-	 * This can be the document itself, if this element is declared as root element, or a cell of a table for example
-	 * 
-	 * @return
-	 */
-	@Getter(CONTAINER_KEY)
-	public FlexoDocElementContainer<D, TA> getContainer();
+    /**
+     * Return container of this element in the document<br>
+     * This can be the document itself, if this element is declared as root element, or a cell of a table for example
+     *
+     * @return
+     */
+    @Getter(CONTAINER_KEY)
+    public FlexoDocElementContainer<D, TA> getContainer();
 
-	@Setter(CONTAINER_KEY)
-	public void setContainer(FlexoDocElementContainer<D, TA> container);
+    @Setter(CONTAINER_KEY)
+    public void setContainer(FlexoDocElementContainer<D, TA> container);
 
-	/**
-	 * Return index of this element in container
-	 * 
-	 * @return
-	 */
-	public int getIndex();
+    /**
+     * Return index of this element in container
+     *
+     * @return
+     */
+    public int getIndex();
 
-	public static abstract class FlexoDocumentElementImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoDocObjectImpl<D, TA> implements FlexoDocElement<D, TA> {
+    public static abstract class FlexoDocumentElementImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoDocObjectImpl<D, TA> implements FlexoDocElement<D, TA> {
 
-		private List<FlexoDocElement<D, TA>> childrenElements = null;
+        private List<FlexoDocElement<D, TA>> childrenElements = null;
 
-		/**
-		 * Return the list of children elements for this element, which are infered to be children of current element while interpreting the
-		 * document as a structured document (see {@link FlexoDocument#getStructuringStyles()})
-		 * 
-		 * @return
-		 */
-		@Override
-		public List<FlexoDocElement<D, TA>> getChildrenElements() {
-			if (childrenElements == null) {
-				childrenElements = computeChildrenElements();
-			}
-			return childrenElements;
-		}
+        /**
+         * Return the list of children elements for this element, which are infered to be children of current element while interpreting the
+         * document as a structured document (see {@link FlexoDocument#getStructuringStyles()})
+         *
+         * @return
+         */
+        @Override
+        public List<FlexoDocElement<D, TA>> getChildrenElements() {
+            if (childrenElements == null) {
+                childrenElements = computeChildrenElements();
+            }
+            return childrenElements;
+        }
 
-		protected List<FlexoDocElement<D, TA>> computeChildrenElements() {
-			if (getFlexoDocument() == null) {
-				return null;
-			}
-			return Collections.emptyList();
-		}
+        protected List<FlexoDocElement<D, TA>> computeChildrenElements() {
+            if (getFlexoDocument() == null) {
+                return null;
+            }
+            return Collections.emptyList();
+        }
 
-		@Override
-		public void invalidateChildrenElements() {
-			if (childrenElements != null) {
-				for (FlexoDocElement<D, TA> e : childrenElements) {
-					e.invalidateChildrenElements();
-				}
-			}
-			childrenElements = null;
-		}
+        @Override
+        public void invalidateChildrenElements() {
+            if (childrenElements != null) {
+                for (FlexoDocElement<D, TA> e : childrenElements) {
+                    e.invalidateChildrenElements();
+                }
+            }
+            childrenElements = null;
+        }
 
-		@Override
-		public void notifyChildrenElementsChanged() {
-			// System.out.println("We notify " + CHILDREN_ELEMENTS_KEY + " for " + getChildrenElements());
-			getPropertyChangeSupport().firePropertyChange(CHILDREN_ELEMENTS_KEY, null, getChildrenElements());
-		}
+        @Override
+        public void notifyChildrenElementsChanged() {
+            // System.out.println("We notify " + CHILDREN_ELEMENTS_KEY + " for " + getChildrenElements());
+            getPropertyChangeSupport().firePropertyChange(CHILDREN_ELEMENTS_KEY, null, getChildrenElements());
+        }
 
-		@Override
-		public D getFlexoDocument() {
-			if (getContainer() != null) {
-				return getContainer().getFlexoDocument();
-			}
-			return null;
-		}
+        @Override
+        public D getFlexoDocument() {
+            if (getContainer() != null) {
+                return getContainer().getFlexoDocument();
+            }
+            return null;
+        }
 
-		@Override
-		public final int getIndex() {
-			if (getContainer() != null && getContainer().getElements() != null) {
-				return getContainer().getElements().indexOf(this);
-			}
-			return -1;
-		}
-	}
+        @Override
+        public final int getIndex() {
+            if (getContainer() != null && getContainer().getElements() != null) {
+                return getContainer().getElements().indexOf(this);
+            }
+            return -1;
+        }
+    }
 
 }

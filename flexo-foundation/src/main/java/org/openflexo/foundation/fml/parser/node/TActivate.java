@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TActivate extends Token
-{
-    public TActivate()
-    {
+public final class TActivate extends Token {
+    public TActivate() {
         super.setText("activate");
     }
 
-    public TActivate(int line, int pos)
-    {
+    public TActivate(int line, int pos) {
         super.setText("activate");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TActivate(getLine(), getPos());
+    public Object clone() {
+        return new TActivate(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTActivate(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TActivate text.");
     }
 }

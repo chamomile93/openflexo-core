@@ -1,63 +1,52 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.ta;
 
-import java.beans.PropertyChangeSupport;
-import java.lang.reflect.Type;
-import java.util.logging.Logger;
-
-import org.openflexo.connie.type.ConnieType;
-import org.openflexo.connie.type.CustomType;
-import org.openflexo.connie.type.CustomTypeFactory;
-import org.openflexo.connie.type.TypeUtils;
-import org.openflexo.connie.type.TypingSpace;
-import org.openflexo.connie.type.WildcardTypeImpl;
-import org.openflexo.foundation.fml.AbstractFMLTypingSpace;
-import org.openflexo.foundation.fml.FMLRTType;
-import org.openflexo.foundation.fml.FMLTechnologyAdapter;
-import org.openflexo.foundation.fml.FMLType;
-import org.openflexo.foundation.fml.FlexoConcept;
-import org.openflexo.foundation.fml.TechnologyAdapterTypeFactory;
-import org.openflexo.foundation.fml.TechnologySpecificType;
+import org.openflexo.connie.type.*;
+import org.openflexo.foundation.fml.*;
 import org.openflexo.foundation.technologyadapter.SpecificTypeInfo;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.logging.FlexoLogger;
+
+import java.beans.PropertyChangeSupport;
+import java.lang.reflect.Type;
+import java.util.logging.Logger;
 
 /**
  * Represent a FML reflexive type (a FlexoConcept) <br>
@@ -65,207 +54,203 @@ import org.openflexo.logging.FlexoLogger;
  * For example, the type of FlexoConcept {@code Foo} is {@code
  * Concept<Foo>}, the type of a FlexoConcept subtyping {@code Foo} is {@code
  * Concept<? extends Foo>}. Use {@code Concept<?>} if the FlexoConcept being modeled is unknown.
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 public class FlexoConceptType implements FMLType, TechnologySpecificType<FMLTechnologyAdapter> {
 
-	protected static final Logger logger = FlexoLogger.getLogger(FlexoConceptType.class.getPackage().getName());
+    protected static final Logger logger = FlexoLogger.getLogger(FlexoConceptType.class.getPackage().getName());
+    public static FlexoConceptType UNDEFINED_FLEXO_CONCEPT_TYPE = new FlexoConceptType(null);
+    private final PropertyChangeSupport pcSupport;
+    private FMLRTType type;
 
-	private FMLRTType type;
+    public FlexoConceptType(FMLRTType type) {
+        pcSupport = new PropertyChangeSupport(this);
+        this.type = type;
+    }
 
-	private final PropertyChangeSupport pcSupport;
+    public FMLRTType getType() {
+        return type;
+    }
 
-	public static FlexoConceptType UNDEFINED_FLEXO_CONCEPT_TYPE = new FlexoConceptType(null);
+    @Override
+    public PropertyChangeSupport getPropertyChangeSupport() {
+        return pcSupport;
+    }
 
-	public interface FlexoConceptTypeFactory extends CustomTypeFactory<FlexoConceptType> {
-	}
+    @Override
+    public String getDeletedProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	/**
-	 * Factory for FlexoConceptType instances
-	 * 
-	 * @author sylvain
-	 * 
-	 */
-	public static class DefaultFlexoConceptTypeFactory extends TechnologyAdapterTypeFactory<FlexoConceptType, FMLTechnologyAdapter>
-			implements FlexoConceptTypeFactory {
+    @Override
+    public FMLTechnologyAdapter getSpecificTechnologyAdapter() {
+        if (type instanceof TechnologySpecificType) {
+            TechnologyAdapter<?> ta = ((TechnologySpecificType) type).getSpecificTechnologyAdapter();
+            if (ta != null && ta.getServiceManager() != null && ta.getServiceManager().getTechnologyAdapterService() != null) {
+                return ta.getServiceManager().getTechnologyAdapterService().getTechnologyAdapter(FMLTechnologyAdapter.class);
+            }
+        }
+        return null;
+    }
 
-		@Override
-		public Class<FlexoConceptType> getCustomType() {
-			return FlexoConceptType.class;
-		}
+    @Override
+    public Class<?> getBaseClass() {
+        return FlexoConcept.class;
+    }
 
-		public DefaultFlexoConceptTypeFactory(FMLTechnologyAdapter technologyAdapter) {
-			super(technologyAdapter);
-		}
+    @Override
+    public boolean isTypeAssignableFrom(Type aType, boolean permissive) {
+        // System.out.println("isTypeAssignableFrom " + aType + " (i am a " + this + ")");
 
-		@Override
-		public FlexoConceptType makeCustomType(String configuration) {
-			return null;
-		}
+        if (aType instanceof FlexoConceptType) {
+            return (type == null) || (TypeUtils.isTypeAssignableFrom(type, ((FlexoConceptType) aType).getType()));
+        }
 
-		@Override
-		public String toString() {
-			return "FlexoConceptType";
-		}
+        if (permissive && aType.equals(FlexoConcept.class)) {
+            return true;
+        }
 
-		@Override
-		public void configureFactory(FlexoConceptType type) {
-		}
+        return false;
+    }
 
-	}
+    @Override
+    public boolean isOfType(Object object, boolean permissive) {
+        if (!(object instanceof FlexoConcept)) {
+            return false;
+        }
+        if (permissive) {
+            return true;
+        }
+        logger.warning("TODO: isOfType() not implemented for FlexoConceptType");
+        return true;
+    }
 
-	public FlexoConceptType(FMLRTType type) {
-		pcSupport = new PropertyChangeSupport(this);
-		this.type = type;
-	}
+    @Override
+    public String simpleRepresentation() {
 
-	public FMLRTType getType() {
-		return type;
-	}
+        if (type == null) {
+            return AbstractFMLTypingSpace.CONCEPT;
+        }
+        return AbstractFMLTypingSpace.CONCEPT + "<" + TypeUtils.simpleRepresentation(type) + ">";
+    }
 
-	@Override
-	public PropertyChangeSupport getPropertyChangeSupport() {
-		return pcSupport;
-	}
+    @Override
+    public String fullQualifiedRepresentation() {
+        return AbstractFMLTypingSpace.CONCEPT + "<" + TypeUtils.fullQualifiedRepresentation(type) + ">";
+    }
 
-	@Override
-	public String getDeletedProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String toString() {
+        return simpleRepresentation();
+    }
 
-	@Override
-	public FMLTechnologyAdapter getSpecificTechnologyAdapter() {
-		if (type instanceof TechnologySpecificType) {
-			TechnologyAdapter<?> ta = ((TechnologySpecificType) type).getSpecificTechnologyAdapter();
-			if (ta != null && ta.getServiceManager() != null && ta.getServiceManager().getTechnologyAdapterService() != null) {
-				return ta.getServiceManager().getTechnologyAdapterService().getTechnologyAdapter(FMLTechnologyAdapter.class);
-			}
-		}
-		return null;
-	}
+    @Override
+    public String getSerializationRepresentation() {
+        return fullQualifiedRepresentation();
+    }
 
-	@Override
-	public Class<?> getBaseClass() {
-		return FlexoConcept.class;
-	}
+    @Override
+    public boolean isResolved() {
+        if (type == null) {
+            return true;
+        }
+        if (type instanceof ConnieType) {
+            return ((ConnieType) type).isResolved();
+        }
+        return false;
+    }
 
-	@Override
-	public boolean isTypeAssignableFrom(Type aType, boolean permissive) {
-		// System.out.println("isTypeAssignableFrom " + aType + " (i am a " + this + ")");
+    @Override
+    public void resolve() {
+        if (type instanceof CustomType) {
+            ((CustomType) type).resolve();
+        }
+        if (type instanceof WildcardTypeImpl) {
+            ((WildcardTypeImpl) type).resolve();
+        }
+    }
 
-		if (aType instanceof FlexoConceptType) {
-			return (type == null) || (TypeUtils.isTypeAssignableFrom(type, ((FlexoConceptType) aType).getType()));
-		}
+    /**
+     * Return a new {@link FlexoConceptType} by translating current {@link FlexoConceptType} into the typing context denoted by supplied
+     * {@link TypingSpace}.<br>
+     *
+     * @param typingSpace
+     * @return
+     */
+    @Override
+    public FlexoConceptType translateTo(TypingSpace typingSpace) {
+        return new FlexoConceptType(type.translateTo(typingSpace));
+    }
 
-		if (permissive && aType.equals(FlexoConcept.class)) {
-			return true;
-		}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
 
-		return false;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FlexoConceptType other = (FlexoConceptType) obj;
+        if (type == null) {
+            if (other.type != null)
+                return false;
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public boolean isOfType(Object object, boolean permissive) {
-		if (!(object instanceof FlexoConcept)) {
-			return false;
-		}
-		if (permissive) {
-			return true;
-		}
-		logger.warning("TODO: isOfType() not implemented for FlexoConceptType");
-		return true;
-	}
+    @Override
+    public void registerSpecificTypeInfo(SpecificTypeInfo<FMLTechnologyAdapter> typeInfo) {
+        // Not relevant here
+    }
 
-	@Override
-	public String simpleRepresentation() {
+    public interface FlexoConceptTypeFactory extends CustomTypeFactory<FlexoConceptType> {
+    }
 
-		if (type == null) {
-			return AbstractFMLTypingSpace.CONCEPT;
-		}
-		return AbstractFMLTypingSpace.CONCEPT + "<" + TypeUtils.simpleRepresentation(type) + ">";
-	}
+    /**
+     * Factory for FlexoConceptType instances
+     *
+     * @author sylvain
+     *
+     */
+    public static class DefaultFlexoConceptTypeFactory extends TechnologyAdapterTypeFactory<FlexoConceptType, FMLTechnologyAdapter>
+            implements FlexoConceptTypeFactory {
 
-	@Override
-	public String fullQualifiedRepresentation() {
-		return AbstractFMLTypingSpace.CONCEPT + "<" + TypeUtils.fullQualifiedRepresentation(type) + ">";
-	}
+        public DefaultFlexoConceptTypeFactory(FMLTechnologyAdapter technologyAdapter) {
+            super(technologyAdapter);
+        }
 
-	@Override
-	public String toString() {
-		return simpleRepresentation();
-	}
+        @Override
+        public Class<FlexoConceptType> getCustomType() {
+            return FlexoConceptType.class;
+        }
 
-	@Override
-	public String getSerializationRepresentation() {
-		return fullQualifiedRepresentation();
-	}
+        @Override
+        public FlexoConceptType makeCustomType(String configuration) {
+            return null;
+        }
 
-	@Override
-	public boolean isResolved() {
-		if (type == null) {
-			return true;
-		}
-		if (type instanceof ConnieType) {
-			return ((ConnieType) type).isResolved();
-		}
-		return false;
-	}
+        @Override
+        public String toString() {
+            return "FlexoConceptType";
+        }
 
-	@Override
-	public void resolve() {
-		if (type instanceof CustomType) {
-			((CustomType) type).resolve();
-		}
-		if (type instanceof WildcardTypeImpl) {
-			((WildcardTypeImpl) type).resolve();
-		}
-	}
+        @Override
+        public void configureFactory(FlexoConceptType type) {
+        }
 
-	/**
-	 * Return a new {@link FlexoConceptType} by translating current {@link FlexoConceptType} into the typing context denoted by supplied
-	 * {@link TypingSpace}.<br>
-	 * 
-	 * @param typingSpace
-	 * @return
-	 */
-	@Override
-	public FlexoConceptType translateTo(TypingSpace typingSpace) {
-		return new FlexoConceptType(type.translateTo(typingSpace));
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		FlexoConceptType other = (FlexoConceptType) obj;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		}
-		else if (!type.equals(other.type)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void registerSpecificTypeInfo(SpecificTypeInfo<FMLTechnologyAdapter> typeInfo) {
-		// Not relevant here
-	}
+    }
 
 }

@@ -1,68 +1,49 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Fml-parser, a component of the software infrastructure 
+ * <p>
+ * This file is part of Fml-parser, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
-
-import org.openflexo.connie.Bindable;
-import org.openflexo.connie.BindingEvaluationContext;
-import org.openflexo.connie.BindingFactory;
-import org.openflexo.connie.BindingVariable;
-import org.openflexo.connie.DataBinding;
+import org.openflexo.connie.*;
 import org.openflexo.connie.exception.NullReferenceException;
 import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.connie.expr.ExpressionEvaluator;
 import org.openflexo.connie.type.TypeUtils;
-import org.openflexo.foundation.FlexoException;
-import org.openflexo.foundation.FlexoObject;
-import org.openflexo.foundation.FlexoProject;
-import org.openflexo.foundation.InnerResourceData;
-import org.openflexo.foundation.InvalidNameException;
+import org.openflexo.foundation.*;
 import org.openflexo.foundation.fml.binding.CompilationUnitBindingModel;
 import org.openflexo.foundation.fml.binding.NamedImportBindingVariable;
 import org.openflexo.foundation.fml.binding.NamespaceBindingVariable;
@@ -72,33 +53,14 @@ import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.fml.rm.CompilationUnitResourceFactory;
 import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstance;
 import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
-import org.openflexo.foundation.resource.CannotRenameException;
-import org.openflexo.foundation.resource.FlexoResource;
-import org.openflexo.foundation.resource.FlexoResourceCenter;
-import org.openflexo.foundation.resource.FlexoResourceType;
-import org.openflexo.foundation.resource.ResourceData;
-import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
+import org.openflexo.foundation.resource.*;
 import org.openflexo.foundation.technologyadapter.ModelSlot;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.localization.LocalizedDelegate;
 import org.openflexo.localization.LocalizedDelegateImpl;
-import org.openflexo.pamela.annotations.Adder;
-import org.openflexo.pamela.annotations.CloningStrategy;
+import org.openflexo.pamela.annotations.*;
 import org.openflexo.pamela.annotations.CloningStrategy.StrategyType;
-import org.openflexo.pamela.annotations.DefineValidationRule;
-import org.openflexo.pamela.annotations.Embedded;
-import org.openflexo.pamela.annotations.Finder;
-import org.openflexo.pamela.annotations.Getter;
 import org.openflexo.pamela.annotations.Getter.Cardinality;
-import org.openflexo.pamela.annotations.ImplementationClass;
-import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.PastingPoint;
-import org.openflexo.pamela.annotations.PropertyIdentifier;
-import org.openflexo.pamela.annotations.Reindexer;
-import org.openflexo.pamela.annotations.Remover;
-import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.pamela.model.PamelaVisitor;
 import org.openflexo.pamela.model.PamelaVisitor.VisitingStrategy;
 import org.openflexo.pamela.undo.CompoundEdit;
@@ -112,427 +74,397 @@ import org.openflexo.toolbox.FlexoVersion;
 import org.openflexo.toolbox.JavaUtils;
 import org.openflexo.toolbox.StringUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Type;
+import java.lang.reflect.WildcardType;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
 @ModelEntity
 @ImplementationClass(FMLCompilationUnit.FMLCompilationUnitImpl.class)
 public interface FMLCompilationUnit extends FMLObject, FMLPrettyPrintable, ResourceData<FMLCompilationUnit>, BindingEvaluationContext {
-	//TODO what is this concept ? I came here from class XMLToFMLConverter which uses a compilation unit
+    //TODO what is this concept ? I came here from class XMLToFMLConverter which uses a compilation unit
 
-	public static final String RESOURCE = "resource";
-	@PropertyIdentifier(type = FlexoVersion.class)
-	public static final String VERSION_KEY = "version";
-	@PropertyIdentifier(type = JavaImportDeclaration.class, cardinality = Cardinality.LIST)
-	public static final String JAVA_IMPORTS_KEY = "javaImports";
-	@PropertyIdentifier(type = ElementImportDeclaration.class, cardinality = Cardinality.LIST)
-	public static final String ELEMENT_IMPORTS_KEY = "elementImports";
-	@PropertyIdentifier(type = NamespaceDeclaration.class, cardinality = Cardinality.LIST)
-	public static final String NAMESPACES_KEY = "namespaces";
-	@PropertyIdentifier(type = UseModelSlotDeclaration.class, cardinality = Cardinality.LIST)
-	public static final String USE_DECLARATIONS_KEY = "useDeclarations";
-	@PropertyIdentifier(type = TypeDeclaration.class, cardinality = Cardinality.LIST)
-	public static final String TYPE_DECLARATIONS_KEY = "typeDeclarations";
-	@PropertyIdentifier(type = VirtualModel.class)
-	public static final String VIRTUAL_MODEL_KEY = "virtualModel";
+    public static final String RESOURCE = "resource";
+    @PropertyIdentifier(type = FlexoVersion.class)
+    public static final String VERSION_KEY = "version";
+    @PropertyIdentifier(type = JavaImportDeclaration.class, cardinality = Cardinality.LIST)
+    public static final String JAVA_IMPORTS_KEY = "javaImports";
+    @PropertyIdentifier(type = ElementImportDeclaration.class, cardinality = Cardinality.LIST)
+    public static final String ELEMENT_IMPORTS_KEY = "elementImports";
+    @PropertyIdentifier(type = NamespaceDeclaration.class, cardinality = Cardinality.LIST)
+    public static final String NAMESPACES_KEY = "namespaces";
+    @PropertyIdentifier(type = UseModelSlotDeclaration.class, cardinality = Cardinality.LIST)
+    public static final String USE_DECLARATIONS_KEY = "useDeclarations";
+    @PropertyIdentifier(type = TypeDeclaration.class, cardinality = Cardinality.LIST)
+    public static final String TYPE_DECLARATIONS_KEY = "typeDeclarations";
+    @PropertyIdentifier(type = VirtualModel.class)
+    public static final String VIRTUAL_MODEL_KEY = "virtualModel";
 
-	/**
-	 * Returns URI for this {@link FMLCompilationUnit}<br>
-	 * Note that if this {@link FMLCompilationUnit} is contained in another {@link FMLCompilationUnit}, URI is computed from URI of
-	 * container FMLCompilationUnit
-	 */
-	public abstract String getURI();
+    /**
+     * Returns URI for this {@link FMLCompilationUnit}<br>
+     * Note that if this {@link FMLCompilationUnit} is contained in another {@link FMLCompilationUnit}, URI is computed from URI of
+     * container FMLCompilationUnit
+     */
+    public abstract String getURI();
 
-	/**
-	 * Sets URI for this {@link FMLCompilationUnit}<br>
-	 * 
-	 * @param anURI
-	 */
-	public void setURI(String anURI);
+    /**
+     * Sets URI for this {@link FMLCompilationUnit}<br>
+     *
+     * @param anURI
+     */
+    public void setURI(String anURI);
 
-	/**
-	 * Return list of {@link JavaImportDeclaration} explicitely declared in this {@link FMLCompilationUnit}
-	 * 
-	 * @return
-	 */
-	@Getter(value = JAVA_IMPORTS_KEY, cardinality = Cardinality.LIST, inverse = JavaImportDeclaration.COMPILATION_UNIT_KEY)
-	@CloningStrategy(StrategyType.CLONE)
-	@Embedded
-	public List<JavaImportDeclaration> getJavaImports();
+    /**
+     * Return list of {@link JavaImportDeclaration} explicitely declared in this {@link FMLCompilationUnit}
+     *
+     * @return
+     */
+    @Getter(value = JAVA_IMPORTS_KEY, cardinality = Cardinality.LIST, inverse = JavaImportDeclaration.COMPILATION_UNIT_KEY)
+    @CloningStrategy(StrategyType.CLONE)
+    @Embedded
+    public List<JavaImportDeclaration> getJavaImports();
 
-	@Adder(JAVA_IMPORTS_KEY)
-	public void addToJavaImports(JavaImportDeclaration javaImportDeclaration);
+    @Adder(JAVA_IMPORTS_KEY)
+    public void addToJavaImports(JavaImportDeclaration javaImportDeclaration);
 
-	@Remover(JAVA_IMPORTS_KEY)
-	public void removeFromJavaImports(JavaImportDeclaration javaImportDeclaration);
+    @Remover(JAVA_IMPORTS_KEY)
+    public void removeFromJavaImports(JavaImportDeclaration javaImportDeclaration);
 
-	@Reindexer(JAVA_IMPORTS_KEY)
-	public void moveJavaImportDeclarationToIndex(JavaImportDeclaration javaImportDeclaration, int index);
+    @Reindexer(JAVA_IMPORTS_KEY)
+    public void moveJavaImportDeclarationToIndex(JavaImportDeclaration javaImportDeclaration, int index);
 
-	/**
-	 * Return list of {@link ElementImportDeclaration} explicitely declared in this {@link FMLCompilationUnit}
-	 * 
-	 * @return
-	 */
-	@Getter(value = ELEMENT_IMPORTS_KEY, cardinality = Cardinality.LIST, inverse = ElementImportDeclaration.COMPILATION_UNIT_KEY)
-	@CloningStrategy(StrategyType.CLONE)
-	@Embedded
-	public List<ElementImportDeclaration> getElementImports();
+    /**
+     * Return list of {@link ElementImportDeclaration} explicitely declared in this {@link FMLCompilationUnit}
+     *
+     * @return
+     */
+    @Getter(value = ELEMENT_IMPORTS_KEY, cardinality = Cardinality.LIST, inverse = ElementImportDeclaration.COMPILATION_UNIT_KEY)
+    @CloningStrategy(StrategyType.CLONE)
+    @Embedded
+    public List<ElementImportDeclaration> getElementImports();
 
-	@Adder(ELEMENT_IMPORTS_KEY)
-	public void addToElementImports(ElementImportDeclaration elementImportDeclaration);
+    @Adder(ELEMENT_IMPORTS_KEY)
+    public void addToElementImports(ElementImportDeclaration elementImportDeclaration);
 
-	@Remover(ELEMENT_IMPORTS_KEY)
-	public void removeFromElementImports(ElementImportDeclaration elementImportDeclaration);
+    @Remover(ELEMENT_IMPORTS_KEY)
+    public void removeFromElementImports(ElementImportDeclaration elementImportDeclaration);
 
-	@Finder(collection = ELEMENT_IMPORTS_KEY, attribute = ElementImportDeclaration.ABBREV_KEY)
-	public ElementImportDeclaration getElementImport(String abbrev);
+    @Finder(collection = ELEMENT_IMPORTS_KEY, attribute = ElementImportDeclaration.ABBREV_KEY)
+    public ElementImportDeclaration getElementImport(String abbrev);
 
-	@Reindexer(ELEMENT_IMPORTS_KEY)
-	public void moveElementImportDeclarationToIndex(ElementImportDeclaration elementImportDeclaration, int index);
+    @Reindexer(ELEMENT_IMPORTS_KEY)
+    public void moveElementImportDeclarationToIndex(ElementImportDeclaration elementImportDeclaration, int index);
 
-	/**
-	 * Return list of {@link TypeDeclaration} explicitely declared in this {@link FMLCompilationUnit}
-	 * 
-	 * @return
-	 */
-	@Getter(value = TYPE_DECLARATIONS_KEY, cardinality = Cardinality.LIST, inverse = TypeDeclaration.COMPILATION_UNIT_KEY)
-	@CloningStrategy(StrategyType.CLONE)
-	@Embedded
-	public List<TypeDeclaration> getTypeDeclarations();
+    /**
+     * Return list of {@link TypeDeclaration} explicitely declared in this {@link FMLCompilationUnit}
+     *
+     * @return
+     */
+    @Getter(value = TYPE_DECLARATIONS_KEY, cardinality = Cardinality.LIST, inverse = TypeDeclaration.COMPILATION_UNIT_KEY)
+    @CloningStrategy(StrategyType.CLONE)
+    @Embedded
+    public List<TypeDeclaration> getTypeDeclarations();
 
-	@Adder(TYPE_DECLARATIONS_KEY)
-	public void addToTypeDeclarations(TypeDeclaration typeDeclaration);
+    @Adder(TYPE_DECLARATIONS_KEY)
+    public void addToTypeDeclarations(TypeDeclaration typeDeclaration);
 
-	@Remover(TYPE_DECLARATIONS_KEY)
-	public void removeFromTypeDeclarations(TypeDeclaration typeDeclaration);
+    @Remover(TYPE_DECLARATIONS_KEY)
+    public void removeFromTypeDeclarations(TypeDeclaration typeDeclaration);
 
-	@Finder(collection = TYPE_DECLARATIONS_KEY, attribute = TypeDeclaration.ABBREV_KEY)
-	public TypeDeclaration getTypeDeclaration(String abbrev);
+    @Finder(collection = TYPE_DECLARATIONS_KEY, attribute = TypeDeclaration.ABBREV_KEY)
+    public TypeDeclaration getTypeDeclaration(String abbrev);
 
-	public TypeDeclaration getTypeDeclaration(TechnologySpecificType<?> type);
+    public TypeDeclaration getTypeDeclaration(TechnologySpecificType<?> type);
 
-	@Reindexer(TYPE_DECLARATIONS_KEY)
-	public void moveTypeDeclarationToIndex(TypeDeclaration typeDeclaration, int index);
+    @Reindexer(TYPE_DECLARATIONS_KEY)
+    public void moveTypeDeclarationToIndex(TypeDeclaration typeDeclaration, int index);
 
-	/**
-	 * Indicates is supplied type has a corresponding type declaration
-	 * 
-	 * @param type
-	 * @return
-	 */
-	public boolean hasTypeDeclarationFor(TechnologySpecificType<?> type);
+    /**
+     * Indicates is supplied type has a corresponding type declaration
+     *
+     * @param type
+     * @return
+     */
+    public boolean hasTypeDeclarationFor(TechnologySpecificType<?> type);
 
-	/**
-	 * Normalize supplied type by returning a ProxyType referencing this type if this type appears in a actual type declaration of this
-	 * compilation unit, simply return type when not
-	 * 
-	 * @param type
-	 * @return
-	 */
-	public Type normalizeType(TechnologySpecificType<?> type);
+    /**
+     * Normalize supplied type by returning a ProxyType referencing this type if this type appears in a actual type declaration of this
+     * compilation unit, simply return type when not
+     *
+     * @param type
+     * @return
+     */
+    public Type normalizeType(TechnologySpecificType<?> type);
 
-	/**
-	 * Return the {@link VirtualModel} defined by this FMLCompilationUnit
-	 * 
-	 * @return
-	 */
-	@Getter(value = VIRTUAL_MODEL_KEY, inverse = VirtualModel.COMPILATION_UNIT_KEY)
-	@Embedded
-	@CloningStrategy(StrategyType.CLONE)
-	public VirtualModel getVirtualModel();
+    /**
+     * Return the {@link VirtualModel} defined by this FMLCompilationUnit
+     *
+     * @return
+     */
+    @Getter(value = VIRTUAL_MODEL_KEY, inverse = VirtualModel.COMPILATION_UNIT_KEY)
+    @Embedded
+    @CloningStrategy(StrategyType.CLONE)
+    public VirtualModel getVirtualModel();
 
-	@Setter(VIRTUAL_MODEL_KEY)
-	public void setVirtualModel(VirtualModel virtualModel);
+    @Setter(VIRTUAL_MODEL_KEY)
+    public void setVirtualModel(VirtualModel virtualModel);
 
-	/**
-	 * Return list of {@link NamespaceDeclaration} explicitely declared in this {@link FMLCompilationUnit}
-	 * 
-	 * @return
-	 */
-	@Getter(value = NAMESPACES_KEY, cardinality = Cardinality.LIST, inverse = NamespaceDeclaration.COMPILATION_UNIT_KEY)
-	@XMLElement
-	@Embedded
-	@CloningStrategy(StrategyType.CLONE)
-	public List<NamespaceDeclaration> getNamespaces();
+    /**
+     * Return list of {@link NamespaceDeclaration} explicitely declared in this {@link FMLCompilationUnit}
+     *
+     * @return
+     */
+    @Getter(value = NAMESPACES_KEY, cardinality = Cardinality.LIST, inverse = NamespaceDeclaration.COMPILATION_UNIT_KEY)
+    @XMLElement
+    @Embedded
+    @CloningStrategy(StrategyType.CLONE)
+    public List<NamespaceDeclaration> getNamespaces();
 
-	@Adder(NAMESPACES_KEY)
-	@PastingPoint
-	public void addToNamespaces(NamespaceDeclaration nsDecl);
+    @Adder(NAMESPACES_KEY)
+    @PastingPoint
+    public void addToNamespaces(NamespaceDeclaration nsDecl);
 
-	@Remover(NAMESPACES_KEY)
-	public void removeFromNamespaces(NamespaceDeclaration nsDecl);
+    @Remover(NAMESPACES_KEY)
+    public void removeFromNamespaces(NamespaceDeclaration nsDecl);
 
-	/**
-	 * Return list of {@link UseModelSlotDeclaration} accessible from this {@link FMLCompilationUnit}<br>
-	 * It includes the list of uses declarations accessible from parent and container
-	 * 
-	 * @return
-	 */
-	public List<UseModelSlotDeclaration> getAccessibleUseDeclarations();
+    /**
+     * Return list of {@link UseModelSlotDeclaration} accessible from this {@link FMLCompilationUnit}<br>
+     * It includes the list of uses declarations accessible from parent and container
+     *
+     * @return
+     */
+    public List<UseModelSlotDeclaration> getAccessibleUseDeclarations();
 
-	/**
-	 * Return list of {@link UseModelSlotDeclaration} explicitely declared in this {@link VirtualModel}
-	 * 
-	 * @return
-	 */
-	@Getter(value = USE_DECLARATIONS_KEY, cardinality = Cardinality.LIST, inverse = UseModelSlotDeclaration.COMPILATION_UNIT_KEY)
-	@XMLElement
-	@Embedded
-	@CloningStrategy(StrategyType.CLONE)
-	public List<UseModelSlotDeclaration> getUseDeclarations();
+    /**
+     * Return list of {@link UseModelSlotDeclaration} explicitely declared in this {@link VirtualModel}
+     *
+     * @return
+     */
+    @Getter(value = USE_DECLARATIONS_KEY, cardinality = Cardinality.LIST, inverse = UseModelSlotDeclaration.COMPILATION_UNIT_KEY)
+    @XMLElement
+    @Embedded
+    @CloningStrategy(StrategyType.CLONE)
+    public List<UseModelSlotDeclaration> getUseDeclarations();
 
-	// @Setter(USE_DECLARATIONS_KEY)
-	// public void setUseDeclarations(List<UseModelSlotDeclaration> useDecls);
+    // @Setter(USE_DECLARATIONS_KEY)
+    // public void setUseDeclarations(List<UseModelSlotDeclaration> useDecls);
 
-	@Adder(USE_DECLARATIONS_KEY)
-	@PastingPoint
-	public void addToUseDeclarations(UseModelSlotDeclaration useDecl);
+    @Adder(USE_DECLARATIONS_KEY)
+    @PastingPoint
+    public void addToUseDeclarations(UseModelSlotDeclaration useDecl);
 
-	@Remover(USE_DECLARATIONS_KEY)
-	public void removeFromUseDeclarations(UseModelSlotDeclaration useDecl);
+    @Remover(USE_DECLARATIONS_KEY)
+    public void removeFromUseDeclarations(UseModelSlotDeclaration useDecl);
 
-	@Reindexer(USE_DECLARATIONS_KEY)
-	public void moveUseModelSlotDeclarationToIndex(UseModelSlotDeclaration useModelSlotDeclaration, int index);
+    @Reindexer(USE_DECLARATIONS_KEY)
+    public void moveUseModelSlotDeclarationToIndex(UseModelSlotDeclaration useModelSlotDeclaration, int index);
 
-	/**
-	 * Return boolean indicating if this VirtualModel uses supplied modelSlotClass
-	 * 
-	 * @param modelSlotClass
-	 * @return
-	 */
-	@Deprecated
-	public <MS extends ModelSlot<?, ?>> boolean uses(Class<MS> modelSlotClass);
+    /**
+     * Return boolean indicating if this VirtualModel uses supplied modelSlotClass
+     *
+     * @param modelSlotClass
+     * @return
+     */
+    @Deprecated
+    public <MS extends ModelSlot<?, ?>> boolean uses(Class<MS> modelSlotClass);
 
-	/**
-	 * Declare use of supplied modelSlotClass
-	 * 
-	 * @param modelSlotClass
-	 * @return
-	 */
-	public <MS extends ModelSlot<?, ?>> UseModelSlotDeclaration declareUse(Class<MS> modelSlotClass);
+    /**
+     * Declare use of supplied modelSlotClass
+     *
+     * @param modelSlotClass
+     * @return
+     */
+    public <MS extends ModelSlot<?, ?>> UseModelSlotDeclaration declareUse(Class<MS> modelSlotClass);
 
-	/**
-	 * Return resource for this virtual model
-	 * 
-	 * @return
-	 */
-	@Override
-	@Getter(value = RESOURCE, ignoreType = true)
-	// @CloningStrategy(value = StrategyType.FACTORY, factory = "cloneResource()")
-	@CloningStrategy(StrategyType.IGNORE)
-	public FlexoResource<FMLCompilationUnit> getResource();
+    /**
+     * Return resource for this virtual model
+     *
+     * @return
+     */
+    @Override
+    @Getter(value = RESOURCE, ignoreType = true)
+    // @CloningStrategy(value = StrategyType.FACTORY, factory = "cloneResource()")
+    @CloningStrategy(StrategyType.IGNORE)
+    public FlexoResource<FMLCompilationUnit> getResource();
 
-	/**
-	 * Sets resource for this virtual model
-	 * 
-	 * @param aName
-	 */
-	@Override
-	@Setter(value = RESOURCE)
-	public void setResource(FlexoResource<FMLCompilationUnit> aCompilationUnitResource);
+    /**
+     * Sets resource for this virtual model
+     *
+     * @param aName
+     */
+    @Override
+    @Setter(value = RESOURCE)
+    public void setResource(FlexoResource<FMLCompilationUnit> aCompilationUnitResource);
 
-	/**
-	 * Convenient method used to retrieved {@link CompilationUnitResource}
-	 * 
-	 * @return
-	 */
-	public CompilationUnitResource getVirtualModelResource();
+    /**
+     * Convenient method used to retrieved {@link CompilationUnitResource}
+     *
+     * @return
+     */
+    public CompilationUnitResource getVirtualModelResource();
 
-	/**
-	 * Version of encoded {@link VirtualModel}
-	 * 
-	 * @return
-	 */
-	@Getter(value = VERSION_KEY, isStringConvertable = true)
-	@XMLAttribute
-	public FlexoVersion getVersion();
+    /**
+     * Version of encoded {@link VirtualModel}
+     *
+     * @return
+     */
+    @Getter(value = VERSION_KEY, isStringConvertable = true)
+    @XMLAttribute
+    public FlexoVersion getVersion();
 
-	@Setter(VERSION_KEY)
-	public void setVersion(FlexoVersion version);
+    @Setter(VERSION_KEY)
+    public void setVersion(FlexoVersion version);
 
-	/**
-	 * Version of FML meta-model
-	 * 
-	 * @return
-	 */
+    /**
+     * Version of FML meta-model
+     *
+     * @return
+     */
 	/*@Getter(value = MODEL_VERSION_KEY, isStringConvertable = true)
 	@XMLAttribute
 	public FlexoVersion getModelVersion();*/
 
 	/*@Setter(MODEL_VERSION_KEY)
 	public void setModelVersion(FlexoVersion modelVersion);*/
+    public LocalizedDelegate getLocalizedDictionary();
 
-	public LocalizedDelegate getLocalizedDictionary();
+    // TODO: desambiguate this method while proposing two methods: getFlexoConceptNamed() and getFlexoConceptWithURI()
 
-	// TODO: desambiguate this method while proposing two methods: getFlexoConceptNamed() and getFlexoConceptWithURI()
-	/**
-	 * Return FlexoConcept matching supplied id represented as a string, which could be either the name of FlexoConcept, or its URI
-	 *
-	 * Look in contained VirtualModel and contained FlexoConcept, and examine dependencies (imports)<br>
-	 * TODO: presents algorithm (semantics of first found concept, think of inheritance and embedding)
-	 * 
-	 * @param flexoConceptNameOrURI
-	 * @return
-	 */
-	@Deprecated
-	public FlexoConcept getFlexoConcept(String flexoConceptNameOrURI);
+    /**
+     * Return FlexoConcept matching supplied id represented as a string, which could be either the name of FlexoConcept, or its URI
+     *
+     * Look in contained VirtualModel and contained FlexoConcept, and examine dependencies (imports)<br>
+     * TODO: presents algorithm (semantics of first found concept, think of inheritance and embedding)
+     *
+     * @param flexoConceptNameOrURI
+     * @return
+     */
+    @Deprecated
+    public FlexoConcept getFlexoConcept(String flexoConceptNameOrURI);
 
-	/**
-	 * Search and return {@link FlexoConcept} with supplied local name, given the context of this {@link FMLCompilationUnit}<br>
-	 * 
-	 * Lookup algorithm follows:
-	 * <ul>
-	 * <li>First lookup in contained {@link VirtualModel}</li>
-	 * <li>When not found, apply the same algorithm for each FMLCompilationUnit import of this {@link FMLCompilationUnit} (in the order they
-	 * are declared : the first found is returned)</li>
-	 * </ul>
-	 * 
-	 * @param conceptName
-	 * @return
-	 */
-	public FlexoConcept lookupFlexoConceptWithName(String conceptName);
+    /**
+     * Search and return {@link FlexoConcept} with supplied local name, given the context of this {@link FMLCompilationUnit}<br>
+     *
+     * Lookup algorithm follows:
+     * <ul>
+     * <li>First lookup in contained {@link VirtualModel}</li>
+     * <li>When not found, apply the same algorithm for each FMLCompilationUnit import of this {@link FMLCompilationUnit} (in the order they
+     * are declared : the first found is returned)</li>
+     * </ul>
+     *
+     * @param conceptName
+     * @return
+     */
+    public FlexoConcept lookupFlexoConceptWithName(String conceptName);
 
-	/**
-	 * Search and return {@link FlexoConcept} with supplied URI
-	 * 
-	 * @param conceptURI
-	 * @return
-	 */
-	public FlexoConcept lookupFlexoConceptWithURI(String conceptURI);
+    /**
+     * Search and return {@link FlexoConcept} with supplied URI
+     *
+     * @param conceptURI
+     * @return
+     */
+    public FlexoConcept lookupFlexoConceptWithURI(String conceptURI);
 
-	/**
-	 * Return the list of {@link TechnologyAdapter} used in the context of this {@link VirtualModel}
-	 * 
-	 * @return
-	 */
-	public List<TechnologyAdapter> getRequiredTechnologyAdapters();
+    /**
+     * Return the list of {@link TechnologyAdapter} used in the context of this {@link VirtualModel}
+     *
+     * @return
+     */
+    public List<TechnologyAdapter> getRequiredTechnologyAdapters();
 
-	/**
-	 * Return container {@link FMLCompilationUnit}
-	 * 
-	 * @return
-	 */
-	public FMLCompilationUnit getContainerCompilationUnit();
+    /**
+     * Return container {@link FMLCompilationUnit}
+     *
+     * @return
+     */
+    public FMLCompilationUnit getContainerCompilationUnit();
 
-	/**
-	 * Load eventually unloaded contained VirtualModels<br>
-	 * After this call return, we can safely assert that all contained {@link VirtualModel} are loaded.
-	 */
-	void loadContainedVirtualModelsWhenUnloaded();
+    /**
+     * Load eventually unloaded contained VirtualModels<br>
+     * After this call return, we can safely assert that all contained {@link VirtualModel} are loaded.
+     */
+    void loadContainedVirtualModelsWhenUnloaded();
 
-	@Deprecated
-	public VirtualModel getVirtualModelNamed(String virtualModelNameOrURI);
+    @Deprecated
+    public VirtualModel getVirtualModelNamed(String virtualModelNameOrURI);
 
-	public FMLObject getObject(String objectURI);
+    public FMLObject getObject(String objectURI);
 
-	/**
-	 * Analyze the whole structure of the compilation unit, and declare required imports
-	 */
-	public void manageImports();
+    /**
+     * Analyze the whole structure of the compilation unit, and declare required imports
+     */
+    public void manageImports();
 
-	/**
-	 * Ensures that supplied modelSlotClass is present in use declarations
-	 * 
-	 * @param modelSlotClass
-	 * @return
-	 */
-	public UseModelSlotDeclaration ensureUse(Class<? extends ModelSlot<?, ?>> modelSlotClass);
+    /**
+     * Ensures that supplied modelSlotClass is present in use declarations
+     *
+     * @param modelSlotClass
+     * @return
+     */
+    public UseModelSlotDeclaration ensureUse(Class<? extends ModelSlot<?, ?>> modelSlotClass);
 
-	/**
-	 * Ensure that supplied {@link FlexoResourceCenter} is refererenced in namespaces
-	 * 
-	 * @param rc
-	 * @return
-	 */
-	public NamespaceDeclaration ensureNamespaceDeclaration(FlexoResourceCenter<?> rc);
+    /**
+     * Ensure that supplied {@link FlexoResourceCenter} is refererenced in namespaces
+     *
+     * @param rc
+     * @return
+     */
+    public NamespaceDeclaration ensureNamespaceDeclaration(FlexoResourceCenter<?> rc);
 
-	/**
-	 * Ensures that the supplied RC will be referenced in element import of this {@link FMLCompilationUnit}
-	 * 
-	 * @param rc
-	 * @return
-	 */
-	public ElementImportDeclaration ensureResourceCenterImport(FlexoResourceCenter<?> rc);
+    /**
+     * Ensures that the supplied RC will be referenced in element import of this {@link FMLCompilationUnit}
+     *
+     * @param rc
+     * @return
+     */
+    public ElementImportDeclaration ensureResourceCenterImport(FlexoResourceCenter<?> rc);
 
-	public <RD extends ResourceData<RD> & FlexoObject> ElementImportDeclaration ensureResourceImport(RD resourceData, boolean anonymous);
+    public <RD extends ResourceData<RD> & FlexoObject> ElementImportDeclaration ensureResourceImport(RD resourceData, boolean anonymous);
 
-	public <RD extends ResourceData<RD> & FlexoObject, R extends FlexoResource<RD>> ElementImportDeclaration ensureResourceImport(
-			R resource, boolean anonymous) throws FileNotFoundException, ResourceLoadingCancelledException, FlexoException;
+    public <RD extends ResourceData<RD> & FlexoObject, R extends FlexoResource<RD>> ElementImportDeclaration ensureResourceImport(
+            R resource, boolean anonymous) throws FileNotFoundException, ResourceLoadingCancelledException, FlexoException;
 
-	public <RD extends ResourceData<RD> & FlexoObject, E extends InnerResourceData<RD> & FlexoObject> ElementImportDeclaration ensureElementImport(
-			E element, boolean anonymous);
+    public <RD extends ResourceData<RD> & FlexoObject, E extends InnerResourceData<RD> & FlexoObject> ElementImportDeclaration ensureElementImport(
+            E element, boolean anonymous);
 
-	public void ensureJavaImport(Class<?> javaClass);
+    public void ensureJavaImport(Class<?> javaClass);
 
-	public void ensureJavaImportForType(Type type);
+    public void ensureJavaImportForType(Type type);
 
-	public FMLTypingSpace getTypingSpace();
+    public FMLTypingSpace getTypingSpace();
 
-	public boolean isFMLPrettyPrintAvailable();
+    public boolean isFMLPrettyPrintAvailable();
 
-	/**
-	 * Attempt to lookup Class from supplied name while exploring types exposed by underlying use declarations (model slot types beeing
-	 * used)
-	 * 
-	 * @param className
-	 * @return
-	 */
-	public Class<?> lookupClassInUseDeclarations(String className);
+    /**
+     * Attempt to lookup Class from supplied name while exploring types exposed by underlying use declarations (model slot types beeing
+     * used)
+     *
+     * @param className
+     * @return
+     */
+    public Class<?> lookupClassInUseDeclarations(String className);
 
-	/**
-	 * Perform a full revalidation on all {@link DataBinding} declared in this {@link FMLCompilationUnit}
-	 * 
-	 * Recursively call
-	 */
-	public void revalidateAllBindings();
+    /**
+     * Perform a full revalidation on all {@link DataBinding} declared in this {@link FMLCompilationUnit}
+     *
+     * Recursively call
+     */
+    public void revalidateAllBindings();
 
-	public abstract class FMLCompilationUnitImpl extends FMLObjectImpl implements FMLCompilationUnit {
+    public abstract class FMLCompilationUnitImpl extends FMLObjectImpl implements FMLCompilationUnit {
 
-		private static final Logger logger = Logger.getLogger(FMLCompilationUnitImpl.class.getPackage().getName());
-
-		private CompilationUnitResource resource;
-		private BindingEvaluationContext reflectedBindingEvaluationContext = new ReflectedBindingEvaluationContext();
-		private CompilationUnitBindingModel bindingModel;
-		private final FMLTypingSpace typingSpace = new FMLTypingSpace(this);
-
-		class ReflectedBindingEvaluationContext implements BindingEvaluationContext {
-
-			@Override
-			public ExpressionEvaluator getEvaluator() {
-				return new FMLExpressionEvaluator(this);
-			}
-
-			@Override
-			public Object getValue(BindingVariable bindingVariable) {
-				// System.out.println("getValue() for " + bindingVariable + " of " + bindingVariable.getClass());
-				if (bindingVariable instanceof NamedImportBindingVariable) {
-					FlexoObject referencedObject = ((NamedImportBindingVariable) bindingVariable).getElementImportDeclaration()
-							.getReferencedObject();
-					// System.out.println("referencedObject=" + referencedObject);
-					if (referencedObject instanceof FlexoResourceCenter<?>) {
-						return ((FlexoResourceCenter<?>) referencedObject).getDefaultBaseURI();
-					}
-					if (referencedObject instanceof FlexoResource) {
-						return ((FlexoResource) referencedObject).getURI();
-					}
-					if (referencedObject instanceof ResourceData) {
-						return ((ResourceData) referencedObject).getResource().getURI();
-					}
-					if (referencedObject instanceof FlexoConcept) {
-						return ((FlexoConcept) referencedObject).getURI();
-					}
-					if (referencedObject instanceof FlexoProperty) {
-						return ((FlexoProperty) referencedObject).getURI();
-					}
-					if (referencedObject instanceof FlexoBehaviour) {
-						return ((FlexoBehaviour) referencedObject).getURI();
-					}
-				}
-				if (bindingVariable instanceof NamespaceBindingVariable) {
-					return ((NamespaceBindingVariable) bindingVariable).getNamespaceDeclaration().getValue();
-				}
-				return null;
-			}
-
-		}
+        private static final Logger logger = Logger.getLogger(FMLCompilationUnitImpl.class.getPackage().getName());
+        private final FMLTypingSpace typingSpace = new FMLTypingSpace(this);
+        private CompilationUnitResource resource;
+        private BindingEvaluationContext reflectedBindingEvaluationContext = new ReflectedBindingEvaluationContext();
+        private CompilationUnitBindingModel bindingModel;
+        private BindingFactory BINDING_FACTORY;
 
 		/*public FMLCompilationUnitImpl() {
 			super();
@@ -540,531 +472,516 @@ public interface FMLCompilationUnit extends FMLObject, FMLPrettyPrintable, Resou
 			System.out.println("hash=" + Integer.toHexString(hashCode()));
 			Thread.dumpStack();
 		}*/
+        private boolean isLoading = false;
+        private LocalizedDelegateImpl localized;
+        private boolean isManagingImports = false;
+        private List<ResourceData> resourcesRequestedForImport = new ArrayList<>();
 
-		/**
-		 * Return reflected BindingEvaluationContext, obtained at metadata conceptual level
-		 * 
-		 * @return
-		 */
-		@Override
-		public BindingEvaluationContext getReflectedBindingEvaluationContext() {
-			return reflectedBindingEvaluationContext;
-		}
+        /**
+         * Return reflected BindingEvaluationContext, obtained at metadata conceptual level
+         *
+         * @return
+         */
+        @Override
+        public BindingEvaluationContext getReflectedBindingEvaluationContext() {
+            return reflectedBindingEvaluationContext;
+        }
 
-		@Override
-		public String getURI() {
-			if (getVirtualModel() != null) {
-				return getVirtualModel().getURI();
-			}
-			return null;
-		}
+        @Override
+        public String getURI() {
+            if (getVirtualModel() != null) {
+                return getVirtualModel().getURI();
+            }
+            return null;
+        }
 
-		@Override
-		public void setURI(String anURI) {
-			if (getVirtualModel() != null) {
-				getVirtualModel().setURI(anURI);
-			}
-		}
+        @Override
+        public void setURI(String anURI) {
+            if (getVirtualModel() != null) {
+                getVirtualModel().setURI(anURI);
+            }
+        }
 
-		@Override
-		public FMLModelFactory getFMLModelFactory() {
+        @Override
+        public FMLModelFactory getFMLModelFactory() {
 
-			if (getResource() != null) {
-				return getResource().getFactory();
-			}
-			else {
-				return getDeserializationFactory();
-			}
-		}
+            if (getResource() != null) {
+                return getResource().getFactory();
+            } else {
+                return getDeserializationFactory();
+            }
+        }
 
-		private BindingFactory BINDING_FACTORY;
+        @Override
+        public BindingFactory getBindingFactory() {
+            if (BINDING_FACTORY == null) {
+                BINDING_FACTORY = new CompilationUnitBindingFactory(this);
+            }
+            return BINDING_FACTORY;
+        }
 
-		@Override
-		public BindingFactory getBindingFactory() {
-			if (BINDING_FACTORY == null) {
-				BINDING_FACTORY = new CompilationUnitBindingFactory(this);
-			}
-			return BINDING_FACTORY;
-		}
+        @Override
+        public FMLTypingSpace getTypingSpace() {
+            return typingSpace;
+        }
 
-		@Override
-		public FMLTypingSpace getTypingSpace() {
-			return typingSpace;
-		}
+        @Override
+        public FMLCompilationUnit getResourceData() {
+            return this;
+        }
 
-		@Override
-		public FMLCompilationUnit getResourceData() {
-			return this;
-		}
+        @Override
+        public String getName() {
+            if (getResource() != null) {
+                if (!getResource().getName().endsWith(CompilationUnitResourceFactory.FML_SUFFIX)) {
+                    return getResource().getName() + CompilationUnitResourceFactory.FML_SUFFIX;
+                }
+                return getResource().getName();
+            }
+            return super.getName();
+        }
 
-		@Override
-		public String getName() {
-			if (getResource() != null) {
-				if (!getResource().getName().endsWith(CompilationUnitResourceFactory.FML_SUFFIX)) {
-					return getResource().getName() + CompilationUnitResourceFactory.FML_SUFFIX;
-				}
-				return getResource().getName();
-			}
-			return super.getName();
-		}
+        @Override
+        public void setName(String name) throws InvalidNameException {
+            String simpleName;
+            if (name != null && name.endsWith(CompilationUnitResourceFactory.FML_SUFFIX)) {
+                simpleName = name.substring(0, name.length() - CompilationUnitResourceFactory.FML_SUFFIX.length());
+            } else {
+                simpleName = name;
+            }
+            if (getVirtualModel() != null) {
+                getVirtualModel().setName(simpleName);
+            }
+            if (getResource() != null) {
+                try {
+                    getResource().setName(simpleName);
+                } catch (CannotRenameException e) {
+                    throw new InvalidNameException(this, name);
+                }
+            }
 
-		@Override
-		public void setName(String name) throws InvalidNameException {
-			String simpleName;
-			if (name != null && name.endsWith(CompilationUnitResourceFactory.FML_SUFFIX)) {
-				simpleName = name.substring(0, name.length() - CompilationUnitResourceFactory.FML_SUFFIX.length());
-			}
-			else {
-				simpleName = name;
-			}
-			if (getVirtualModel() != null) {
-				getVirtualModel().setName(simpleName);
-			}
-			if (getResource() != null) {
-				try {
-					getResource().setName(simpleName);
-				} catch (CannotRenameException e) {
-					throw new InvalidNameException(this, name);
-				}
-			}
+        }
 
-		}
+        @Override
+        public String toString() {
+            return "FMLCompilationUnit[" + getVirtualModel() + "]";
+        }
 
-		@Override
-		public String toString() {
-			return "FMLCompilationUnit[" + getVirtualModel() + "]";
-		}
+        @Override
+        public CompilationUnitBindingModel getBindingModel() {
+            if (bindingModel == null) {
+                bindingModel = new CompilationUnitBindingModel(this);
+                getPropertyChangeSupport().firePropertyChange(Bindable.BINDING_MODEL_PROPERTY, null, bindingModel);
+            }
+            return bindingModel;
+        }
 
-		@Override
-		public CompilationUnitBindingModel getBindingModel() {
-			if (bindingModel == null) {
-				bindingModel = new CompilationUnitBindingModel(this);
-				getPropertyChangeSupport().firePropertyChange(Bindable.BINDING_MODEL_PROPERTY, null, bindingModel);
-			}
-			return bindingModel;
-		}
+        @Override
+        public CompilationUnitResource getResource() {
+            return resource;
+        }
 
-		@Override
-		public CompilationUnitResource getResource() {
-			return resource;
-		}
+        @Override
+        public void setResource(FlexoResource<FMLCompilationUnit> resource) {
+            this.resource = (CompilationUnitResource) resource;
+            if (getVirtualModel() != null) {
+                getVirtualModel().getBindingModel().update();
+            }
+        }
 
-		@Override
-		public void setResource(FlexoResource<FMLCompilationUnit> resource) {
-			this.resource = (CompilationUnitResource) resource;
-			if (getVirtualModel() != null) {
-				getVirtualModel().getBindingModel().update();
-			}
-		}
+        /**
+         * Convenient method used to retrieved {@link CompilationUnitResource}
+         *
+         * @return
+         */
+        @Override
+        public CompilationUnitResource getVirtualModelResource() {
+            return getResource();
+        }
 
-		/**
-		 * Convenient method used to retrieved {@link CompilationUnitResource}
-		 * 
-		 * @return
-		 */
-		@Override
-		public CompilationUnitResource getVirtualModelResource() {
-			return getResource();
-		}
+        @Override
+        public void finalizeDeserialization() {
+            if (getVirtualModel() != null) {
+                getVirtualModel().finalizeDeserialization();
+            }
+            super.finalizeDeserialization();
+        }
 
-		@Override
-		public void finalizeDeserialization() {
-			if (getVirtualModel() != null) {
-				getVirtualModel().finalizeDeserialization();
-			}
-			super.finalizeDeserialization();
-		}
+        @Override
+        public FlexoVersion getVersion() {
+            if (getVirtualModel() != null) {
+                return getVirtualModel().getVersion();
+            }
+            if (getResource() != null) {
+                return getResource().getVersion();
+            }
+            return null;
+        }
 
-		@Override
-		public FlexoVersion getVersion() {
-			if (getVirtualModel() != null) {
-				return getVirtualModel().getVersion();
-			}
-			if (getResource() != null) {
-				return getResource().getVersion();
-			}
-			return null;
-		}
+        @Override
+        public void setVersion(FlexoVersion aVersion) {
+            if (requireChange(getVersion(), aVersion)) {
+                if (getVirtualModel() != null) {
+                    getVirtualModel().setVersion(aVersion);
+                }
+                if (getResource() != null) {
+                    getResource().setVersion(aVersion);
+                }
+            }
+        }
 
-		@Override
-		public void setVersion(FlexoVersion aVersion) {
-			if (requireChange(getVersion(), aVersion)) {
-				if (getVirtualModel() != null) {
-					getVirtualModel().setVersion(aVersion);
-				}
-				if (getResource() != null) {
-					getResource().setVersion(aVersion);
-				}
-			}
-		}
+        @Override
+        @Deprecated
+        public FlexoConcept getFlexoConcept(String flexoConceptNameOrURI) {
+            if (getVirtualModel() != null) {
+                if (getVirtualModel().getName().equals(flexoConceptNameOrURI)) {
+                    return getVirtualModel();
+                }
+                if (getVirtualModel().getURI().equals(flexoConceptNameOrURI)) {
+                    return getVirtualModel();
+                }
 
-		@Override
-		@Deprecated
-		public FlexoConcept getFlexoConcept(String flexoConceptNameOrURI) {
-			if (getVirtualModel() != null) {
-				if (getVirtualModel().getName().equals(flexoConceptNameOrURI)) {
-					return getVirtualModel();
-				}
-				if (getVirtualModel().getURI().equals(flexoConceptNameOrURI)) {
-					return getVirtualModel();
-				}
+                FlexoConcept returned = getVirtualModel().getFlexoConcept(flexoConceptNameOrURI);
+                if (returned != null) {
+                    return returned;
+                }
+            }
 
-				FlexoConcept returned = getVirtualModel().getFlexoConcept(flexoConceptNameOrURI);
-				if (returned != null) {
-					return returned;
-				}
-			}
+            for (ElementImportDeclaration importDeclaration : getElementImports()) {
+                try {
+                    String resourceURI = null;
+                    Object resourceRef = importDeclaration.getResourceReference().getBindingValue(this);
+                    if (resourceRef instanceof String) {
+                        resourceURI = (String) resourceRef;
+                    } else if (resourceRef instanceof ResourceData) {
+                        resourceURI = ((ResourceData) resourceRef).getResource().getURI();
+                    } else {
+                        logger.warning("Unexpected resourceRef: " + resourceRef + " for " + importDeclaration);
+                        continue;
+                    }
+                    if (getServiceManager() == null || getServiceManager().getResourceManager() == null) {
+                        logger.warning("Unexpected null ResourceManager");
+                        return null;
+                    }
+                    FlexoResource resource = getServiceManager().getResourceManager().getResource(resourceURI);
+                    if (resource instanceof CompilationUnitResource && resource.isLoaded()) {
+                        FMLCompilationUnit importedCompilationUnit = ((CompilationUnitResource) resource).getCompilationUnit();
+                        if (importedCompilationUnit != this) {
+                            FlexoConcept returned = importedCompilationUnit.getFlexoConcept(flexoConceptNameOrURI);
+                            if (returned != null) {
+                                return returned;
+                            }
+                        }
+                    }
+                } catch (TypeMismatchException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (NullReferenceException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (ReflectiveOperationException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
 
-			for (ElementImportDeclaration importDeclaration : getElementImports()) {
-				try {
-					String resourceURI = null;
-					Object resourceRef = importDeclaration.getResourceReference().getBindingValue(this);
-					if (resourceRef instanceof String) {
-						resourceURI = (String) resourceRef;
-					}
-					else if (resourceRef instanceof ResourceData) {
-						resourceURI = ((ResourceData) resourceRef).getResource().getURI();
-					}
-					else {
-						logger.warning("Unexpected resourceRef: " + resourceRef + " for " + importDeclaration);
-						continue;
-					}
-					if (getServiceManager() == null || getServiceManager().getResourceManager() == null) {
-						logger.warning("Unexpected null ResourceManager");
-						return null;
-					}
-					FlexoResource resource = getServiceManager().getResourceManager().getResource(resourceURI);
-					if (resource instanceof CompilationUnitResource && resource.isLoaded()) {
-						FMLCompilationUnit importedCompilationUnit = ((CompilationUnitResource) resource).getCompilationUnit();
-						if (importedCompilationUnit != this) {
-							FlexoConcept returned = importedCompilationUnit.getFlexoConcept(flexoConceptNameOrURI);
-							if (returned != null) {
-								return returned;
-							}
-						}
-					}
-				} catch (TypeMismatchException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NullReferenceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ReflectiveOperationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+            return null;
+        }
 
-			return null;
-		}
+        @Override
+        public FlexoConcept lookupFlexoConceptWithURI(String conceptURI) {
+            // TODO rewrite this
+            return getFlexoConcept(conceptURI);
+        }
 
-		@Override
-		public FlexoConcept lookupFlexoConceptWithURI(String conceptURI) {
-			// TODO rewrite this
-			return getFlexoConcept(conceptURI);
-		}
+        @Override
+        public FlexoConcept lookupFlexoConceptWithName(String conceptName) {
+            return performLookupFlexoConceptWithName(conceptName, new ArrayList<>());
+        }
 
-		@Override
-		public FlexoConcept lookupFlexoConceptWithName(String conceptName) {
-			return performLookupFlexoConceptWithName(conceptName, new ArrayList<>());
-		}
+        private FlexoConcept performLookupFlexoConceptWithName(String conceptName, List<CompilationUnitResource> visited) {
 
-		private FlexoConcept performLookupFlexoConceptWithName(String conceptName, List<CompilationUnitResource> visited) {
+            if (visited.contains(getResource())) {
+                return null;
+            }
 
-			if (visited.contains(getResource())) {
-				return null;
-			}
+            FlexoConcept returned = getVirtualModel().lookupFlexoConceptWithName(conceptName);
+            visited.add(getResource());
+            if (returned != null) {
+                return returned;
+            }
 
-			FlexoConcept returned = getVirtualModel().lookupFlexoConceptWithName(conceptName);
-			visited.add(getResource());
-			if (returned != null) {
-				return returned;
-			}
+            for (ElementImportDeclaration importDeclaration : getElementImports()) {
 
-			for (ElementImportDeclaration importDeclaration : getElementImports()) {
+                // System.out.println(" > Import " + importDeclaration);
+                try {
+                    String resourceURI = null;
+                    Object resourceRef = importDeclaration.getResourceReference().getBindingValue(this);
+                    // System.out.println("resourceRef=" + resourceRef);
+                    if (resourceRef instanceof String) {
+                        resourceURI = (String) resourceRef;
+                    } else if (resourceRef instanceof ResourceData) {
+                        resourceURI = ((ResourceData) resourceRef).getResource().getURI();
+                    } else {
+                        logger.warning("Unexpected resourceRef: " + resourceRef + " for " + importDeclaration);
+                        continue;
+                    }
+                    if (getServiceManager() == null || getServiceManager().getResourceManager() == null) {
+                        logger.warning("Unexpected null ResourceManager");
+                        return null;
+                    }
+                    FlexoResource resource = getServiceManager().getResourceManager().getResource(resourceURI);
+                    // System.out.println("resource: " + resource + " loaded: " + resource.isLoaded());
+                    if (resource instanceof CompilationUnitResource && resource.isLoaded() && !visited.contains(resource)) {
+                        FMLCompilationUnitImpl importedCompilationUnit = (FMLCompilationUnitImpl) ((CompilationUnitResource) resource)
+                                .getCompilationUnit();
+                        returned = importedCompilationUnit.performLookupFlexoConceptWithName(conceptName, visited);
+                        if (returned != null) {
+                            return returned;
+                        }
+                    }
+                } catch (TypeMismatchException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (NullReferenceException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (ReflectiveOperationException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
 
-				// System.out.println(" > Import " + importDeclaration);
-				try {
-					String resourceURI = null;
-					Object resourceRef = importDeclaration.getResourceReference().getBindingValue(this);
-					// System.out.println("resourceRef=" + resourceRef);
-					if (resourceRef instanceof String) {
-						resourceURI = (String) resourceRef;
-					}
-					else if (resourceRef instanceof ResourceData) {
-						resourceURI = ((ResourceData) resourceRef).getResource().getURI();
-					}
-					else {
-						logger.warning("Unexpected resourceRef: " + resourceRef + " for " + importDeclaration);
-						continue;
-					}
-					if (getServiceManager() == null || getServiceManager().getResourceManager() == null) {
-						logger.warning("Unexpected null ResourceManager");
-						return null;
-					}
-					FlexoResource resource = getServiceManager().getResourceManager().getResource(resourceURI);
-					// System.out.println("resource: " + resource + " loaded: " + resource.isLoaded());
-					if (resource instanceof CompilationUnitResource && resource.isLoaded() && !visited.contains(resource)) {
-						FMLCompilationUnitImpl importedCompilationUnit = (FMLCompilationUnitImpl) ((CompilationUnitResource) resource)
-								.getCompilationUnit();
-						returned = importedCompilationUnit.performLookupFlexoConceptWithName(conceptName, visited);
-						if (returned != null) {
-							return returned;
-						}
-					}
-				} catch (TypeMismatchException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NullReferenceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ReflectiveOperationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			return null;
-		}
+        @Override
+        public FMLTechnologyAdapter getTechnologyAdapter() {
+            if (getResource() != null) {
+                return getResource().getTechnologyAdapter();
+            }
+            return null;
+        }
 
-		@Override
-		public FMLTechnologyAdapter getTechnologyAdapter() {
-			if (getResource() != null) {
-				return getResource().getTechnologyAdapter();
-			}
-			return null;
-		}
+        @Override
+        public FMLObject getObject(String objectURI) {
+            return getVirtualModelLibrary().getFMLObject(objectURI, true);
+        }
 
-		@Override
-		public FMLObject getObject(String objectURI) {
-			return getVirtualModelLibrary().getFMLObject(objectURI, true);
-		}
+        @Override
+        public boolean delete(Object... context) {
 
-		@Override
-		public boolean delete(Object... context) {
-
-			// Unregister the resource from the virtual model library
-			if (getResource() != null && getVirtualModelLibrary() != null) {
-				getVirtualModelLibrary().unregisterCompilationUnit(getResource());
-			}
+            // Unregister the resource from the virtual model library
+            if (getResource() != null && getVirtualModelLibrary() != null) {
+                getVirtualModelLibrary().unregisterCompilationUnit(getResource());
+            }
 
 			/*if (bindingModel != null) {
 				bindingModel.delete();
 			}*/
 
-			boolean returned = performSuperDelete(context);
+            boolean returned = performSuperDelete(context);
 
-			// Delete observers
-			deleteObservers();
+            // Delete observers
+            deleteObservers();
 
-			return returned;
-		}
+            return returned;
+        }
 
-		@Override
-		public VirtualModelLibrary getVirtualModelLibrary() {
-			if (getResource() != null) {
-				return getResource().getVirtualModelLibrary();
-			}
-			return null;
-		}
+        @Override
+        public VirtualModelLibrary getVirtualModelLibrary() {
+            if (getResource() != null) {
+                return getResource().getVirtualModelLibrary();
+            }
+            return null;
+        }
 
-		/**
-		 * Return the list of {@link TechnologyAdapter} used in the context of this {@link FMLCompilationUnit}
-		 * 
-		 * @return
-		 */
-		@Override
-		public List<TechnologyAdapter> getRequiredTechnologyAdapters() {
+        /**
+         * Return the list of {@link TechnologyAdapter} used in the context of this {@link FMLCompilationUnit}
+         *
+         * @return
+         */
+        @Override
+        public List<TechnologyAdapter> getRequiredTechnologyAdapters() {
 
-			// TODO: implement this with #use
-			List<TechnologyAdapter> returned = new ArrayList<>();
-			returned.add(getTechnologyAdapter());
-			for (ModelSlot<?, ?> ms : getVirtualModel().getModelSlots()) {
-				if (!returned.contains(ms.getModelSlotTechnologyAdapter())) {
-					returned.add(ms.getModelSlotTechnologyAdapter());
-				}
-			}
-			loadContainedVirtualModelsWhenUnloaded();
-			for (VirtualModel vm : getVirtualModel().getVirtualModels()) {
-				for (TechnologyAdapter<?> ta : vm.getCompilationUnit().getRequiredTechnologyAdapters()) {
-					if (!returned.contains(ta)) {
-						returned.add(ta);
-					}
-				}
-			}
-			return returned;
-		}
+            // TODO: implement this with #use
+            List<TechnologyAdapter> returned = new ArrayList<>();
+            returned.add(getTechnologyAdapter());
+            for (ModelSlot<?, ?> ms : getVirtualModel().getModelSlots()) {
+                if (!returned.contains(ms.getModelSlotTechnologyAdapter())) {
+                    returned.add(ms.getModelSlotTechnologyAdapter());
+                }
+            }
+            loadContainedVirtualModelsWhenUnloaded();
+            for (VirtualModel vm : getVirtualModel().getVirtualModels()) {
+                for (TechnologyAdapter<?> ta : vm.getCompilationUnit().getRequiredTechnologyAdapters()) {
+                    if (!returned.contains(ta)) {
+                        returned.add(ta);
+                    }
+                }
+            }
+            return returned;
+        }
 
-		private boolean isLoading = false;
+        /**
+         * Return container {@link FMLCompilationUnit}
+         *
+         * @return
+         */
+        @Override
+        public FMLCompilationUnit getContainerCompilationUnit() {
+            if (getResource() != null && getResource().getContainer() != null) {
+                return getResource().getContainer().getCompilationUnit();
+            }
+            return null;
+        }
 
-		/**
-		 * Return container {@link FMLCompilationUnit}
-		 * 
-		 * @return
-		 */
-		@Override
-		public FMLCompilationUnit getContainerCompilationUnit() {
-			if (getResource() != null && getResource().getContainer() != null) {
-				return getResource().getContainer().getCompilationUnit();
-			}
-			return null;
-		}
+        /**
+         * Load eventually unloaded VirtualModels<br>
+         * After this call return, we can safely assert that all {@link VirtualModel} are loaded.
+         */
+        @Override
+        public void loadContainedVirtualModelsWhenUnloaded() {
+            if (isLoading) {
+                return;
+            }
+            if (!isLoading) {
+                isLoading = true;
+                if (getResource() != null) {
+                    for (org.openflexo.foundation.resource.FlexoResource<?> r : getResource().getContents()) {
+                        if (r instanceof CompilationUnitResource) {
+                            ((CompilationUnitResource) r).getCompilationUnit();
+                        }
+                    }
+                }
+            }
 
-		/**
-		 * Load eventually unloaded VirtualModels<br>
-		 * After this call return, we can safely assert that all {@link VirtualModel} are loaded.
-		 */
-		@Override
-		public void loadContainedVirtualModelsWhenUnloaded() {
-			if (isLoading) {
-				return;
-			}
-			if (!isLoading) {
-				isLoading = true;
-				if (getResource() != null) {
-					for (org.openflexo.foundation.resource.FlexoResource<?> r : getResource().getContents()) {
-						if (r instanceof CompilationUnitResource) {
-							((CompilationUnitResource) r).getCompilationUnit();
-						}
-					}
-				}
-			}
+            isLoading = false;
+        }
 
-			isLoading = false;
-		}
+        /**
+         * Return {@link VirtualModel} with supplied name or URI
+         *
+         * @return
+         */
+        @Override
+        @Deprecated
+        public VirtualModel getVirtualModelNamed(String virtualModelNameOrURI) {
 
-		/**
-		 * Return {@link VirtualModel} with supplied name or URI
-		 * 
-		 * @return
-		 */
-		@Override
-		@Deprecated
-		public VirtualModel getVirtualModelNamed(String virtualModelNameOrURI) {
+            if (getResource() != null) {
+                VirtualModel returned = getContainedVirtualModelNamed(getResource(), virtualModelNameOrURI);
+                if (returned != null) {
+                    return returned;
+                }
+            }
 
-			if (getResource() != null) {
-				VirtualModel returned = getContainedVirtualModelNamed(getResource(), virtualModelNameOrURI);
-				if (returned != null) {
-					return returned;
-				}
-			}
+            if (getVirtualModel().getContainerVirtualModel() != null) {
+                return getVirtualModel().getContainerVirtualModel().getVirtualModelNamed(virtualModelNameOrURI);
+            }
 
-			if (getVirtualModel().getContainerVirtualModel() != null) {
-				return getVirtualModel().getContainerVirtualModel().getVirtualModelNamed(virtualModelNameOrURI);
-			}
+            if (getVirtualModelLibrary() != null) {
+                try {
+                    return getVirtualModelLibrary().getVirtualModel(virtualModelNameOrURI);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (ResourceLoadingCancelledException e) {
+                    e.printStackTrace();
+                } catch (FlexoException e) {
+                    e.printStackTrace();
+                }
+            }
 
-			if (getVirtualModelLibrary() != null) {
-				try {
-					return getVirtualModelLibrary().getVirtualModel(virtualModelNameOrURI);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (ResourceLoadingCancelledException e) {
-					e.printStackTrace();
-				} catch (FlexoException e) {
-					e.printStackTrace();
-				}
-			}
+            // Not found
+            return null;
+        }
 
-			// Not found
-			return null;
-		}
+        private VirtualModel getContainedVirtualModelNamed(CompilationUnitResource resource, String virtualModelNameOrURI) {
 
-		private VirtualModel getContainedVirtualModelNamed(CompilationUnitResource resource, String virtualModelNameOrURI) {
+            if (resource != null) {
+                for (CompilationUnitResource vmRes : resource.getContents(CompilationUnitResource.class)) {
+                    if (vmRes.getName().equals(virtualModelNameOrURI)) {
+                        return vmRes.getCompilationUnit().getVirtualModel();
+                    }
+                    if (vmRes.getURI().equals(virtualModelNameOrURI)) {
+                        return vmRes.getCompilationUnit().getVirtualModel();
+                    }
+                    VirtualModel returned = getContainedVirtualModelNamed(vmRes, virtualModelNameOrURI);
+                    if (returned != null) {
+                        return returned;
+                    }
+                }
+            }
 
-			if (resource != null) {
-				for (CompilationUnitResource vmRes : resource.getContents(CompilationUnitResource.class)) {
-					if (vmRes.getName().equals(virtualModelNameOrURI)) {
-						return vmRes.getCompilationUnit().getVirtualModel();
-					}
-					if (vmRes.getURI().equals(virtualModelNameOrURI)) {
-						return vmRes.getCompilationUnit().getVirtualModel();
-					}
-					VirtualModel returned = getContainedVirtualModelNamed(vmRes, virtualModelNameOrURI);
-					if (returned != null) {
-						return returned;
-					}
-				}
-			}
+            // Not found
+            return null;
+        }
 
-			// Not found
-			return null;
-		}
+        private Resource getLocalizedDirectoryResource() {
+            Resource virtualModelDirectory = getResource().getIODelegate().getSerializationArtefactAsResource().getContainer();
+            List<? extends Resource> localizedDirs = virtualModelDirectory.getContents(Pattern.compile(".*/Localized"), false);
+            if (localizedDirs.size() > 0) {
+                return localizedDirs.get(0);
+            }
+            if (virtualModelDirectory instanceof FileResourceImpl) {
+                try {
+                    return new FileResourceImpl(virtualModelDirectory.getLocator(),
+                            new File(((FileResourceImpl) virtualModelDirectory).getFile(), "Localized"));
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (LocatorNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            logger.warning("Cannot find localized directory for " + this);
+            return null;
+        }
 
-		private LocalizedDelegateImpl localized;
+        private LocalizedDelegateImpl instantiateOrLoadLocales() {
+            if (getResource() != null) {
+                Resource localizedDirectoryResource = getLocalizedDirectoryResource();
+                if (localizedDirectoryResource == null) {
+                    return null;
+                }
+                boolean editSupport = getResource().getIODelegate().getSerializationArtefactAsResource() instanceof FileResourceImpl;
+                logger.info("Reading locales from " + localizedDirectoryResource);
+                LocalizedDelegateImpl returned = new LocalizedDelegateImpl(localizedDirectoryResource,
+                        getVirtualModel().getContainerVirtualModel() != null ? getVirtualModel().getContainerVirtualModel().getLocales()
+                                : getServiceManager().getLocalizationService().getFlexoLocalizer(),
+                        editSupport, editSupport);
+                returned.setLocalizationRetriever(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchNewLocalizedEntries();
+                    }
+                });
+                return returned;
 
-		private Resource getLocalizedDirectoryResource() {
-			Resource virtualModelDirectory = getResource().getIODelegate().getSerializationArtefactAsResource().getContainer();
-			List<? extends Resource> localizedDirs = virtualModelDirectory.getContents(Pattern.compile(".*/Localized"), false);
-			if (localizedDirs.size() > 0) {
-				return localizedDirs.get(0);
-			}
-			if (virtualModelDirectory instanceof FileResourceImpl) {
-				try {
-					return new FileResourceImpl(virtualModelDirectory.getLocator(),
-							new File(((FileResourceImpl) virtualModelDirectory).getFile(), "Localized"));
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (LocatorNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			logger.warning("Cannot find localized directory for " + this);
-			return null;
-		}
+            }
+            return null;
+        }
 
-		private LocalizedDelegateImpl instantiateOrLoadLocales() {
-			if (getResource() != null) {
-				Resource localizedDirectoryResource = getLocalizedDirectoryResource();
-				if (localizedDirectoryResource == null) {
-					return null;
-				}
-				boolean editSupport = getResource().getIODelegate().getSerializationArtefactAsResource() instanceof FileResourceImpl;
-				logger.info("Reading locales from " + localizedDirectoryResource);
-				LocalizedDelegateImpl returned = new LocalizedDelegateImpl(localizedDirectoryResource,
-						getVirtualModel().getContainerVirtualModel() != null ? getVirtualModel().getContainerVirtualModel().getLocales()
-								: getServiceManager().getLocalizationService().getFlexoLocalizer(),
-						editSupport, editSupport);
-				returned.setLocalizationRetriever(new Runnable() {
-					@Override
-					public void run() {
-						searchNewLocalizedEntries();
-					}
-				});
-				return returned;
-
-			}
-			return null;
-		}
-
-		@Override
-		public LocalizedDelegate getLocalizedDictionary() {
-			if (localized == null) {
-				localized = instantiateOrLoadLocales();
-				if (localized == null) {
-					// Cannot load locales
-					if (getServiceManager() != null) {
-						return getServiceManager().getLocalizationService().getFlexoLocalizer();
-					}
-					return null;
-				}
-				// Converting old dictionaries
+        @Override
+        public LocalizedDelegate getLocalizedDictionary() {
+            if (localized == null) {
+                localized = instantiateOrLoadLocales();
+                if (localized == null) {
+                    // Cannot load locales
+                    if (getServiceManager() != null) {
+                        return getServiceManager().getLocalizationService().getFlexoLocalizer();
+                    }
+                    return null;
+                }
+                // Converting old dictionaries
 				/*if (getDeprecatedLocalizedDictionary() != null) {
 					for (FMLLocalizedEntry fmlLocalizedEntry : getDeprecatedLocalizedDictionary().getLocalizedEntries()) {
 						localized.registerNewEntry(fmlLocalizedEntry.getKey(), Language.get(fmlLocalizedEntry.getLanguage()),
 								fmlLocalizedEntry.getValue());
 					}
 				}*/
-			}
-			return localized;
-		}
-
-		public void createLocalizedDictionaryWhenNonExistant() {
-			if (localized == null) {
-				logger.fine("createLocalizedDictionary for " + this);
-				localized = instantiateOrLoadLocales();
-			}
-		}
+            }
+            return localized;
+        }
 
 		/*@Override
 		public FMLLocalizedDictionary getDeprecatedLocalizedDictionary() {
@@ -1074,493 +991,500 @@ public interface FMLCompilationUnit extends FMLObject, FMLPrettyPrintable, Resou
 			return (FMLLocalizedDictionary) performSuperGetter(LOCALIZED_DICTIONARY_KEY);
 		}*/
 
-		private void searchNewEntriesForConcept(FlexoConcept concept) {
-			// checkAndRegisterLocalized(concept.getName());
-			for (FlexoBehaviour es : concept.getFlexoBehaviours()) {
-				// checkAndRegisterLocalized(es.getName(), normalizedKey -> es.setLabel(normalizedKey));
-				// checkAndRegisterLocalized(es.getDescription());
-				for (FlexoBehaviourParameter p : es.getParameters()) {
-					checkAndRegisterLocalized(p.getName());
-				}
-				for (InspectorEntry entry : concept.getInspector().getEntries()) {
-					checkAndRegisterLocalized(entry.getLabel(), normalizedKey -> entry.setLabel(normalizedKey));
-				}
-			}
-		}
+        public void createLocalizedDictionaryWhenNonExistant() {
+            if (localized == null) {
+                logger.fine("createLocalizedDictionary for " + this);
+                localized = instantiateOrLoadLocales();
+            }
+        }
 
-		private void searchNewLocalizedEntries() {
-			logger.info("Search new entries for " + this);
+        private void searchNewEntriesForConcept(FlexoConcept concept) {
+            // checkAndRegisterLocalized(concept.getName());
+            for (FlexoBehaviour es : concept.getFlexoBehaviours()) {
+                // checkAndRegisterLocalized(es.getName(), normalizedKey -> es.setLabel(normalizedKey));
+                // checkAndRegisterLocalized(es.getDescription());
+                for (FlexoBehaviourParameter p : es.getParameters()) {
+                    checkAndRegisterLocalized(p.getName());
+                }
+                for (InspectorEntry entry : concept.getInspector().getEntries()) {
+                    checkAndRegisterLocalized(entry.getLabel(), normalizedKey -> entry.setLabel(normalizedKey));
+                }
+            }
+        }
 
-			CompoundEdit ce = null;
-			FMLModelFactory factory = null;
+        private void searchNewLocalizedEntries() {
+            logger.info("Search new entries for " + this);
 
-			factory = getFMLModelFactory();
-			if (factory != null) {
-				if (!factory.getEditingContext().getUndoManager().isBeeingRecording()) {
-					ce = factory.getEditingContext().getUndoManager().startRecording("localize_virtual_model");
-				}
-			}
+            CompoundEdit ce = null;
+            FMLModelFactory factory = null;
 
-			searchNewEntriesForConcept(getVirtualModel());
+            factory = getFMLModelFactory();
+            if (factory != null) {
+                if (!factory.getEditingContext().getUndoManager().isBeeingRecording()) {
+                    ce = factory.getEditingContext().getUndoManager().startRecording("localize_virtual_model");
+                }
+            }
 
-			for (FlexoConcept concept : getVirtualModel().getFlexoConcepts()) {
-				searchNewEntriesForConcept(concept);
-			}
+            searchNewEntriesForConcept(getVirtualModel());
 
-			if (factory != null) {
-				if (ce != null) {
-					factory.getEditingContext().getUndoManager().stopRecording(ce);
-				}
-				else if (factory.getEditingContext().getUndoManager().isBeeingRecording()) {
-					factory.getEditingContext().getUndoManager()
-							.stopRecording(factory.getEditingContext().getUndoManager().getCurrentEdition());
-				}
-			}
+            for (FlexoConcept concept : getVirtualModel().getFlexoConcepts()) {
+                searchNewEntriesForConcept(concept);
+            }
 
-			// getViewPoint().setChanged();
-			// getViewPoint().notifyObservers();
-		}
+            if (factory != null) {
+                if (ce != null) {
+                    factory.getEditingContext().getUndoManager().stopRecording(ce);
+                } else if (factory.getEditingContext().getUndoManager().isBeeingRecording()) {
+                    factory.getEditingContext().getUndoManager()
+                            .stopRecording(factory.getEditingContext().getUndoManager().getCurrentEdition());
+                }
+            }
 
-		private String checkAndRegisterLocalized(String key, Consumer<String> updateKey) {
+            // getViewPoint().setChanged();
+            // getViewPoint().notifyObservers();
+        }
 
-			// System.out.println("checkAndRegisterLocalized for " + key);
-			if (StringUtils.isEmpty(key)) {
-				return null;
-			}
+        private String checkAndRegisterLocalized(String key, Consumer<String> updateKey) {
 
-			String normalizedKey = StringUtils.toLocalizedKey(key.trim());
+            // System.out.println("checkAndRegisterLocalized for " + key);
+            if (StringUtils.isEmpty(key)) {
+                return null;
+            }
 
-			if (!key.equals(normalizedKey)) {
-				updateKey.accept(normalizedKey);
-			}
+            String normalizedKey = StringUtils.toLocalizedKey(key.trim());
 
-			getLocalizedDictionary().addEntry(normalizedKey);
-			return normalizedKey;
-		}
+            if (!key.equals(normalizedKey)) {
+                updateKey.accept(normalizedKey);
+            }
 
-		private String checkAndRegisterLocalized(String key) {
+            getLocalizedDictionary().addEntry(normalizedKey);
+            return normalizedKey;
+        }
 
-			// System.out.println("checkAndRegisterLocalized for " + key);
-			if (StringUtils.isEmpty(key)) {
-				return null;
-			}
+        private String checkAndRegisterLocalized(String key) {
 
-			getLocalizedDictionary().addEntry(key);
-			return key;
-		}
+            // System.out.println("checkAndRegisterLocalized for " + key);
+            if (StringUtils.isEmpty(key)) {
+                return null;
+            }
 
-		/**
-		 * Return list of {@link UseModelSlotDeclaration} accessible from this {@link VirtualModel}<br>
-		 * It includes the list of uses declarations accessible from parent and container
-		 * 
-		 * @return
-		 */
-		@Override
-		public List<UseModelSlotDeclaration> getAccessibleUseDeclarations() {
-			List<UseModelSlotDeclaration> returned = new ArrayList<>();
-			if (getContainerCompilationUnit() != null) {
-				returned.addAll(getContainerCompilationUnit().getAccessibleUseDeclarations());
-			}
-			for (UseModelSlotDeclaration useDecl : getUseDeclarations()) {
-				if (!returned.contains(useDecl)) {
-					returned.add(useDecl);
-				}
-			}
-			return returned;
-		}
+            getLocalizedDictionary().addEntry(key);
+            return key;
+        }
 
-		@Override
-		public <MS extends ModelSlot<?, ?>> boolean uses(Class<MS> modelSlotClass) {
-			if (modelSlotClass == null) {
-				return false;
-			}
-			for (UseModelSlotDeclaration useDecl : getAccessibleUseDeclarations()) {
-				if (modelSlotClass.equals(useDecl.getModelSlotClass())) {
-					return true;
-				}
-			}
-			return false;
-		}
+        /**
+         * Return list of {@link UseModelSlotDeclaration} accessible from this {@link VirtualModel}<br>
+         * It includes the list of uses declarations accessible from parent and container
+         *
+         * @return
+         */
+        @Override
+        public List<UseModelSlotDeclaration> getAccessibleUseDeclarations() {
+            List<UseModelSlotDeclaration> returned = new ArrayList<>();
+            if (getContainerCompilationUnit() != null) {
+                returned.addAll(getContainerCompilationUnit().getAccessibleUseDeclarations());
+            }
+            for (UseModelSlotDeclaration useDecl : getUseDeclarations()) {
+                if (!returned.contains(useDecl)) {
+                    returned.add(useDecl);
+                }
+            }
+            return returned;
+        }
 
-		@Override
-		public <MS extends ModelSlot<?, ?>> UseModelSlotDeclaration declareUse(Class<MS> modelSlotClass) {
-			if (modelSlotClass == null) {
-				return null;
-			}
+        @Override
+        public <MS extends ModelSlot<?, ?>> boolean uses(Class<MS> modelSlotClass) {
+            if (modelSlotClass == null) {
+                return false;
+            }
+            for (UseModelSlotDeclaration useDecl : getAccessibleUseDeclarations()) {
+                if (modelSlotClass.equals(useDecl.getModelSlotClass())) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-			List<Class<? extends ModelSlot<?, ?>>> usedModelSlots = new ArrayList<>();
-			for (UseModelSlotDeclaration msDecl : getUseDeclarations()) {
-				usedModelSlots.add(msDecl.getModelSlotClass());
-				if (modelSlotClass.equals(msDecl.getModelSlotClass())) {
-					return msDecl;
-				}
-			}
+        @Override
+        public <MS extends ModelSlot<?, ?>> UseModelSlotDeclaration declareUse(Class<MS> modelSlotClass) {
+            if (modelSlotClass == null) {
+                return null;
+            }
 
-			usedModelSlots.add(modelSlotClass);
-			if (getResource() != null) {
-				getResource().updateFMLModelFactory(usedModelSlots);
-			}
+            List<Class<? extends ModelSlot<?, ?>>> usedModelSlots = new ArrayList<>();
+            for (UseModelSlotDeclaration msDecl : getUseDeclarations()) {
+                usedModelSlots.add(msDecl.getModelSlotClass());
+                if (modelSlotClass.equals(msDecl.getModelSlotClass())) {
+                    return msDecl;
+                }
+            }
 
-			UseModelSlotDeclaration useDeclaration = getFMLModelFactory().newUseModelSlotDeclaration(modelSlotClass);
-			addToUseDeclarations(useDeclaration);
-			return useDeclaration;
-		}
+            usedModelSlots.add(modelSlotClass);
+            if (getResource() != null) {
+                getResource().updateFMLModelFactory(usedModelSlots);
+            }
 
-		@Override
-		public boolean isFMLPrettyPrintAvailable() {
-			if (isManagingImports) {
-				return false;
-			}
-			return true;
-		}
+            UseModelSlotDeclaration useDeclaration = getFMLModelFactory().newUseModelSlotDeclaration(modelSlotClass);
+            addToUseDeclarations(useDeclaration);
+            return useDeclaration;
+        }
 
-		@Override
-		public synchronized String getFMLPrettyPrint() {
-			manageImports();
-			return super.getFMLPrettyPrint();
-		}
+        @Override
+        public boolean isFMLPrettyPrintAvailable() {
+            if (isManagingImports) {
+                return false;
+            }
+            return true;
+        }
 
-		/**
-		 * Perform a full revalidation on all {@link DataBinding} declared in this {@link FMLCompilationUnit}
-		 * 
-		 * Recursively call
-		 */
-		@Override
-		public void revalidateAllBindings() {
-			accept(new PamelaVisitor() {
+        @Override
+        public synchronized String getFMLPrettyPrint() {
+            manageImports();
+            return super.getFMLPrettyPrint();
+        }
 
-				@Override
-				public void visit(Object object) {
-					if (object instanceof FMLObject && ((FMLObject) object).getDeclaringCompilationUnit() == FMLCompilationUnitImpl.this) {
-						((FMLObject) object).revalidateBindings();
-					}
-				}
-			}, VisitingStrategy.Exhaustive);
+        /**
+         * Perform a full revalidation on all {@link DataBinding} declared in this {@link FMLCompilationUnit}
+         *
+         * Recursively call
+         */
+        @Override
+        public void revalidateAllBindings() {
+            accept(new PamelaVisitor() {
 
-		}
+                @Override
+                public void visit(Object object) {
+                    if (object instanceof FMLObject && ((FMLObject) object).getDeclaringCompilationUnit() == FMLCompilationUnitImpl.this) {
+                        ((FMLObject) object).revalidateBindings();
+                    }
+                }
+            }, VisitingStrategy.Exhaustive);
 
-		private boolean isManagingImports = false;
+        }
 
-		/**
-		 * Analyze the whole structure of the compilation unit, and declare required imports
-		 */
-		@Override
-		public void manageImports() {
+        /**
+         * Analyze the whole structure of the compilation unit, and declare required imports
+         */
+        @Override
+        public void manageImports() {
 
-			// System.out.println("--------------> manageImports() in " + this);
+            // System.out.println("--------------> manageImports() in " + this);
 
-			if (isManagingImports) {
-				return;
-			}
+            if (isManagingImports) {
+                return;
+            }
 
-			isManagingImports = true;
+            isManagingImports = true;
 
-			accept(new PamelaVisitor() {
+            accept(new PamelaVisitor() {
 
-				@Override
-				public void visit(Object object) {
-					if (object instanceof FMLObject && ((FMLObject) object).getDeclaringCompilationUnit() == FMLCompilationUnitImpl.this) {
-						// System.out.println("> Visiting " + object + " of " + object.getClass().getSimpleName());
-						((FMLObject) object).handleRequiredImports(FMLCompilationUnitImpl.this);
-					}
-				}
-			}, VisitingStrategy.Exhaustive);
+                @Override
+                public void visit(Object object) {
+                    if (object instanceof FMLObject && ((FMLObject) object).getDeclaringCompilationUnit() == FMLCompilationUnitImpl.this) {
+                        // System.out.println("> Visiting " + object + " of " + object.getClass().getSimpleName());
+                        ((FMLObject) object).handleRequiredImports(FMLCompilationUnitImpl.this);
+                    }
+                }
+            }, VisitingStrategy.Exhaustive);
 
-			isManagingImports = false;
+            isManagingImports = false;
 
-		}
+        }
 
-		private ElementImportDeclaration retrieveImportDeclaration(FlexoObject object) {
-			for (ElementImportDeclaration elementImportDeclaration : getElementImports()) {
-				if (elementImportDeclaration.getReferencedObject() == object) {
-					return elementImportDeclaration;
-				}
-				if (elementImportDeclaration.getReferencedObject() != null
-						&& elementImportDeclaration.getReferencedObject().equalsObject(object)) {
-					return elementImportDeclaration;
-				}
-				if (elementImportDeclaration.getReferencedObject() instanceof FlexoProject) {
-					if (((FlexoProject) elementImportDeclaration.getReferencedObject()).getDelegateResourceCenter() == object) {
-						// Special case for FlexoProject and delegate ResourceCenter
-						return elementImportDeclaration;
-					}
-				}
-				// For FMLCompilationUnit, look at URI
-				if (object instanceof FMLCompilationUnit && ((FMLCompilationUnit) object).getVirtualModel() != null
-						&& elementImportDeclaration.getReferencedObject() instanceof FMLCompilationUnit
-						&& ((FMLCompilationUnit) elementImportDeclaration.getReferencedObject()).getVirtualModel() != null) {
-					if ((((FMLCompilationUnit) object).getVirtualModel().getURI()
-							.equals(((FMLCompilationUnit) elementImportDeclaration.getReferencedObject()).getVirtualModel().getURI()))) {
-						return elementImportDeclaration;
-					}
-				}
-				// For concepts, look at URI too
-				if (object instanceof FlexoConcept && elementImportDeclaration.getReferencedObject() instanceof FlexoConcept) {
-					if ((((FlexoConcept) object).getURI()
-							.equals(((FlexoConcept) elementImportDeclaration.getReferencedObject()).getURI()))) {
-						return elementImportDeclaration;
-					}
-				}
-			}
-			return null;
-		}
+        private ElementImportDeclaration retrieveImportDeclaration(FlexoObject object) {
+            for (ElementImportDeclaration elementImportDeclaration : getElementImports()) {
+                if (elementImportDeclaration.getReferencedObject() == object) {
+                    return elementImportDeclaration;
+                }
+                if (elementImportDeclaration.getReferencedObject() != null
+                        && elementImportDeclaration.getReferencedObject().equalsObject(object)) {
+                    return elementImportDeclaration;
+                }
+                if (elementImportDeclaration.getReferencedObject() instanceof FlexoProject) {
+                    if (((FlexoProject) elementImportDeclaration.getReferencedObject()).getDelegateResourceCenter() == object) {
+                        // Special case for FlexoProject and delegate ResourceCenter
+                        return elementImportDeclaration;
+                    }
+                }
+                // For FMLCompilationUnit, look at URI
+                if (object instanceof FMLCompilationUnit && ((FMLCompilationUnit) object).getVirtualModel() != null
+                        && elementImportDeclaration.getReferencedObject() instanceof FMLCompilationUnit
+                        && ((FMLCompilationUnit) elementImportDeclaration.getReferencedObject()).getVirtualModel() != null) {
+                    if ((((FMLCompilationUnit) object).getVirtualModel().getURI()
+                            .equals(((FMLCompilationUnit) elementImportDeclaration.getReferencedObject()).getVirtualModel().getURI()))) {
+                        return elementImportDeclaration;
+                    }
+                }
+                // For concepts, look at URI too
+                if (object instanceof FlexoConcept && elementImportDeclaration.getReferencedObject() instanceof FlexoConcept) {
+                    if ((((FlexoConcept) object).getURI()
+                            .equals(((FlexoConcept) elementImportDeclaration.getReferencedObject()).getURI()))) {
+                        return elementImportDeclaration;
+                    }
+                }
+            }
+            return null;
+        }
 
-		private String findUniqueRCAbbrev(FlexoResourceCenter<?> rc) {
-			String initialName = rc.getName();
-			if (initialName.contains("/")) {
-				initialName = initialName.substring(initialName.lastIndexOf("/"));
-			}
-			if (initialName.contains("\\")) {
-				initialName = initialName.substring(initialName.lastIndexOf("\\"));
-			}
-			String baseName = JavaUtils.getJavaName(initialName).toUpperCase();
-			String returned = baseName;
-			int i = 2;
-			while (getElementImport(returned) != null) {
-				returned = baseName + i;
-				i++;
-			}
-			return returned;
-		}
+        private String findUniqueRCAbbrev(FlexoResourceCenter<?> rc) {
+            String initialName = rc.getName();
+            if (initialName.contains("/")) {
+                initialName = initialName.substring(initialName.lastIndexOf("/"));
+            }
+            if (initialName.contains("\\")) {
+                initialName = initialName.substring(initialName.lastIndexOf("\\"));
+            }
+            String baseName = JavaUtils.getJavaName(initialName).toUpperCase();
+            String returned = baseName;
+            int i = 2;
+            while (getElementImport(returned) != null) {
+                returned = baseName + i;
+                i++;
+            }
+            return returned;
+        }
 
-		private <RD extends ResourceData<?> & FlexoObject> String findUniqueAbbrev(RD resourceData) {
-			if (resourceData instanceof FMLCompilationUnit) {
-				return resourceData.getResource().getName();
-			}
-			String initialName = resourceData.getResource().getName();
-			if (initialName.contains(".")) {
-				initialName = initialName.substring(0, initialName.lastIndexOf("."));
-			}
-			if (initialName.contains("/")) {
-				initialName = initialName.substring(initialName.lastIndexOf("/"));
-			}
-			if (initialName.contains("\\")) {
-				initialName = initialName.substring(initialName.lastIndexOf("\\"));
-			}
-			String baseName = JavaUtils.getJavaName(initialName);
-			baseName = JavaUtils.getConstantJavaName(baseName);
-			// TODO remove this code
-			// baseName = baseName.replace("_", "");
-			String returned = baseName;
-			int i = 2;
-			while (getElementImport(returned) != null) {
-				returned = baseName + i;
-				i++;
-			}
-			return returned;
-		}
+        private <RD extends ResourceData<?> & FlexoObject> String findUniqueAbbrev(RD resourceData) {
+            if (resourceData instanceof FMLCompilationUnit) {
+                return resourceData.getResource().getName();
+            }
+            String initialName = resourceData.getResource().getName();
+            if (initialName.contains(".")) {
+                initialName = initialName.substring(0, initialName.lastIndexOf("."));
+            }
+            if (initialName.contains("/")) {
+                initialName = initialName.substring(initialName.lastIndexOf("/"));
+            }
+            if (initialName.contains("\\")) {
+                initialName = initialName.substring(initialName.lastIndexOf("\\"));
+            }
+            String baseName = JavaUtils.getJavaName(initialName);
+            baseName = JavaUtils.getConstantJavaName(baseName);
+            // TODO remove this code
+            // baseName = baseName.replace("_", "");
+            String returned = baseName;
+            int i = 2;
+            while (getElementImport(returned) != null) {
+                returned = baseName + i;
+                i++;
+            }
+            return returned;
+        }
 
-		private <RD extends ResourceData<RD> & FlexoObject, E extends InnerResourceData<RD> & FlexoObject> String findUniqueAbbrev(
-				E element) {
-			String initialName = element.defaultAbbrevName();
-			String baseName = JavaUtils.getJavaName(initialName);
-			baseName = JavaUtils.getConstantJavaName(baseName);
-			// TODO remove this code
-			// baseName = baseName.replace("_", "");
-			String returned = baseName;
-			int i = 2;
-			while (getElementImport(returned) != null) {
-				returned = baseName + i;
-				i++;
-			}
-			return returned;
-		}
+        private <RD extends ResourceData<RD> & FlexoObject, E extends InnerResourceData<RD> & FlexoObject> String findUniqueAbbrev(
+                E element) {
+            String initialName = element.defaultAbbrevName();
+            String baseName = JavaUtils.getJavaName(initialName);
+            baseName = JavaUtils.getConstantJavaName(baseName);
+            // TODO remove this code
+            // baseName = baseName.replace("_", "");
+            String returned = baseName;
+            int i = 2;
+            while (getElementImport(returned) != null) {
+                returned = baseName + i;
+                i++;
+            }
+            return returned;
+        }
 
-		@Override
-		public NamespaceDeclaration ensureNamespaceDeclaration(FlexoResourceCenter<?> rc) {
-			NamespaceDeclaration nsDeclaration = retrieveNamespaceDeclaration(rc.getDefaultBaseURI());
-			if (nsDeclaration == null) {
-				nsDeclaration = getFMLModelFactory().newNamespaceDeclaration();
-				nsDeclaration.setValue(rc.getDefaultBaseURI());
-				nsDeclaration.setAbbrev(findUniqueRCAbbrev(rc));
-				addToNamespaces(nsDeclaration);
-			}
-			return nsDeclaration;
-		}
+        @Override
+        public NamespaceDeclaration ensureNamespaceDeclaration(FlexoResourceCenter<?> rc) {
+            NamespaceDeclaration nsDeclaration = retrieveNamespaceDeclaration(rc.getDefaultBaseURI());
+            if (nsDeclaration == null) {
+                nsDeclaration = getFMLModelFactory().newNamespaceDeclaration();
+                nsDeclaration.setValue(rc.getDefaultBaseURI());
+                nsDeclaration.setAbbrev(findUniqueRCAbbrev(rc));
+                addToNamespaces(nsDeclaration);
+            }
+            return nsDeclaration;
+        }
 
-		private NamespaceDeclaration retrieveNamespaceDeclaration(String value) {
-			for (NamespaceDeclaration namespaceDeclaration : getNamespaces()) {
-				if (value.equals(namespaceDeclaration.getValue())) {
-					return namespaceDeclaration;
-				}
-			}
-			return null;
-		}
+        private NamespaceDeclaration retrieveNamespaceDeclaration(String value) {
+            for (NamespaceDeclaration namespaceDeclaration : getNamespaces()) {
+                if (value.equals(namespaceDeclaration.getValue())) {
+                    return namespaceDeclaration;
+                }
+            }
+            return null;
+        }
 
-		@Override
-		public ElementImportDeclaration ensureResourceCenterImport(FlexoResourceCenter<?> rc) {
-			ElementImportDeclaration rcDeclaration = retrieveImportDeclaration(rc);
-			if (rcDeclaration == null) {
-				rcDeclaration = getFMLModelFactory().newElementImportDeclaration();
-				rcDeclaration.setResourceReference(new DataBinding<>('"' + rc.getDefaultBaseURI() + '"'));
-				rcDeclaration.setAbbrev(findUniqueRCAbbrev(rc));
-				addToElementImports(rcDeclaration);
-			}
-			return rcDeclaration;
-		}
+        @Override
+        public ElementImportDeclaration ensureResourceCenterImport(FlexoResourceCenter<?> rc) {
+            ElementImportDeclaration rcDeclaration = retrieveImportDeclaration(rc);
+            if (rcDeclaration == null) {
+                rcDeclaration = getFMLModelFactory().newElementImportDeclaration();
+                rcDeclaration.setResourceReference(new DataBinding<>('"' + rc.getDefaultBaseURI() + '"'));
+                rcDeclaration.setAbbrev(findUniqueRCAbbrev(rc));
+                addToElementImports(rcDeclaration);
+            }
+            return rcDeclaration;
+        }
 
-		private List<ResourceData> resourcesRequestedForImport = new ArrayList<>();
+        @Override
+        public <RD extends ResourceData<RD> & FlexoObject> ElementImportDeclaration ensureResourceImport(RD resourceData,
+                                                                                                         boolean anonymous) {
 
-		@Override
-		public <RD extends ResourceData<RD> & FlexoObject> ElementImportDeclaration ensureResourceImport(RD resourceData,
-				boolean anonymous) {
+            if (resourcesRequestedForImport.contains(resourceData)) {
+                return retrieveImportDeclaration(resourceData);
+            }
 
-			if (resourcesRequestedForImport.contains(resourceData)) {
-				return retrieveImportDeclaration(resourceData);
-			}
+            resourcesRequestedForImport.add(resourceData);
 
-			resourcesRequestedForImport.add(resourceData);
+            try {
+                ElementImportDeclaration importDeclaration = retrieveImportDeclaration(resourceData);
+                if (getFMLModelFactory() == null) {
+                    return importDeclaration;
+                }
+                if (resourceData == this) {
+                    return importDeclaration;
+                }
+                if (importDeclaration == null && resourceData.getResource() != null) {
+                    FlexoResourceCenter<?> resourceCenter = resourceData.getResource().getResourceCenter();
+                    String uri = resourceData.getResource().getURI();
+                    importDeclaration = getFMLModelFactory().newElementImportDeclaration();
+                    if (uri.startsWith(resourceCenter.getDefaultBaseURI())) {
+                        NamespaceDeclaration rcNSDeclaration = ensureNamespaceDeclaration(resourceCenter);
+                        String remainingURI = uri.substring(resourceCenter.getDefaultBaseURI().length());
+                        importDeclaration.setResourceReference(
+                                new DataBinding<>(rcNSDeclaration.getAbbrev() + "+\"" + remainingURI + "\"", importDeclaration));
+                        // System.out.println("---" + rcAbbrev + "+\"" + remainingURI + "\"");
+                    } else {
+                        importDeclaration.setResourceReference(new DataBinding<>("\"" + uri + "\"", importDeclaration));
+                    }
+                    // Don't force a deserializing now: set referenced object
+                    importDeclaration.setReferencedObject(resourceData);
+                    if (!anonymous) {
+                        String abbrev = findUniqueAbbrev(resourceData);
+                        importDeclaration.setAbbrev(abbrev);
+                    }
+                    addToElementImports(importDeclaration);
+                }
 
-			try {
-				ElementImportDeclaration importDeclaration = retrieveImportDeclaration(resourceData);
-				if (getFMLModelFactory() == null) {
-					return importDeclaration;
-				}
-				if (resourceData == this) {
-					return importDeclaration;
-				}
-				if (importDeclaration == null && resourceData.getResource() != null) {
-					FlexoResourceCenter<?> resourceCenter = resourceData.getResource().getResourceCenter();
-					String uri = resourceData.getResource().getURI();
-					importDeclaration = getFMLModelFactory().newElementImportDeclaration();
-					if (uri.startsWith(resourceCenter.getDefaultBaseURI())) {
-						NamespaceDeclaration rcNSDeclaration = ensureNamespaceDeclaration(resourceCenter);
-						String remainingURI = uri.substring(resourceCenter.getDefaultBaseURI().length());
-						importDeclaration.setResourceReference(
-								new DataBinding<>(rcNSDeclaration.getAbbrev() + "+\"" + remainingURI + "\"", importDeclaration));
-						// System.out.println("---" + rcAbbrev + "+\"" + remainingURI + "\"");
-					}
-					else {
-						importDeclaration.setResourceReference(new DataBinding<>("\"" + uri + "\"", importDeclaration));
-					}
-					// Don't force a deserializing now: set referenced object
-					importDeclaration.setReferencedObject(resourceData);
-					if (!anonymous) {
-						String abbrev = findUniqueAbbrev(resourceData);
-						importDeclaration.setAbbrev(abbrev);
-					}
-					addToElementImports(importDeclaration);
-				}
+                return importDeclaration;
+            } finally {
+                resourcesRequestedForImport.remove(resourceData);
+            }
+        }
 
-				return importDeclaration;
-			} finally {
-				resourcesRequestedForImport.remove(resourceData);
-			}
-		}
+        @Override
+        public <RD extends ResourceData<RD> & FlexoObject, E extends InnerResourceData<RD> & FlexoObject> ElementImportDeclaration ensureElementImport(
+                E element, boolean anonymous) {
+            if (element == null) {
+                return null;
+            }
+            ElementImportDeclaration elementDeclaration = retrieveImportDeclaration(element);
+            if (elementDeclaration == null && getFMLModelFactory() != null) {
+                ElementImportDeclaration resourceImport = ensureResourceImport(element.getResourceData(), false);
+                String resourceAbbrev = resourceImport.getAbbrev();
+                elementDeclaration = getFMLModelFactory().newElementImportDeclaration();
+                elementDeclaration.setResourceReference(new DataBinding<>(resourceAbbrev));
+                elementDeclaration.setObjectReference(new DataBinding<>("\"" + element.getLocalIdentifier() + "\""));
+                // Don't force a deserializing now: set referenced object
+                elementDeclaration.setReferencedObject(element);
+                if (!anonymous) {
+                    String abbrev = findUniqueAbbrev(element);
+                    elementDeclaration.setAbbrev(abbrev);
+                }
+                addToElementImports(elementDeclaration);
 
-		@Override
-		public <RD extends ResourceData<RD> & FlexoObject, E extends InnerResourceData<RD> & FlexoObject> ElementImportDeclaration ensureElementImport(
-				E element, boolean anonymous) {
-			if (element == null) {
-				return null;
-			}
-			ElementImportDeclaration elementDeclaration = retrieveImportDeclaration(element);
-			if (elementDeclaration == null && getFMLModelFactory() != null) {
-				ElementImportDeclaration resourceImport = ensureResourceImport(element.getResourceData(), false);
-				String resourceAbbrev = resourceImport.getAbbrev();
-				elementDeclaration = getFMLModelFactory().newElementImportDeclaration();
-				elementDeclaration.setResourceReference(new DataBinding<>(resourceAbbrev));
-				elementDeclaration.setObjectReference(new DataBinding<>("\"" + element.getLocalIdentifier() + "\""));
-				// Don't force a deserializing now: set referenced object
-				elementDeclaration.setReferencedObject(element);
-				if (!anonymous) {
-					String abbrev = findUniqueAbbrev(element);
-					elementDeclaration.setAbbrev(abbrev);
-				}
-				addToElementImports(elementDeclaration);
+                // System.out.println("resourceAbbrev: " + resourceAbbrev);
+                // System.out.println("resourceReference: " + elementDeclaration.getResourceReference());
+                // System.out.println("objectReference: " + elementDeclaration.getObjectReference());
+                // System.out.println("abbrev: " + abbrev);
+                // System.out.println("au final: " + elementDeclaration.getReferencedObject());
 
-				// System.out.println("resourceAbbrev: " + resourceAbbrev);
-				// System.out.println("resourceReference: " + elementDeclaration.getResourceReference());
-				// System.out.println("objectReference: " + elementDeclaration.getObjectReference());
-				// System.out.println("abbrev: " + abbrev);
-				// System.out.println("au final: " + elementDeclaration.getReferencedObject());
+            }
+            return elementDeclaration;
+        }
 
-			}
-			return elementDeclaration;
-		}
+        @Override
+        public <RD extends ResourceData<RD> & FlexoObject, R extends FlexoResource<RD>> ElementImportDeclaration ensureResourceImport(
+                R resource, boolean anonymous) throws FileNotFoundException, ResourceLoadingCancelledException, FlexoException {
+            return ensureResourceImport(resource.getResourceData(), anonymous);
+        }
 
-		@Override
-		public <RD extends ResourceData<RD> & FlexoObject, R extends FlexoResource<RD>> ElementImportDeclaration ensureResourceImport(
-				R resource, boolean anonymous) throws FileNotFoundException, ResourceLoadingCancelledException, FlexoException {
-			return ensureResourceImport(resource.getResourceData(), anonymous);
-		}
+        @Override
+        public void ensureJavaImport(Class<?> javaClass) {
+            if (javaClass.equals(Object.class)) {
+                // Bof
+                return;
+            }
+            if (javaClass.equals(FlexoConceptInstance.class)) {
+                // Bof
+                return;
+            }
+            boolean typeWasFound = false;
+            for (JavaImportDeclaration importDeclaration : getJavaImports()) {
+                if (importDeclaration.getFullQualifiedClassName().equals(javaClass.getName())) {
+                    typeWasFound = true;
+                    break;
+                }
+            }
+            if (!typeWasFound && getFMLModelFactory() != null) {
+                // Adding import
+                JavaImportDeclaration newJavaImportDeclaration = getFMLModelFactory().newJavaImportDeclaration();
+                newJavaImportDeclaration.setFullQualifiedClassName(javaClass.getName());
+                addToJavaImports(newJavaImportDeclaration);
+            }
+        }
 
-		@Override
-		public void ensureJavaImport(Class<?> javaClass) {
-			if (javaClass.equals(Object.class)) {
-				// Bof
-				return;
-			}
-			if (javaClass.equals(FlexoConceptInstance.class)) {
-				// Bof
-				return;
-			}
-			boolean typeWasFound = false;
-			for (JavaImportDeclaration importDeclaration : getJavaImports()) {
-				if (importDeclaration.getFullQualifiedClassName().equals(javaClass.getName())) {
-					typeWasFound = true;
-					break;
-				}
-			}
-			if (!typeWasFound && getFMLModelFactory() != null) {
-				// Adding import
-				JavaImportDeclaration newJavaImportDeclaration = getFMLModelFactory().newJavaImportDeclaration();
-				newJavaImportDeclaration.setFullQualifiedClassName(javaClass.getName());
-				addToJavaImports(newJavaImportDeclaration);
-			}
-		}
+        @Override
+        public void ensureJavaImportForType(Type type) {
+            // boolean typeWasFound = false;
+            if (type instanceof FlexoResourceType) {
+                ensureJavaImportForType(((FlexoResourceType) type).getResourceDataClass());
+            } else if (type instanceof WildcardType) {
+                WildcardType wt = (WildcardType) type;
+                for (Type upperBound : wt.getUpperBounds()) {
+                    ensureJavaImportForType(upperBound);
+                }
+                for (Type lowerBound : wt.getLowerBounds()) {
+                    ensureJavaImportForType(lowerBound);
+                }
+            } else {
+                Class<?> rawType = TypeUtils.getRawType(type);
+                if (rawType != null && !TypeUtils.isPrimitive(rawType) && !(rawType.equals(FMLRTVirtualModelInstance.class))) {
+                    ensureJavaImport(rawType);
+                }
+            }
+        }
 
-		@Override
-		public void ensureJavaImportForType(Type type) {
-			// boolean typeWasFound = false;
-			if (type instanceof FlexoResourceType) {
-				ensureJavaImportForType(((FlexoResourceType) type).getResourceDataClass());
-			}
-			else if (type instanceof WildcardType) {
-				WildcardType wt = (WildcardType) type;
-				for (Type upperBound : wt.getUpperBounds()) {
-					ensureJavaImportForType(upperBound);
-				}
-				for (Type lowerBound : wt.getLowerBounds()) {
-					ensureJavaImportForType(lowerBound);
-				}
-			}
-			else {
-				Class<?> rawType = TypeUtils.getRawType(type);
-				if (rawType != null && !TypeUtils.isPrimitive(rawType) && !(rawType.equals(FMLRTVirtualModelInstance.class))) {
-					ensureJavaImport(rawType);
-				}
-			}
-		}
+        /**
+         * Ensures that supplied modelSlotClass is present in use declarations
+         *
+         * @param modelSlotClass
+         * @return
+         */
+        @Override
+        public UseModelSlotDeclaration ensureUse(Class<? extends ModelSlot<?, ?>> modelSlotClass) {
+            for (UseModelSlotDeclaration useModelSlotDeclaration : getUseDeclarations()) {
+                if (useModelSlotDeclaration.getModelSlotClass() != null
+                        && useModelSlotDeclaration.getModelSlotClass().equals(modelSlotClass)) {
+                    return useModelSlotDeclaration;
+                }
+            }
+            // Not found
+            if (getFMLModelFactory() != null) {
+                // Adding import
+                UseModelSlotDeclaration newUseDeclaration = getFMLModelFactory().newUseModelSlotDeclaration(modelSlotClass);
+                TechnologyAdapter ta = getServiceManager().getTechnologyAdapterService().getTechnologyAdapterForModelSlot(modelSlotClass);
+                String identifier = JavaUtils.getConstantJavaName(ta.getIdentifier());
+                newUseDeclaration.setAbbrev(identifier);
+                addToUseDeclarations(newUseDeclaration);
+                return newUseDeclaration;
+            }
+            return null;
+        }
 
-		/**
-		 * Ensures that supplied modelSlotClass is present in use declarations
-		 * 
-		 * @param modelSlotClass
-		 * @return
-		 */
-		@Override
-		public UseModelSlotDeclaration ensureUse(Class<? extends ModelSlot<?, ?>> modelSlotClass) {
-			for (UseModelSlotDeclaration useModelSlotDeclaration : getUseDeclarations()) {
-				if (useModelSlotDeclaration.getModelSlotClass() != null
-						&& useModelSlotDeclaration.getModelSlotClass().equals(modelSlotClass)) {
-					return useModelSlotDeclaration;
-				}
-			}
-			// Not found
-			if (getFMLModelFactory() != null) {
-				// Adding import
-				UseModelSlotDeclaration newUseDeclaration = getFMLModelFactory().newUseModelSlotDeclaration(modelSlotClass);
-				TechnologyAdapter ta = getServiceManager().getTechnologyAdapterService().getTechnologyAdapterForModelSlot(modelSlotClass);
-				String identifier = JavaUtils.getConstantJavaName(ta.getIdentifier());
-				newUseDeclaration.setAbbrev(identifier);
-				addToUseDeclarations(newUseDeclaration);
-				return newUseDeclaration;
-			}
-			return null;
-		}
+        /**
+         * Implements evaluator in the context of URI resolving in imports
+         */
+        @Override
+        public ExpressionEvaluator getEvaluator() {
+            return new FMLExpressionEvaluator(this);
+        }
 
-		// TODO remove this
+        // TODO remove this
 		/*@Override
 		public void addToElementImports(ElementImportDeclaration elementImportDeclaration) {
 			performSuperAdder(ELEMENT_IMPORTS_KEY, elementImportDeclaration);
@@ -1568,7 +1492,7 @@ public interface FMLCompilationUnit extends FMLObject, FMLPrettyPrintable, Resou
 			// Thread.dumpStack();
 		}*/
 
-		// TODO remove this
+        // TODO remove this
 		/*@Override
 		public void addToJavaImports(JavaImportDeclaration javaImportDeclaration) {
 			performSuperAdder(JAVA_IMPORTS_KEY, javaImportDeclaration);
@@ -1576,124 +1500,157 @@ public interface FMLCompilationUnit extends FMLObject, FMLPrettyPrintable, Resou
 			Thread.dumpStack();
 		}*/
 
-		/**
-		 * Implements evaluator in the context of URI resolving in imports
-		 */
-		@Override
-		public ExpressionEvaluator getEvaluator() {
-			return new FMLExpressionEvaluator(this);
-		}
-
-		/**
-		 * Implements BindingEvaluationContext in the context of URI resolving in imports
-		 */
-		@Override
-		public Object getValue(BindingVariable variable) {
-			if (variable instanceof NamespaceBindingVariable) {
-				return ((NamespaceBindingVariable) variable).getNamespaceDeclaration().getValue();
-			}
-			if (variable instanceof NamedImportBindingVariable) {
-				FlexoObject returned = ((NamedImportBindingVariable) variable).getElementImportDeclaration().getReferencedObject();
+        /**
+         * Implements BindingEvaluationContext in the context of URI resolving in imports
+         */
+        @Override
+        public Object getValue(BindingVariable variable) {
+            if (variable instanceof NamespaceBindingVariable) {
+                return ((NamespaceBindingVariable) variable).getNamespaceDeclaration().getValue();
+            }
+            if (variable instanceof NamedImportBindingVariable) {
+                FlexoObject returned = ((NamedImportBindingVariable) variable).getElementImportDeclaration().getReferencedObject();
 				/*System.out.println("For variable " + variable + " returning " + returned);
 				if (returned == null) {
 					System.out.println("Not found variable: "+variable);
 					Thread.dumpStack();
 				}*/
-				return returned;
-			}
+                return returned;
+            }
 
-			logger.warning("Unexpected BindingVariable " + variable + " of " + variable.getClass());
-			return null;
-		}
+            logger.warning("Unexpected BindingVariable " + variable + " of " + variable.getClass());
+            return null;
+        }
 
-		@Override
-		public Class<?> lookupClassInUseDeclarations(String className) {
-			if (getUseDeclarations() != null) {
-				Class<?> returned;
-				for (UseModelSlotDeclaration useModelSlotDeclaration : getUseDeclarations()) {
-					Class<? extends ModelSlot<?, ?>> msClass = useModelSlotDeclaration.getModelSlotClass();
-					if (msClass != null) {
-						Type msType = TypeUtils.getTypeArgument(msClass, ModelSlot.class, 0);
-						returned = lookupClass(className, msType);
-						if (returned != null) {
-							return returned;
-						}
-						for (Class<? extends FlexoRole<?>> roleClass : getServiceManager().getTechnologyAdapterService()
-								.getAvailableFlexoRoleTypes(msClass)) {
-							Type roleType = TypeUtils.getTypeArgument(roleClass, FlexoRole.class, 0);
-							returned = lookupClass(className, roleType);
-							if (returned != null) {
-								return returned;
-							}
-						}
-					}
-				}
-			}
-			return null;
-		}
+        @Override
+        public Class<?> lookupClassInUseDeclarations(String className) {
+            if (getUseDeclarations() != null) {
+                Class<?> returned;
+                for (UseModelSlotDeclaration useModelSlotDeclaration : getUseDeclarations()) {
+                    Class<? extends ModelSlot<?, ?>> msClass = useModelSlotDeclaration.getModelSlotClass();
+                    if (msClass != null) {
+                        Type msType = TypeUtils.getTypeArgument(msClass, ModelSlot.class, 0);
+                        returned = lookupClass(className, msType);
+                        if (returned != null) {
+                            return returned;
+                        }
+                        for (Class<? extends FlexoRole<?>> roleClass : getServiceManager().getTechnologyAdapterService()
+                                .getAvailableFlexoRoleTypes(msClass)) {
+                            Type roleType = TypeUtils.getTypeArgument(roleClass, FlexoRole.class, 0);
+                            returned = lookupClass(className, roleType);
+                            if (returned != null) {
+                                return returned;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
 
-		private Class<?> lookupClass(String className, Type potentialType) {
-			Class rawClass = TypeUtils.getRawType(potentialType);
-			if (className.equals(rawClass.getName()) || className.equals(rawClass.getSimpleName())) {
-				return rawClass;
-			}
-			return null;
-		}
+        private Class<?> lookupClass(String className, Type potentialType) {
+            Class rawClass = TypeUtils.getRawType(potentialType);
+            if (className.equals(rawClass.getName()) || className.equals(rawClass.getSimpleName())) {
+                return rawClass;
+            }
+            return null;
+        }
 
-		@Override
-		public TypeDeclaration getTypeDeclaration(TechnologySpecificType<?> type) {
-			for (TypeDeclaration typeDeclaration : getTypeDeclarations()) {
-				if (typeDeclaration.getReferencedType().equals(type)) {
-					return typeDeclaration;
-				}
-			}
-			return null;
-		}
+        @Override
+        public TypeDeclaration getTypeDeclaration(TechnologySpecificType<?> type) {
+            for (TypeDeclaration typeDeclaration : getTypeDeclarations()) {
+                if (typeDeclaration.getReferencedType().equals(type)) {
+                    return typeDeclaration;
+                }
+            }
+            return null;
+        }
 
-		/**
-		 * Indicates is supplied type has a corresponding type declaration
-		 * 
-		 * @param type
-		 * @return
-		 */
-		@Override
-		public boolean hasTypeDeclarationFor(TechnologySpecificType<?> type) {
-			return getTypeDeclaration(type) != null;
-		}
+        /**
+         * Indicates is supplied type has a corresponding type declaration
+         *
+         * @param type
+         * @return
+         */
+        @Override
+        public boolean hasTypeDeclarationFor(TechnologySpecificType<?> type) {
+            return getTypeDeclaration(type) != null;
+        }
 
-		/**
-		 * Normalize supplied type by returning a ProxyType referencing this type if this type appears in a actual type declaration of this
-		 * compilation unit, simply return type when not
-		 * 
-		 * @param type
-		 * @return
-		 */
-		@Override
-		public Type normalizeType(TechnologySpecificType<?> type) {
-			TypeDeclaration typeDeclaration = getDeclaringCompilationUnit().getTypeDeclaration(type);
-			if (typeDeclaration != null) {
-				return getTypingSpace().getProxyType(typeDeclaration);
-			}
-			return type;
-		}
+        /**
+         * Normalize supplied type by returning a ProxyType referencing this type if this type appears in a actual type declaration of this
+         * compilation unit, simply return type when not
+         *
+         * @param type
+         * @return
+         */
+        @Override
+        public Type normalizeType(TechnologySpecificType<?> type) {
+            TypeDeclaration typeDeclaration = getDeclaringCompilationUnit().getTypeDeclaration(type);
+            if (typeDeclaration != null) {
+                return getTypingSpace().getProxyType(typeDeclaration);
+            }
+            return type;
+        }
 
-	}
+        class ReflectedBindingEvaluationContext implements BindingEvaluationContext {
 
-	@DefineValidationRule
-	public static class CompilationUnitMustDeclareAVirtualModel
-			extends ValidationRule<CompilationUnitMustDeclareAVirtualModel, FMLCompilationUnit> {
-		public CompilationUnitMustDeclareAVirtualModel() {
-			super(FMLCompilationUnit.class, "compilation_unit_must_declare_a_virtual_model");
-		}
+            @Override
+            public ExpressionEvaluator getEvaluator() {
+                return new FMLExpressionEvaluator(this);
+            }
 
-		@Override
-		public ValidationIssue<CompilationUnitMustDeclareAVirtualModel, FMLCompilationUnit> applyValidation(
-				FMLCompilationUnit compilationUnit) {
-			if (compilationUnit.getVirtualModel() == null) {
-				return new ValidationError<>(this, compilationUnit, "compilation_unit_must_declare_a_virtual_model");
-			}
-			return null;
-		}
-	}
+            @Override
+            public Object getValue(BindingVariable bindingVariable) {
+                // System.out.println("getValue() for " + bindingVariable + " of " + bindingVariable.getClass());
+                if (bindingVariable instanceof NamedImportBindingVariable) {
+                    FlexoObject referencedObject = ((NamedImportBindingVariable) bindingVariable).getElementImportDeclaration()
+                            .getReferencedObject();
+                    // System.out.println("referencedObject=" + referencedObject);
+                    if (referencedObject instanceof FlexoResourceCenter<?>) {
+                        return ((FlexoResourceCenter<?>) referencedObject).getDefaultBaseURI();
+                    }
+                    if (referencedObject instanceof FlexoResource) {
+                        return ((FlexoResource) referencedObject).getURI();
+                    }
+                    if (referencedObject instanceof ResourceData) {
+                        return ((ResourceData) referencedObject).getResource().getURI();
+                    }
+                    if (referencedObject instanceof FlexoConcept) {
+                        return ((FlexoConcept) referencedObject).getURI();
+                    }
+                    if (referencedObject instanceof FlexoProperty) {
+                        return ((FlexoProperty) referencedObject).getURI();
+                    }
+                    if (referencedObject instanceof FlexoBehaviour) {
+                        return ((FlexoBehaviour) referencedObject).getURI();
+                    }
+                }
+                if (bindingVariable instanceof NamespaceBindingVariable) {
+                    return ((NamespaceBindingVariable) bindingVariable).getNamespaceDeclaration().getValue();
+                }
+                return null;
+            }
+
+        }
+
+    }
+
+    @DefineValidationRule
+    public static class CompilationUnitMustDeclareAVirtualModel
+            extends ValidationRule<CompilationUnitMustDeclareAVirtualModel, FMLCompilationUnit> {
+        public CompilationUnitMustDeclareAVirtualModel() {
+            super(FMLCompilationUnit.class, "compilation_unit_must_declare_a_virtual_model");
+        }
+
+        @Override
+        public ValidationIssue<CompilationUnitMustDeclareAVirtualModel, FMLCompilationUnit> applyValidation(
+                FMLCompilationUnit compilationUnit) {
+            if (compilationUnit.getVirtualModel() == null) {
+                return new ValidationError<>(this, compilationUnit, "compilation_unit_must_declare_a_virtual_model");
+            }
+            return null;
+        }
+    }
 
 }

@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AForStatementNoShortIfStatementNoShortIf extends PStatementNoShortIf
-{
+public final class AForStatementNoShortIfStatementNoShortIf extends PStatementNoShortIf {
     private PForStatementNoShortIf _forStatementNoShortIf_;
 
-    public AForStatementNoShortIfStatementNoShortIf()
-    {
+    public AForStatementNoShortIfStatementNoShortIf() {
         // Constructor
     }
 
     public AForStatementNoShortIfStatementNoShortIf(
-        @SuppressWarnings("hiding") PForStatementNoShortIf _forStatementNoShortIf_)
-    {
+            @SuppressWarnings("hiding") PForStatementNoShortIf _forStatementNoShortIf_) {
         // Constructor
         setForStatementNoShortIf(_forStatementNoShortIf_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AForStatementNoShortIfStatementNoShortIf(
-            cloneNode(this._forStatementNoShortIf_));
+                cloneNode(this._forStatementNoShortIf_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAForStatementNoShortIfStatementNoShortIf(this);
     }
 
-    public PForStatementNoShortIf getForStatementNoShortIf()
-    {
+    public PForStatementNoShortIf getForStatementNoShortIf() {
         return this._forStatementNoShortIf_;
     }
 
-    public void setForStatementNoShortIf(PForStatementNoShortIf node)
-    {
-        if(this._forStatementNoShortIf_ != null)
-        {
+    public void setForStatementNoShortIf(PForStatementNoShortIf node) {
+        if (this._forStatementNoShortIf_ != null) {
             this._forStatementNoShortIf_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AForStatementNoShortIfStatementNoShortIf extends PStatementNo
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._forStatementNoShortIf_);
+                + toString(this._forStatementNoShortIf_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._forStatementNoShortIf_ == child)
-        {
+        if (this._forStatementNoShortIf_ == child) {
             this._forStatementNoShortIf_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AForStatementNoShortIfStatementNoShortIf extends PStatementNo
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._forStatementNoShortIf_ == oldChild)
-        {
+        if (this._forStatementNoShortIf_ == oldChild) {
             setForStatementNoShortIf((PForStatementNoShortIf) newChild);
             return;
         }

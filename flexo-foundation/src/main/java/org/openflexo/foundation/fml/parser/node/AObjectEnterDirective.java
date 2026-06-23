@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AObjectEnterDirective extends PEnterDirective
-{
+public final class AObjectEnterDirective extends PEnterDirective {
     private TEnter _enter_;
     private PExpression _expression_;
 
-    public AObjectEnterDirective()
-    {
+    public AObjectEnterDirective() {
         // Constructor
     }
 
     public AObjectEnterDirective(
-        @SuppressWarnings("hiding") TEnter _enter_,
-        @SuppressWarnings("hiding") PExpression _expression_)
-    {
+            @SuppressWarnings("hiding") TEnter _enter_,
+            @SuppressWarnings("hiding") PExpression _expression_) {
         // Constructor
         setEnter(_enter_);
 
@@ -27,35 +24,28 @@ public final class AObjectEnterDirective extends PEnterDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AObjectEnterDirective(
-            cloneNode(this._enter_),
-            cloneNode(this._expression_));
+                cloneNode(this._enter_),
+                cloneNode(this._expression_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAObjectEnterDirective(this);
     }
 
-    public TEnter getEnter()
-    {
+    public TEnter getEnter() {
         return this._enter_;
     }
 
-    public void setEnter(TEnter node)
-    {
-        if(this._enter_ != null)
-        {
+    public void setEnter(TEnter node) {
+        if (this._enter_ != null) {
             this._enter_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class AObjectEnterDirective extends PEnterDirective
         this._enter_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class AObjectEnterDirective extends PEnterDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._enter_)
-            + toString(this._expression_);
+                + toString(this._enter_)
+                + toString(this._expression_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._enter_ == child)
-        {
+        if (this._enter_ == child) {
             this._enter_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class AObjectEnterDirective extends PEnterDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._enter_ == oldChild)
-        {
+        if (this._enter_ == oldChild) {
             setEnter((TEnter) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }

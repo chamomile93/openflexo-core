@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public interface Switchable
-{
+public interface Switchable {
     void apply(Switch sw);
 }

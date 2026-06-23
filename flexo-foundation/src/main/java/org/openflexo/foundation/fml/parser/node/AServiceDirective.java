@@ -5,24 +5,21 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AServiceDirective extends PDirective
-{
+public final class AServiceDirective extends PDirective {
     private TService _service_;
     private PIdentifier _serviceName_;
     private PIdentifier _action_;
     private PDirectiveArgument _argument_;
 
-    public AServiceDirective()
-    {
+    public AServiceDirective() {
         // Constructor
     }
 
     public AServiceDirective(
-        @SuppressWarnings("hiding") TService _service_,
-        @SuppressWarnings("hiding") PIdentifier _serviceName_,
-        @SuppressWarnings("hiding") PIdentifier _action_,
-        @SuppressWarnings("hiding") PDirectiveArgument _argument_)
-    {
+            @SuppressWarnings("hiding") TService _service_,
+            @SuppressWarnings("hiding") PIdentifier _serviceName_,
+            @SuppressWarnings("hiding") PIdentifier _action_,
+            @SuppressWarnings("hiding") PDirectiveArgument _argument_) {
         // Constructor
         setService(_service_);
 
@@ -35,37 +32,30 @@ public final class AServiceDirective extends PDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AServiceDirective(
-            cloneNode(this._service_),
-            cloneNode(this._serviceName_),
-            cloneNode(this._action_),
-            cloneNode(this._argument_));
+                cloneNode(this._service_),
+                cloneNode(this._serviceName_),
+                cloneNode(this._action_),
+                cloneNode(this._argument_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAServiceDirective(this);
     }
 
-    public TService getService()
-    {
+    public TService getService() {
         return this._service_;
     }
 
-    public void setService(TService node)
-    {
-        if(this._service_ != null)
-        {
+    public void setService(TService node) {
+        if (this._service_ != null) {
             this._service_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -75,22 +65,17 @@ public final class AServiceDirective extends PDirective
         this._service_ = node;
     }
 
-    public PIdentifier getServiceName()
-    {
+    public PIdentifier getServiceName() {
         return this._serviceName_;
     }
 
-    public void setServiceName(PIdentifier node)
-    {
-        if(this._serviceName_ != null)
-        {
+    public void setServiceName(PIdentifier node) {
+        if (this._serviceName_ != null) {
             this._serviceName_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -100,22 +85,17 @@ public final class AServiceDirective extends PDirective
         this._serviceName_ = node;
     }
 
-    public PIdentifier getAction()
-    {
+    public PIdentifier getAction() {
         return this._action_;
     }
 
-    public void setAction(PIdentifier node)
-    {
-        if(this._action_ != null)
-        {
+    public void setAction(PIdentifier node) {
+        if (this._action_ != null) {
             this._action_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -125,22 +105,17 @@ public final class AServiceDirective extends PDirective
         this._action_ = node;
     }
 
-    public PDirectiveArgument getArgument()
-    {
+    public PDirectiveArgument getArgument() {
         return this._argument_;
     }
 
-    public void setArgument(PDirectiveArgument node)
-    {
-        if(this._argument_ != null)
-        {
+    public void setArgument(PDirectiveArgument node) {
+        if (this._argument_ != null) {
             this._argument_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -151,39 +126,33 @@ public final class AServiceDirective extends PDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._service_)
-            + toString(this._serviceName_)
-            + toString(this._action_)
-            + toString(this._argument_);
+                + toString(this._service_)
+                + toString(this._serviceName_)
+                + toString(this._action_)
+                + toString(this._argument_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._service_ == child)
-        {
+        if (this._service_ == child) {
             this._service_ = null;
             return;
         }
 
-        if(this._serviceName_ == child)
-        {
+        if (this._serviceName_ == child) {
             this._serviceName_ = null;
             return;
         }
 
-        if(this._action_ == child)
-        {
+        if (this._action_ == child) {
             this._action_ = null;
             return;
         }
 
-        if(this._argument_ == child)
-        {
+        if (this._argument_ == child) {
             this._argument_ = null;
             return;
         }
@@ -192,29 +161,24 @@ public final class AServiceDirective extends PDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._service_ == oldChild)
-        {
+        if (this._service_ == oldChild) {
             setService((TService) newChild);
             return;
         }
 
-        if(this._serviceName_ == oldChild)
-        {
+        if (this._serviceName_ == oldChild) {
             setServiceName((PIdentifier) newChild);
             return;
         }
 
-        if(this._action_ == oldChild)
-        {
+        if (this._action_ == oldChild) {
             setAction((PIdentifier) newChild);
             return;
         }
 
-        if(this._argument_ == oldChild)
-        {
+        if (this._argument_ == oldChild) {
             setArgument((PDirectiveArgument) newChild);
             return;
         }

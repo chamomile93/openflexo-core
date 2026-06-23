@@ -3,15 +3,15 @@ package org.openflexo.foundation.lsp.languageServer.utils;
 
 /**
  * Utility class for common text processing operations used by the FML language server.
- * 
+ * <p>
  * This class is stateless and cannot be instantiated.
  */
 public final class TextUtils {
 
     private TextUtils() {
     }
-	
-	public static String extractWordAt(String text, int line, int character) {
+
+    public static String extractWordAt(String text, int line, int character) {
         String[] lines = text.split("\n");
         if (line >= lines.length) {
             return null;
@@ -33,9 +33,9 @@ public final class TextUtils {
 
         return lineText.substring(start, end);
     }
-    
-    
+
+
     public static boolean isBlank(String str) {
         return str == null || str.trim().isEmpty();
-    }  
+    }
 }

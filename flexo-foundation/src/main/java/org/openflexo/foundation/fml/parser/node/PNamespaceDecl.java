@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PNamespaceDecl extends Node
-{
+public abstract class PNamespaceDecl extends Node {
     // Empty body
 }

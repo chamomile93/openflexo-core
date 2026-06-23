@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ACommandAssign extends PCommandAssign
-{
+public final class ACommandAssign extends PCommandAssign {
     private PLeftHandSide _leftHandSide_;
     private TAssign _assign_;
 
-    public ACommandAssign()
-    {
+    public ACommandAssign() {
         // Constructor
     }
 
     public ACommandAssign(
-        @SuppressWarnings("hiding") PLeftHandSide _leftHandSide_,
-        @SuppressWarnings("hiding") TAssign _assign_)
-    {
+            @SuppressWarnings("hiding") PLeftHandSide _leftHandSide_,
+            @SuppressWarnings("hiding") TAssign _assign_) {
         // Constructor
         setLeftHandSide(_leftHandSide_);
 
@@ -27,35 +24,28 @@ public final class ACommandAssign extends PCommandAssign
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ACommandAssign(
-            cloneNode(this._leftHandSide_),
-            cloneNode(this._assign_));
+                cloneNode(this._leftHandSide_),
+                cloneNode(this._assign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseACommandAssign(this);
     }
 
-    public PLeftHandSide getLeftHandSide()
-    {
+    public PLeftHandSide getLeftHandSide() {
         return this._leftHandSide_;
     }
 
-    public void setLeftHandSide(PLeftHandSide node)
-    {
-        if(this._leftHandSide_ != null)
-        {
+    public void setLeftHandSide(PLeftHandSide node) {
+        if (this._leftHandSide_ != null) {
             this._leftHandSide_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ACommandAssign extends PCommandAssign
         this._leftHandSide_ = node;
     }
 
-    public TAssign getAssign()
-    {
+    public TAssign getAssign() {
         return this._assign_;
     }
 
-    public void setAssign(TAssign node)
-    {
-        if(this._assign_ != null)
-        {
+    public void setAssign(TAssign node) {
+        if (this._assign_ != null) {
             this._assign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ACommandAssign extends PCommandAssign
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._leftHandSide_)
-            + toString(this._assign_);
+                + toString(this._leftHandSide_)
+                + toString(this._assign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._leftHandSide_ == child)
-        {
+        if (this._leftHandSide_ == child) {
             this._leftHandSide_ = null;
             return;
         }
 
-        if(this._assign_ == child)
-        {
+        if (this._assign_ == child) {
             this._assign_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ACommandAssign extends PCommandAssign
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._leftHandSide_ == oldChild)
-        {
+        if (this._leftHandSide_ == oldChild) {
             setLeftHandSide((PLeftHandSide) newChild);
             return;
         }
 
-        if(this._assign_ == oldChild)
-        {
+        if (this._assign_ == oldChild) {
             setAssign((TAssign) newChild);
             return;
         }

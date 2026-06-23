@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TKwSuper extends Token
-{
-    public TKwSuper()
-    {
+public final class TKwSuper extends Token {
+    public TKwSuper() {
         super.setText("super");
     }
 
-    public TKwSuper(int line, int pos)
-    {
+    public TKwSuper(int line, int pos) {
         super.setText("super");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TKwSuper(getLine(), getPos());
+    public Object clone() {
+        return new TKwSuper(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTKwSuper(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TKwSuper text.");
     }
 }

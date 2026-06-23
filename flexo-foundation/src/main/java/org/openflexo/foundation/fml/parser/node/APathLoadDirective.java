@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APathLoadDirective extends PLoadDirective
-{
+public final class APathLoadDirective extends PLoadDirective {
     private TLoad _load_;
     private PPath _path_;
 
-    public APathLoadDirective()
-    {
+    public APathLoadDirective() {
         // Constructor
     }
 
     public APathLoadDirective(
-        @SuppressWarnings("hiding") TLoad _load_,
-        @SuppressWarnings("hiding") PPath _path_)
-    {
+            @SuppressWarnings("hiding") TLoad _load_,
+            @SuppressWarnings("hiding") PPath _path_) {
         // Constructor
         setLoad(_load_);
 
@@ -27,35 +24,28 @@ public final class APathLoadDirective extends PLoadDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APathLoadDirective(
-            cloneNode(this._load_),
-            cloneNode(this._path_));
+                cloneNode(this._load_),
+                cloneNode(this._path_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPathLoadDirective(this);
     }
 
-    public TLoad getLoad()
-    {
+    public TLoad getLoad() {
         return this._load_;
     }
 
-    public void setLoad(TLoad node)
-    {
-        if(this._load_ != null)
-        {
+    public void setLoad(TLoad node) {
+        if (this._load_ != null) {
             this._load_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class APathLoadDirective extends PLoadDirective
         this._load_ = node;
     }
 
-    public PPath getPath()
-    {
+    public PPath getPath() {
         return this._path_;
     }
 
-    public void setPath(PPath node)
-    {
-        if(this._path_ != null)
-        {
+    public void setPath(PPath node) {
+        if (this._path_ != null) {
             this._path_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class APathLoadDirective extends PLoadDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._load_)
-            + toString(this._path_);
+                + toString(this._load_)
+                + toString(this._path_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._load_ == child)
-        {
+        if (this._load_ == child) {
             this._load_ = null;
             return;
         }
 
-        if(this._path_ == child)
-        {
+        if (this._path_ == child) {
             this._path_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class APathLoadDirective extends PLoadDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._load_ == oldChild)
-        {
+        if (this._load_ == oldChild) {
             setLoad((TLoad) newChild);
             return;
         }
 
-        if(this._path_ == oldChild)
-        {
+        if (this._path_ == oldChild) {
             setPath((PPath) newChild);
             return;
         }

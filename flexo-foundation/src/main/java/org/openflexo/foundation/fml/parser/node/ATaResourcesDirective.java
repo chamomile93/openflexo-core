@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ATaResourcesDirective extends PResourcesDirective
-{
+public final class ATaResourcesDirective extends PResourcesDirective {
     private TResources _resources_;
     private PIdentifier _technologyAdapter_;
 
-    public ATaResourcesDirective()
-    {
+    public ATaResourcesDirective() {
         // Constructor
     }
 
     public ATaResourcesDirective(
-        @SuppressWarnings("hiding") TResources _resources_,
-        @SuppressWarnings("hiding") PIdentifier _technologyAdapter_)
-    {
+            @SuppressWarnings("hiding") TResources _resources_,
+            @SuppressWarnings("hiding") PIdentifier _technologyAdapter_) {
         // Constructor
         setResources(_resources_);
 
@@ -27,35 +24,28 @@ public final class ATaResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ATaResourcesDirective(
-            cloneNode(this._resources_),
-            cloneNode(this._technologyAdapter_));
+                cloneNode(this._resources_),
+                cloneNode(this._technologyAdapter_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseATaResourcesDirective(this);
     }
 
-    public TResources getResources()
-    {
+    public TResources getResources() {
         return this._resources_;
     }
 
-    public void setResources(TResources node)
-    {
-        if(this._resources_ != null)
-        {
+    public void setResources(TResources node) {
+        if (this._resources_ != null) {
             this._resources_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ATaResourcesDirective extends PResourcesDirective
         this._resources_ = node;
     }
 
-    public PIdentifier getTechnologyAdapter()
-    {
+    public PIdentifier getTechnologyAdapter() {
         return this._technologyAdapter_;
     }
 
-    public void setTechnologyAdapter(PIdentifier node)
-    {
-        if(this._technologyAdapter_ != null)
-        {
+    public void setTechnologyAdapter(PIdentifier node) {
+        if (this._technologyAdapter_ != null) {
             this._technologyAdapter_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ATaResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._resources_)
-            + toString(this._technologyAdapter_);
+                + toString(this._resources_)
+                + toString(this._technologyAdapter_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._resources_ == child)
-        {
+        if (this._resources_ == child) {
             this._resources_ = null;
             return;
         }
 
-        if(this._technologyAdapter_ == child)
-        {
+        if (this._technologyAdapter_ == child) {
             this._technologyAdapter_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ATaResourcesDirective extends PResourcesDirective
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._resources_ == oldChild)
-        {
+        if (this._resources_ == oldChild) {
             setResources((TResources) newChild);
             return;
         }
 
-        if(this._technologyAdapter_ == oldChild)
-        {
+        if (this._technologyAdapter_ == oldChild) {
             setTechnologyAdapter((PIdentifier) newChild);
             return;
         }

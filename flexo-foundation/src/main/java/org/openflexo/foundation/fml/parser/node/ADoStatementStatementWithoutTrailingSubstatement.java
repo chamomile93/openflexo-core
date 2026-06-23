@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADoStatementStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement
-{
+public final class ADoStatementStatementWithoutTrailingSubstatement extends PStatementWithoutTrailingSubstatement {
     private TKwDo _kwDo_;
     private PStatement _statement_;
     private TKwWhile _kwWhile_;
@@ -15,20 +14,18 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
     private TRPar _rPar_;
     private TSemi _semi_;
 
-    public ADoStatementStatementWithoutTrailingSubstatement()
-    {
+    public ADoStatementStatementWithoutTrailingSubstatement() {
         // Constructor
     }
 
     public ADoStatementStatementWithoutTrailingSubstatement(
-        @SuppressWarnings("hiding") TKwDo _kwDo_,
-        @SuppressWarnings("hiding") PStatement _statement_,
-        @SuppressWarnings("hiding") TKwWhile _kwWhile_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") TKwDo _kwDo_,
+            @SuppressWarnings("hiding") PStatement _statement_,
+            @SuppressWarnings("hiding") TKwWhile _kwWhile_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PExpression _expression_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setKwDo(_kwDo_);
 
@@ -47,40 +44,33 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADoStatementStatementWithoutTrailingSubstatement(
-            cloneNode(this._kwDo_),
-            cloneNode(this._statement_),
-            cloneNode(this._kwWhile_),
-            cloneNode(this._lPar_),
-            cloneNode(this._expression_),
-            cloneNode(this._rPar_),
-            cloneNode(this._semi_));
+                cloneNode(this._kwDo_),
+                cloneNode(this._statement_),
+                cloneNode(this._kwWhile_),
+                cloneNode(this._lPar_),
+                cloneNode(this._expression_),
+                cloneNode(this._rPar_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADoStatementStatementWithoutTrailingSubstatement(this);
     }
 
-    public TKwDo getKwDo()
-    {
+    public TKwDo getKwDo() {
         return this._kwDo_;
     }
 
-    public void setKwDo(TKwDo node)
-    {
-        if(this._kwDo_ != null)
-        {
+    public void setKwDo(TKwDo node) {
+        if (this._kwDo_ != null) {
             this._kwDo_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -90,22 +80,17 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
         this._kwDo_ = node;
     }
 
-    public PStatement getStatement()
-    {
+    public PStatement getStatement() {
         return this._statement_;
     }
 
-    public void setStatement(PStatement node)
-    {
-        if(this._statement_ != null)
-        {
+    public void setStatement(PStatement node) {
+        if (this._statement_ != null) {
             this._statement_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -115,22 +100,17 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
         this._statement_ = node;
     }
 
-    public TKwWhile getKwWhile()
-    {
+    public TKwWhile getKwWhile() {
         return this._kwWhile_;
     }
 
-    public void setKwWhile(TKwWhile node)
-    {
-        if(this._kwWhile_ != null)
-        {
+    public void setKwWhile(TKwWhile node) {
+        if (this._kwWhile_ != null) {
             this._kwWhile_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -140,22 +120,17 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
         this._kwWhile_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -165,22 +140,17 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
         this._lPar_ = node;
     }
 
-    public PExpression getExpression()
-    {
+    public PExpression getExpression() {
         return this._expression_;
     }
 
-    public void setExpression(PExpression node)
-    {
-        if(this._expression_ != null)
-        {
+    public void setExpression(PExpression node) {
+        if (this._expression_ != null) {
             this._expression_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -190,22 +160,17 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
         this._expression_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -215,22 +180,17 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
         this._rPar_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -241,60 +201,51 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwDo_)
-            + toString(this._statement_)
-            + toString(this._kwWhile_)
-            + toString(this._lPar_)
-            + toString(this._expression_)
-            + toString(this._rPar_)
-            + toString(this._semi_);
+                + toString(this._kwDo_)
+                + toString(this._statement_)
+                + toString(this._kwWhile_)
+                + toString(this._lPar_)
+                + toString(this._expression_)
+                + toString(this._rPar_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwDo_ == child)
-        {
+        if (this._kwDo_ == child) {
             this._kwDo_ = null;
             return;
         }
 
-        if(this._statement_ == child)
-        {
+        if (this._statement_ == child) {
             this._statement_ = null;
             return;
         }
 
-        if(this._kwWhile_ == child)
-        {
+        if (this._kwWhile_ == child) {
             this._kwWhile_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._expression_ == child)
-        {
+        if (this._expression_ == child) {
             this._expression_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -303,47 +254,39 @@ public final class ADoStatementStatementWithoutTrailingSubstatement extends PSta
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwDo_ == oldChild)
-        {
+        if (this._kwDo_ == oldChild) {
             setKwDo((TKwDo) newChild);
             return;
         }
 
-        if(this._statement_ == oldChild)
-        {
+        if (this._statement_ == oldChild) {
             setStatement((PStatement) newChild);
             return;
         }
 
-        if(this._kwWhile_ == oldChild)
-        {
+        if (this._kwWhile_ == oldChild) {
             setKwWhile((TKwWhile) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._expression_ == oldChild)
-        {
+        if (this._expression_ == oldChild) {
             setExpression((PExpression) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

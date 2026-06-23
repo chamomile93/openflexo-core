@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AManyEnumValuesList extends PEnumValuesList
-{
+public final class AManyEnumValuesList extends PEnumValuesList {
     private PEnumValuesList _enumValuesList_;
     private TComma _comma_;
     private PEnumValue _enumValue_;
 
-    public AManyEnumValuesList()
-    {
+    public AManyEnumValuesList() {
         // Constructor
     }
 
     public AManyEnumValuesList(
-        @SuppressWarnings("hiding") PEnumValuesList _enumValuesList_,
-        @SuppressWarnings("hiding") TComma _comma_,
-        @SuppressWarnings("hiding") PEnumValue _enumValue_)
-    {
+            @SuppressWarnings("hiding") PEnumValuesList _enumValuesList_,
+            @SuppressWarnings("hiding") TComma _comma_,
+            @SuppressWarnings("hiding") PEnumValue _enumValue_) {
         // Constructor
         setEnumValuesList(_enumValuesList_);
 
@@ -31,36 +28,29 @@ public final class AManyEnumValuesList extends PEnumValuesList
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AManyEnumValuesList(
-            cloneNode(this._enumValuesList_),
-            cloneNode(this._comma_),
-            cloneNode(this._enumValue_));
+                cloneNode(this._enumValuesList_),
+                cloneNode(this._comma_),
+                cloneNode(this._enumValue_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAManyEnumValuesList(this);
     }
 
-    public PEnumValuesList getEnumValuesList()
-    {
+    public PEnumValuesList getEnumValuesList() {
         return this._enumValuesList_;
     }
 
-    public void setEnumValuesList(PEnumValuesList node)
-    {
-        if(this._enumValuesList_ != null)
-        {
+    public void setEnumValuesList(PEnumValuesList node) {
+        if (this._enumValuesList_ != null) {
             this._enumValuesList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AManyEnumValuesList extends PEnumValuesList
         this._enumValuesList_ = node;
     }
 
-    public TComma getComma()
-    {
+    public TComma getComma() {
         return this._comma_;
     }
 
-    public void setComma(TComma node)
-    {
-        if(this._comma_ != null)
-        {
+    public void setComma(TComma node) {
+        if (this._comma_ != null) {
             this._comma_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AManyEnumValuesList extends PEnumValuesList
         this._comma_ = node;
     }
 
-    public PEnumValue getEnumValue()
-    {
+    public PEnumValue getEnumValue() {
         return this._enumValue_;
     }
 
-    public void setEnumValue(PEnumValue node)
-    {
-        if(this._enumValue_ != null)
-        {
+    public void setEnumValue(PEnumValue node) {
+        if (this._enumValue_ != null) {
             this._enumValue_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AManyEnumValuesList extends PEnumValuesList
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._enumValuesList_)
-            + toString(this._comma_)
-            + toString(this._enumValue_);
+                + toString(this._enumValuesList_)
+                + toString(this._comma_)
+                + toString(this._enumValue_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._enumValuesList_ == child)
-        {
+        if (this._enumValuesList_ == child) {
             this._enumValuesList_ = null;
             return;
         }
 
-        if(this._comma_ == child)
-        {
+        if (this._comma_ == child) {
             this._comma_ = null;
             return;
         }
 
-        if(this._enumValue_ == child)
-        {
+        if (this._enumValue_ == child) {
             this._enumValue_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AManyEnumValuesList extends PEnumValuesList
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._enumValuesList_ == oldChild)
-        {
+        if (this._enumValuesList_ == oldChild) {
             setEnumValuesList((PEnumValuesList) newChild);
             return;
         }
 
-        if(this._comma_ == oldChild)
-        {
+        if (this._comma_ == oldChild) {
             setComma((TComma) newChild);
             return;
         }
 
-        if(this._enumValue_ == oldChild)
-        {
+        if (this._enumValue_ == oldChild) {
             setEnumValue((PEnumValue) newChild);
             return;
         }

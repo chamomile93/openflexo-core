@@ -1,59 +1,48 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Cartoeditor, a component of the software infrastructure 
+ * <p>
+ * This file is part of Cartoeditor, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.parser;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openflexo.foundation.DefaultFlexoEditor;
 import org.openflexo.foundation.FlexoEditor;
-import org.openflexo.foundation.fml.ActionScheme;
-import org.openflexo.foundation.fml.FMLCompilationUnit;
-import org.openflexo.foundation.fml.FlexoConcept;
-import org.openflexo.foundation.fml.VirtualModel;
-import org.openflexo.foundation.fml.Visibility;
+import org.openflexo.foundation.fml.*;
 import org.openflexo.foundation.fml.controlgraph.EmptyControlGraph;
 import org.openflexo.foundation.fml.parser.fmlnodes.ActionSchemeNode;
 import org.openflexo.foundation.fml.parser.fmlnodes.FMLCompilationUnitNode;
@@ -67,102 +56,103 @@ import org.openflexo.rm.ResourceLocator;
 import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
 
+import java.io.IOException;
+
+import static org.junit.Assert.*;
+
 /**
  * Parse a FML file, perform some edits and checks that pretty-print is correct
- * 
+ *
  * @author sylvain
  *
  */
 @RunWith(OrderedRunner.class)
 public class TestFMLPrettyPrint5 extends FMLParserTestCase {
 
-	private static FMLCompilationUnit compilationUnit;
-	private static VirtualModel virtualModel;
-	private static FlexoConcept conceptA;
-	private static FlexoConcept conceptB;
-	private static FlexoConcept conceptC;
-	private static FlexoConcept conceptD;
-	private static FlexoConcept conceptE;
+    static FlexoEditor editor;
+    private static FMLCompilationUnit compilationUnit;
+    private static VirtualModel virtualModel;
+    private static FlexoConcept conceptA;
+    private static FlexoConcept conceptB;
+    private static FlexoConcept conceptC;
+    private static FlexoConcept conceptD;
+    private static FlexoConcept conceptE;
+    private static ActionScheme behaviour1;
+    private static ActionScheme behaviour2;
+    private static ActionScheme behaviour3;
+    private static VirtualModelNode vmNode;
+    private static FlexoConceptNode conceptANode;
+    private static FlexoConceptNode conceptBNode;
+    private static FlexoConceptNode conceptCNode;
+    private static FlexoConceptNode conceptDNode;
+    private static FlexoConceptNode conceptENode;
+    private static ActionSchemeNode behaviour1Node;
+    private static ActionSchemeNode behaviour2Node;
+    private static ActionSchemeNode behaviour3Node;
 
-	private static ActionScheme behaviour1;
-	private static ActionScheme behaviour2;
-	private static ActionScheme behaviour3;
+    @Test
+    @TestOrder(1)
+    public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
+        instanciateTestServiceManager();
 
-	static FlexoEditor editor;
+        editor = new DefaultFlexoEditor(null, serviceManager);
+        assertNotNull(editor);
 
-	@Test
-	@TestOrder(1)
-	public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
-		instanciateTestServiceManager();
+    }
 
-		editor = new DefaultFlexoEditor(null, serviceManager);
-		assertNotNull(editor);
+    @Test
+    @TestOrder(2)
+    public void loadInitialVersion() throws ParseException, ModelDefinitionException, IOException {
+        instanciateTestServiceManager();
 
-	}
+        log("Initial version");
 
-	private static VirtualModelNode vmNode;
-	private static FlexoConceptNode conceptANode;
-	private static FlexoConceptNode conceptBNode;
-	private static FlexoConceptNode conceptCNode;
-	private static FlexoConceptNode conceptDNode;
-	private static FlexoConceptNode conceptENode;
-	private static ActionSchemeNode behaviour1Node;
-	private static ActionSchemeNode behaviour2Node;
-	private static ActionSchemeNode behaviour3Node;
+        final Resource fmlFile = ResourceLocator.locateResource("TestFMLPrettyPrint5/InitialModel.fml");
+        compilationUnit = parseFile(fmlFile);
+        assertNotNull(virtualModel = compilationUnit.getVirtualModel());
+        assertEquals("TestViewPointA", virtualModel.getName());
 
-	@Test
-	@TestOrder(2)
-	public void loadInitialVersion() throws ParseException, ModelDefinitionException, IOException {
-		instanciateTestServiceManager();
+        assertEquals(5, virtualModel.getFlexoConcepts().size());
+        assertNotNull(conceptA = virtualModel.getFlexoConcept("ConceptA"));
+        assertNotNull(conceptB = virtualModel.getFlexoConcept("ConceptB"));
+        assertNotNull(conceptC = virtualModel.getFlexoConcept("ConceptC"));
+        assertNotNull(conceptD = virtualModel.getFlexoConcept("ConceptD"));
+        assertNotNull(conceptE = virtualModel.getFlexoConcept("ConceptE"));
 
-		log("Initial version");
+        assertNotNull(rootNode = (FMLCompilationUnitNode) compilationUnit.getPrettyPrintDelegate());
+        assertNotNull(vmNode = (VirtualModelNode) rootNode.getObjectNode(virtualModel));
+        assertNotNull(conceptANode = (FlexoConceptNode) rootNode.getObjectNode(conceptA));
+        assertNotNull(conceptBNode = (FlexoConceptNode) rootNode.getObjectNode(conceptB));
+        assertNotNull(conceptCNode = (FlexoConceptNode) rootNode.getObjectNode(conceptC));
 
-		final Resource fmlFile = ResourceLocator.locateResource("TestFMLPrettyPrint5/InitialModel.fml");
-		compilationUnit = parseFile(fmlFile);
-		assertNotNull(virtualModel = compilationUnit.getVirtualModel());
-		assertEquals("TestViewPointA", virtualModel.getName());
+        assertNotNull(behaviour1 = (ActionScheme) conceptE.getFlexoBehaviour("firstBehaviour"));
+        assertNotNull(behaviour2 = (ActionScheme) conceptE.getFlexoBehaviour("secondBehaviour", String.class));
+        assertNotNull(behaviour3 = (ActionScheme) conceptE.getFlexoBehaviour("thirdBehaviour"));
 
-		assertEquals(5, virtualModel.getFlexoConcepts().size());
-		assertNotNull(conceptA = virtualModel.getFlexoConcept("ConceptA"));
-		assertNotNull(conceptB = virtualModel.getFlexoConcept("ConceptB"));
-		assertNotNull(conceptC = virtualModel.getFlexoConcept("ConceptC"));
-		assertNotNull(conceptD = virtualModel.getFlexoConcept("ConceptD"));
-		assertNotNull(conceptE = virtualModel.getFlexoConcept("ConceptE"));
+        assertTrue(behaviour1.getControlGraph() instanceof EmptyControlGraph);
+        assertNull(behaviour2.getControlGraph());
+        assertNull(behaviour3.getControlGraph());
 
-		assertNotNull(rootNode = (FMLCompilationUnitNode) compilationUnit.getPrettyPrintDelegate());
-		assertNotNull(vmNode = (VirtualModelNode) rootNode.getObjectNode(virtualModel));
-		assertNotNull(conceptANode = (FlexoConceptNode) rootNode.getObjectNode(conceptA));
-		assertNotNull(conceptBNode = (FlexoConceptNode) rootNode.getObjectNode(conceptB));
-		assertNotNull(conceptCNode = (FlexoConceptNode) rootNode.getObjectNode(conceptC));
+        assertNotNull(behaviour1Node = (ActionSchemeNode) rootNode.getObjectNode(behaviour1));
+        assertNotNull(behaviour2Node = (ActionSchemeNode) rootNode.getObjectNode(behaviour2));
+        assertNotNull(behaviour3Node = (ActionSchemeNode) rootNode.getObjectNode(behaviour3));
 
-		assertNotNull(behaviour1 = (ActionScheme) conceptE.getFlexoBehaviour("firstBehaviour"));
-		assertNotNull(behaviour2 = (ActionScheme) conceptE.getFlexoBehaviour("secondBehaviour", String.class));
-		assertNotNull(behaviour3 = (ActionScheme) conceptE.getFlexoBehaviour("thirdBehaviour"));
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step1Normalized.fml");
 
-		assertTrue(behaviour1.getControlGraph() instanceof EmptyControlGraph);
-		assertNull(behaviour2.getControlGraph());
-		assertNull(behaviour3.getControlGraph());
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step1PrettyPrint.fml");
 
-		assertNotNull(behaviour1Node = (ActionSchemeNode) rootNode.getObjectNode(behaviour1));
-		assertNotNull(behaviour2Node = (ActionSchemeNode) rootNode.getObjectNode(behaviour2));
-		assertNotNull(behaviour3Node = (ActionSchemeNode) rootNode.getObjectNode(behaviour3));
+        RawSource rawSource = rootNode.getRawSource();
+        System.out.println(rawSource.debug());
+        debug(rootNode, 0);
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step1Normalized.fml");
+        assertEquals("(1:0)-(32:1)", rootNode.getLastParsedFragment().toString());
+        assertEquals(null, rootNode.getPrelude());
+        assertEquals(null, rootNode.getPostlude());
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step1PrettyPrint.fml");
-
-		RawSource rawSource = rootNode.getRawSource();
-		System.out.println(rawSource.debug());
-		debug(rootNode, 0);
-
-		assertEquals("(1:0)-(32:1)", rootNode.getLastParsedFragment().toString());
-		assertEquals(null, rootNode.getPrelude());
-		assertEquals(null, rootNode.getPostlude());
-
-		conceptANode = checkNodeForObject("(9:1)-(11:2)", "(8:1)-(9:0)", "(11:2)-(12:0)", conceptA);
+        conceptANode = checkNodeForObject("(9:1)-(11:2)", "(8:1)-(9:0)", "(11:2)-(12:0)", conceptA);
 
 		/*assertEquals("(1:0)-(1:80)", useDeclNode.getLastParsedFragment().toString());
 		assertEquals(null, useDeclNode.getPrelude());
@@ -188,145 +178,145 @@ public class TestFMLPrettyPrint5 extends FMLParserTestCase {
 		assertEquals(null, modelSlotP2Node.getPrelude());
 		assertEquals(null, modelSlotP2Node.getPostlude());
 		*/
-	}
+    }
 
-	@Test
-	@TestOrder(3)
-	public void changeAbstractConceptA() throws ParseException, IOException {
+    @Test
+    @TestOrder(3)
+    public void changeAbstractConceptA() throws ParseException, IOException {
 
-		log("changeAbstractConceptA()");
+        log("changeAbstractConceptA()");
 
-		conceptA.setAbstract(true);
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        conceptA.setAbstract(true);
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
 
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step2Normalized.fml");
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step2PrettyPrint.fml");
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step2Normalized.fml");
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step2PrettyPrint.fml");
 
-		conceptA.setAbstract(false);
+        conceptA.setAbstract(false);
 
-	}
+    }
 
-	@Test
-	@TestOrder(4)
-	public void changeConceptAVisibility() throws ParseException, IOException {
+    @Test
+    @TestOrder(4)
+    public void changeConceptAVisibility() throws ParseException, IOException {
 
-		log("changeConceptAVisibility()");
+        log("changeConceptAVisibility()");
 
-		conceptA.setVisibility(Visibility.Public);
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        conceptA.setVisibility(Visibility.Public);
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
 
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step3Normalized.fml");
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step3PrettyPrint.fml");
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step3Normalized.fml");
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step3PrettyPrint.fml");
 
-	}
+    }
 
-	@Test
-	@TestOrder(5)
-	public void changeConceptBVisibility() throws ParseException, IOException {
+    @Test
+    @TestOrder(5)
+    public void changeConceptBVisibility() throws ParseException, IOException {
 
-		log("changeConceptBVisibility()");
+        log("changeConceptBVisibility()");
 
-		conceptB.setVisibility(Visibility.Default);
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        conceptB.setVisibility(Visibility.Default);
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
 
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step4Normalized.fml");
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step4PrettyPrint.fml");
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step4Normalized.fml");
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step4PrettyPrint.fml");
 
-	}
+    }
 
-	@Test
-	@TestOrder(6)
-	public void changeBothConceptCAbstractAndVisibility() throws ParseException, IOException {
+    @Test
+    @TestOrder(6)
+    public void changeBothConceptCAbstractAndVisibility() throws ParseException, IOException {
 
-		log("changeBothConceptCAbstractAndVisibility()");
+        log("changeBothConceptCAbstractAndVisibility()");
 
-		conceptC.setAbstract(false);
-		conceptC.setVisibility(Visibility.Public);
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step5Normalized.fml");
+        conceptC.setAbstract(false);
+        conceptC.setVisibility(Visibility.Public);
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step5Normalized.fml");
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step5PrettyPrint.fml");
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step5PrettyPrint.fml");
 
-	}
+    }
 
-	@Test
-	@TestOrder(7)
-	public void changeSomeConceptVisibilityAndAbstract() throws ParseException, IOException {
+    @Test
+    @TestOrder(7)
+    public void changeSomeConceptVisibilityAndAbstract() throws ParseException, IOException {
 
-		log("changeSomeConceptVisibilityAndAbstract()");
+        log("changeSomeConceptVisibilityAndAbstract()");
 
-		conceptA.setVisibility(Visibility.Private);
-		conceptD.setAbstract(false);
-		conceptD.setVisibility(Visibility.Protected);
-		conceptE.setVisibility(Visibility.Default);
+        conceptA.setVisibility(Visibility.Private);
+        conceptD.setAbstract(false);
+        conceptD.setVisibility(Visibility.Protected);
+        conceptE.setVisibility(Visibility.Default);
 
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step6Normalized.fml");
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step6Normalized.fml");
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step6PrettyPrint.fml");
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step6PrettyPrint.fml");
 
-	}
+    }
 
-	@Test
-	@TestOrder(8)
-	public void changeSomeMethodsVisibility() throws ParseException, IOException {
+    @Test
+    @TestOrder(8)
+    public void changeSomeMethodsVisibility() throws ParseException, IOException {
 
-		log("changeSomeConceptVisibilityAndAbstract()");
+        log("changeSomeConceptVisibilityAndAbstract()");
 
-		behaviour1.setVisibility(Visibility.Default);
-		behaviour2.setVisibility(Visibility.Public);
-		behaviour3.setVisibility(Visibility.Public);
+        behaviour1.setVisibility(Visibility.Default);
+        behaviour2.setVisibility(Visibility.Public);
+        behaviour3.setVisibility(Visibility.Public);
 
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step7Normalized.fml");
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step7Normalized.fml");
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step7PrettyPrint.fml");
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step7PrettyPrint.fml");
 
-	}
+    }
 
-	@Test
-	@TestOrder(9)
-	public void changeFirstBehaviourImplementation() throws ParseException, IOException {
+    @Test
+    @TestOrder(9)
+    public void changeFirstBehaviourImplementation() throws ParseException, IOException {
 
-		log("changeFirstBehaviourImplementation()");
+        log("changeFirstBehaviourImplementation()");
 
-		behaviour1.setAbstract(true);
-		behaviour1.setControlGraph(null);
+        behaviour1.setAbstract(true);
+        behaviour1.setControlGraph(null);
 
-		// behaviour2.setVisibility(Visibility.Public);
-		// behaviour3.setVisibility(Visibility.Public);
+        // behaviour2.setVisibility(Visibility.Public);
+        // behaviour3.setVisibility(Visibility.Public);
 
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step8Normalized.fml");
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step8Normalized.fml");
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step8PrettyPrint.fml");
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step8PrettyPrint.fml");
 
-	}
+    }
 
-	@Test
-	@TestOrder(10)
-	public void changeOthersBehaviourImplementation() throws ParseException, IOException {
+    @Test
+    @TestOrder(10)
+    public void changeOthersBehaviourImplementation() throws ParseException, IOException {
 
-		log("changeFirstBehaviourImplementation()");
+        log("changeFirstBehaviourImplementation()");
 
-		behaviour2.setAbstract(false);
-		behaviour2.setControlGraph(behaviour2.getFMLModelFactory().newEmptyControlGraph());
+        behaviour2.setAbstract(false);
+        behaviour2.setControlGraph(behaviour2.getFMLModelFactory().newEmptyControlGraph());
 
-		behaviour3.setAbstract(true);
+        behaviour3.setAbstract(true);
 
-		System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
-		testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step9Normalized.fml");
+        System.out.println("Normalized=\n" + compilationUnit.getNormalizedFML());
+        testNormalizedFMLRepresentationEquals(compilationUnit, "TestFMLPrettyPrint5/Step9Normalized.fml");
 
-		System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
-		testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step9PrettyPrint.fml");
+        System.out.println("FML=\n" + compilationUnit.getFMLPrettyPrint());
+        testFMLPrettyPrintEquals(compilationUnit, "TestFMLPrettyPrint5/Step9PrettyPrint.fml");
 
-	}
+    }
 
 }

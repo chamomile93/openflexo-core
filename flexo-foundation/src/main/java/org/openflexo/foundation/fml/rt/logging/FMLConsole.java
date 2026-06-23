@@ -1,46 +1,42 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.fml.rt.logging;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.openflexo.foundation.FlexoEditor;
 import org.openflexo.foundation.fml.FlexoBehaviour;
@@ -48,328 +44,322 @@ import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
 import org.openflexo.foundation.fml.rt.logging.FMLLoggingFilter.FilterType;
 import org.openflexo.toolbox.PropertyChangedSupportDefaultImplementation;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Represent the console related to the execution of FML inside a {@link FlexoEditor} (related to a project)
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 public class FMLConsole extends PropertyChangedSupportDefaultImplementation {
 
-	/**
-	 * Send supplied logString to log console, with supplied log level
-	 * 
-	 * @param aLogString
-	 * @param logLevel
-	 */
-	// public void log(String aLogString, LogLevel logLevel, FlexoConceptInstance fci, FlexoBehaviour behaviour);
+    private final LinkedList<FMLLogRecord> allRecords;
+    private final ArrayList<FMLLogRecord> filteredRecords = new ArrayList<>();
+    private FlexoEditor editor;
+    private FMLConsole.LogLevel monitoredLogLevel = FMLConsole.LogLevel.INFO;
+    private boolean keepLogTrace = true;
+    private int maxLogCount = -1; // -1 means infinite
+    private List<FMLLogRecord> records;
+    private int totalLogs = 0;
+    private int totalWarningLogs = 0;
+    private int totalSevereLogs = 0;
+    private int logCount = 0;
+    private int warningCount = 0;
+    private int severeCount = 0;
+    private boolean filtersApplied = false;
+    private boolean textSearchApplied = false;
+    private FMLLoggingFormatter formatter;
+    private boolean showDebug = true;
+    private boolean isNotifying = false;
 
-	public static enum LogLevel {
-		SEVERE, WARNING, INFO, FINE, FINER, FINEST, DEBUG
-	}
+    public FMLConsole(FlexoEditor editor) {
+        this.editor = editor;
+        allRecords = new LinkedList<>();
+        records = allRecords;
+        formatter = new FMLLoggingFormatter();
+    }
 
-	private FlexoEditor editor;
-	private FMLConsole.LogLevel monitoredLogLevel = FMLConsole.LogLevel.INFO;
-	private boolean keepLogTrace = true;
-	private int maxLogCount = -1; // -1 means infinite
+    public FlexoEditor getFlexoEditor() {
+        return editor;
+    }
 
-	private final LinkedList<FMLLogRecord> allRecords;
-	private final ArrayList<FMLLogRecord> filteredRecords = new ArrayList<>();
-	private List<FMLLogRecord> records;
+    /**
+     * Receive aLogString as debug in console
+     *
+     * @param aLogString
+     */
+    public void debug(String aLogString, FlexoConceptInstance fci, FlexoBehaviour behaviour) {
+        FMLLogRecord logRecord = new FMLLogRecord(aLogString, FMLConsole.LogLevel.DEBUG, fci, behaviour, this);
+        add(logRecord);
+        System.out.println(formatter.format(logRecord));
+    }
 
-	private int totalLogs = 0;
-	private int totalWarningLogs = 0;
-	private int totalSevereLogs = 0;
+    /**
+     * Send supplied logString to log console, with supplied log level
+     *
+     * @param aLogString
+     * @param logLevel
+     */
+    public void log(String aLogString, FMLConsole.LogLevel logLevel, FlexoConceptInstance fci, FlexoBehaviour behaviour) {
 
-	private int logCount = 0;
-	private int warningCount = 0;
-	private int severeCount = 0;
+        if (getMonitoredLogLevel().ordinal() >= logLevel.ordinal()) {
+            FMLLogRecord logRecord = new FMLLogRecord(aLogString, logLevel, fci, behaviour, this);
+            add(logRecord);
+            System.out.println(formatter.format(logRecord));
+        }
+    }
 
-	private boolean filtersApplied = false;
-	private boolean textSearchApplied = false;
+    public FMLConsole.LogLevel getMonitoredLogLevel() {
+        return monitoredLogLevel;
+    }
 
-	private FMLLoggingFormatter formatter;
+    public void setMonitoredLogLevel(FMLConsole.LogLevel monitoredLogLevel) {
+        if ((monitoredLogLevel == null && this.monitoredLogLevel != null)
+                || (monitoredLogLevel != null && !monitoredLogLevel.equals(this.monitoredLogLevel))) {
+            FMLConsole.LogLevel oldValue = this.monitoredLogLevel;
+            this.monitoredLogLevel = monitoredLogLevel;
+            getPropertyChangeSupport().firePropertyChange("monitoredLogLevel", oldValue, monitoredLogLevel);
+        }
+    }
 
-	public FMLConsole(FlexoEditor editor) {
-		this.editor = editor;
-		allRecords = new LinkedList<>();
-		records = allRecords;
-		formatter = new FMLLoggingFormatter();
-	}
+    public boolean isShowDebug() {
+        return showDebug;
+    }
 
-	public FlexoEditor getFlexoEditor() {
-		return editor;
-	}
+    public void setShowDebug(boolean showDebug) {
+        if (showDebug != this.showDebug) {
+            boolean oldValue = this.showDebug;
+            this.showDebug = showDebug;
+            getPropertyChangeSupport().firePropertyChange("showDebug", oldValue, showDebug);
+        }
+    }
 
-	/**
-	 * Receive aLogString as debug in console
-	 * 
-	 * @param aLogString
-	 */
-	public void debug(String aLogString, FlexoConceptInstance fci, FlexoBehaviour behaviour) {
-		FMLLogRecord logRecord = new FMLLogRecord(aLogString, FMLConsole.LogLevel.DEBUG, fci, behaviour, this);
-		add(logRecord);
-		System.out.println(formatter.format(logRecord));
-	}
+    public boolean getKeepLogTrace() {
+        return keepLogTrace;
+    }
 
-	/**
-	 * Send supplied logString to log console, with supplied log level
-	 * 
-	 * @param aLogString
-	 * @param logLevel
-	 */
-	public void log(String aLogString, FMLConsole.LogLevel logLevel, FlexoConceptInstance fci, FlexoBehaviour behaviour) {
+    public void setKeepLogTrace(boolean keepLogTrace) {
+        if (keepLogTrace != this.keepLogTrace) {
+            boolean oldValue = this.keepLogTrace;
+            this.keepLogTrace = keepLogTrace;
+            getPropertyChangeSupport().firePropertyChange("keepLogTrace", oldValue, keepLogTrace);
+        }
+    }
 
-		if (getMonitoredLogLevel().ordinal() >= logLevel.ordinal()) {
-			FMLLogRecord logRecord = new FMLLogRecord(aLogString, logLevel, fci, behaviour, this);
-			add(logRecord);
-			System.out.println(formatter.format(logRecord));
-		}
-	}
+    public int getMaxLogCount() {
+        return maxLogCount;
+    }
 
-	public FMLConsole.LogLevel getMonitoredLogLevel() {
-		return monitoredLogLevel;
-	}
+    public void setMaxLogCount(int maxLogCount) {
+        if (maxLogCount != this.maxLogCount) {
+            int oldValue = this.maxLogCount;
+            this.maxLogCount = maxLogCount;
+            getPropertyChangeSupport().firePropertyChange("maxLogCount", oldValue, maxLogCount);
+        }
+    }
 
-	public void setMonitoredLogLevel(FMLConsole.LogLevel monitoredLogLevel) {
-		if ((monitoredLogLevel == null && this.monitoredLogLevel != null)
-				|| (monitoredLogLevel != null && !monitoredLogLevel.equals(this.monitoredLogLevel))) {
-			FMLConsole.LogLevel oldValue = this.monitoredLogLevel;
-			this.monitoredLogLevel = monitoredLogLevel;
-			getPropertyChangeSupport().firePropertyChange("monitoredLogLevel", oldValue, monitoredLogLevel);
-		}
-	}
+    private void add(FMLLogRecord record) {
+        synchronized (allRecords) {
+            if (getMaxLogCount() > -1 && allRecords.size() > getMaxLogCount()) {
+                allRecords.remove(0);
+            }
+            allRecords.add(record);
+            if (record.level == FMLConsole.LogLevel.WARNING) {
+                totalWarningLogs++;
+                getPropertyChangeSupport().firePropertyChange("warningLogs", null, record);
+            }
+            if (record.level == FMLConsole.LogLevel.SEVERE) {
+                totalSevereLogs++;
+                getPropertyChangeSupport().firePropertyChange("severeLogs", null, record);
+            }
+            totalLogs++;
+            if (!isNotifying) {
+                isNotifying = true;
+                getPropertyChangeSupport().firePropertyChange("records", null, record);
+                getPropertyChangeSupport().firePropertyChange("totalLogs", null, record);
+                getPropertyChangeSupport().firePropertyChange("logCount", null, record);
+                isNotifying = false;
+            }
+        }
+    }
 
-	private boolean showDebug = true;
+    public FMLLogRecord elementAt(int row) {
+        return allRecords.get(row);
+    }
 
-	public boolean isShowDebug() {
-		return showDebug;
-	}
+    public List<FMLLogRecord> getRecords() {
+        return records;
+    }
 
-	public void setShowDebug(boolean showDebug) {
-		if (showDebug != this.showDebug) {
-			boolean oldValue = this.showDebug;
-			this.showDebug = showDebug;
-			getPropertyChangeSupport().firePropertyChange("showDebug", oldValue, showDebug);
-		}
-	}
+    public void setRecords(List<FMLLogRecord> records) {
+        this.records = records;
+    }
 
-	public boolean getKeepLogTrace() {
-		return keepLogTrace;
-	}
+    public void addToRecords(FMLLogRecord record) {
+        records.add(record);
+    }
 
-	public void setKeepLogTrace(boolean keepLogTrace) {
-		if (keepLogTrace != this.keepLogTrace) {
-			boolean oldValue = this.keepLogTrace;
-			this.keepLogTrace = keepLogTrace;
-			getPropertyChangeSupport().firePropertyChange("keepLogTrace", oldValue, keepLogTrace);
-		}
-	}
+    public void removeFromRecords(FMLLogRecord record) {
+        records.remove(record);
+    }
 
-	public int getMaxLogCount() {
-		return maxLogCount;
-	}
+    public void clearRecords() {
+        logCount = 0;
+        warningCount = 0;
+        severeCount = 0;
+        totalLogs = 0;
+        totalWarningLogs = 0;
+        totalSevereLogs = 0;
+        allRecords.clear();
+        dismissFilters();
+        notifyFilteringChange();
+    }
 
-	public void setMaxLogCount(int maxLogCount) {
-		if (maxLogCount != this.maxLogCount) {
-			int oldValue = this.maxLogCount;
-			this.maxLogCount = maxLogCount;
-			getPropertyChangeSupport().firePropertyChange("maxLogCount", oldValue, maxLogCount);
-		}
-	}
+    public int getTotalLogs() {
+        return totalLogs;
+    }
 
-	private boolean isNotifying = false;
+    public int getWarningLogs() {
+        return totalWarningLogs;
+    }
 
-	private void add(FMLLogRecord record) {
-		synchronized (allRecords) {
-			if (getMaxLogCount() > -1 && allRecords.size() > getMaxLogCount()) {
-				allRecords.remove(0);
-			}
-			allRecords.add(record);
-			if (record.level == FMLConsole.LogLevel.WARNING) {
-				totalWarningLogs++;
-				getPropertyChangeSupport().firePropertyChange("warningLogs", null, record);
-			}
-			if (record.level == FMLConsole.LogLevel.SEVERE) {
-				totalSevereLogs++;
-				getPropertyChangeSupport().firePropertyChange("severeLogs", null, record);
-			}
-			totalLogs++;
-			if (!isNotifying) {
-				isNotifying = true;
-				getPropertyChangeSupport().firePropertyChange("records", null, record);
-				getPropertyChangeSupport().firePropertyChange("totalLogs", null, record);
-				getPropertyChangeSupport().firePropertyChange("logCount", null, record);
-				isNotifying = false;
-			}
-		}
-	}
+    public int getSevereLogs() {
+        return totalSevereLogs;
+    }
 
-	public FMLLogRecord elementAt(int row) {
-		return allRecords.get(row);
-	}
+    public int getLogCount() {
+        if (!filtersApplied && !textSearchApplied) {
+            return totalLogs;
+        }
+        return logCount;
+    }
 
-	public List<FMLLogRecord> getRecords() {
-		return records;
-	}
+    public int getWarningCount() {
+        if (!filtersApplied && !textSearchApplied) {
+            return totalWarningLogs;
+        }
+        return warningCount;
+    }
 
-	public void setRecords(List<FMLLogRecord> records) {
-		this.records = records;
-	}
+    public int getSevereCount() {
+        if (!filtersApplied && !textSearchApplied) {
+            return totalSevereLogs;
+        }
+        return severeCount;
+    }
 
-	public void addToRecords(FMLLogRecord record) {
-		records.add(record);
-	}
+    public void applyFilters(List<FMLLoggingFilter> filters) {
+        logCount = 0;
+        warningCount = 0;
+        severeCount = 0;
+        filtersApplied = true;
+        filteredRecords.clear();
+        boolean onlyKeep = false;
+        for (FMLLoggingFilter f : filters) {
+            if (f.type == FilterType.OnlyKeep) {
+                onlyKeep = true;
+            }
+        }
+        for (FMLLogRecord r : allRecords) {
+            boolean keepRecord = !onlyKeep;
+            for (FMLLoggingFilter f : filters) {
+                if (f.filterDoesApply(r)) {
+                    if (f.type == FilterType.OnlyKeep) {
+                        keepRecord = true;
+                    }
+                }
+            }
+            for (FMLLoggingFilter f : filters) {
+                if (f.filterDoesApply(r)) {
+                    if (f.type == FilterType.Dismiss) {
+                        keepRecord = false;
+                    }
+                }
+            }
+            if (keepRecord) {
+                filteredRecords.add(r);
+                logCount++;
+                if (r.level == FMLConsole.LogLevel.WARNING) {
+                    warningCount++;
+                } else if (r.level == FMLConsole.LogLevel.SEVERE) {
+                    severeCount++;
+                }
+            }
+        }
+        records = filteredRecords;
+        notifyFilteringChange();
+    }
 
-	public void removeFromRecords(FMLLogRecord record) {
-		records.remove(record);
-	}
+    public void dismissFilters() {
+        filtersApplied = false;
+        records = allRecords;
+        notifyFilteringChange();
+    }
 
-	public void clearRecords() {
-		logCount = 0;
-		warningCount = 0;
-		severeCount = 0;
-		totalLogs = 0;
-		totalWarningLogs = 0;
-		totalSevereLogs = 0;
-		allRecords.clear();
-		dismissFilters();
-		notifyFilteringChange();
-	}
+    public void searchText(String someText) {
+        logCount = 0;
+        warningCount = 0;
+        severeCount = 0;
+        textSearchApplied = true;
+        records = new ArrayList<>();
+        FMLLoggingFilter f = new FMLLoggingFilter("search");
+        f.setHasFilteredMessage(true);
+        f.filteredContent = someText;
+        for (FMLLogRecord r : filtersApplied() ? filteredRecords : allRecords) {
+            if (f.filterDoesApply(r)) {
+                records.add(r);
+                logCount++;
+                if (r.level == FMLConsole.LogLevel.WARNING) {
+                    warningCount++;
+                } else if (r.level == FMLConsole.LogLevel.SEVERE) {
+                    severeCount++;
+                }
+            }
+        }
+        notifyFilteringChange();
+    }
 
-	public int getTotalLogs() {
-		return totalLogs;
-	}
+    public void dismissSearchText() {
+        textSearchApplied = false;
+        if (filtersApplied()) {
+            records = filteredRecords;
+            notifyFilteringChange();
+        } else {
+            records = allRecords;
+            notifyFilteringChange();
+        }
+    }
 
-	public int getWarningLogs() {
-		return totalWarningLogs;
-	}
+    private void notifyFilteringChange() {
+        getPropertyChangeSupport().firePropertyChange("logCount", -1, logCount);
+        getPropertyChangeSupport().firePropertyChange("warningCount", -1, warningCount);
+        getPropertyChangeSupport().firePropertyChange("severeCount", -1, severeCount);
+        getPropertyChangeSupport().firePropertyChange("records", null, records);
+        getPropertyChangeSupport().firePropertyChange("filtersApplied", false, true);
+        getPropertyChangeSupport().firePropertyChange("textSearchApplied", false, true);
+    }
 
-	public int getSevereLogs() {
-		return totalSevereLogs;
-	}
+    public boolean filtersApplied() {
+        return filtersApplied;
+    }
 
-	public int getLogCount() {
-		if (!filtersApplied && !textSearchApplied) {
-			return totalLogs;
-		}
-		return logCount;
-	}
+    public boolean textSearchApplied() {
+        return textSearchApplied;
+    }
 
-	public int getWarningCount() {
-		if (!filtersApplied && !textSearchApplied) {
-			return totalWarningLogs;
-		}
-		return warningCount;
-	}
+    /**
+     * Send supplied logString to log console, with supplied log level
+     *
+     * @param aLogString
+     * @param logLevel
+     */
+    // public void log(String aLogString, LogLevel logLevel, FlexoConceptInstance fci, FlexoBehaviour behaviour);
 
-	public int getSevereCount() {
-		if (!filtersApplied && !textSearchApplied) {
-			return totalSevereLogs;
-		}
-		return severeCount;
-	}
-
-	public void applyFilters(List<FMLLoggingFilter> filters) {
-		logCount = 0;
-		warningCount = 0;
-		severeCount = 0;
-		filtersApplied = true;
-		filteredRecords.clear();
-		boolean onlyKeep = false;
-		for (FMLLoggingFilter f : filters) {
-			if (f.type == FilterType.OnlyKeep) {
-				onlyKeep = true;
-			}
-		}
-		for (FMLLogRecord r : allRecords) {
-			boolean keepRecord = !onlyKeep;
-			for (FMLLoggingFilter f : filters) {
-				if (f.filterDoesApply(r)) {
-					if (f.type == FilterType.OnlyKeep) {
-						keepRecord = true;
-					}
-				}
-			}
-			for (FMLLoggingFilter f : filters) {
-				if (f.filterDoesApply(r)) {
-					if (f.type == FilterType.Dismiss) {
-						keepRecord = false;
-					}
-				}
-			}
-			if (keepRecord) {
-				filteredRecords.add(r);
-				logCount++;
-				if (r.level == FMLConsole.LogLevel.WARNING) {
-					warningCount++;
-				}
-				else if (r.level == FMLConsole.LogLevel.SEVERE) {
-					severeCount++;
-				}
-			}
-		}
-		records = filteredRecords;
-		notifyFilteringChange();
-	}
-
-	public void dismissFilters() {
-		filtersApplied = false;
-		records = allRecords;
-		notifyFilteringChange();
-	}
-
-	public void searchText(String someText) {
-		logCount = 0;
-		warningCount = 0;
-		severeCount = 0;
-		textSearchApplied = true;
-		records = new ArrayList<>();
-		FMLLoggingFilter f = new FMLLoggingFilter("search");
-		f.setHasFilteredMessage(true);
-		f.filteredContent = someText;
-		for (FMLLogRecord r : filtersApplied() ? filteredRecords : allRecords) {
-			if (f.filterDoesApply(r)) {
-				records.add(r);
-				logCount++;
-				if (r.level == FMLConsole.LogLevel.WARNING) {
-					warningCount++;
-				}
-				else if (r.level == FMLConsole.LogLevel.SEVERE) {
-					severeCount++;
-				}
-			}
-		}
-		notifyFilteringChange();
-	}
-
-	public void dismissSearchText() {
-		textSearchApplied = false;
-		if (filtersApplied()) {
-			records = filteredRecords;
-			notifyFilteringChange();
-		}
-		else {
-			records = allRecords;
-			notifyFilteringChange();
-		}
-	}
-
-	private void notifyFilteringChange() {
-		getPropertyChangeSupport().firePropertyChange("logCount", -1, logCount);
-		getPropertyChangeSupport().firePropertyChange("warningCount", -1, warningCount);
-		getPropertyChangeSupport().firePropertyChange("severeCount", -1, severeCount);
-		getPropertyChangeSupport().firePropertyChange("records", null, records);
-		getPropertyChangeSupport().firePropertyChange("filtersApplied", false, true);
-		getPropertyChangeSupport().firePropertyChange("textSearchApplied", false, true);
-	}
-
-	public boolean filtersApplied() {
-		return filtersApplied;
-	}
-
-	public boolean textSearchApplied() {
-		return textSearchApplied;
-	}
+    public static enum LogLevel {
+        SEVERE, WARNING, INFO, FINE, FINER, FINEST, DEBUG
+    }
 
 }

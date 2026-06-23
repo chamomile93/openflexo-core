@@ -5,54 +5,44 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class Start extends Node
-{
+public final class Start extends Node {
     private PEntryPoint _pEntryPoint_;
     private EOF _eof_;
 
-    public Start()
-    {
+    public Start() {
         // Empty body
     }
 
     public Start(
-        @SuppressWarnings("hiding") PEntryPoint _pEntryPoint_,
-        @SuppressWarnings("hiding") EOF _eof_)
-    {
+            @SuppressWarnings("hiding") PEntryPoint _pEntryPoint_,
+            @SuppressWarnings("hiding") EOF _eof_) {
         setPEntryPoint(_pEntryPoint_);
         setEOF(_eof_);
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new Start(
-            cloneNode(this._pEntryPoint_),
-            cloneNode(this._eof_));
+                cloneNode(this._pEntryPoint_),
+                cloneNode(this._eof_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseStart(this);
     }
 
-    public PEntryPoint getPEntryPoint()
-    {
+    public PEntryPoint getPEntryPoint() {
         return this._pEntryPoint_;
     }
 
-    public void setPEntryPoint(PEntryPoint node)
-    {
-        if(this._pEntryPoint_ != null)
-        {
+    public void setPEntryPoint(PEntryPoint node) {
+        if (this._pEntryPoint_ != null) {
             this._pEntryPoint_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -62,22 +52,17 @@ public final class Start extends Node
         this._pEntryPoint_ = node;
     }
 
-    public EOF getEOF()
-    {
+    public EOF getEOF() {
         return this._eof_;
     }
 
-    public void setEOF(EOF node)
-    {
-        if(this._eof_ != null)
-        {
+    public void setEOF(EOF node) {
+        if (this._eof_ != null) {
             this._eof_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -88,16 +73,13 @@ public final class Start extends Node
     }
 
     @Override
-    void removeChild(Node child)
-    {
-        if(this._pEntryPoint_ == child)
-        {
+    void removeChild(Node child) {
+        if (this._pEntryPoint_ == child) {
             this._pEntryPoint_ = null;
             return;
         }
 
-        if(this._eof_ == child)
-        {
+        if (this._eof_ == child) {
             this._eof_ = null;
             return;
         }
@@ -106,16 +88,13 @@ public final class Start extends Node
     }
 
     @Override
-    void replaceChild(Node oldChild, Node newChild)
-    {
-        if(this._pEntryPoint_ == oldChild)
-        {
+    void replaceChild(Node oldChild, Node newChild) {
+        if (this._pEntryPoint_ == oldChild) {
             setPEntryPoint((PEntryPoint) newChild);
             return;
         }
 
-        if(this._eof_ == oldChild)
-        {
+        if (this._eof_ == oldChild) {
             setEOF((EOF) newChild);
             return;
         }
@@ -124,10 +103,9 @@ public final class Start extends Node
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "" +
-            toString(this._pEntryPoint_) +
-            toString(this._eof_);
+                toString(this._pEntryPoint_) +
+                toString(this._eof_);
     }
 }

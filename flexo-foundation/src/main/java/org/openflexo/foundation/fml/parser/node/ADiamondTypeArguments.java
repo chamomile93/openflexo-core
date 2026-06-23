@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ADiamondTypeArguments extends PTypeArguments
-{
+public final class ADiamondTypeArguments extends PTypeArguments {
     private TLt _lt_;
     private TGt _gt_;
 
-    public ADiamondTypeArguments()
-    {
+    public ADiamondTypeArguments() {
         // Constructor
     }
 
     public ADiamondTypeArguments(
-        @SuppressWarnings("hiding") TLt _lt_,
-        @SuppressWarnings("hiding") TGt _gt_)
-    {
+            @SuppressWarnings("hiding") TLt _lt_,
+            @SuppressWarnings("hiding") TGt _gt_) {
         // Constructor
         setLt(_lt_);
 
@@ -27,35 +24,28 @@ public final class ADiamondTypeArguments extends PTypeArguments
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ADiamondTypeArguments(
-            cloneNode(this._lt_),
-            cloneNode(this._gt_));
+                cloneNode(this._lt_),
+                cloneNode(this._gt_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseADiamondTypeArguments(this);
     }
 
-    public TLt getLt()
-    {
+    public TLt getLt() {
         return this._lt_;
     }
 
-    public void setLt(TLt node)
-    {
-        if(this._lt_ != null)
-        {
+    public void setLt(TLt node) {
+        if (this._lt_ != null) {
             this._lt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ADiamondTypeArguments extends PTypeArguments
         this._lt_ = node;
     }
 
-    public TGt getGt()
-    {
+    public TGt getGt() {
         return this._gt_;
     }
 
-    public void setGt(TGt node)
-    {
-        if(this._gt_ != null)
-        {
+    public void setGt(TGt node) {
+        if (this._gt_ != null) {
             this._gt_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ADiamondTypeArguments extends PTypeArguments
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lt_)
-            + toString(this._gt_);
+                + toString(this._lt_)
+                + toString(this._gt_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lt_ == child)
-        {
+        if (this._lt_ == child) {
             this._lt_ = null;
             return;
         }
 
-        if(this._gt_ == child)
-        {
+        if (this._gt_ == child) {
             this._gt_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ADiamondTypeArguments extends PTypeArguments
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lt_ == oldChild)
-        {
+        if (this._lt_ == oldChild) {
             setLt((TLt) newChild);
             return;
         }
 
-        if(this._gt_ == oldChild)
-        {
+        if (this._gt_ == oldChild) {
             setGt((TGt) newChild);
             return;
         }

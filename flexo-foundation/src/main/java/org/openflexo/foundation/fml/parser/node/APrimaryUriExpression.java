@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class APrimaryUriExpression extends PUriExpression
-{
+public final class APrimaryUriExpression extends PUriExpression {
     private PUriExpressionPrimary _uriExpressionPrimary_;
 
-    public APrimaryUriExpression()
-    {
+    public APrimaryUriExpression() {
         // Constructor
     }
 
     public APrimaryUriExpression(
-        @SuppressWarnings("hiding") PUriExpressionPrimary _uriExpressionPrimary_)
-    {
+            @SuppressWarnings("hiding") PUriExpressionPrimary _uriExpressionPrimary_) {
         // Constructor
         setUriExpressionPrimary(_uriExpressionPrimary_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new APrimaryUriExpression(
-            cloneNode(this._uriExpressionPrimary_));
+                cloneNode(this._uriExpressionPrimary_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAPrimaryUriExpression(this);
     }
 
-    public PUriExpressionPrimary getUriExpressionPrimary()
-    {
+    public PUriExpressionPrimary getUriExpressionPrimary() {
         return this._uriExpressionPrimary_;
     }
 
-    public void setUriExpressionPrimary(PUriExpressionPrimary node)
-    {
-        if(this._uriExpressionPrimary_ != null)
-        {
+    public void setUriExpressionPrimary(PUriExpressionPrimary node) {
+        if (this._uriExpressionPrimary_ != null) {
             this._uriExpressionPrimary_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class APrimaryUriExpression extends PUriExpression
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._uriExpressionPrimary_);
+                + toString(this._uriExpressionPrimary_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._uriExpressionPrimary_ == child)
-        {
+        if (this._uriExpressionPrimary_ == child) {
             this._uriExpressionPrimary_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class APrimaryUriExpression extends PUriExpression
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._uriExpressionPrimary_ == oldChild)
-        {
+        if (this._uriExpressionPrimary_ == oldChild) {
             setUriExpressionPrimary((PUriExpressionPrimary) newChild);
             return;
         }

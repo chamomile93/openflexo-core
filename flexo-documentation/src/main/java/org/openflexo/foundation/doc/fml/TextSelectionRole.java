@@ -31,42 +31,41 @@ import org.openflexo.pamela.annotations.ModelEntity;
 
 /**
  * A role that allows to point on a given {@link TextSelection} in a {@link FlexoDocument}
- * 
- * @author sylvain
  *
  * @param <F>
  * @param <D>
  * @param <TA>
+ * @author sylvain
  */
 @ModelEntity(isAbstract = true)
 @ImplementationClass(TextSelectionRole.TextSelectionRoleImpl.class)
 public interface TextSelectionRole<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-		extends FlexoRole<TextSelection<D, TA>> {
+        extends FlexoRole<TextSelection<D, TA>> {
 
-	public FlexoDocument<D, TA> getDocument();
+    public FlexoDocument<D, TA> getDocument();
 
-	public static abstract class TextSelectionRoleImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
-			extends FlexoRoleImpl<TextSelection<D, TA>> implements TextSelectionRole<D, TA> {
+    public static abstract class TextSelectionRoleImpl<D extends FlexoDocument<D, TA>, TA extends TechnologyAdapter<TA>>
+            extends FlexoRoleImpl<TextSelection<D, TA>> implements TextSelectionRole<D, TA> {
 
-		@Override
-		public FlexoDocument<D, TA> getDocument() {
-			if (getModelSlot() instanceof FlexoDocumentModelSlot
-					&& ((FlexoDocumentModelSlot<D, ?, ?>) getModelSlot()).getTemplateResource() != null) {
-				return ((FlexoDocumentModelSlot<D, ?, ?>) getModelSlot()).getTemplateResource().getDocument();
-			}
-			return null;
-		}
+        @Override
+        public FlexoDocument<D, TA> getDocument() {
+            if (getModelSlot() instanceof FlexoDocumentModelSlot
+                    && ((FlexoDocumentModelSlot<D, ?, ?>) getModelSlot()).getTemplateResource() != null) {
+                return ((FlexoDocumentModelSlot<D, ?, ?>) getModelSlot()).getTemplateResource().getDocument();
+            }
+            return null;
+        }
 
-		@Override
-		public TextSelectionActorReference<D, TA> makeActorReference(TextSelection<D, TA> textSelection, FlexoConceptInstance fci) {
-			AbstractVirtualModelInstanceModelFactory<?> factory = fci.getFactory();
-			TextSelectionActorReference<D, TA> returned = factory.newInstance(TextSelectionActorReference.class);
-			returned.setFlexoRole(this);
-			returned.setFlexoConceptInstance(fci);
-			returned.setModellingElement(textSelection);
-			return returned;
-		}
+        @Override
+        public TextSelectionActorReference<D, TA> makeActorReference(TextSelection<D, TA> textSelection, FlexoConceptInstance fci) {
+            AbstractVirtualModelInstanceModelFactory<?> factory = fci.getFactory();
+            TextSelectionActorReference<D, TA> returned = factory.newInstance(TextSelectionActorReference.class);
+            returned.setFlexoRole(this);
+            returned.setFlexoConceptInstance(fci);
+            returned.setModellingElement(textSelection);
+            return returned;
+        }
 
-	}
+    }
 
 }

@@ -5,22 +5,19 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AVariableDeclarationBlockStatement extends PBlockStatement
-{
+public final class AVariableDeclarationBlockStatement extends PBlockStatement {
     private PType _type_;
     private PVariableDeclarator _variableDeclarator_;
     private TSemi _semi_;
 
-    public AVariableDeclarationBlockStatement()
-    {
+    public AVariableDeclarationBlockStatement() {
         // Constructor
     }
 
     public AVariableDeclarationBlockStatement(
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") PVariableDeclarator _variableDeclarator_,
-        @SuppressWarnings("hiding") TSemi _semi_)
-    {
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") PVariableDeclarator _variableDeclarator_,
+            @SuppressWarnings("hiding") TSemi _semi_) {
         // Constructor
         setType(_type_);
 
@@ -31,36 +28,29 @@ public final class AVariableDeclarationBlockStatement extends PBlockStatement
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AVariableDeclarationBlockStatement(
-            cloneNode(this._type_),
-            cloneNode(this._variableDeclarator_),
-            cloneNode(this._semi_));
+                cloneNode(this._type_),
+                cloneNode(this._variableDeclarator_),
+                cloneNode(this._semi_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAVariableDeclarationBlockStatement(this);
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -70,22 +60,17 @@ public final class AVariableDeclarationBlockStatement extends PBlockStatement
         this._type_ = node;
     }
 
-    public PVariableDeclarator getVariableDeclarator()
-    {
+    public PVariableDeclarator getVariableDeclarator() {
         return this._variableDeclarator_;
     }
 
-    public void setVariableDeclarator(PVariableDeclarator node)
-    {
-        if(this._variableDeclarator_ != null)
-        {
+    public void setVariableDeclarator(PVariableDeclarator node) {
+        if (this._variableDeclarator_ != null) {
             this._variableDeclarator_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -95,22 +80,17 @@ public final class AVariableDeclarationBlockStatement extends PBlockStatement
         this._variableDeclarator_ = node;
     }
 
-    public TSemi getSemi()
-    {
+    public TSemi getSemi() {
         return this._semi_;
     }
 
-    public void setSemi(TSemi node)
-    {
-        if(this._semi_ != null)
-        {
+    public void setSemi(TSemi node) {
+        if (this._semi_ != null) {
             this._semi_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -121,32 +101,27 @@ public final class AVariableDeclarationBlockStatement extends PBlockStatement
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._type_)
-            + toString(this._variableDeclarator_)
-            + toString(this._semi_);
+                + toString(this._type_)
+                + toString(this._variableDeclarator_)
+                + toString(this._semi_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._variableDeclarator_ == child)
-        {
+        if (this._variableDeclarator_ == child) {
             this._variableDeclarator_ = null;
             return;
         }
 
-        if(this._semi_ == child)
-        {
+        if (this._semi_ == child) {
             this._semi_ = null;
             return;
         }
@@ -155,23 +130,19 @@ public final class AVariableDeclarationBlockStatement extends PBlockStatement
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._variableDeclarator_ == oldChild)
-        {
+        if (this._variableDeclarator_ == oldChild) {
             setVariableDeclarator((PVariableDeclarator) newChild);
             return;
         }
 
-        if(this._semi_ == oldChild)
-        {
+        if (this._semi_ == oldChild) {
             setSemi((TSemi) newChild);
             return;
         }

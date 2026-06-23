@@ -5,35 +5,29 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class TEnter extends Token
-{
-    public TEnter()
-    {
+public final class TEnter extends Token {
+    public TEnter() {
         super.setText("enter");
     }
 
-    public TEnter(int line, int pos)
-    {
+    public TEnter(int line, int pos) {
         super.setText("enter");
         setLine(line);
         setPos(pos);
     }
 
     @Override
-    public Object clone()
-    {
-      return new TEnter(getLine(), getPos());
+    public Object clone() {
+        return new TEnter(getLine(), getPos());
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseTEnter(this);
     }
 
     @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
+    public void setText(@SuppressWarnings("unused") String text) {
         throw new RuntimeException("Cannot change TEnter text.");
     }
 }

@@ -5,20 +5,17 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ANewContainmentClause extends PNewContainmentClause
-{
+public final class ANewContainmentClause extends PNewContainmentClause {
     private PCompositeIdent _compositeIdent_;
     private TDot _dot_;
 
-    public ANewContainmentClause()
-    {
+    public ANewContainmentClause() {
         // Constructor
     }
 
     public ANewContainmentClause(
-        @SuppressWarnings("hiding") PCompositeIdent _compositeIdent_,
-        @SuppressWarnings("hiding") TDot _dot_)
-    {
+            @SuppressWarnings("hiding") PCompositeIdent _compositeIdent_,
+            @SuppressWarnings("hiding") TDot _dot_) {
         // Constructor
         setCompositeIdent(_compositeIdent_);
 
@@ -27,35 +24,28 @@ public final class ANewContainmentClause extends PNewContainmentClause
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ANewContainmentClause(
-            cloneNode(this._compositeIdent_),
-            cloneNode(this._dot_));
+                cloneNode(this._compositeIdent_),
+                cloneNode(this._dot_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseANewContainmentClause(this);
     }
 
-    public PCompositeIdent getCompositeIdent()
-    {
+    public PCompositeIdent getCompositeIdent() {
         return this._compositeIdent_;
     }
 
-    public void setCompositeIdent(PCompositeIdent node)
-    {
-        if(this._compositeIdent_ != null)
-        {
+    public void setCompositeIdent(PCompositeIdent node) {
+        if (this._compositeIdent_ != null) {
             this._compositeIdent_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -65,22 +55,17 @@ public final class ANewContainmentClause extends PNewContainmentClause
         this._compositeIdent_ = node;
     }
 
-    public TDot getDot()
-    {
+    public TDot getDot() {
         return this._dot_;
     }
 
-    public void setDot(TDot node)
-    {
-        if(this._dot_ != null)
-        {
+    public void setDot(TDot node) {
+        if (this._dot_ != null) {
             this._dot_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -91,25 +76,21 @@ public final class ANewContainmentClause extends PNewContainmentClause
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._compositeIdent_)
-            + toString(this._dot_);
+                + toString(this._compositeIdent_)
+                + toString(this._dot_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._compositeIdent_ == child)
-        {
+        if (this._compositeIdent_ == child) {
             this._compositeIdent_ = null;
             return;
         }
 
-        if(this._dot_ == child)
-        {
+        if (this._dot_ == child) {
             this._dot_ = null;
             return;
         }
@@ -118,17 +99,14 @@ public final class ANewContainmentClause extends PNewContainmentClause
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._compositeIdent_ == oldChild)
-        {
+        if (this._compositeIdent_ == oldChild) {
             setCompositeIdent((PCompositeIdent) newChild);
             return;
         }
 
-        if(this._dot_ == oldChild)
-        {
+        if (this._dot_ == oldChild) {
             setDot((TDot) newChild);
             return;
         }

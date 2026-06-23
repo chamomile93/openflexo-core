@@ -1,43 +1,52 @@
 /**
- * 
+ *
  * Copyright (c) 2014, Openflexo
- * 
- * This file is part of Flexo-foundation, a component of the software infrastructure 
+ * <p>
+ * This file is part of Flexo-foundation, a component of the software infrastructure
  * developed at Openflexo.
- * 
- * 
- * Openflexo is dual-licensed under the European Union Public License (EUPL, either 
- * version 1.1 of the License, or any later version ), which is available at 
+ * <p>
+ * <p>
+ * Openflexo is dual-licensed under the European Union Public License (EUPL, either
+ * version 1.1 of the License, or any later version ), which is available at
  * https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
- * and the GNU General Public License (GPL, either version 3 of the License, or any 
+ * and the GNU General Public License (GPL, either version 3 of the License, or any
  * later version), which is available at http://www.gnu.org/licenses/gpl.html .
- * 
+ * <p>
  * You can redistribute it and/or modify under the terms of either of these licenses
- * 
+ * <p>
  * If you choose to redistribute it and/or modify under the terms of the GNU GPL, you
  * must include the following additional permission.
- *
- *          Additional permission under GNU GPL version 3 section 7
- *
- *          If you modify this Program, or any covered work, by linking or 
- *          combining it with software containing parts covered by the terms 
- *          of EPL 1.0, the licensors of this Program grant you additional permission
- *          to convey the resulting work. * 
- * 
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
- * PARTICULAR PURPOSE. 
- *
+ * <p>
+ * Additional permission under GNU GPL version 3 section 7
+ * <p>
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with software containing parts covered by the terms
+ * of EPL 1.0, the licensors of this Program grant you additional permission
+ * to convey the resulting work. *
+ * <p>
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ * <p>
  * See http://www.openflexo.org/license.html for details.
- * 
- * 
+ * <p>
+ * <p>
  * Please contact Openflexo (openflexo-contacts@openflexo.org)
  * or visit www.openflexo.org if you need additional information.
- * 
+ *
  */
 
 package org.openflexo.foundation.action;
 
+import org.openflexo.foundation.FlexoEditingContext;
+import org.openflexo.foundation.PamelaResourceModelFactory;
+import org.openflexo.foundation.resource.PamelaResource;
+import org.openflexo.pamela.model.ModelProperty;
+import org.openflexo.pamela.undo.*;
+import org.openflexo.toolbox.HasPropertyChangeSupport;
+import org.openflexo.toolbox.StringUtils;
+
+import javax.swing.undo.UndoableEdit;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,505 +54,472 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.undo.UndoableEdit;
-
-import org.openflexo.foundation.FlexoEditingContext;
-import org.openflexo.foundation.PamelaResourceModelFactory;
-import org.openflexo.foundation.resource.PamelaResource;
-import org.openflexo.pamela.model.ModelProperty;
-import org.openflexo.pamela.undo.AddCommand;
-import org.openflexo.pamela.undo.AtomicEdit;
-import org.openflexo.pamela.undo.CompoundEdit;
-import org.openflexo.pamela.undo.RemoveCommand;
-import org.openflexo.pamela.undo.SetCommand;
-import org.openflexo.pamela.undo.UndoManager;
-import org.openflexo.toolbox.HasPropertyChangeSupport;
-import org.openflexo.toolbox.StringUtils;
-
 /**
  * An Openflexo-infrastructure specific UndoManager which manage undo though FlexoAction wrapping.<br>
- * 
+ *
  * More precisely, {@link CompoundEdit} managed by this {@link UndoManager} are {@link FlexoActionCompoundEdit} instances.<br>
  * Those instances should reference a {@link FlexoAction}, but sometimes this is not the case (when the developper has decided that the edit
  * was at really low-level and not embedded in a FlexoAction)
- * 
+ *
  * See {@link UndoManager} documentation for more details
- * 
+ *
  * @author sylvain
- * 
+ *
  */
 // TODO: this implementation is not thread safe: we cannot support many concurrent access to undo-manager
 @SuppressWarnings("serial")
 public class FlexoUndoManager extends UndoManager {
 
-	private static final Logger logger = Logger.getLogger(FlexoUndoManager.class.getPackage().getName());
+    public static final String ACTION_HISTORY = "actionHistory";
+    private static final Logger logger = Logger.getLogger(FlexoUndoManager.class.getPackage().getName());
+    private final List<IgnoreHandler> ignoreHandlers;
+    private final FlexoEditingContext editingContext;
+    private FlexoAction<?, ?, ?> actionBeeingCurrentlyExecuted;
 
-	public static final String ACTION_HISTORY = "actionHistory";
+    public FlexoUndoManager(FlexoEditingContext editingContext) {
+        ignoreHandlers = new ArrayList<>();
+        this.editingContext = editingContext;
+    }
 
-	private FlexoAction<?, ?, ?> actionBeeingCurrentlyExecuted;
-	private final List<IgnoreHandler> ignoreHandlers;
+    /**
+     * Adds an {@link IgnoreHandler} to the set of ignore handlers for this object, provided that it is not the same as some
+     * {@link IgnoreHandler} already in the set.
+     *
+     * @param ignoreHandler
+     *            an {@link IgnoreHandler} to be added.
+     */
+    public void addToIgnoreHandlers(IgnoreHandler ignoreHandler) {
+        ignoreHandlers.add(ignoreHandler);
+    }
 
-	private final FlexoEditingContext editingContext;
+    /**
+     * Remove an {@link IgnoreHandler} to the set of ignore handlers for this object
+     *
+     * @param ignoreHandler
+     *            an {@link IgnoreHandler} to be removed.
+     */
+    public void removeFromIgnoreHandlers(IgnoreHandler ignoreHandler) {
+        ignoreHandlers.remove(ignoreHandler);
+    }
 
-	public FlexoUndoManager(FlexoEditingContext editingContext) {
-		ignoreHandlers = new ArrayList<>();
-		this.editingContext = editingContext;
-	}
+    /**
+     * Called when a FlexoAction is about to be executed
+     *
+     * @param action
+     *            : the FlexoAction that will be executed
+     */
+    public void actionWillBePerformed(FlexoAction<?, ?, ?> action) {
+        willDo(action);
+    }
 
-	/**
-	 * Adds an {@link IgnoreHandler} to the set of ignore handlers for this object, provided that it is not the same as some
-	 * {@link IgnoreHandler} already in the set.
-	 * 
-	 * @param ignoreHandler
-	 *            an {@link IgnoreHandler} to be added.
-	 */
-	public void addToIgnoreHandlers(IgnoreHandler ignoreHandler) {
-		ignoreHandlers.add(ignoreHandler);
-	}
+    /**
+     * Called when a FlexoAction has just been successfully executed
+     *
+     * @param action
+     *            : the FlexoAction that has just been successfully executed
+     */
+    public <A extends FlexoAction<A, ?, ?>> void actionHasBeenPerformed(A action, boolean success) {
+        if (success) {
+            hasSuccessfullyDone(action);
+        } else {
+            compensateFailedAction(action);
+        }
+    }
 
-	/**
-	 * Remove an {@link IgnoreHandler} to the set of ignore handlers for this object
-	 * 
-	 * @param ignoreHandler
-	 *            an {@link IgnoreHandler} to be removed.
-	 */
-	public void removeFromIgnoreHandlers(IgnoreHandler ignoreHandler) {
-		ignoreHandlers.remove(ignoreHandler);
-	}
+    @Override
+    public synchronized CompoundEdit startRecording(String presentationName) {
+        if (logger.isLoggable(Level.FINE)) {
+            logger.fine("FlexoUndoManager: START RECORDING " + presentationName);
+        }
+        return super.startRecording(presentationName);
+    }
 
-	/**
-	 * Called when a FlexoAction is about to be executed
-	 * 
-	 * @param action
-	 *            : the FlexoAction that will be executed
-	 */
-	public void actionWillBePerformed(FlexoAction<?, ?, ?> action) {
-		willDo(action);
-	}
+    @Override
+    public synchronized CompoundEdit stopRecording(CompoundEdit edit) {
+        if (edit != null) {
+            if (logger.isLoggable(Level.FINE)) {
+                logger.fine("FlexoUndoManager: STOP RECORDING " + edit.getPresentationName());
+            }
+        }
+        return super.stopRecording(edit);
+    }
 
-	/**
-	 * Called when a FlexoAction has just been successfully executed
-	 * 
-	 * @param action
-	 *            : the FlexoAction that has just been successfully executed
-	 */
-	public <A extends FlexoAction<A, ?, ?>> void actionHasBeenPerformed(A action, boolean success) {
-		if (success) {
-			hasSuccessfullyDone(action);
-		}
-		else {
-			compensateFailedAction(action);
-		}
-	}
+    /**
+     * Returns the the next significant FlexoAction to be undone if <code>undo</code> is invoked. This returns <code>null</code> if there
+     * are no edits to be undone, or if next edit to be undone do not refer to any FlexoAction (a pathological case where an edit has been
+     * done outside FlexoAction context - this means that an abnormal situation occurs, please warn it)
+     *
+     * @return the next significant edit to be undone
+     */
+    public FlexoAction<?, ?, ?> actionToBeUndone() {
+        CompoundEdit e = editToBeUndone();
+        if (e instanceof FlexoActionCompoundEdit) {
+            return ((FlexoActionCompoundEdit) e).getAction();
+        }
+        logger.warning("Edit to be undone do not refer to any FlexoAction !");
+        return null;
+    }
 
-	@Override
-	public synchronized CompoundEdit startRecording(String presentationName) {
-		if (logger.isLoggable(Level.FINE)) {
-			logger.fine("FlexoUndoManager: START RECORDING " + presentationName);
-		}
-		return super.startRecording(presentationName);
-	}
+    /**
+     * Returns the the next significant edit to be redone if <code>redo</code> is invoked. This returns <code>null</code> if there are no
+     * edits to be redone, or if edit to be redone do not refer to any FlexoAction (a pathological case where an edit has been done outside
+     * FlexoAction context - this means that an abnormal situation occurs, please warn it)
+     *
+     * @return the next significant edit to be redone
+     */
+    public FlexoAction<?, ?, ?> actionToBeRedone() {
+        CompoundEdit e = editToBeRedone();
+        if (e instanceof FlexoActionCompoundEdit) {
+            return ((FlexoActionCompoundEdit) e).getAction();
+        }
+        logger.warning("Edit to be redone do not refer to any FlexoAction !");
+        return null;
+    }
 
-	@Override
-	public synchronized CompoundEdit stopRecording(CompoundEdit edit) {
-		if (edit != null) {
-			if (logger.isLoggable(Level.FINE)) {
-				logger.fine("FlexoUndoManager: STOP RECORDING " + edit.getPresentationName());
-			}
-		}
-		return super.stopRecording(edit);
-	}
+    /**
+     * Called when a FlexoAction is about to be executed
+     *
+     * @param action
+     *            : the FlexoAction that will be executed
+     */
+    private void willDo(FlexoAction<?, ?, ?> action) {
+        if (!action.isEmbedded()) {
+            if (action.getCompoundEdit() != null) {
+                // CompoundEdit has already been initialized
+            } else {
+                actionBeeingCurrentlyExecuted = action;
+                FlexoActionCompoundEdit compoundEdit = (FlexoActionCompoundEdit) startRecording(action.getLocalizedName());
+                action.setCompoundEdit(compoundEdit);
+            }
+        } else {
+            // embedded action
+            if (getCurrentEdition() instanceof FlexoActionCompoundEdit) {
+                ((FlexoActionCompoundEdit) getCurrentEdition()).willDoEmbeddedAction(action);
+            }
+        }
+    }
 
-	/**
-	 * Returns the the next significant FlexoAction to be undone if <code>undo</code> is invoked. This returns <code>null</code> if there
-	 * are no edits to be undone, or if next edit to be undone do not refer to any FlexoAction (a pathological case where an edit has been
-	 * done outside FlexoAction context - this means that an abnormal situation occurs, please warn it)
-	 * 
-	 * @return the next significant edit to be undone
-	 */
-	public FlexoAction<?, ?, ?> actionToBeUndone() {
-		CompoundEdit e = editToBeUndone();
-		if (e instanceof FlexoActionCompoundEdit) {
-			return ((FlexoActionCompoundEdit) e).getAction();
-		}
-		logger.warning("Edit to be undone do not refer to any FlexoAction !");
-		return null;
-	}
+    /**
+     * Called when a FlexoAction has just been successfully executed
+     *
+     * @param action
+     *            : the FlexoAction that has just been successfully executed
+     */
+    private void hasSuccessfullyDone(FlexoAction<?, ?, ?> action) {
+        if (!action.isEmbedded()) {
+            if (getCurrentEdition() != null) {
+                stopRecording(getCurrentEdition());
+            }
+            actionBeeingCurrentlyExecuted = null;
+            getPropertyChangeSupport().firePropertyChange(ACTION_HISTORY, null, action);
+        } else {
+            // embedded action
+            if (getCurrentEdition() instanceof FlexoActionCompoundEdit) {
+                ((FlexoActionCompoundEdit) getCurrentEdition()).hasDoneEmbeddedAction(action);
+            }
+        }
+    }
 
-	/**
-	 * Returns the the next significant edit to be redone if <code>redo</code> is invoked. This returns <code>null</code> if there are no
-	 * edits to be redone, or if edit to be redone do not refer to any FlexoAction (a pathological case where an edit has been done outside
-	 * FlexoAction context - this means that an abnormal situation occurs, please warn it)
-	 * 
-	 * @return the next significant edit to be redone
-	 */
-	public FlexoAction<?, ?, ?> actionToBeRedone() {
-		CompoundEdit e = editToBeRedone();
-		if (e instanceof FlexoActionCompoundEdit) {
-			return ((FlexoActionCompoundEdit) e).getAction();
-		}
-		logger.warning("Edit to be redone do not refer to any FlexoAction !");
-		return null;
-	}
+    /**
+     * Called when a FlexoAction has just been executed but returned with failure status. We try here to compensate all edits.
+     *
+     * @param action
+     *            : the FlexoAction that has just been executed but returned with failure status
+     */
+    private void compensateFailedAction(FlexoAction<?, ?, ?> action) {
+        if (!action.isEmbedded()) {
+            CompoundEdit currentEdition = getCurrentEdition();
+            stopRecording(currentEdition);
+            actionBeeingCurrentlyExecuted = null;
+            if (canUndo()) {
+                undo();
+                currentEdition.die();
+            }
+        }
+    }
 
-	/**
-	 * Called when a FlexoAction is about to be executed
-	 * 
-	 * @param action
-	 *            : the FlexoAction that will be executed
-	 */
-	private void willDo(FlexoAction<?, ?, ?> action) {
-		if (!action.isEmbedded()) {
-			if (action.getCompoundEdit() != null) {
-				// CompoundEdit has already been initialized
-			}
-			else {
-				actionBeeingCurrentlyExecuted = action;
-				FlexoActionCompoundEdit compoundEdit = (FlexoActionCompoundEdit) startRecording(action.getLocalizedName());
-				action.setCompoundEdit(compoundEdit);
-			}
-		}
-		else {
-			// embedded action
-			if (getCurrentEdition() instanceof FlexoActionCompoundEdit) {
-				((FlexoActionCompoundEdit) getCurrentEdition()).willDoEmbeddedAction(action);
-			}
-		}
-	}
+    @Override
+    protected FlexoActionCompoundEdit makeCompoundEdit(String presentationName) {
+        return new FlexoActionCompoundEdit(actionBeeingCurrentlyExecuted, presentationName);
+    }
 
-	/**
-	 * Called when a FlexoAction has just been successfully executed
-	 * 
-	 * @param action
-	 *            : the FlexoAction that has just been successfully executed
-	 */
-	private void hasSuccessfullyDone(FlexoAction<?, ?, ?> action) {
-		if (!action.isEmbedded()) {
-			if (getCurrentEdition() != null) {
-				stopRecording(getCurrentEdition());
-			}
-			actionBeeingCurrentlyExecuted = null;
-			getPropertyChangeSupport().firePropertyChange(ACTION_HISTORY, null, action);
-		}
-		else {
-			// embedded action
-			if (getCurrentEdition() instanceof FlexoActionCompoundEdit) {
-				((FlexoActionCompoundEdit) getCurrentEdition()).hasDoneEmbeddedAction(action);
-			}
-		}
-	}
+    @Override
+    public boolean isIgnorable(UndoableEdit edit) {
+        for (IgnoreHandler ih : new ArrayList<>(ignoreHandlers)) {
+            if (ih.isIgnorable(edit)) {
+                return true;
+            }
+        }
 
-	/**
-	 * Called when a FlexoAction has just been executed but returned with failure status. We try here to compensate all edits.
-	 * 
-	 * @param action
-	 *            : the FlexoAction that has just been executed but returned with failure status
-	 */
-	private void compensateFailedAction(FlexoAction<?, ?, ?> action) {
-		if (!action.isEmbedded()) {
-			CompoundEdit currentEdition = getCurrentEdition();
-			stopRecording(currentEdition);
-			actionBeeingCurrentlyExecuted = null;
-			if (canUndo()) {
-				undo();
-				currentEdition.die();
-			}
-		}
-	}
+        // Debug
+        if (getCurrentEdition() == null || getCurrentEdition().getPresentationName().equals(UNIDENTIFIED_RECORDING)) {
+            // We are on an unidentified recording
+            if (editingContext.warnOnUnexpectedEdits()) {
+                if (logger.isLoggable(Level.FINE)) {
+                    logger.warning("Received edit outside legal UNDO declaration");
+                    // Thread.dumpStack();
+                }
+            }
+        }
+        return false;
+    }
 
-	@Override
-	protected FlexoActionCompoundEdit makeCompoundEdit(String presentationName) {
-		return new FlexoActionCompoundEdit(actionBeeingCurrentlyExecuted, presentationName);
-	}
+    @Override
+    protected void fireAddEdit(UndoableEdit anEdit) {
+        getPropertyChangeSupport().firePropertyChange("canUndo()", !canUndo(), canUndo());
+        getPropertyChangeSupport().firePropertyChange("canRedo()", !canRedo(), canRedo());
+        getPropertyChangeSupport().firePropertyChange("edits", null, anEdit);
+        if (editToBeUndone() instanceof FlexoActionCompoundEdit) {
+            ((FlexoActionCompoundEdit) editToBeUndone()).fireActiveStatusChange();
+        }
+        int index = getEdits().indexOf(editToBeUndone());
+        if (index > 0 && index < getEdits().size()) {
+            UndoableEdit previousEdit = getEdits().get(index - 1);
+            if (previousEdit instanceof FlexoActionCompoundEdit) {
+                ((FlexoActionCompoundEdit) previousEdit).fireActiveStatusChange();
+            }
+        }
+    }
 
-	@Override
-	public boolean isIgnorable(UndoableEdit edit) {
-		for (IgnoreHandler ih : new ArrayList<>(ignoreHandlers)) {
-			if (ih.isIgnorable(edit)) {
-				return true;
-			}
-		}
+    @Override
+    protected void fireUndo() {
 
-		// Debug
-		if (getCurrentEdition() == null || getCurrentEdition().getPresentationName().equals(UNIDENTIFIED_RECORDING)) {
-			// We are on an unidentified recording
-			if (editingContext.warnOnUnexpectedEdits()) {
-				if (logger.isLoggable(Level.FINE)) {
-					logger.warning("Received edit outside legal UNDO declaration");
-					// Thread.dumpStack();
-				}
-			}
-		}
-		return false;
-	}
+        super.fireUndo();
 
-	@Override
-	protected void fireAddEdit(UndoableEdit anEdit) {
-		getPropertyChangeSupport().firePropertyChange("canUndo()", !canUndo(), canUndo());
-		getPropertyChangeSupport().firePropertyChange("canRedo()", !canRedo(), canRedo());
-		getPropertyChangeSupport().firePropertyChange("edits", null, anEdit);
-		if (editToBeUndone() instanceof FlexoActionCompoundEdit) {
-			((FlexoActionCompoundEdit) editToBeUndone()).fireActiveStatusChange();
-		}
-		int index = getEdits().indexOf(editToBeUndone());
-		if (index > 0 && index < getEdits().size()) {
-			UndoableEdit previousEdit = getEdits().get(index - 1);
-			if (previousEdit instanceof FlexoActionCompoundEdit) {
-				((FlexoActionCompoundEdit) previousEdit).fireActiveStatusChange();
-			}
-		}
-	}
+        // We override here the default behaviour of UndoManager by notifying all
+        // was is required for GUI to correctely react to this new status. This includes
+        // result of canUndo() and canRedo(), as well as 'isActive' status for each concerned FlexoActionCompoundEdit
 
-	@Override
-	protected void fireUndo() {
+        getPropertyChangeSupport().firePropertyChange("canUndo()", !canUndo(), canUndo());
+        getPropertyChangeSupport().firePropertyChange("canRedo()", !canRedo(), canRedo());
 
-		super.fireUndo();
+        if (editToBeUndone() instanceof FlexoActionCompoundEdit) {
+            ((FlexoActionCompoundEdit) editToBeUndone()).fireActiveStatusChange();
+        }
+        if (editToBeRedone() instanceof FlexoActionCompoundEdit) {
+            ((FlexoActionCompoundEdit) editToBeRedone()).fireActiveStatusChange();
+        }
+    }
 
-		// We override here the default behaviour of UndoManager by notifying all
-		// was is required for GUI to correctely react to this new status. This includes
-		// result of canUndo() and canRedo(), as well as 'isActive' status for each concerned FlexoActionCompoundEdit
+    @Override
+    protected void fireRedo() {
 
-		getPropertyChangeSupport().firePropertyChange("canUndo()", !canUndo(), canUndo());
-		getPropertyChangeSupport().firePropertyChange("canRedo()", !canRedo(), canRedo());
+        super.fireRedo();
 
-		if (editToBeUndone() instanceof FlexoActionCompoundEdit) {
-			((FlexoActionCompoundEdit) editToBeUndone()).fireActiveStatusChange();
-		}
-		if (editToBeRedone() instanceof FlexoActionCompoundEdit) {
-			((FlexoActionCompoundEdit) editToBeRedone()).fireActiveStatusChange();
-		}
-	}
+        // We override here the default behaviour of UndoManager by notifying all
+        // was is required for GUI to correctely react to this new status. This includes
+        // result of canUndo() and canRedo(), as well as 'isActive' status for each concerned FlexoActionCompoundEdit
 
-	@Override
-	protected void fireRedo() {
+        getPropertyChangeSupport().firePropertyChange("canUndo()", !canUndo(), canUndo());
+        getPropertyChangeSupport().firePropertyChange("canRedo()", !canRedo(), canRedo());
+        // getPropertyChangeSupport().firePropertyChange("edits", null, getEdits());
+        if (editToBeUndone() instanceof FlexoActionCompoundEdit) {
+            ((FlexoActionCompoundEdit) editToBeUndone()).fireActiveStatusChange();
+        }
+        if (editToBeRedone() instanceof FlexoActionCompoundEdit) {
+            ((FlexoActionCompoundEdit) editToBeRedone()).fireActiveStatusChange();
+        }
+        int index = getEdits().indexOf(editToBeUndone());
+        if (index > 0 && index < getEdits().size()) {
+            UndoableEdit previousEdit = getEdits().get(index - 1);
+            if (previousEdit instanceof FlexoActionCompoundEdit) {
+                ((FlexoActionCompoundEdit) previousEdit).fireActiveStatusChange();
+            }
+        }
+    }
 
-		super.fireRedo();
+    /**
+     * Interface implemented by a delegate that filter undoable edits that should be ignored
+     *
+     * @author sylvain
+     *
+     */
+    public static interface IgnoreHandler {
+        public boolean isIgnorable(UndoableEdit edit);
+    }
 
-		// We override here the default behaviour of UndoManager by notifying all
-		// was is required for GUI to correctely react to this new status. This includes
-		// result of canUndo() and canRedo(), as well as 'isActive' status for each concerned FlexoActionCompoundEdit
+    /**
+     * An Openflexo-specific CompoundEdit wrapping all edits of a FlexoAction<br>
+     * Note that at the creation of this {@link CompoundEdit}, the {@link FlexoAction} might be null and set later<br>
+     * This allows to deal with actions requiring some work on model before to really execute it.
+     *
+     * @author sylvain
+     *
+     */
+    public class FlexoActionCompoundEdit extends CompoundEdit implements HasPropertyChangeSupport {
 
-		getPropertyChangeSupport().firePropertyChange("canUndo()", !canUndo(), canUndo());
-		getPropertyChangeSupport().firePropertyChange("canRedo()", !canRedo(), canRedo());
-		// getPropertyChangeSupport().firePropertyChange("edits", null, getEdits());
-		if (editToBeUndone() instanceof FlexoActionCompoundEdit) {
-			((FlexoActionCompoundEdit) editToBeUndone()).fireActiveStatusChange();
-		}
-		if (editToBeRedone() instanceof FlexoActionCompoundEdit) {
-			((FlexoActionCompoundEdit) editToBeRedone()).fireActiveStatusChange();
-		}
-		int index = getEdits().indexOf(editToBeUndone());
-		if (index > 0 && index < getEdits().size()) {
-			UndoableEdit previousEdit = getEdits().get(index - 1);
-			if (previousEdit instanceof FlexoActionCompoundEdit) {
-				((FlexoActionCompoundEdit) previousEdit).fireActiveStatusChange();
-			}
-		}
-	}
+        private final PropertyChangeSupport pcSupport;
+        private final StackTraceElement[] stackTrace;
+        private final List<FlexoActionCompoundEdit> embeddedFlexoActionCompoundEdits;
+        private FlexoAction<?, ?, ?> action;
+        private FlexoActionCompoundEdit owner = null;
+        private FlexoActionCompoundEdit currentEmbeddedFlexoActionCompoundEdit = null;
+        private String _stackTraceAsString;
 
-	/**
-	 * An Openflexo-specific CompoundEdit wrapping all edits of a FlexoAction<br>
-	 * Note that at the creation of this {@link CompoundEdit}, the {@link FlexoAction} might be null and set later<br>
-	 * This allows to deal with actions requiring some work on model before to really execute it.
-	 * 
-	 * @author sylvain
-	 * 
-	 */
-	public class FlexoActionCompoundEdit extends CompoundEdit implements HasPropertyChangeSupport {
+        public FlexoActionCompoundEdit(FlexoAction<?, ?, ?> action, String presentationName) {
+            super(presentationName);
+            this.action = action;
+            pcSupport = new PropertyChangeSupport(this);
+            stackTrace = new Exception().getStackTrace();
+            embeddedFlexoActionCompoundEdits = new ArrayList<>();
+        }
 
-		private FlexoAction<?, ?, ?> action;
-		private final PropertyChangeSupport pcSupport;
+        public FlexoActionCompoundEdit(FlexoActionCompoundEdit owner, FlexoAction<?, ?, ?> action) {
+            super(action.getLocalizedName());
+            this.action = action;
+            pcSupport = new PropertyChangeSupport(this);
+            stackTrace = new Exception().getStackTrace();
+            embeddedFlexoActionCompoundEdits = new ArrayList<>();
+            this.owner = owner;
+        }
 
-		private final StackTraceElement[] stackTrace;
+        @Override
+        public PropertyChangeSupport getPropertyChangeSupport() {
+            return pcSupport;
+        }
 
-		private FlexoActionCompoundEdit owner = null;
-		private final List<FlexoActionCompoundEdit> embeddedFlexoActionCompoundEdits;
-		private FlexoActionCompoundEdit currentEmbeddedFlexoActionCompoundEdit = null;
+        @Override
+        public String getDeletedProperty() {
+            return null;
+        }
 
-		public FlexoActionCompoundEdit(FlexoAction<?, ?, ?> action, String presentationName) {
-			super(presentationName);
-			this.action = action;
-			pcSupport = new PropertyChangeSupport(this);
-			stackTrace = new Exception().getStackTrace();
-			embeddedFlexoActionCompoundEdits = new ArrayList<>();
-		}
+        /**
+         * Called when an embedded FlexoAction is about to be executed
+         *
+         * @param action
+         *            : the FlexoAction that will be executed
+         */
+        private void willDoEmbeddedAction(FlexoAction<?, ?, ?> action) {
+            if (action.getOwnerAction() == getAction()) {
+                // System.out.println("Executing " + action + " inside " + getAction());
+                currentEmbeddedFlexoActionCompoundEdit = new FlexoActionCompoundEdit(this, action);
+            }
+        }
 
-		public FlexoActionCompoundEdit(FlexoActionCompoundEdit owner, FlexoAction<?, ?, ?> action) {
-			super(action.getLocalizedName());
-			this.action = action;
-			pcSupport = new PropertyChangeSupport(this);
-			stackTrace = new Exception().getStackTrace();
-			embeddedFlexoActionCompoundEdits = new ArrayList<>();
-			this.owner = owner;
-		}
+        /**
+         * Called when an embedded FlexoAction has been executed
+         *
+         * @param action
+         *            : the FlexoAction that will be executed
+         */
+        private void hasDoneEmbeddedAction(FlexoAction<?, ?, ?> action) {
+            if (action.getOwnerAction() == getAction()) {
+                // System.out.println("Finished executing " + action + " inside " + getAction());
+                embeddedFlexoActionCompoundEdits.add(currentEmbeddedFlexoActionCompoundEdit);
+                currentEmbeddedFlexoActionCompoundEdit = null;
+            }
+        }
 
-		@Override
-		public PropertyChangeSupport getPropertyChangeSupport() {
-			return pcSupport;
-		}
+        @Override
+        public boolean addEdit(UndoableEdit anEdit) {
+            // Always aggreate edits in root
+            boolean returned = super.addEdit(anEdit);
+            // But also store edits in embedded FlexoActionCompoundEdit
+            if (currentEmbeddedFlexoActionCompoundEdit != null) {
+                currentEmbeddedFlexoActionCompoundEdit.addEdit(anEdit);
+            }
+            return returned;
+        }
 
-		@Override
-		public String getDeletedProperty() {
-			return null;
-		}
+        public List<FlexoActionCompoundEdit> getEmbeddedFlexoActionCompoundEdits() {
+            return embeddedFlexoActionCompoundEdits;
+        }
 
-		/**
-		 * Called when an embedded FlexoAction is about to be executed
-		 * 
-		 * @param action
-		 *            : the FlexoAction that will be executed
-		 */
-		private void willDoEmbeddedAction(FlexoAction<?, ?, ?> action) {
-			if (action.getOwnerAction() == getAction()) {
-				// System.out.println("Executing " + action + " inside " + getAction());
-				currentEmbeddedFlexoActionCompoundEdit = new FlexoActionCompoundEdit(this, action);
-			}
-		}
+        public FlexoActionCompoundEdit getCurrentEmbeddedFlexoActionCompoundEdit() {
+            return currentEmbeddedFlexoActionCompoundEdit;
+        }
 
-		/**
-		 * Called when an embedded FlexoAction has been executed
-		 * 
-		 * @param action
-		 *            : the FlexoAction that will be executed
-		 */
-		private void hasDoneEmbeddedAction(FlexoAction<?, ?, ?> action) {
-			if (action.getOwnerAction() == getAction()) {
-				// System.out.println("Finished executing " + action + " inside " + getAction());
-				embeddedFlexoActionCompoundEdits.add(currentEmbeddedFlexoActionCompoundEdit);
-				currentEmbeddedFlexoActionCompoundEdit = null;
-			}
-		}
+        /**
+         * Fire 'isActive' status notification
+         */
+        public void fireActiveStatusChange() {
+            getPropertyChangeSupport().firePropertyChange("isActive", !isActive(), isActive());
+            getPropertyChangeSupport().firePropertyChange("presentationName", null, getPresentationName());
+        }
 
-		@Override
-		public boolean addEdit(UndoableEdit anEdit) {
-			// Always aggreate edits in root
-			boolean returned = super.addEdit(anEdit);
-			// But also store edits in embedded FlexoActionCompoundEdit
-			if (currentEmbeddedFlexoActionCompoundEdit != null) {
-				currentEmbeddedFlexoActionCompoundEdit.addEdit(anEdit);
-			}
-			return returned;
-		}
+        public FlexoAction<?, ?, ?> getAction() {
+            return action;
+        }
 
-		public List<FlexoActionCompoundEdit> getEmbeddedFlexoActionCompoundEdits() {
-			return embeddedFlexoActionCompoundEdits;
-		}
+        public void setAction(FlexoAction<?, ?, ?> action) {
+            this.action = action;
+        }
 
-		public FlexoActionCompoundEdit getCurrentEmbeddedFlexoActionCompoundEdit() {
-			return currentEmbeddedFlexoActionCompoundEdit;
-		}
+        public boolean isEmbedded() {
+            return owner != null;
+        }
 
-		/**
-		 * Fire 'isActive' status notification
-		 */
-		public void fireActiveStatusChange() {
-			getPropertyChangeSupport().firePropertyChange("isActive", !isActive(), isActive());
-			getPropertyChangeSupport().firePropertyChange("presentationName", null, getPresentationName());
-		}
+        public boolean isActive() {
+            if (isEmbedded()) {
+                return owner.isActive();
+            }
+            return FlexoUndoManager.this.editToBeUndone() == this;
+        }
 
-		public FlexoAction<?, ?, ?> getAction() {
-			return action;
-		}
+        public PamelaResource<?, ?> getResource(AtomicEdit<?> edit) {
+            if (edit.getModelFactory() instanceof PamelaResourceModelFactory) {
+                return ((PamelaResourceModelFactory<?>) edit.getModelFactory()).getResource();
+            }
+            return null;
+        }
 
-		public void setAction(FlexoAction<?, ?, ?> action) {
-			this.action = action;
-		}
+        public ModelProperty<?> getProperty(AtomicEdit<?> edit) {
+            if (edit instanceof SetCommand) {
+                return ((SetCommand<?>) edit).getModelProperty();
+            } else if (edit instanceof AddCommand) {
+                return ((AddCommand<?>) edit).getModelProperty();
+            } else if (edit instanceof RemoveCommand) {
+                return ((RemoveCommand<?>) edit).getModelProperty();
+            }
+            return null;
+        }
 
-		public boolean isEmbedded() {
-			return owner != null;
-		}
+        public Object getOldValue(AtomicEdit<?> edit) {
+            if (edit instanceof SetCommand) {
+                return ((SetCommand<?>) edit).getOldValue();
+            } else if (edit instanceof AddCommand) {
+                return null;
+            } else if (edit instanceof RemoveCommand) {
+                return ((RemoveCommand<?>) edit).getRemovedValue();
+            }
+            return null;
+        }
 
-		public boolean isActive() {
-			if (isEmbedded()) {
-				return owner.isActive();
-			}
-			return FlexoUndoManager.this.editToBeUndone() == this;
-		}
+        public Object getNewValue(AtomicEdit<?> edit) {
+            if (edit instanceof SetCommand) {
+                return ((SetCommand<?>) edit).getNewValue();
+            } else if (edit instanceof AddCommand) {
+                return ((AddCommand<?>) edit).getAddedValue();
+            } else if (edit instanceof RemoveCommand) {
+                return null;
+            }
+            return null;
+        }
 
-		public PamelaResource<?, ?> getResource(AtomicEdit<?> edit) {
-			if (edit.getModelFactory() instanceof PamelaResourceModelFactory) {
-				return ((PamelaResourceModelFactory<?>) edit.getModelFactory()).getResource();
-			}
-			return null;
-		}
+        public String getStackTraceAsString() {
+            if (_stackTraceAsString != null) {
+                return _stackTraceAsString;
+            } else if (stackTrace != null) {
+                StringBuilder returned = new StringBuilder();
+                int beginAt;
+                beginAt = 6;
+                for (int i = beginAt; i < stackTrace.length; i++) {
+                    // returned += ("\tat " + stackTrace[i] + "\n");
+                    returned.append("\t").append("at ").append(stackTrace[i]).append('\n');
+                }
+                return returned.toString();
+            } else {
+                return "StackTrace not available";
+            }
+        }
 
-		public ModelProperty<?> getProperty(AtomicEdit<?> edit) {
-			if (edit instanceof SetCommand) {
-				return ((SetCommand<?>) edit).getModelProperty();
-			}
-			else if (edit instanceof AddCommand) {
-				return ((AddCommand<?>) edit).getModelProperty();
-			}
-			else if (edit instanceof RemoveCommand) {
-				return ((RemoveCommand<?>) edit).getModelProperty();
-			}
-			return null;
-		}
+        public void printStackTrace() {
+            System.err.println("Stack trace for '" + this + "':");
+            StringTokenizer st = new StringTokenizer(getStackTraceAsString(), StringUtils.LINE_SEPARATOR);
+            while (st.hasMoreTokens()) {
+                System.err.println("\t" + st.nextToken());
+            }
+        }
 
-		public Object getOldValue(AtomicEdit<?> edit) {
-			if (edit instanceof SetCommand) {
-				return ((SetCommand<?>) edit).getOldValue();
-			}
-			else if (edit instanceof AddCommand) {
-				return null;
-			}
-			else if (edit instanceof RemoveCommand) {
-				return ((RemoveCommand<?>) edit).getRemovedValue();
-			}
-			return null;
-		}
-
-		public Object getNewValue(AtomicEdit<?> edit) {
-			if (edit instanceof SetCommand) {
-				return ((SetCommand<?>) edit).getNewValue();
-			}
-			else if (edit instanceof AddCommand) {
-				return ((AddCommand<?>) edit).getAddedValue();
-			}
-			else if (edit instanceof RemoveCommand) {
-				return null;
-			}
-			return null;
-		}
-
-		public String getStackTraceAsString() {
-			if (_stackTraceAsString != null) {
-				return _stackTraceAsString;
-			}
-			else if (stackTrace != null) {
-				StringBuilder returned = new StringBuilder();
-				int beginAt;
-				beginAt = 6;
-				for (int i = beginAt; i < stackTrace.length; i++) {
-					// returned += ("\tat " + stackTrace[i] + "\n");
-					returned.append("\t").append("at ").append(stackTrace[i]).append('\n');
-				}
-				return returned.toString();
-			}
-			else {
-				return "StackTrace not available";
-			}
-		}
-
-		private String _stackTraceAsString;
-
-		public void printStackTrace() {
-			System.err.println("Stack trace for '" + this + "':");
-			StringTokenizer st = new StringTokenizer(getStackTraceAsString(), StringUtils.LINE_SEPARATOR);
-			while (st.hasMoreTokens()) {
-				System.err.println("\t" + st.nextToken());
-			}
-		}
-
-	}
-
-	/**
-	 * Interface implemented by a delegate that filter undoable edits that should be ignored
-	 * 
-	 * @author sylvain
-	 * 
-	 */
-	public static interface IgnoreHandler {
-		public boolean isIgnorable(UndoableEdit edit);
-	}
+    }
 }

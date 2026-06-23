@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ABlockFlexoBehaviourBody extends PFlexoBehaviourBody
-{
+public final class ABlockFlexoBehaviourBody extends PFlexoBehaviourBody {
     private PBlock _block_;
 
-    public ABlockFlexoBehaviourBody()
-    {
+    public ABlockFlexoBehaviourBody() {
         // Constructor
     }
 
     public ABlockFlexoBehaviourBody(
-        @SuppressWarnings("hiding") PBlock _block_)
-    {
+            @SuppressWarnings("hiding") PBlock _block_) {
         // Constructor
         setBlock(_block_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ABlockFlexoBehaviourBody(
-            cloneNode(this._block_));
+                cloneNode(this._block_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseABlockFlexoBehaviourBody(this);
     }
 
-    public PBlock getBlock()
-    {
+    public PBlock getBlock() {
         return this._block_;
     }
 
-    public void setBlock(PBlock node)
-    {
-        if(this._block_ != null)
-        {
+    public void setBlock(PBlock node) {
+        if (this._block_ != null) {
             this._block_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class ABlockFlexoBehaviourBody extends PFlexoBehaviourBody
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._block_);
+                + toString(this._block_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._block_ == child)
-        {
+        if (this._block_ == child) {
             this._block_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class ABlockFlexoBehaviourBody extends PFlexoBehaviourBody
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._block_ == oldChild)
-        {
+        if (this._block_ == oldChild) {
             setBlock((PBlock) newChild);
             return;
         }

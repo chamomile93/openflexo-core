@@ -2,7 +2,6 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
-public abstract class PSuperTypeList extends Node
-{
+public abstract class PSuperTypeList extends Node {
     // Empty body
 }

@@ -5,8 +5,7 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class ASetDecl extends PSetDecl
-{
+public final class ASetDecl extends PSetDecl {
     private TKwSet _kwSet_;
     private TLPar _lPar_;
     private PType _type_;
@@ -14,19 +13,17 @@ public final class ASetDecl extends PSetDecl
     private TRPar _rPar_;
     private PFlexoBehaviourBody _flexoBehaviourBody_;
 
-    public ASetDecl()
-    {
+    public ASetDecl() {
         // Constructor
     }
 
     public ASetDecl(
-        @SuppressWarnings("hiding") TKwSet _kwSet_,
-        @SuppressWarnings("hiding") TLPar _lPar_,
-        @SuppressWarnings("hiding") PType _type_,
-        @SuppressWarnings("hiding") TLidentifier _lidentifier_,
-        @SuppressWarnings("hiding") TRPar _rPar_,
-        @SuppressWarnings("hiding") PFlexoBehaviourBody _flexoBehaviourBody_)
-    {
+            @SuppressWarnings("hiding") TKwSet _kwSet_,
+            @SuppressWarnings("hiding") TLPar _lPar_,
+            @SuppressWarnings("hiding") PType _type_,
+            @SuppressWarnings("hiding") TLidentifier _lidentifier_,
+            @SuppressWarnings("hiding") TRPar _rPar_,
+            @SuppressWarnings("hiding") PFlexoBehaviourBody _flexoBehaviourBody_) {
         // Constructor
         setKwSet(_kwSet_);
 
@@ -43,39 +40,32 @@ public final class ASetDecl extends PSetDecl
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new ASetDecl(
-            cloneNode(this._kwSet_),
-            cloneNode(this._lPar_),
-            cloneNode(this._type_),
-            cloneNode(this._lidentifier_),
-            cloneNode(this._rPar_),
-            cloneNode(this._flexoBehaviourBody_));
+                cloneNode(this._kwSet_),
+                cloneNode(this._lPar_),
+                cloneNode(this._type_),
+                cloneNode(this._lidentifier_),
+                cloneNode(this._rPar_),
+                cloneNode(this._flexoBehaviourBody_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseASetDecl(this);
     }
 
-    public TKwSet getKwSet()
-    {
+    public TKwSet getKwSet() {
         return this._kwSet_;
     }
 
-    public void setKwSet(TKwSet node)
-    {
-        if(this._kwSet_ != null)
-        {
+    public void setKwSet(TKwSet node) {
+        if (this._kwSet_ != null) {
             this._kwSet_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -85,22 +75,17 @@ public final class ASetDecl extends PSetDecl
         this._kwSet_ = node;
     }
 
-    public TLPar getLPar()
-    {
+    public TLPar getLPar() {
         return this._lPar_;
     }
 
-    public void setLPar(TLPar node)
-    {
-        if(this._lPar_ != null)
-        {
+    public void setLPar(TLPar node) {
+        if (this._lPar_ != null) {
             this._lPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -110,22 +95,17 @@ public final class ASetDecl extends PSetDecl
         this._lPar_ = node;
     }
 
-    public PType getType()
-    {
+    public PType getType() {
         return this._type_;
     }
 
-    public void setType(PType node)
-    {
-        if(this._type_ != null)
-        {
+    public void setType(PType node) {
+        if (this._type_ != null) {
             this._type_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -135,22 +115,17 @@ public final class ASetDecl extends PSetDecl
         this._type_ = node;
     }
 
-    public TLidentifier getLidentifier()
-    {
+    public TLidentifier getLidentifier() {
         return this._lidentifier_;
     }
 
-    public void setLidentifier(TLidentifier node)
-    {
-        if(this._lidentifier_ != null)
-        {
+    public void setLidentifier(TLidentifier node) {
+        if (this._lidentifier_ != null) {
             this._lidentifier_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -160,22 +135,17 @@ public final class ASetDecl extends PSetDecl
         this._lidentifier_ = node;
     }
 
-    public TRPar getRPar()
-    {
+    public TRPar getRPar() {
         return this._rPar_;
     }
 
-    public void setRPar(TRPar node)
-    {
-        if(this._rPar_ != null)
-        {
+    public void setRPar(TRPar node) {
+        if (this._rPar_ != null) {
             this._rPar_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -185,22 +155,17 @@ public final class ASetDecl extends PSetDecl
         this._rPar_ = node;
     }
 
-    public PFlexoBehaviourBody getFlexoBehaviourBody()
-    {
+    public PFlexoBehaviourBody getFlexoBehaviourBody() {
         return this._flexoBehaviourBody_;
     }
 
-    public void setFlexoBehaviourBody(PFlexoBehaviourBody node)
-    {
-        if(this._flexoBehaviourBody_ != null)
-        {
+    public void setFlexoBehaviourBody(PFlexoBehaviourBody node) {
+        if (this._flexoBehaviourBody_ != null) {
             this._flexoBehaviourBody_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -211,53 +176,45 @@ public final class ASetDecl extends PSetDecl
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._kwSet_)
-            + toString(this._lPar_)
-            + toString(this._type_)
-            + toString(this._lidentifier_)
-            + toString(this._rPar_)
-            + toString(this._flexoBehaviourBody_);
+                + toString(this._kwSet_)
+                + toString(this._lPar_)
+                + toString(this._type_)
+                + toString(this._lidentifier_)
+                + toString(this._rPar_)
+                + toString(this._flexoBehaviourBody_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._kwSet_ == child)
-        {
+        if (this._kwSet_ == child) {
             this._kwSet_ = null;
             return;
         }
 
-        if(this._lPar_ == child)
-        {
+        if (this._lPar_ == child) {
             this._lPar_ = null;
             return;
         }
 
-        if(this._type_ == child)
-        {
+        if (this._type_ == child) {
             this._type_ = null;
             return;
         }
 
-        if(this._lidentifier_ == child)
-        {
+        if (this._lidentifier_ == child) {
             this._lidentifier_ = null;
             return;
         }
 
-        if(this._rPar_ == child)
-        {
+        if (this._rPar_ == child) {
             this._rPar_ = null;
             return;
         }
 
-        if(this._flexoBehaviourBody_ == child)
-        {
+        if (this._flexoBehaviourBody_ == child) {
             this._flexoBehaviourBody_ = null;
             return;
         }
@@ -266,41 +223,34 @@ public final class ASetDecl extends PSetDecl
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._kwSet_ == oldChild)
-        {
+        if (this._kwSet_ == oldChild) {
             setKwSet((TKwSet) newChild);
             return;
         }
 
-        if(this._lPar_ == oldChild)
-        {
+        if (this._lPar_ == oldChild) {
             setLPar((TLPar) newChild);
             return;
         }
 
-        if(this._type_ == oldChild)
-        {
+        if (this._type_ == oldChild) {
             setType((PType) newChild);
             return;
         }
 
-        if(this._lidentifier_ == oldChild)
-        {
+        if (this._lidentifier_ == oldChild) {
             setLidentifier((TLidentifier) newChild);
             return;
         }
 
-        if(this._rPar_ == oldChild)
-        {
+        if (this._rPar_ == oldChild) {
             setRPar((TRPar) newChild);
             return;
         }
 
-        if(this._flexoBehaviourBody_ == oldChild)
-        {
+        if (this._flexoBehaviourBody_ == oldChild) {
             setFlexoBehaviourBody((PFlexoBehaviourBody) newChild);
             return;
         }

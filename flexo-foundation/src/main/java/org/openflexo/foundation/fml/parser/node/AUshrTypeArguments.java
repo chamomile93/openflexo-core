@@ -2,41 +2,38 @@
 
 package org.openflexo.foundation.fml.parser.node;
 
+import org.openflexo.foundation.fml.parser.analysis.Analysis;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.openflexo.foundation.fml.parser.analysis.Analysis;
-
 @SuppressWarnings("nls")
-public final class AUshrTypeArguments extends PTypeArguments
-{
-    private TLt _lt1_;
+public final class AUshrTypeArguments extends PTypeArguments {
     private final LinkedList<PTypeArgumentListHead> _heads1_ = new LinkedList<PTypeArgumentListHead>();
+    private final LinkedList<PTypeArgumentListHead> _heads2_ = new LinkedList<PTypeArgumentListHead>();
+    private TLt _lt1_;
     private PCompositeTident _specifier1_;
     private TLt _lt2_;
-    private final LinkedList<PTypeArgumentListHead> _heads2_ = new LinkedList<PTypeArgumentListHead>();
     private PCompositeTident _specifier2_;
     private TLt _lt3_;
     private PTypeArgumentList _typeArgumentList_;
     private TUshr _ushr_;
 
-    public AUshrTypeArguments()
-    {
+    public AUshrTypeArguments() {
         // Constructor
     }
 
     public AUshrTypeArguments(
-        @SuppressWarnings("hiding") TLt _lt1_,
-        @SuppressWarnings("hiding") List<?> _heads1_,
-        @SuppressWarnings("hiding") PCompositeTident _specifier1_,
-        @SuppressWarnings("hiding") TLt _lt2_,
-        @SuppressWarnings("hiding") List<?> _heads2_,
-        @SuppressWarnings("hiding") PCompositeTident _specifier2_,
-        @SuppressWarnings("hiding") TLt _lt3_,
-        @SuppressWarnings("hiding") PTypeArgumentList _typeArgumentList_,
-        @SuppressWarnings("hiding") TUshr _ushr_)
-    {
+            @SuppressWarnings("hiding") TLt _lt1_,
+            @SuppressWarnings("hiding") List<?> _heads1_,
+            @SuppressWarnings("hiding") PCompositeTident _specifier1_,
+            @SuppressWarnings("hiding") TLt _lt2_,
+            @SuppressWarnings("hiding") List<?> _heads2_,
+            @SuppressWarnings("hiding") PCompositeTident _specifier2_,
+            @SuppressWarnings("hiding") TLt _lt3_,
+            @SuppressWarnings("hiding") PTypeArgumentList _typeArgumentList_,
+            @SuppressWarnings("hiding") TUshr _ushr_) {
         // Constructor
         setLt1(_lt1_);
 
@@ -59,42 +56,35 @@ public final class AUshrTypeArguments extends PTypeArguments
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AUshrTypeArguments(
-            cloneNode(this._lt1_),
-            cloneList(this._heads1_),
-            cloneNode(this._specifier1_),
-            cloneNode(this._lt2_),
-            cloneList(this._heads2_),
-            cloneNode(this._specifier2_),
-            cloneNode(this._lt3_),
-            cloneNode(this._typeArgumentList_),
-            cloneNode(this._ushr_));
+                cloneNode(this._lt1_),
+                cloneList(this._heads1_),
+                cloneNode(this._specifier1_),
+                cloneNode(this._lt2_),
+                cloneList(this._heads2_),
+                cloneNode(this._specifier2_),
+                cloneNode(this._lt3_),
+                cloneNode(this._typeArgumentList_),
+                cloneNode(this._ushr_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAUshrTypeArguments(this);
     }
 
-    public TLt getLt1()
-    {
+    public TLt getLt1() {
         return this._lt1_;
     }
 
-    public void setLt1(TLt node)
-    {
-        if(this._lt1_ != null)
-        {
+    public void setLt1(TLt node) {
+        if (this._lt1_ != null) {
             this._lt1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -104,24 +94,19 @@ public final class AUshrTypeArguments extends PTypeArguments
         this._lt1_ = node;
     }
 
-    public LinkedList<PTypeArgumentListHead> getHeads1()
-    {
+    public LinkedList<PTypeArgumentListHead> getHeads1() {
         return this._heads1_;
     }
 
-    public void setHeads1(List<?> list)
-    {
-        for(PTypeArgumentListHead e : this._heads1_)
-        {
+    public void setHeads1(List<?> list) {
+        for (PTypeArgumentListHead e : this._heads1_) {
             e.parent(null);
         }
         this._heads1_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PTypeArgumentListHead e = (PTypeArgumentListHead) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -130,22 +115,17 @@ public final class AUshrTypeArguments extends PTypeArguments
         }
     }
 
-    public PCompositeTident getSpecifier1()
-    {
+    public PCompositeTident getSpecifier1() {
         return this._specifier1_;
     }
 
-    public void setSpecifier1(PCompositeTident node)
-    {
-        if(this._specifier1_ != null)
-        {
+    public void setSpecifier1(PCompositeTident node) {
+        if (this._specifier1_ != null) {
             this._specifier1_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -155,22 +135,17 @@ public final class AUshrTypeArguments extends PTypeArguments
         this._specifier1_ = node;
     }
 
-    public TLt getLt2()
-    {
+    public TLt getLt2() {
         return this._lt2_;
     }
 
-    public void setLt2(TLt node)
-    {
-        if(this._lt2_ != null)
-        {
+    public void setLt2(TLt node) {
+        if (this._lt2_ != null) {
             this._lt2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -180,24 +155,19 @@ public final class AUshrTypeArguments extends PTypeArguments
         this._lt2_ = node;
     }
 
-    public LinkedList<PTypeArgumentListHead> getHeads2()
-    {
+    public LinkedList<PTypeArgumentListHead> getHeads2() {
         return this._heads2_;
     }
 
-    public void setHeads2(List<?> list)
-    {
-        for(PTypeArgumentListHead e : this._heads2_)
-        {
+    public void setHeads2(List<?> list) {
+        for (PTypeArgumentListHead e : this._heads2_) {
             e.parent(null);
         }
         this._heads2_.clear();
 
-        for(Object obj_e : list)
-        {
+        for (Object obj_e : list) {
             PTypeArgumentListHead e = (PTypeArgumentListHead) obj_e;
-            if(e.parent() != null)
-            {
+            if (e.parent() != null) {
                 e.parent().removeChild(e);
             }
 
@@ -206,22 +176,17 @@ public final class AUshrTypeArguments extends PTypeArguments
         }
     }
 
-    public PCompositeTident getSpecifier2()
-    {
+    public PCompositeTident getSpecifier2() {
         return this._specifier2_;
     }
 
-    public void setSpecifier2(PCompositeTident node)
-    {
-        if(this._specifier2_ != null)
-        {
+    public void setSpecifier2(PCompositeTident node) {
+        if (this._specifier2_ != null) {
             this._specifier2_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -231,22 +196,17 @@ public final class AUshrTypeArguments extends PTypeArguments
         this._specifier2_ = node;
     }
 
-    public TLt getLt3()
-    {
+    public TLt getLt3() {
         return this._lt3_;
     }
 
-    public void setLt3(TLt node)
-    {
-        if(this._lt3_ != null)
-        {
+    public void setLt3(TLt node) {
+        if (this._lt3_ != null) {
             this._lt3_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -256,22 +216,17 @@ public final class AUshrTypeArguments extends PTypeArguments
         this._lt3_ = node;
     }
 
-    public PTypeArgumentList getTypeArgumentList()
-    {
+    public PTypeArgumentList getTypeArgumentList() {
         return this._typeArgumentList_;
     }
 
-    public void setTypeArgumentList(PTypeArgumentList node)
-    {
-        if(this._typeArgumentList_ != null)
-        {
+    public void setTypeArgumentList(PTypeArgumentList node) {
+        if (this._typeArgumentList_ != null) {
             this._typeArgumentList_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -281,22 +236,17 @@ public final class AUshrTypeArguments extends PTypeArguments
         this._typeArgumentList_ = node;
     }
 
-    public TUshr getUshr()
-    {
+    public TUshr getUshr() {
         return this._ushr_;
     }
 
-    public void setUshr(TUshr node)
-    {
-        if(this._ushr_ != null)
-        {
+    public void setUshr(TUshr node) {
+        if (this._ushr_ != null) {
             this._ushr_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -307,72 +257,61 @@ public final class AUshrTypeArguments extends PTypeArguments
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._lt1_)
-            + toString(this._heads1_)
-            + toString(this._specifier1_)
-            + toString(this._lt2_)
-            + toString(this._heads2_)
-            + toString(this._specifier2_)
-            + toString(this._lt3_)
-            + toString(this._typeArgumentList_)
-            + toString(this._ushr_);
+                + toString(this._lt1_)
+                + toString(this._heads1_)
+                + toString(this._specifier1_)
+                + toString(this._lt2_)
+                + toString(this._heads2_)
+                + toString(this._specifier2_)
+                + toString(this._lt3_)
+                + toString(this._typeArgumentList_)
+                + toString(this._ushr_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._lt1_ == child)
-        {
+        if (this._lt1_ == child) {
             this._lt1_ = null;
             return;
         }
 
-        if(this._heads1_.remove(child))
-        {
+        if (this._heads1_.remove(child)) {
             return;
         }
 
-        if(this._specifier1_ == child)
-        {
+        if (this._specifier1_ == child) {
             this._specifier1_ = null;
             return;
         }
 
-        if(this._lt2_ == child)
-        {
+        if (this._lt2_ == child) {
             this._lt2_ = null;
             return;
         }
 
-        if(this._heads2_.remove(child))
-        {
+        if (this._heads2_.remove(child)) {
             return;
         }
 
-        if(this._specifier2_ == child)
-        {
+        if (this._specifier2_ == child) {
             this._specifier2_ = null;
             return;
         }
 
-        if(this._lt3_ == child)
-        {
+        if (this._lt3_ == child) {
             this._lt3_ = null;
             return;
         }
 
-        if(this._typeArgumentList_ == child)
-        {
+        if (this._typeArgumentList_ == child) {
             this._typeArgumentList_ = null;
             return;
         }
 
-        if(this._ushr_ == child)
-        {
+        if (this._ushr_ == child) {
             this._ushr_ = null;
             return;
         }
@@ -381,21 +320,16 @@ public final class AUshrTypeArguments extends PTypeArguments
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._lt1_ == oldChild)
-        {
+        if (this._lt1_ == oldChild) {
             setLt1((TLt) newChild);
             return;
         }
 
-        for(ListIterator<PTypeArgumentListHead> i = this._heads1_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PTypeArgumentListHead> i = this._heads1_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PTypeArgumentListHead) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -408,24 +342,19 @@ public final class AUshrTypeArguments extends PTypeArguments
             }
         }
 
-        if(this._specifier1_ == oldChild)
-        {
+        if (this._specifier1_ == oldChild) {
             setSpecifier1((PCompositeTident) newChild);
             return;
         }
 
-        if(this._lt2_ == oldChild)
-        {
+        if (this._lt2_ == oldChild) {
             setLt2((TLt) newChild);
             return;
         }
 
-        for(ListIterator<PTypeArgumentListHead> i = this._heads2_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
+        for (ListIterator<PTypeArgumentListHead> i = this._heads2_.listIterator(); i.hasNext(); ) {
+            if (i.next() == oldChild) {
+                if (newChild != null) {
                     i.set((PTypeArgumentListHead) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
@@ -438,26 +367,22 @@ public final class AUshrTypeArguments extends PTypeArguments
             }
         }
 
-        if(this._specifier2_ == oldChild)
-        {
+        if (this._specifier2_ == oldChild) {
             setSpecifier2((PCompositeTident) newChild);
             return;
         }
 
-        if(this._lt3_ == oldChild)
-        {
+        if (this._lt3_ == oldChild) {
             setLt3((TLt) newChild);
             return;
         }
 
-        if(this._typeArgumentList_ == oldChild)
-        {
+        if (this._typeArgumentList_ == oldChild) {
             setTypeArgumentList((PTypeArgumentList) newChild);
             return;
         }
 
-        if(this._ushr_ == oldChild)
-        {
+        if (this._ushr_ == oldChild) {
             setUshr((TUshr) newChild);
             return;
         }

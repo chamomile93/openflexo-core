@@ -5,52 +5,42 @@ package org.openflexo.foundation.fml.parser.node;
 import org.openflexo.foundation.fml.parser.analysis.Analysis;
 
 @SuppressWarnings("nls")
-public final class AMinusAssignAssignmentOperator extends PAssignmentOperator
-{
+public final class AMinusAssignAssignmentOperator extends PAssignmentOperator {
     private TMinusAssign _minusAssign_;
 
-    public AMinusAssignAssignmentOperator()
-    {
+    public AMinusAssignAssignmentOperator() {
         // Constructor
     }
 
     public AMinusAssignAssignmentOperator(
-        @SuppressWarnings("hiding") TMinusAssign _minusAssign_)
-    {
+            @SuppressWarnings("hiding") TMinusAssign _minusAssign_) {
         // Constructor
         setMinusAssign(_minusAssign_);
 
     }
 
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         return new AMinusAssignAssignmentOperator(
-            cloneNode(this._minusAssign_));
+                cloneNode(this._minusAssign_));
     }
 
     @Override
-    public void apply(Switch sw)
-    {
+    public void apply(Switch sw) {
         ((Analysis) sw).caseAMinusAssignAssignmentOperator(this);
     }
 
-    public TMinusAssign getMinusAssign()
-    {
+    public TMinusAssign getMinusAssign() {
         return this._minusAssign_;
     }
 
-    public void setMinusAssign(TMinusAssign node)
-    {
-        if(this._minusAssign_ != null)
-        {
+    public void setMinusAssign(TMinusAssign node) {
+        if (this._minusAssign_ != null) {
             this._minusAssign_.parent(null);
         }
 
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
+        if (node != null) {
+            if (node.parent() != null) {
                 node.parent().removeChild(node);
             }
 
@@ -61,18 +51,15 @@ public final class AMinusAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ""
-            + toString(this._minusAssign_);
+                + toString(this._minusAssign_);
     }
 
     @Override
-    void removeChild(@SuppressWarnings("unused") Node child)
-    {
+    void removeChild(@SuppressWarnings("unused") Node child) {
         // Remove child
-        if(this._minusAssign_ == child)
-        {
+        if (this._minusAssign_ == child) {
             this._minusAssign_ = null;
             return;
         }
@@ -81,11 +68,9 @@ public final class AMinusAssignAssignmentOperator extends PAssignmentOperator
     }
 
     @Override
-    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
-    {
+    void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild) {
         // Replace child
-        if(this._minusAssign_ == oldChild)
-        {
+        if (this._minusAssign_ == oldChild) {
             setMinusAssign((TMinusAssign) newChild);
             return;
         }
