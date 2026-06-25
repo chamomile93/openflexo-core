@@ -228,7 +228,7 @@ public class VirtualModelLibrary extends DefaultFlexoObject implements FlexoServ
         FMLTechnologyAdapter vmTA = getTechnologyAdapterService().getTechnologyAdapter(FMLTechnologyAdapter.class);
         List<FlexoResourceCenter<?>> resourceCenters = getResourceCenterService().getResourceCenters();
         for (FlexoResourceCenter<?> rc : resourceCenters) {
-            CompilationUnitRepository<?> vprfb = vmTA.getVirtualModelRepository(rc);
+            CompilationUnitResourceRepository<?> vprfb = vmTA.getVirtualModelRepository(rc);
             if ((vprfb != null) && (vprfb.getAllResources().contains(resource))) {
                 vprfb.unregisterResource(resource);
             }
@@ -567,7 +567,7 @@ public class VirtualModelLibrary extends DefaultFlexoObject implements FlexoServ
 
             for (FlexoResourceCenter<?> rc : getResourceCenters()) {
                 // Register Viewpoint viewpoint resources
-                CompilationUnitRepository<?> vprfb = fmlTA.getVirtualModelRepository(rc);
+                CompilationUnitResourceRepository<?> vprfb = fmlTA.getVirtualModelRepository(rc);
                 // System.out.println("vprfb=" + vprfb);
                 if (vprfb == null) {
                     logger.warning("Could not retrieve VirtualModelRepository from RC: " + rc);

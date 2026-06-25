@@ -569,7 +569,7 @@ public abstract class OpenflexoTestCase {
             throws org.openflexo.foundation.resource.SaveResourceException, ModelDefinitionException {
         FMLTechnologyAdapter fmlTechnologyAdapter = getTA(FMLTechnologyAdapter.class);
         CompilationUnitResourceFactory factory = fmlTechnologyAdapter.getCompilationUnitResourceFactory();
-        CompilationUnitRepository<File> viewPointRepository = rc.getVirtualModelRepository();
+        CompilationUnitResourceRepository<File> viewPointRepository = rc.getVirtualModelRepository();
         CompilationUnitResource viewPointResource = factory.makeTopLevelCompilationUnitResource(vmName, vmURI,
                 viewPointRepository.getRootFolder(), true);
 

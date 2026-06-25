@@ -167,11 +167,11 @@ public class FMLTechnologyAdapter extends TechnologyAdapter<FMLTechnologyAdapter
         return this.getServiceManager().getVirtualModelLibrary();
     }
 
-    public <I> CompilationUnitRepository<I> getVirtualModelRepository(FlexoResourceCenter<I> resourceCenter) {
-        CompilationUnitRepository<I> returned = resourceCenter.retrieveRepository(CompilationUnitRepository.class, this);
+    public <I> CompilationUnitResourceRepository<I> getVirtualModelRepository(FlexoResourceCenter<I> resourceCenter) {
+        CompilationUnitResourceRepository<I> returned = resourceCenter.retrieveRepository(CompilationUnitResourceRepository.class, this);
         if (returned == null) {
-            returned = CompilationUnitRepository.instanciateNewRepository(this, resourceCenter);
-            resourceCenter.registerRepository(returned, CompilationUnitRepository.class, this);
+            returned = CompilationUnitResourceRepository.instanciateNewRepository(this, resourceCenter);
+            resourceCenter.registerRepository(returned, CompilationUnitResourceRepository.class, this);
         }
         return returned;
     }
@@ -186,8 +186,8 @@ public class FMLTechnologyAdapter extends TechnologyAdapter<FMLTechnologyAdapter
     }
 
     @NotificationUnsafe
-    public List<CompilationUnitRepository<?>> getVirtualModelRepositories() {
-        List<CompilationUnitRepository<?>> returned = new ArrayList<>();
+    public List<CompilationUnitResourceRepository<?>> getVirtualModelRepositories() {
+        List<CompilationUnitResourceRepository<?>> returned = new ArrayList<>();
         for (FlexoResourceCenter<?> rc : getServiceManager().getResourceCenterService().getResourceCenters()) {
             if (!rc.isDeleted()) {
                 returned.add(getVirtualModelRepository(rc));

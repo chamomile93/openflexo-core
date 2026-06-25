@@ -52,22 +52,22 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * A {@link CompilationUnitRepository} references {@link CompilationUnitResource} stored in a given {@link FlexoResourceCenter}
+ * A {@link CompilationUnitResourceRepository} references {@link CompilationUnitResource} stored in a given {@link FlexoResourceCenter}
  *
  * @author sylvain
  *
  */
 @ModelEntity
-@ImplementationClass(CompilationUnitRepository.CompilationUnitRepositoryImpl.class)
-public interface CompilationUnitRepository<I>
+@ImplementationClass(CompilationUnitResourceRepository.CompilationUnitResourceRepositoryImpl.class)
+public interface CompilationUnitResourceRepository<I>
         extends TechnologyAdapterResourceRepository<CompilationUnitResource, FMLTechnologyAdapter, FMLCompilationUnit, I> {
 
-    public static <I> CompilationUnitRepository<I> instanciateNewRepository(FMLTechnologyAdapter technologyAdapter,
-                                                                            FlexoResourceCenter<I> resourceCenter) {
+    public static <I> CompilationUnitResourceRepository<I> instanciateNewRepository(FMLTechnologyAdapter technologyAdapter,
+                                                                                    FlexoResourceCenter<I> resourceCenter) {
         PamelaModelFactory factory;
         try {
-            factory = new PamelaModelFactory(CompilationUnitRepository.class);
-            CompilationUnitRepository<I> newRepository = factory.newInstance(CompilationUnitRepository.class);
+            factory = new PamelaModelFactory(CompilationUnitResourceRepository.class);
+            CompilationUnitResourceRepository<I> newRepository = factory.newInstance(CompilationUnitResourceRepository.class);
             newRepository.setTechnologyAdapter(technologyAdapter);
             newRepository.setResourceCenter(resourceCenter);
             newRepository.setBaseArtefact(resourceCenter.getBaseArtefact());
@@ -81,9 +81,9 @@ public interface CompilationUnitRepository<I>
 
     public List<CompilationUnitResource> getTopLevelCompilationUnitResources();
 
-    public static abstract class CompilationUnitRepositoryImpl<I>
+    public static abstract class CompilationUnitResourceRepositoryImpl<I>
             extends TechnologyAdapterResourceRepositoryImpl<CompilationUnitResource, FMLTechnologyAdapter, FMLCompilationUnit, I>
-            implements CompilationUnitRepository<I> {
+            implements CompilationUnitResourceRepository<I> {
 
         @SuppressWarnings("unused")
         private static final Logger logger = Logger.getLogger(TechnologyAdapterResourceRepository.class.getPackage().getName());

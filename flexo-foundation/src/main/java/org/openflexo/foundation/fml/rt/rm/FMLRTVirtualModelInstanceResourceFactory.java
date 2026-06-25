@@ -20,7 +20,7 @@
 
 package org.openflexo.foundation.fml.rt.rm;
 
-import org.openflexo.foundation.fml.CompilationUnitRepository;
+import org.openflexo.foundation.fml.CompilationUnitResourceRepository;
 import org.openflexo.foundation.fml.FMLTechnologyAdapter;
 import org.openflexo.foundation.fml.rm.CompilationUnitResource;
 import org.openflexo.foundation.fml.rm.CompilationUnitResourceFactory;
@@ -268,7 +268,7 @@ public class FMLRTVirtualModelInstanceResourceFactory extends
             if (parentFolder.getName().endsWith(CompilationUnitResourceFactory.FML_SUFFIX)) {
                 FMLTechnologyAdapter fmlTA = resource.getServiceManager().getTechnologyAdapterService()
                         .getTechnologyAdapter(FMLTechnologyAdapter.class);
-                CompilationUnitRepository<I> virtualModelRepository = fmlTA.getVirtualModelRepository(resourceCenter);
+                CompilationUnitResourceRepository<I> virtualModelRepository = fmlTA.getVirtualModelRepository(resourceCenter);
                 for (CompilationUnitResource virtualModelResource : virtualModelRepository.getAllResources()) {
                     I serializationArtefact = (I) virtualModelResource.getIODelegate().getSerializationArtefact();
                     I parentSerializationArtefact = resourceCenter.getContainer(serializationArtefact);

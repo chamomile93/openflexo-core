@@ -41,7 +41,7 @@ package org.openflexo.foundation.resource;
 
 import org.openflexo.foundation.FlexoProject;
 import org.openflexo.foundation.FlexoServiceManager;
-import org.openflexo.foundation.fml.CompilationUnitRepository;
+import org.openflexo.foundation.fml.CompilationUnitResourceRepository;
 import org.openflexo.foundation.fml.FMLTechnologyAdapter;
 import org.openflexo.foundation.fml.rt.FMLRTTechnologyAdapter;
 import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstanceRepository;
@@ -328,7 +328,7 @@ public interface FileSystemBasedResourceCenter extends FlexoResourceCenter<File>
         }
 
         @Override
-        public CompilationUnitRepository<File> getVirtualModelRepository() {
+        public CompilationUnitResourceRepository<File> getVirtualModelRepository() {
             if (getServiceManager() != null) {
                 FMLTechnologyAdapter vmTA = getServiceManager().getTechnologyAdapterService()
                         .getTechnologyAdapter(FMLTechnologyAdapter.class);

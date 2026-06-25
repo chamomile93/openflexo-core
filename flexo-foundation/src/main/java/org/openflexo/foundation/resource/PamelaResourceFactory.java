@@ -38,6 +38,8 @@ import java.util.logging.Logger;
  * @param <F>  type of {@link PamelaResourceModelFactory} managing contents of resources
  * @author sylvain
  */
+// TODO why is this subtyping {@link FlexoResourceFactory} ?
+// TODO what's the difference with {@link TechnologySpecificFlexoResourceFactory} ?
 public abstract class PamelaResourceFactory<R extends FlexoResource<RD>, RD extends ResourceData<RD>, F extends PamelaModelFactory & PamelaResourceModelFactory>
         extends FlexoResourceFactory<R, RD> {
 

@@ -52,13 +52,13 @@ import java.util.logging.Logger;
  * A {@link TechnologyContextManager} dedicated to a technology conform to FlexoOntogy API
  *
  * A {@link FlexoOntologyTechnologyContextManager} manages for a technology, and shared by all {@link FlexoResourceCenter} declared in the
- * scope of {@link FlexoResourceCenterService}, all references and links between all resources managed by a given technology, it their
+ * scope of {@link FlexoResourceCenterService}, all references and links between all resources managed by a given technology, in their
  * original technical space.
  *
- * This class is responsible for maintaining consistency of related technology, in its original technological space (maintaining technical
+ * This class is responsible for maintaining consistency (?) of related technology, in its original technological space (maintaining technical
  * links between all technology-specific stuff)
  *
- * @author sylvain
+ * @author sylvain, chamomile93
  *
  */
 public abstract class FlexoOntologyTechnologyContextManager<TA extends TechnologyAdapter<TA>> extends TechnologyContextManager<TA> {

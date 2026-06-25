@@ -41,7 +41,7 @@ package org.openflexo.foundation.resource;
 
 import org.openflexo.foundation.FlexoObject;
 import org.openflexo.foundation.FlexoProject;
-import org.openflexo.foundation.fml.CompilationUnitRepository;
+import org.openflexo.foundation.fml.CompilationUnitResourceRepository;
 import org.openflexo.foundation.fml.VirtualModel;
 import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstance;
 import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstanceRepository;
@@ -253,7 +253,7 @@ public interface FlexoResourceCenter<I> extends Iterable<I>, ResourceRepository<
      *
      * @return
      */
-    public CompilationUnitRepository<I> getVirtualModelRepository();
+    public CompilationUnitResourceRepository<I> getVirtualModelRepository();
 
     /**
      * Retrieve {@link FMLRTVirtualModelInstance} repository (containing all resources storing a {@link FMLRTVirtualModelInstance}) for this

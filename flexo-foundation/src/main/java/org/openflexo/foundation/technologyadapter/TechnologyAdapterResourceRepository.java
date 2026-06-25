@@ -49,10 +49,10 @@ import org.openflexo.pamela.annotations.ModelEntity;
 import java.util.logging.Logger;
 
 /**
- * A {@link TechnologyAdapterResourceRepository} stores all resources storing resources relative to a given technology<br>
+ * A {@link TechnologyAdapterResourceRepository} stores all resources to a given technology<br>
  * Resources are organized with a folder hierarchy inside a {@link ResourceRepositoryImpl}
  *
- * @author sylvain
+ * @author sylvain, chamomile93
  *
  * @param <R> a {@link Resource} \and {@link FlexoResource} type
  * @param <TA> a {@link TechnologyAdapter} type

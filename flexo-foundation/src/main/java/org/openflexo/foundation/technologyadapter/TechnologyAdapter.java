@@ -962,6 +962,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
      * Hook to force the creation of all repositories (even empty)
      */
     public void ensureAllRepositoriesAreCreated(FlexoResourceCenter<?> rc) {
+    	//TODO might do smth
     }
 
     /**

@@ -44,7 +44,7 @@ import org.openflexo.foundation.FlexoEditor;
 import org.openflexo.foundation.FlexoProject;
 import org.openflexo.foundation.FlexoService;
 import org.openflexo.foundation.FlexoServiceManager;
-import org.openflexo.foundation.fml.CompilationUnitRepository;
+import org.openflexo.foundation.fml.CompilationUnitResourceRepository;
 import org.openflexo.foundation.fml.rt.FMLRTVirtualModelInstanceRepository;
 import org.openflexo.foundation.nature.ProjectNature;
 import org.openflexo.foundation.resource.*;
@@ -1069,7 +1069,7 @@ public abstract class FlexoProjectImpl<I> extends ResourceRepositoryImpl<FlexoRe
     // Following code is delegated to effective resource center
 
     @Override
-    public CompilationUnitRepository<I> getVirtualModelRepository() {
+    public CompilationUnitResourceRepository<I> getVirtualModelRepository() {
         if (getDelegateResourceCenter() == null) {
             return null;
         }
