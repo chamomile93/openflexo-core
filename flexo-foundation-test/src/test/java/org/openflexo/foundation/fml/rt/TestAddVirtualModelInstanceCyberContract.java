@@ -61,6 +61,8 @@ import static org.junit.Assert.assertNotNull;
  *
  */
 @RunWith(OrderedRunner.class)
+// TODO move this to alloy-ta-test, since the concept here are more specific
+//  to the work done in this TA.
 public class TestAddVirtualModelInstanceCyberContract extends OpenflexoProjectAtRunTimeTestCase {
 
     private static VirtualModel virtualModelCyberContract;

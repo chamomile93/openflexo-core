@@ -101,8 +101,6 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
     private final Map<FlexoResourceCenter<?>, TechnologyAdapterGlobalRepository> globalRepositories = new HashMap<>();
     private TechnologyAdapterService technologyAdapterService;
     private TechnologyContextManager<TA> technologyContextManager;
-    // we are looking for their type, and one way in java if by given a reference to the class
-    // TODO idf why a collection of typed Classes and not "? <: ModelSlot"
     private List<Class<? extends ModelSlot<?, ?>>> availableModelSlotTypes;
     private List<Class<? extends VirtualModelInstanceNature>> availableVirtualModelInstanceNatures;
     private LocalizedDelegate locales = null;

@@ -54,7 +54,6 @@ import java.util.Map;
  *
  */
 public interface FlexoService {
-    //TODO idf why, I came here from TestLibraryXMLModel
 
     public static HelpOnService HELP_ON_SERVICE = new HelpOnService();
     public static DisplayServiceStatus DISPLAY_SERVICE_STATUS = new DisplayServiceStatus();

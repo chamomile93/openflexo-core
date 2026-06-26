@@ -99,16 +99,12 @@ public abstract class OpenflexoTestCase {
     public static final boolean DELETE_TEST_RESOURCE_CENTER_AFTER_TEST_EXECUTION = true;
     protected static final String RESOURCE_CENTER_URI = "http://openflexo.org/test/TestResourceCenter";
     private static final Logger logger = FlexoLogger.getLogger(OpenflexoTestCase.class.getPackage().getName());
-    // TODO why it is null in the test instance "XMLFMLModelFactoryIntegrationTest" ?
     protected static FlexoServiceManager serviceManager;
-    //TODO do I need to understand this concept while working on XML Test ?
     protected static File testResourceCenterDirectory;
-    //TODO do I need to understand this concept while working on XML Test ?
     protected static List<File> testResourceCenterDirectoriesToRemove;
-    //TODO do I need to understand this concept while working on XML Test ?
-    // We should have it unchanged to chain tests from right HOME dir
+    // TODO We should have it unchanged to chain tests from right HOME dir
     protected static File HOME_DIR;
-    //TODO do I need to understand this concept while working on XML Test ?
+
     /**
      * ResourceCenter being statically referenced while using
      * makeNewDirectoryResourceCenter() methods

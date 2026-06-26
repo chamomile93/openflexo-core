@@ -80,7 +80,7 @@ public class TestAddVirtualModelInstance extends FMLParserTestCase {
     @Test
     @TestOrder(1)
     public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
-        //TODO why NPE ?
+        //TODO why NPE ? still the case ?
         instanciateTestServiceManager();
 
         editor = new DefaultFlexoEditor(null, serviceManager);

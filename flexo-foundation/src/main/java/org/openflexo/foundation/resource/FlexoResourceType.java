@@ -64,7 +64,6 @@ import java.util.logging.Logger;
  *
  */
 public class FlexoResourceType implements JavaCustomType {
-    //TODO should I use any of this defined concept in relation with the ISubject and IAuthenticator ?
 
     protected static final Logger logger = FlexoLogger.getLogger(FlexoResourceType.class.getPackage().getName());
     public static FlexoResourceType UNDEFINED_RESOURCE_TYPE = new FlexoResourceType((TechnologySpecificFlexoResourceFactory<?, ?, ?>) null);
