@@ -81,10 +81,10 @@ public abstract class FlexoActionFactory<A extends FlexoAction<A, T1, T2>, T1 ex
     public static final ActionGroup helpGroup = new ActionGroup("help", 11);
     public static final ActionGroup docGroup = new ActionGroup("documentation", 12);
     public static final ActionMenu newMenu = new ActionMenu("new", 0, defaultGroup);
+    public static final ActionGroup newMenuGroup1 = new ActionGroup("new_group_1", 1);
     public static final ActionMenu newVirtualModelMenu = new ActionMenu("virtual_model", 1, newMenuGroup1, newMenu);
     public static final ActionMenu newPropertyMenu = new ActionMenu("property", 2, newMenuGroup1, newMenu);
     public static final ActionMenu newBehaviourMenu = new ActionMenu("behaviour", 3, newMenuGroup1, newMenu);
-    public static final ActionGroup newMenuGroup1 = new ActionGroup("new_group_1", 1);
     public static final ActionGroup newMenuGroup2 = new ActionGroup("new_group_2", 2);
     public static final ActionGroup newMenuGroup3 = new ActionGroup("new_group_3", 3);
     public static final ActionGroup newMenuGroup4 = new ActionGroup("new_group_4", 4);
