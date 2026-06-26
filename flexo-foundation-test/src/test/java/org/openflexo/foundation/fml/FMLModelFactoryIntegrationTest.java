@@ -55,7 +55,7 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Test instanciation of FMLModelFactory<br>
- * Here the model factory is instanciated with all FML and FML@RT technology adapters
+ * Here the model factory is instanciated with FML and FML@RT technology adapters
  *
  */
 @RunWith(OrderedRunner.class)

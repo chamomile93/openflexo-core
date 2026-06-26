@@ -69,11 +69,10 @@ public class AbstractModelFactoryIntegrationTestCase extends OpenflexoTestCase {
 
             FMLModelFactory factory = new FMLModelFactory(null, serviceManager);
             for (Class<?> modelSlotClass : ta.getAvailableModelSlotTypes()) {
-                log("Check: " + modelSlotClass);
+                log("Check ModelSlot MS: " + modelSlotClass);
                 assertNotNull(factory.getModelContext().getModelEntity(modelSlotClass));
             }
             factory.checkMethodImplementations();
-
         } catch (ModelDefinitionException e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -81,7 +80,5 @@ public class AbstractModelFactoryIntegrationTestCase extends OpenflexoTestCase {
             e.printStackTrace();
             fail(e.getMessage());
         }
-
     }
-
 }
