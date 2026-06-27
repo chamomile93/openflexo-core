@@ -50,7 +50,8 @@ import org.openflexo.foundation.resource.ResourceData;
  *
  * A {@link FlexoModel} is conform to a {@link FlexoMetaModel}.
  *
- * Its access it made available by the notion of {@link ModelSlot} provided by a {@link TechnologyAdapter} dedicated to a particular
+ * Its access is made available by the notion of {@link ModelSlot} provided
+ * by a {@link TechnologyAdapter} dedicated to a particular
  * technological space (a technology).
  *
  * @author sylvain

@@ -89,7 +89,6 @@ public class TechnologyContextManager<TA extends TechnologyAdapter<TA>> {
     /**
      * Called when a new resource was registered
      *
-     * @param newModel
      */
     public void registerResource(TechnologyAdapterResource<?, TA> resource) {
         resources.put(resource.getURI(), resource);
@@ -98,7 +97,6 @@ public class TechnologyContextManager<TA extends TechnologyAdapter<TA>> {
     /**
      * Called when an existing resource was unregistered
      *
-     * @param newModel
      */
     public void unregisterResource(TechnologyAdapterResource<?, TA> resource) {
         resources.remove(resource.getURI());

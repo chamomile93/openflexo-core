@@ -414,6 +414,7 @@ public abstract class FlexoProjectImpl<I> extends ResourceRepositoryImpl<FlexoRe
     @Override
     public Collection<FlexoResource<?>> getAllResources() {
         if (getDelegateResourceCenter() != null) {
+        	// TODO what is getDelegateResourceCenter() ?
             return getDelegateResourceCenter().getAllResources();
         }
         return super.getAllResources();
