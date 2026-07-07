@@ -48,7 +48,7 @@ import java.util.logging.Logger;
 
 @Deprecated
 @ModelEntity
-@ImplementationClass(CreateActionScheme.CreateActionSchemeImpl.class)
+@ImplementationClass(CreateActionScheme.CreateFlexoBehaviourImpl.class)
 @XMLElement
 public interface CreateActionScheme extends CreateFlexoBehaviour<ActionScheme> {
 

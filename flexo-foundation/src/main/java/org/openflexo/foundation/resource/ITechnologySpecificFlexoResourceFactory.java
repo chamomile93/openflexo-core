@@ -36,7 +36,6 @@ import org.openflexo.foundation.technologyadapter.TechnologyObject;
  * @param <TA> type of {@link TechnologyAdapter}
  * @author sylvain
  */
-@SuppressWarnings("rawtypes")
 public interface ITechnologySpecificFlexoResourceFactory<R extends TechnologyAdapterResource<RD, TA>, RD extends ResourceData<RD> & TechnologyObject<TA>, TA extends TechnologyAdapter<TA>>
         extends IFlexoResourceFactory<R, RD> {
 

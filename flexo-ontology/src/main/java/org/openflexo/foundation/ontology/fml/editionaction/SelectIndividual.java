@@ -60,7 +60,7 @@ import java.util.List;
  */
 @ModelEntity(isAbstract = true)
 //TODO idf why the annotation was referencing "SelectIndividual.AbstractSelectIndividualImpl.class". Maybe this is resolved in the code ? but the eclipse compiler was complaining.
-@ImplementationClass(AbstractSelectIndividual.AbstractSelectIndividualImpl.class)
+@ImplementationClass(SelectIndividual.AbstractSelectIndividualImpl.class)
 public abstract interface SelectIndividual<MS extends TypeAwareModelSlot<M, ?, ?>, M extends FlexoModel<M, ?> & TechnologyObject<?>, T extends IFlexoOntologyIndividual>
         extends AbstractSelectIndividual<MS, M, T, List<T>>, FetchRequest<MS, M, T> {
 

@@ -51,7 +51,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Target(value = ElementType.TYPE)
-@SuppressWarnings("rawtypes")
 public @interface DeclareFlexoRoles {
 
     public Class<? extends FlexoRole>[] value();
