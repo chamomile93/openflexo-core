@@ -2,12 +2,8 @@ package org.openflexo.foundation.resource;
 
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 
-<<<<<<< Updated upstream
 import java.io.IOException;
 
-@SuppressWarnings("rawtypes")
-=======
->>>>>>> Stashed changes
 public interface IFlexoResourceFactory<R extends FlexoResource<RD>, RD extends ResourceData<RD>> {
 
     /**
