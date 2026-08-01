@@ -1,3 +1,5 @@
+'expression'_binding_is_required_and_must_be_valid='expression'_binding_is_required_and_must_be_valid
+'expression'_binding_is_required_and_must_be_valid_description='expression'_binding_is_required_and_must_be_valid_description
 'listened_virtual_model_instance'_binding_is_not_valid='listened_virtual_model_instance'_binding_is_not_valid
 'listened_virtual_model_instance'_binding_is_not_valid_description='listened_virtual_model_instance'_binding_is_not_valid_description
 'resource_name'_binding_is_required_and_must_be_valid='resource_name'_binding_is_required_and_must_be_valid
@@ -17,7 +19,10 @@ ModelSlot_($validable.name)_must_address_a_valid_meta_model_description=ModelSlo
 Unexpected\ exception\:\ ClassScope\:\:getLoadedClasses()\ cannot\ be\ used\ in\ this\ JRE=Unexpected exception\: ClassScope\:\:getLoadedClasses() cannot be used in this JRE
 Unexpected\ exception\:\ null=Unexpected exception\: null
 Unexpected\ fetch\ request\ for\ type\ WSDLAssociation=Unexpected fetch request for type WSDLAssociation
+Unexpected\ parent\ concept\ AbstractModel=Unexpected parent concept AbstractModel
+Unexpected\ parent\ concept\ PatternInstance=Unexpected parent concept PatternInstance
 Unexpected\ parent\ concept\ SecurityPattern=Unexpected parent concept SecurityPattern
+Unexpected\ parent\ concept\ SecurityPatternInstance=Unexpected parent concept SecurityPatternInstance
 [1,42]\ expecting\:\ 'as'=[1,42] expecting\: 'as'
 abstract_behaviour_cannot_have_control_graph=abstract_behaviour_cannot_have_control_graph
 abstract_behaviour_cannot_have_control_graph_description=abstract_behaviour_cannot_have_control_graph_description
