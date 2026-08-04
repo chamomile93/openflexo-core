@@ -90,7 +90,8 @@ public interface TypeAwareModelSlot<
 
     public Class<? extends FlexoMetaModel<?>> getMetaModelClass();
 
-    public FlexoModelResource<M, MM, ?, ?> createProjectSpecificEmptyModel(FlexoResourceCenter<?> rc, String filename, String relativePath,
+    public FlexoModelResource<M, MM, ?, ?>
+    createProjectSpecificEmptyModel(FlexoResourceCenter<?> rc, String filename, String relativePath,
                                                                            String modelUri, FlexoMetaModelResource<M, MM, ?> metaModelResource);
 
     public FlexoModelResource<M, MM, ?, ?> createSharedEmptyModel(FlexoResourceCenter<?> resourceCenter, String relativePath,
