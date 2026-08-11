@@ -89,6 +89,7 @@ public interface ServiceDirective<S extends FlexoService> extends Directive<ASer
         private static final Logger logger = Logger.getLogger(ServiceDirective.class.getPackage().getName());
 
         private S service;
+        // TODO idf
         private ServiceOperation<S> serviceOperation;
         private boolean isValid;
         private String invalidCommandReason = null;
@@ -188,17 +189,20 @@ public interface ServiceDirective<S extends FlexoService> extends Directive<ASer
 
         @Override
         public S execute() throws FMLCommandExecutionException {
+            logger.info("Interface ServiceDirective default implementation 'execute' for a servicE");
             super.execute();
             output.clear();
 
             if (isSyntaxicallyValid()) {
                 optionValues.put("commandInterpreter", getCommandInterpreter());
+                logger.info("Execute " + this.toString());
                 serviceOperation.execute(service, getOutStream(), getErrStream(), argumentValue, optionValues);
+                logger.info("ServiceDirective execute from  " + this.toString() + " is retunrning the 'service'");
                 return service;
             }
 
             String cmdOutput = invalidCommandReason();
-
+            logger.warning("Execute command is Syntaxically Invalid " + cmdOutput);
             output.add(cmdOutput);
             throw new FMLCommandExecutionException(cmdOutput);
         }

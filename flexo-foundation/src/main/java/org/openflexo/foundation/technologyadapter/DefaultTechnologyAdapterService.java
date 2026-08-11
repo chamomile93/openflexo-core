@@ -406,8 +406,9 @@ public abstract class DefaultTechnologyAdapterService extends FlexoServiceImpl i
         return returned;
     }
 
+    // TODO What is the equivalent of InformationSpace in 3.0.0 if any ?
     /**
-     * Return the list of all global {@link ResourceRepositoryImpl} discovered in this {@link InformationSpace}, related to technology as
+     * Return the list of all global {@link ResourceRepositoryImpl} discovered in this InformationSpace, related to technology as
      * supplied by {@link TechnologyAdapter} parameter.<br>
      * One global repository for each {@link FlexoResourceCenter} is returned
      *
@@ -524,7 +525,8 @@ public abstract class DefaultTechnologyAdapterService extends FlexoServiceImpl i
      */
     @Override
     public <TA extends TechnologyAdapter<TA>> FlexoTask activateTechnologyAdapter(TA technologyAdapter, boolean now) {
-
+        logger.info("Default technology adapter service activate technology adapter " + technologyAdapter.getName());
+        logger.info("DefaultTechnologyAdatperService activateTechnologyAdapter now="+now);  
         return getServiceManager().activateTechnologyAdapter(technologyAdapter, now);
     }
 
@@ -588,8 +590,6 @@ public abstract class DefaultTechnologyAdapterService extends FlexoServiceImpl i
     /**
      * Return {@link TechnologyAdapter} where supplied modelSlotClass has been declared
      *
-     * @param modelSlotClass
-     * @return
      */
     @Override
     public <B extends FlexoBehaviour> TechnologyAdapter<?> getTechnologyAdapterForBehaviourType(Class<B> behaviourClass) {
@@ -683,8 +683,6 @@ public abstract class DefaultTechnologyAdapterService extends FlexoServiceImpl i
     /**
      * Return the list of {@link TechnologySpecificAction} class available for supplied modelSlotClass
      *
-     * @param modelSlotClass
-     * @return
      */
     @Override
     public <TA extends TechnologyAdapter<TA>> List<Class<? extends TechnologySpecificType<TA>>> getAvailableTechnologySpecificTypes(
@@ -1016,12 +1014,13 @@ public abstract class DefaultTechnologyAdapterService extends FlexoServiceImpl i
 		}*/
 
         @Override
-        public void execute(TechnologyAdapterService service, PrintStream out, PrintStream err, Object argument, Map<String, ?> options) {
+        public void execute(TechnologyAdapterService technologyAdapterService, PrintStream out, PrintStream err, Object argument, Map<String, ?> options) {
             if (argument instanceof TechnologyAdapter) {
                 TechnologyAdapter ta = (TechnologyAdapter) argument;
-                out.println("Activate TechnologyAdapter " + ta);
-                service.activateTechnologyAdapter(ta, true);
-                out.println("TechnologyAdapter " + ta + " has been activated");
+                logger.info("Using TechnologyAdaterService " + technologyAdapterService.getServiceName());
+                logger.info("Trying activate TechnologyAdapter " + ta);
+                technologyAdapterService.activateTechnologyAdapter(ta, true);
+                logger.info("TechnologyAdapter " + ta + " has been activated");
             }
         }
 

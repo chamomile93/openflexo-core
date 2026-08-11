@@ -82,6 +82,7 @@ public interface ServicesDirective extends Directive<AServicesDirective> {
 
         @Override
         public FlexoServiceManager execute() throws FMLCommandExecutionException {
+            logger.info("Interface ServicesDirective default implementation 'execute' for serviceS");
             super.execute();
             output.clear();
             String cmdOutput = "Active services:";

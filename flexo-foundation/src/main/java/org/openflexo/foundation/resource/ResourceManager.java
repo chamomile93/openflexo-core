@@ -66,7 +66,7 @@ import java.util.logging.Logger;
  *
  * This is the entry point to retrieve a {@link FlexoResource} existing in the context of a {@link FlexoServiceManager} (the "session")
  *
- * The ResourceManager mainly reflect {@link InformationSpace} as {@link FlexoService} providing access to modelling elements from their
+ * The ResourceManager mainly reflect InformationSpace as {@link FlexoService} providing access to modelling elements from their
  * original technological context.<br>
  * The information space is obtained through two services from the {@link FlexoServiceManager}, and results from the merging of the
  * {@link FlexoResourceCenterService} and the {@link TechnologyAdapterService}.<br>
@@ -239,7 +239,7 @@ public class ResourceManager extends FlexoServiceImpl implements ReferenceOwner 
      * No specific version is searched, return the last found version<br>
      * From a methodological point of view, this method is generally used to retrieve a snapshot version
      *
-     * @param uri
+     * @param resourceURI
      *            the URI of the resource
      * @return the resource with the given <code>uri</code>, or null if it cannot be found.
      */
@@ -445,7 +445,7 @@ public class ResourceManager extends FlexoServiceImpl implements ReferenceOwner 
     }
 
     /**
-     * Return the list of all non-empty {@link ResourceRepositoryImpl} discovered in this {@link InformationSpace}, related to technology as
+     * Return the list of all non-empty {@link ResourceRepositoryImpl} discovered in this InformationSpace, related to technology as
      * supplied by {@link TechnologyAdapter} parameter
      *
      * @param technologyAdapter
@@ -459,7 +459,7 @@ public class ResourceManager extends FlexoServiceImpl implements ReferenceOwner 
     }
 
     /**
-     * Return the list of all global {@link ResourceRepositoryImpl} discovered in this {@link InformationSpace}, related to technology as
+     * Return the list of all global {@link ResourceRepositoryImpl} discovered in this InformationSpace, related to technology as
      * supplied by {@link TechnologyAdapter} parameter.<br>
      * One global repository for each {@link FlexoResourceCenter} is returned
      *
