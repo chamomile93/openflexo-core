@@ -98,12 +98,12 @@ public abstract class FlexoServiceManager {
 
         // TODO raise NPE on caller
         if(caller != null) {
-            logger.finest("FlexoServiceManager.notify caller=" + caller.getClass().getSimpleName() + " with ServiceNotification=" + notification.getClass().getSimpleName());
+            logger.info("FlexoServiceManager.notify caller=" + caller.getClass().getSimpleName() + " with ServiceNotification=" + notification.getClass().getSimpleName());
         }
         for (FlexoService s : new ArrayList<>(registeredServices)) {
             if (s != caller) {
                 if(caller != null) {
-                    logger.finest("FlexoServiceManager.notify service=" + s.getServiceName() + " != caller=" + caller.getClass().getSimpleName() + " with notification=" + notification.getClass().getSimpleName());
+                    logger.info("FlexoServiceManager.notify service=" + s.getServiceName() + " != caller=" + caller.getClass().getSimpleName() + " with notification=" + notification.getClass().getSimpleName());
                 }
                 s.receiveNotification(caller, notification);
             }
@@ -136,16 +136,16 @@ public abstract class FlexoServiceManager {
      * @param technologyAdapter
      */
     public <TA extends TechnologyAdapter<TA>> FlexoTask activateTechnologyAdapter(TA technologyAdapter, boolean performNowInThisThread) {
-        logger.finest("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " now=" + performNowInThisThread);
+        logger.info("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " now=" + performNowInThisThread);
         if (technologyAdapter.isActivated()) {
-            logger.finest ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " already activated, return 'null'");
+            logger.info ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " already activated, return 'null'");
             return null;
         }
-        logger.finest ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " trying to activate");
+        logger.info ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " trying to activate");
         technologyAdapter.activate();
-        logger.finest ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " notify TechnologyAdapterService=" + getTechnologyAdapterService().getServiceName() + " with notification 'TechnologyAdapterHasBeenActivated'");
+        logger.info ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " notify TechnologyAdapterService=" + getTechnologyAdapterService().getServiceName() + " with notification 'TechnologyAdapterHasBeenActivated'");
         notify(getTechnologyAdapterService(), new TechnologyAdapterHasBeenActivated<>(technologyAdapter));
-        logger.finest ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " return null");
+        logger.info ("FlexoServiceManager.activateTechnologyAdapter with TechnologyAdapter=" + technologyAdapter.getName() + " return null");
         return null;
     }
 
