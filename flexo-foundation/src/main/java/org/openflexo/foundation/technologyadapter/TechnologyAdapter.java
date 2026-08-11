@@ -265,6 +265,10 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
                         getTechnologyAdapterService().getServiceManager().getLocalizationService().getFlexoLocalizer(),
                         getTechnologyAdapterService().getServiceManager().getLocalizationService().getAutomaticSaving(),
                         true);
+                /* TODO
+                pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 12:50:43,412  Loading available private ResourceCenters from classpath                                            [org.openflexo.foundation.technologyadapter.TechnologyAdapter.loadPrivateResourceCenters]
+                pool-1-thread-3[AddResourceCenter]  WARNING 10/08/26 12:50:43,411  Unexpected InvocationTargetException while initializing ResourceFactory AlloyMetaModelResourceFactory[org.openflexo.foundation.technologyadapter.TechnologyAdapter.initResourceFactories]
+                 */
                 loadPrivateResourceCenters();
                 isActivated = true;
                 getPropertyChangeSupport().firePropertyChange("activated", false, true);
@@ -296,13 +300,24 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
 
     public <R extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> R getResourceFactory(Class<R> resourceFactory) {
         if (!isActivated()) {
+            logger.info("getResourceFactory isActivated=false for " + resourceFactory.getName());
             activate();
+            logger.info("getResourceFactory isActivated=true for " + resourceFactory.getName());
         }
+        //TODO perhaps AlloyMetaModelResourceFactory has not TechnologySpecificFlexoResourceFactory ?
         for (ITechnologySpecificFlexoResourceFactory<?, ?, ?> frf : getResourceFactories()) {
+            // TODO why is there only one resourceFactory namely AlloyModelResource and not AlloyMetaModelResource ?
+            String aString = "Is " + this.getClass() + "___" + resourceFactory.getSimpleName() + " assignable from ITechnologySpecificFlexoResourceFactory " + frf.getResourceClass().getSimpleName() + " = " + resourceFactory.isAssignableFrom(frf.getClass());
+            logger.info(aString);
+            /* TODO why its not assignable ? why its not trying with AlloyMetaModelResource ?
+            pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 15:31:05,104  Is class org.openflexo.ta.alloy.AlloyTechnologyAdapter___AlloyMetaModelResourceFactory assignable from of ITechnologySpecificFlexoResourceFactory AlloyModelResource = false[org.openflexo.foundation.technologyadapter.TechnologyAdapter.getResourceFactory]
+             */
             if (resourceFactory.isAssignableFrom(frf.getClass())) {
+                logger.info("Is assignable = true");
                 return (R) frf;
             }
         }
+        logger.warning("getResourceFactory = null for " + resourceFactory.getName());
         return null;
     }
 
@@ -537,13 +552,24 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
         Class<?> cl = getClass();
         if (cl.isAnnotationPresent(DeclareResourceFactories.class)) {
             DeclareResourceFactories allResourceTypes = cl.getAnnotation(DeclareResourceFactories.class);
+            //TODO check which factories AlloyTechnologyAdapter uses
             for (Class<? extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> resourceFactoryClass : allResourceTypes
                     .value()) {
                 Constructor<? extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> constructor;
                 try {
+                    //TODO following raise exception, case : AlloyMetaModelResourceFactory
                     constructor = resourceFactoryClass.getConstructor();
                     logger.info("Loading resource factory " + resourceFactoryClass + " using " + constructor);
+                    /*
+pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 12:50:43,392  Loading resource factory class org.openflexo.ta.alloy.rm.AlloyModelResourceFactory using public org.openflexo.ta.alloy.rm.AlloyModelResourceFactory() throws org.openflexo.pamela.exceptions.ModelDefinitionException[org.openflexo.foundation.technologyadapter.TechnologyAdapter.initResourceFactories]
+pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 12:50:43,397  Initialized ResourceFactory for AlloyModelResource                                                  [org.openflexo.foundation.technologyadapter.TechnologyAdapter.initResourceFactories]
+pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 12:50:43,397  Loading resource factory class org.openflexo.ta.alloy.rm.AlloyMetaModelResourceFactory using public org.openflexo.ta.alloy.rm.AlloyMetaModelResourceFactory() throws org.openflexo.pamela.exceptions.ModelDefinitionException[org.openflexo.foundation.technologyadapter.TechnologyAdapter.initResourceFactories]
+pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 12:50:43,412  Loading available private ResourceCenters from classpath                                            [org.openflexo.foundation.technologyadapter.TechnologyAdapter.loadPrivateResourceCenters]
+pool-1-thread-3[AddResourceCenter]  WARNING 10/08/26 12:50:43,411  Unexpected InvocationTargetException while initializing ResourceFactory AlloyMetaModelResourceFactory[org.openflexo.foundation.technologyadapter.TechnologyAdapter.initResourceFactories]
+                     */
+
                     ITechnologySpecificFlexoResourceFactory<?, ?, ?> newFactory = constructor.newInstance();
+
                     resourceFactories.add(newFactory);
                     availableResourceTypes.add(newFactory.getResourceClass());
                     logger.info("Initialized ResourceFactory for " + newFactory.getResourceClass().getSimpleName());
@@ -575,6 +601,9 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
                     logger.warning("Unexpected InvocationTargetException while initializing ResourceFactory "
                             + resourceFactoryClass.getSimpleName());
                     e.printStackTrace();
+                    /* TODO
+                    pool-1-thread-3[AddResourceCenter]  WARNING 10/08/26 12:50:43,411  Unexpected InvocationTargetException while initializing ResourceFactory AlloyMetaModelResourceFactory[org.openflexo.foundation.technologyadapter.TechnologyAdapter.initResourceFactories]
+                     */
                 }
             }
         }
@@ -609,41 +638,6 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
         return null;
     }
 
-    /**
-     * Return the list of all non-empty global repository for this technology
-     * adapter<br>
-     * It is stated that the global repository contains all resources which supplied
-     * technology adapter has discovered and may interpret,
-     * for a given resource center<br>
-     * Global repositories are resource repositories which are generally given in
-     * GUIs (such as browsers) to display the contents of a
-     * resource center for a given technology
-     *
-     * @param technologyAdapter
-     * @return
-     */
-
-    /**
-     * Retrieve (creates it when not existing) folder containing supplied file
-     *
-     * @param repository
-     * @param aFile
-     * @return
-     */
-    /*
-     * Unused
-     * protected <R extends FlexoResource<?>, I> RepositoryFolder<R, I>
-     * retrieveRepositoryFolder(ResourceRepository<R, I> repository,
-     * I serializationArtefact) {
-     * try {
-     * return repository.getParentRepositoryFolder(serializationArtefact, true);
-     * } catch (IOException e) {
-     * e.printStackTrace();
-     * return repository.getRootFolder();
-     * }
-     * }
-     */
-
     // Override when required
     public void initFMLModelFactory(FMLModelFactory fMLModelFactory) {
     }
@@ -653,8 +647,6 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
      * the scope of {@link FlexoServiceManager}, related to
      * technology as supplied by {@link TechnologyAdapter} parameter
      *
-     * @param technologyAdapter
-     * @return
      */
     public List<TechnologyAdapterGlobalRepository<?, ?>> getGlobalRepositories() {
         List<TechnologyAdapterGlobalRepository<?, ?>> returned = new ArrayList<>();
