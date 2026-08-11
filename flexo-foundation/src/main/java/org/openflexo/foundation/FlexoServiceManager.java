@@ -95,10 +95,10 @@ public abstract class FlexoServiceManager {
     }
 
     public void notify(FlexoService caller, ServiceNotification notification) {
-        logger.finest("FlexoServiceManager.notify caller=" + caller.getServiceName() + " with ServiceNotification=" + notification.getClass().getSimpleName());
+        logger.finest("FlexoServiceManager.notify caller=" + caller.getClass().getSimpleName() + " with ServiceNotification=" + notification.getClass().getSimpleName());
         for (FlexoService s : new ArrayList<>(registeredServices)) {
             if (s != caller) {
-                logger.finest("FlexoServiceManager.notify service="+ s.getServiceName() + " != caller=" + caller.getServiceName() + " with notification=" + notification.getClass().getSimpleName());
+                logger.finest("FlexoServiceManager.notify service="+ s.getServiceName() + " != caller=" + caller.getClass().getSimpleName() + " with notification=" + notification.getClass().getSimpleName());
                 s.receiveNotification(caller, notification);
             }
         }
