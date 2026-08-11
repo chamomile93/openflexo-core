@@ -299,25 +299,30 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
     }
 
     public <R extends ITechnologySpecificFlexoResourceFactory<?, ?, ?>> R getResourceFactory(Class<R> resourceFactory) {
+        logger.finest("START getResourceFactory(" + resourceFactory + ")");
         if (!isActivated()) {
-            logger.info("getResourceFactory isActivated=false for " + resourceFactory.getName());
+            logger.finest("getResourceFactory isActivated=false for " + resourceFactory.getName());
             activate();
-            logger.info("getResourceFactory isActivated=true for " + resourceFactory.getName());
+            logger.finest("getResourceFactory isActivated=true for " + resourceFactory.getName());
         }
+
         //TODO perhaps AlloyMetaModelResourceFactory has not TechnologySpecificFlexoResourceFactory ?
         for (ITechnologySpecificFlexoResourceFactory<?, ?, ?> frf : getResourceFactories()) {
+
             // TODO why is there only one resourceFactory namely AlloyModelResource and not AlloyMetaModelResource ?
             String aString = "Is " + this.getClass() + "___" + resourceFactory.getSimpleName() + " assignable from ITechnologySpecificFlexoResourceFactory " + frf.getResourceClass().getSimpleName() + " = " + resourceFactory.isAssignableFrom(frf.getClass());
-            logger.info(aString);
+            logger.finest(aString);
+
             /* TODO why its not assignable ? why its not trying with AlloyMetaModelResource ?
             pool-1-thread-3[AddResourceCenter]  INFO    10/08/26 15:31:05,104  Is class org.openflexo.ta.alloy.AlloyTechnologyAdapter___AlloyMetaModelResourceFactory assignable from of ITechnologySpecificFlexoResourceFactory AlloyModelResource = false[org.openflexo.foundation.technologyadapter.TechnologyAdapter.getResourceFactory]
              */
             if (resourceFactory.isAssignableFrom(frf.getClass())) {
-                logger.info("Is assignable = true");
+                logger.finest("Is assignable = true");
                 return (R) frf;
             }
         }
         logger.warning("getResourceFactory = null for " + resourceFactory.getName());
+        logger.finest("END getResourceFactory(" + resourceFactory + ")");
         return null;
     }
 
