@@ -20,6 +20,7 @@ Unexpected\ exception\:\ ClassScope\:\:getLoadedClasses()\ cannot\ be\ used\ in\
 Unexpected\ exception\:\ null=Unexpected exception\: null
 Unexpected\ fetch\ request\ for\ type\ WSDLAssociation=Unexpected fetch request for type WSDLAssociation
 Unexpected\ parent\ concept\ AbstractModel=Unexpected parent concept AbstractModel
+Unexpected\ parent\ concept\ Book=Unexpected parent concept Book
 Unexpected\ parent\ concept\ PatternInstance=Unexpected parent concept PatternInstance
 Unexpected\ parent\ concept\ SecurityPattern=Unexpected parent concept SecurityPattern
 Unexpected\ parent\ concept\ SecurityPatternInstance=Unexpected parent concept SecurityPatternInstance

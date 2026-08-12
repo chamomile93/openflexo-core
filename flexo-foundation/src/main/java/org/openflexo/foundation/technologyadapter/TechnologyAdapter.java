@@ -254,6 +254,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
      * Called to activate the {@link TechnologyAdapter}
      */
     public void activate() {
+        logger.info("START TechnologyAdapter.activate()");
         if (!isActivated()) {
             try {
                 isActivating = true;
@@ -276,6 +277,7 @@ public abstract class TechnologyAdapter<TA extends TechnologyAdapter<TA>> extend
                 isActivating = false;
             }
         }
+        logger.info("END TechnologyAdapter.activate()");
     }
 
     /**
